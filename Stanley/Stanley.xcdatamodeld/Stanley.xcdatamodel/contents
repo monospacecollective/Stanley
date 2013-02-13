@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C2034" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Announcement" representedClassName="Announcement" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="published" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Event" representedClassName="Event" syncable="YES">
+        <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="end" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <entity name="Film" representedClassName="Film" syncable="YES">
+        <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="runtime" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="synopsis" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="directors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="directed" inverseEntity="Person" syncable="YES"/>
+        <relationship name="producers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="produced" inverseEntity="Person" syncable="YES"/>
+        <relationship name="stars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="starred" inverseEntity="Person" syncable="YES"/>
+        <relationship name="writers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="wrote" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Person" representedClassName="Person" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="directed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Film" inverseName="directors" inverseEntity="Film" syncable="YES"/>
+        <relationship name="produced" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="producers" inverseEntity="Film" syncable="YES"/>
+        <relationship name="starred" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="stars" inverseEntity="Film" syncable="YES"/>
+        <relationship name="wrote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="writers" inverseEntity="Film" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Announcement" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Event" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Film" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="Person" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Location" positionX="160" positionY="192" width="128" height="120"/>
+    </elements>
+</model>
