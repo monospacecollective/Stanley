@@ -10,7 +10,7 @@
 
 @class Film;
 
-@interface SFFilmCollectionViewCell : UICollectionViewCell
+@interface SFFilmCollectionViewCell : PSUICollectionViewCell
 
 @property (nonatomic, weak) Film *film;
 @property (nonatomic, strong) UILabel *title;

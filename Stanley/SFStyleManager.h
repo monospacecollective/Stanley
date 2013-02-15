@@ -20,7 +20,7 @@
 - (UIFont *)subtitleFontOfSize:(CGFloat)size;
 
 // UICollectionView
-- (void)styleCollectionView:(UICollectionView *)collectionView;
+- (void)styleCollectionView:(PSUICollectionView *)collectionView;
 
 // UIBarButtonItem Custom Views
 - (void)styleBarButtonItemCustomView:(UIButton *)button;

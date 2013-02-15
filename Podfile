@@ -7,6 +7,7 @@ pod 'UIColor-Utilities',                '~> 1.0.1'
 pod 'FXLabel',                          '~> 1.4.2'
 pod 'KGNoise',                          '~> 1.1.0'
 pod 'PonyDebugger',                     :head
+pod 'PSTCollectionView'
 
 pod 'MSTableKit',                       :git => 'https://github.com/monospacecollective/MSTableKit.git', :branch => 'development'
 pod 'MSNavigationPaneViewController',   :git => 'https://github.com/monospacecollective/MSNavigationPaneViewController.git', :branch => 'open-directions'

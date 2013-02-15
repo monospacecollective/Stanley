@@ -66,7 +66,7 @@
         [self.contentView addSubview:self.title];
         
         self.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.3] CGColor];
-        self.layer.borderWidth = 1.0;
+        self.layer.borderWidth = (([[UIScreen mainScreen] scale] == 2.0) ? 0.5 : 1.0);;
         
         self.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.layer.shadowRadius = 0.0;

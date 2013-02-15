@@ -22,6 +22,7 @@
     #import <MSTableKit/MSTableKit.h>
     #import <MSNavigationPaneViewController/MSNavigationPaneViewController.h>
     #import <StandardPaths/StandardPaths.h>
+    #import <PSTCollectionView/PSTCollectionView.h>
     // Constants
     #import "SFConstants.h"
 #endif

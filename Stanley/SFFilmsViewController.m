@@ -13,7 +13,7 @@
 
 NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionViewCellReuseIdentifier";
 
-@interface SFFilmsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
+@interface SFFilmsViewController () <PSUICollectionViewDataSource, PSUICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -23,9 +23,9 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 
 @implementation SFFilmsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    UICollectionViewLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    PSUICollectionViewFlowLayout *layout = [[PSUICollectionViewFlowLayout alloc] init];
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         // Custom initialization

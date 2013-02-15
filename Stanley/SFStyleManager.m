@@ -95,7 +95,7 @@ static SFStyleManager *singletonInstance = nil;
 
 #pragma mark - UICollectionView
 
-- (void)styleCollectionView:(UICollectionView *)collectionView
+- (void)styleCollectionView:(PSUICollectionView *)collectionView
 {
     collectionView.backgroundColor = [self viewBackgroundColor];
     collectionView.backgroundView = nil;
