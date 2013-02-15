@@ -16,6 +16,7 @@
 @dynamic name;
 @dynamic detail;
 @dynamic synopsis;
+@dynamic featureImage;
 @dynamic directors;
 @dynamic writers;
 @dynamic producers;

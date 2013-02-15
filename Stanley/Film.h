@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * detail;
 @property (nonatomic, retain) NSString * synopsis;
+@property (nonatomic, retain) NSString * featureImage;
 @property (nonatomic, retain) NSSet *directors;
 @property (nonatomic, retain) NSSet *writers;
 @property (nonatomic, retain) NSSet *producers;

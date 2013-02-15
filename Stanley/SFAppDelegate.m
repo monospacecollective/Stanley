@@ -39,7 +39,7 @@
     RKEntityMapping *filmMapping = [RKEntityMapping mappingForEntityForName:@"Film" inManagedObjectStore:managedObjectStore];
     filmMapping.identificationAttributes = @[ @"remoteID" ];
     [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime" ]];
-    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail" }];
+    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage" }];
     
     RKEntityMapping *personMapping = [RKEntityMapping mappingForEntityForName:@"Person" inManagedObjectStore:managedObjectStore];
     personMapping.identificationAttributes = @[ @"remoteID" ];

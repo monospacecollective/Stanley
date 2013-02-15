@@ -32,7 +32,13 @@
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
-        self.backgroundColor = [[UIColor grayColor] colorWithNoiseWithOpacity:0.1 andBlendMode:kCGBlendModeMultiply];
+        self.backgroundColor = [[UIColor whiteColor] colorWithNoiseWithOpacity:0.1 andBlendMode:kCGBlendModeMultiply];
+        
+        self.image = [UIImageView new];
+        self.image.contentMode = UIViewContentModeScaleAspectFill;
+        self.image.layer.masksToBounds = YES;
+        self.image.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.image];
         
         self.placeholderIcon = [FXLabel new];
         self.placeholderIcon.font = self.class.placeholderIconFont;
@@ -46,11 +52,6 @@
         self.placeholderIcon.innerShadowOffset = CGSizeMake(0.0, 1.0);
         self.placeholderIcon.textAlignment = UITextAlignmentCenter;
         [self.contentView addSubview:self.placeholderIcon];
-        
-        self.image = [UIImageView new];
-        self.image.contentMode = UIViewContentModeScaleAspectFill;
-        self.image.layer.masksToBounds = YES;
-        [self.contentView addSubview:self.image];
         
         self.title = [UILabel new];
         self.title.backgroundColor = [UIColor clearColor];
@@ -72,6 +73,12 @@
         self.layer.shadowOpacity = 1.0;
         self.layer.shadowOffset = CGSizeZero;
         
+        self.contentView.layer.masksToBounds = NO;
+        self.contentView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.contentView.layer.shadowRadius = 3.0;
+        self.contentView.layer.shadowOpacity = 0.5;
+        self.contentView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        
 #if defined(LAYOUT_DEBUG)
         self.title.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
         self.placeholderIcon.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
@@ -85,6 +92,7 @@
     [super layoutSubviews];
     
     self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(self.contentView.frame, -2.0, -2.0)] CGPath];
+    self.contentView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(self.contentView.frame, -2.0, -2.0)] CGPath];
     
     self.image.frame = self.contentView.frame;
     
@@ -108,12 +116,34 @@
     self.title.frame = titleFrame;
 }
 
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.image.image = nil;
+    self.placeholderIcon.hidden = NO;
+}
+
 #pragma mark - SFFilmCollectionViewCell
 
 - (void)setFilm:(Film *)film
 {
     _film = film;
     self.title.text = [film.name uppercaseString];
+    
+    NSURL *imageURL = [NSURL URLWithString:film.featureImage];
+    NSMutableURLRequest *imageRequest = [NSMutableURLRequest requestWithURL:imageURL];
+    [imageRequest setHTTPShouldHandleCookies:NO];
+    [imageRequest addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.image setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        
+        weakSelf.image.image = image;
+        weakSelf.placeholderIcon.hidden = YES;
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        weakSelf.placeholderIcon.hidden = NO;
+    }];
+    
     [self setNeedsLayout];
 }
 
@@ -130,14 +160,15 @@
 
 + (UIFont *)placeholderIconFont
 {
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 200.0 : 180.0);
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 200.0 : 130.0);
     return [[SFStyleManager sharedManager] symbolSetFontOfSize:fontSize];
 }
 
 + (CGSize)cellSize
 {
-    CGFloat cellSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 310.0 : 300.0);
-    return CGSizeMake(cellSize, cellSize);
+    CGFloat cellHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 400.0 : 164.0);
+    CGFloat cellWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 310.0 : 300.0);
+    return CGSizeMake(cellWidth, cellHeight);
 }
 
 @end
