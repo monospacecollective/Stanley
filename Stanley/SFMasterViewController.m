@@ -32,7 +32,9 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.paneType = NSUIntegerMax;
+        
+        _paneType = NSUIntegerMax;
+        
         self.paneTitles = @{
                             @(SFPaneTypeFilms) : @"Films",
                             @(SFPaneTypeNews) : @"News",
@@ -73,7 +75,9 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     [self.tableView registerClass:SFMasterTableViewCell.class forCellReuseIdentifier:SFMasterViewControllerCellReuseIdentifier];
     
     [self configureNavigationPaneForInterfaceOrientation:self.interfaceOrientation];
-    [self transitionToPane:SFPaneTypeFilms];
+    
+    NSUInteger paneType = [[NSUserDefaults standardUserDefaults] integerForKey:SFUserDefaultsCurrentPaneType];
+    [self transitionToPane:paneType];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -144,7 +148,9 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     UINavigationController *paneNavigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:UIToolbar.class];
     [paneNavigationController addChildViewController:paneViewController];
     
-    [self.navigationPaneViewController setPaneViewController:paneNavigationController animated:animateTransition completion:nil];
+    [self.navigationPaneViewController setPaneViewController:paneNavigationController animated:animateTransition completion:^{
+        [[NSUserDefaults standardUserDefaults] setInteger:paneType forKey:SFUserDefaultsCurrentPaneType];
+    }];
     self.paneType = paneType;
 }
 
