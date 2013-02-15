@@ -24,7 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImage *backgroundImage = [[UIImage imageNamed:@"SFHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(23.0, 4.0, 23.0, 4.0) resizingMode:UIImageResizingModeTile];
+        UIImage *backgroundImage = [[UIImage imageNamed:@"SFHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0)];
         [self setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
         self.titleTextAttributes = @{
             UITextAttributeFont : self.class.titleTextFont,
