@@ -31,47 +31,14 @@
 {
     [super layoutSubviews];
     
-    CGFloat xOffset = 40.0;
-    self.textLabel.frame = CGRectOffset(self.textLabel.frame, xOffset, 3.0);
+    CGFloat iconOffset = 40.0;
+    self.textLabel.frame = CGRectOffset(self.textLabel.frame, iconOffset, 3.0);
     
     [self.icon sizeToFit];
     CGRect iconFrame = self.icon.frame;
     iconFrame.origin = CGPointMake(0.0, 10.0);
     iconFrame.size.width = CGRectGetMinX(self.textLabel.frame);
     self.icon.frame = iconFrame;
-}
-
-#pragma mark - MSTableViewCell
-
-- (void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType
-{
-    [super setAccessoryType:accessoryType];
-    switch (accessoryType) {
-        case UITableViewCellAccessoryNone: {
-            [self.accessoryView removeFromSuperview];
-            self.accessoryView = nil;
-            break;
-        }
-        case UITableViewCellAccessoryDisclosureIndicator: {
-            self.accessoryTextLabel.text = @"\U000025BB";
-            [self.accessoryTextLabel sizeToFit];
-            self.accessoryView = self.accessoryTextLabel;
-            [self.contentView addSubview:self.accessoryView];
-            break;
-        }
-        case UITableViewCellAccessoryCheckmark: {
-            // Has a nice checkmark - we want to use a label so that text customization works
-            self.accessoryTextLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:32.0];
-            self.accessoryTextLabel.text = @"\U00002713 ";
-            [self.accessoryTextLabel sizeToFit];
-            self.accessoryView = self.accessoryTextLabel;
-            [self.contentView addSubview:self.accessoryView];
-            break;
-        }
-        case UITableViewCellAccessoryDetailDisclosureButton: {
-            break;
-        }
-    }
 }
 
 @end
