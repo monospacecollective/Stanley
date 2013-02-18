@@ -16,4 +16,10 @@
 @dynamic end;
 @dynamic detail;
 
+- (NSUInteger)day
+{
+    NSDateComponents *dayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:self.start];
+    return dayComponents.day;
+}
+
 @end

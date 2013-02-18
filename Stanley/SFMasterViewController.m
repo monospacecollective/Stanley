@@ -8,9 +8,10 @@
 
 #import "SFMasterViewController.h"
 #import "SFStyleManager.h"
-#import "SFFilmsViewController.h"
 #import "SFNavigationBar.h"
 #import "SFMasterTableViewCell.h"
+#import "SFFilmsViewController.h"
+#import "SFEventsViewController.h"
 #import "SFNewsViewController.h"
 #import "SFSplashViewController.h"
 
@@ -53,9 +54,8 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
                             };
         self.paneClasses = @{
                              @(SFPaneTypeFilms) : SFFilmsViewController.class,
-                             @(SFPaneTypeNews) : UITableViewController.class,
-                             @(SFPaneTypeEvents) : UITableViewController.class,
                              @(SFPaneTypeNews) : SFNewsViewController.class,
+                             @(SFPaneTypeEvents) : SFEventsViewController.class,
                              @(SFPaneTypeMap) : UITableViewController.class,
                              @(SFPaneTypeStanley) : UITableViewController.class
                              };
