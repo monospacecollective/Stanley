@@ -37,24 +37,20 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 {
     [super viewDidLoad];
     
-    [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
-    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Film"];
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO];
-    fetchRequest.sortDescriptors = @[descriptor];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO]];
     
-    // Setup fetched results
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
-    [self.fetchedResultsController setDelegate:self];
-    
-    [self.collectionView registerClass:SFFilmCollectionViewCell.class forCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier];
-    
+    self.fetchedResultsController.delegate = self;
     NSError *error;
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
-    NSAssert(fetchSuccessful, @"Unable to fetch films");
+    NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
+    
+    [[SFStyleManager sharedManager] styleCollectionView:(PSUICollectionView *)self.collectionView];
+    [self.collectionView registerClass:SFFilmCollectionViewCell.class forCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier];
     
     [self reloadData];
 }
@@ -69,20 +65,9 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 {
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     
-    flowLayout.itemSize = [SFFilmCollectionViewCell cellSize];
-    
-    CGFloat spacingSize;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        spacingSize = 10.0;
-    } else {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-            spacingSize = 23.0;
-        } else {
-            spacingSize = 49.0;
-        }
-    }
-    flowLayout.sectionInset = UIEdgeInsetsMake(spacingSize, spacingSize, spacingSize, spacingSize);
-    flowLayout.minimumLineSpacing = spacingSize;
+    flowLayout.itemSize = [SFFilmCollectionViewCell cellSizeForInterfaceOrientation:self.interfaceOrientation];
+    flowLayout.sectionInset = [SFFilmCollectionViewCell cellMarginForInterfaceOrientation:self.interfaceOrientation];
+    flowLayout.minimumLineSpacing = [SFFilmCollectionViewCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
 }
 
 #pragma mark - SFFilmsViewController

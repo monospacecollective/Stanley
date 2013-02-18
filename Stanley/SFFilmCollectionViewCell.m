@@ -164,11 +164,24 @@
     return [[SFStyleManager sharedManager] symbolSetFontOfSize:fontSize];
 }
 
-+ (CGSize)cellSize
++ (CGSize)cellSizeForInterfaceOrientation:(UIInterfaceOrientation)orientation;
 {
-    CGFloat cellHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 400.0 : 164.0);
-    CGFloat cellWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 310.0 : 300.0);
+    CGFloat screenWidth = (UIInterfaceOrientationIsPortrait(orientation) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height);
+    CGFloat cellHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 400.0 : ceilf(screenWidth * (UIInterfaceOrientationIsPortrait(orientation) ? 0.5625 : 0.375)));
+    CGFloat cellWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 310.0 : (screenWidth - ([self cellSpacingForInterfaceOrientation:orientation] * 2.0)));
     return CGSizeMake(cellWidth, cellHeight);
+}
+
++ (UIEdgeInsets)cellMarginForInterfaceOrientation:(UIInterfaceOrientation)orientation
+{
+    CGFloat spacingSize = [self cellSpacingForInterfaceOrientation:orientation];
+    return UIEdgeInsetsMake(spacingSize, spacingSize, spacingSize, spacingSize);
+}
+
++ (CGFloat)cellSpacingForInterfaceOrientation:(UIInterfaceOrientation)orientation;
+{
+    CGFloat spacingSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(orientation) ? 49.0 : 23.0) : (UIInterfaceOrientationIsPortrait(orientation) ? 10.0 : 15.0));
+    return spacingSize;
 }
 
 @end

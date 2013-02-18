@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIImageView *image;
 @property (nonatomic, strong) FXLabel *placeholderIcon;
 
-+ (CGSize)cellSize;
++ (CGSize)cellSizeForInterfaceOrientation:(UIInterfaceOrientation)orientation;
++ (CGFloat)cellSpacingForInterfaceOrientation:(UIInterfaceOrientation)orientation;
++ (UIEdgeInsets)cellMarginForInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end
