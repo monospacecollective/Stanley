@@ -163,6 +163,25 @@ static SFStyleManager *singletonInstance = nil;
     [button sizeToFit];
 }
 
+- (void)styleBarButtonItemCustomView:(UIButton *)button withImage:(UIImage *)image
+{
+    [self styleBarButtonItemCustomView:button];
+    [button setImage:image forState:UIControlStateNormal];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        button.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 12.0, 5.0);
+    } else {
+        button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 5.0, 5.0);
+    }
+    [button sizeToFit];
+}
+
+- (void)styleBackBarButtonItemCustomView:(UIButton *)button withImage:(UIImage *)image
+{
+    [self styleBarButtonItemCustomView:button];
+    [button setImage:image forState:UIControlStateNormal];
+    [button sizeToFit];
+}
+
 #pragma mark - UIBarButtonItem
 
 - (UIBarButtonItem *)styledBarButtonItemWithTitle:(NSString *)title action:(void(^)(void))handler
@@ -201,5 +220,22 @@ static SFStyleManager *singletonInstance = nil;
     return barButtonItem;
 }
 
+- (UIBarButtonItem *)styledBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self styleBarButtonItemCustomView:button withImage:image];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
+- (UIBarButtonItem *)styledBackBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self styleBackBarButtonItemCustomView:button withImage:image];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
 
 @end

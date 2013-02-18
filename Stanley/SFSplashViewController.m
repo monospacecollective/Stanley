@@ -1,0 +1,91 @@
+//
+//  SFSplashViewController.m
+//  Stanley
+//
+//  Created by Eric Horacek on 2/16/13.
+//  Copyright (c) 2013 Monospace Ltd. All rights reserved.
+//
+
+#import "SFSplashViewController.h"
+#import "SFLogoView.h"
+#import "SFStyleManager.h"
+
+@interface SFSplashViewController ()
+
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) SFLogoView *logoView;
+@property (nonatomic, strong) UILabel *taglineLabel;
+@property (nonatomic, strong) UIButton *doneButton;
+
+@end
+
+@implementation SFSplashViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    UIImage *backgroundImage = [UIImage imageNamed:@"SFSplashBackground.jpg"];
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.backgroundImageView.image = backgroundImage;
+    self.backgroundImageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:self.backgroundImageView];
+    
+    self.logoView = [SFLogoView new];
+    [self.view addSubview:self.logoView];
+    
+    self.taglineLabel = [UILabel new];
+    self.taglineLabel.text = [@"Yeah, it's Creepy" uppercaseString];
+    self.taglineLabel.backgroundColor = [UIColor clearColor];
+    self.taglineLabel.textColor = [UIColor whiteColor];
+    self.taglineLabel.font = [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 50.0 : 28.0)];
+    [self.view addSubview:self.taglineLabel];
+    
+    self.doneButton = [UIButton new];
+    [self.doneButton setTitle:[@"Enter" uppercaseString] forState:UIControlStateNormal];
+    [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.doneButton.backgroundColor = [UIColor blackColor];
+    self.doneButton.contentEdgeInsets = UIEdgeInsetsMake(10.0, 30.0, 10.0, 30.0);
+    self.doneButton.titleLabel.font = [[SFStyleManager sharedManager] detailFontOfSize:20.0];
+    __weak typeof (self) weakSelf = self;
+    [self.doneButton addEventHandler:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    } forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.doneButton];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    self.logoView.stanleyFontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 40.0 : 30.0));
+    
+    [self.logoView sizeToFit];
+    CGRect logoViewFrame = self.logoView.frame;
+    logoViewFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 80.0 : 20.0));
+    logoViewFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(logoViewFrame) / 2.0));
+    self.logoView.frame = logoViewFrame;
+    
+    [self.taglineLabel sizeToFit];
+    CGRect taglineLabelFrame = self.taglineLabel.frame;
+    taglineLabelFrame.origin.y = floorf((CGRectGetHeight(self.backgroundImageView.frame) / 2.0) - (CGRectGetHeight(taglineLabelFrame) / 2.0)) + ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 70.0 : 30.0);
+    taglineLabelFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(taglineLabelFrame) / 2.0));
+    self.taglineLabel.frame = taglineLabelFrame;
+    
+    self.doneButton.titleLabel.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 24.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 20.0 : 16.0))];
+    
+    [self.doneButton sizeToFit];
+    CGRect doneButtonFrame = self.doneButton.frame;
+    doneButtonFrame.origin.y = CGRectGetHeight(self.backgroundImageView.frame) - CGRectGetHeight(doneButtonFrame) - ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 80.0 : 20.0));
+    doneButtonFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(doneButtonFrame) / 2.0));
+    self.doneButton.frame = doneButtonFrame;
+}
+
+@end

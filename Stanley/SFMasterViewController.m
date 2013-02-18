@@ -11,6 +11,7 @@
 #import "SFFilmsViewController.h"
 #import "SFNavigationBar.h"
 #import "SFMasterTableViewCell.h"
+#import "SFSplashViewController.h"
 
 NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewControllerCellReuseIdentifier";
 
@@ -102,7 +103,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 {
     self.navigationPaneViewController.openDirection = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? MSNavigationPaneOpenDirectionTop : MSNavigationPaneOpenDirectionLeft);
     self.navigationPaneViewController.openStateRevealWidth = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? ((self.tableView.rowHeight * SFPaneTypeCount) + 20.0) : 320.0);
- 
+    
     if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         CGRect tableViewFrame = self.tableView.frame;
         tableViewFrame.size.width = 320.0;
@@ -136,6 +137,12 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     UIViewController *paneViewController = (UIViewController *)[[paneViewControllerClass alloc] init];
     paneViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:self.paneIcons[@(paneType)] action:^{
         [self.navigationPaneViewController setPaneState:MSNavigationPaneStateOpen animated:YES];
+    }];
+    
+    paneViewController.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithImage:[UIImage imageNamed:@"SFLogoBarButtonItemIcon"] action:^{
+        
+        SFSplashViewController *splashViewController = [[SFSplashViewController alloc] initWithNibName:nil bundle:nil];
+        [self presentViewController:splashViewController animated:YES completion:nil];
     }];
     
     // Build navigation title with spaces between each character

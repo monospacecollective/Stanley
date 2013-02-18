@@ -29,11 +29,15 @@
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button withTitle:(NSString *)title;
 - (void)styleBarButtonItemCustomView:(UIButton *)button withSymbolsetTitle:(NSString *)title;
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button withSymbolsetTitle:(NSString *)title;
+- (void)styleBarButtonItemCustomView:(UIButton *)button withImage:(UIImage *)image;
+- (void)styleBackBarButtonItemCustomView:(UIButton *)button withImage:(UIImage *)image;
 
 // UIBarButtonItem
 - (UIBarButtonItem *)styledBarButtonItemWithTitle:(NSString *)title action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBackBarButtonItemWithTitle:(NSString *)title action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBackBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler;
+- (UIBarButtonItem *)styledBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
+- (UIBarButtonItem *)styledBackBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
 
 @end
