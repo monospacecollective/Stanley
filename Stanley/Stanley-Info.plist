@@ -48,5 +48,7 @@
 		<string>FuturaCom-Bold.ttf</string>
 		<string>SSStandard.ttf</string>
 	</array>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 </dict>
 </plist>
