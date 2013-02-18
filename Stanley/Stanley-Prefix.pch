@@ -23,6 +23,8 @@
     #import <MSNavigationPaneViewController/MSNavigationPaneViewController.h>
     #import <StandardPaths/StandardPaths.h>
     #import <PSTCollectionView/PSTCollectionView.h>
+    #import <FormatterKit/TTTTimeIntervalFormatter.h>
+    #import <CupertinoYankee/NSDate+CupertinoYankee.h>
     // Constants
     #import "SFConstants.h"
 #endif

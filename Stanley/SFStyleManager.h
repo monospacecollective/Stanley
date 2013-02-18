@@ -17,7 +17,7 @@
 - (UIFont *)symbolSetFontOfSize:(CGFloat)size;
 - (UIFont *)navigationFontOfSize:(CGFloat)size;
 - (UIFont *)titleFontOfSize:(CGFloat)size;
-- (UIFont *)subtitleFontOfSize:(CGFloat)size;
+- (UIFont *)detailFontOfSize:(CGFloat)size;
 
 // UICollectionView
 - (void)styleCollectionView:(PSUICollectionView *)collectionView;

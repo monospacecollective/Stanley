@@ -33,32 +33,92 @@ static SFStyleManager *singletonInstance = nil;
         [MSPlainTableViewCell.appearance setHighlightViewHeight:1.0];
         [MSPlainTableViewCell.appearance setShadowViewHeight:2.0];
         
-        [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.1]];
+        [MSPlainTableViewCell.appearance setAccessoryCharacter:@"\U000025BB" forAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [MSPlainTableViewCell.appearance setAccessoryCharacter:@"\U00002713" forAccessoryType:UITableViewCellAccessoryCheckmark];
+        
+        [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.15]];
         [MSPlainTableViewHeaderView.appearance setTopEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
         [MSPlainTableViewHeaderView.appearance setBottomEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
-        [MSPlainTableViewHeaderView.appearance setBackgroundColor:[[UIColor colorWithWhite:0.0 alpha:1.0] colorWithNoiseWithOpacity:0.05 andBlendMode:kCGBlendModeScreen]];
+        [MSPlainTableViewHeaderView.appearance setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
         
         CAGradientLayer *defaultBackgroundGradient = [CAGradientLayer layer];
-        UIColor *gradientTopColor = [UIColor colorWithWhite:1.0 alpha:0.05];
-        UIColor *gradientBottomColor = [UIColor colorWithWhite:1.0 alpha:0.1];
+        UIColor *gradientTopColor = [UIColor colorWithWhite:0.225 alpha:1.0];
+        UIColor *gradientBottomColor = [UIColor colorWithWhite:0.25 alpha:1.0];
         defaultBackgroundGradient.colors = @[(id)[gradientTopColor CGColor], (id)[gradientBottomColor CGColor]];
         [MSPlainTableViewHeaderView.appearance setBackgroundGradient:defaultBackgroundGradient];
         
-        UIFont *textFont = [self titleFontOfSize:18.0];
-        UIFont *accessoryFont = [self symbolSetFontOfSize:16.0];
+        UIFont *titleTextFont = [self titleFontOfSize:17.0];
+        UIFont *detailTextFont = [self detailFontOfSize:15.0];
+        UIFont *accessoryFont = [self symbolSetFontOfSize:15.0];
         UIColor *textColor = [UIColor whiteColor];
+        UIColor *detailTextColor = [UIColor colorWithWhite:0.9 alpha:1.0];
         NSValue *textShadowOffset = [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)];
         UIColor *textShadowColor = [UIColor colorWithWhite:0.0 alpha:1.0];
         
-        NSDictionary *textAttributes = @{ UITextAttributeFont : textFont, UITextAttributeTextColor : textColor, UITextAttributeTextShadowColor : textShadowColor, UITextAttributeTextShadowOffset : textShadowOffset };
+        // Normal State
+        [MSTableViewCell.appearance setTitleTextAttributes:@{
+                                      UITextAttributeFont : titleTextFont,
+                                 UITextAttributeTextColor : textColor,
+                           UITextAttributeTextShadowColor : textShadowColor,
+                          UITextAttributeTextShadowOffset : textShadowOffset }
+                                                  forState:UIControlStateNormal];
         
-        [MSTableViewCell.appearance setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
-        [MSTableViewCell.appearance setAccessoryTextAttributes:@{ UITextAttributeFont : accessoryFont , UITextAttributeTextColor : textColor, UITextAttributeTextShadowColor : textShadowColor, UITextAttributeTextShadowOffset : textShadowOffset} forState:UIControlStateNormal];
+        [MSTableViewCell.appearance setDetailTextAttributes:@{
+                                      UITextAttributeFont : detailTextFont,
+                                 UITextAttributeTextColor : detailTextColor,
+                           UITextAttributeTextShadowColor : textShadowColor,
+                          UITextAttributeTextShadowOffset : textShadowOffset }
+                                                  forState:UIControlStateNormal];
         
-        [MSTableViewCell.appearance setTitleTextAttributes:@{ UITextAttributeFont : textFont, UITextAttributeTextColor : [UIColor lightGrayColor], UITextAttributeTextShadowColor : textShadowColor, UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, 1.0)] } forState:UIControlStateHighlighted];
-        [MSTableViewCell.appearance setAccessoryTextAttributes:@{ UITextAttributeFont : accessoryFont, UITextAttributeTextColor : [UIColor lightGrayColor], UITextAttributeTextShadowColor : textShadowColor, UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, 1.0)] } forState:UIControlStateHighlighted];
+        [MSTableViewCell.appearance setAccessoryTextAttributes:@{
+                                          UITextAttributeFont : accessoryFont,
+                                     UITextAttributeTextColor : textColor,
+                               UITextAttributeTextShadowColor : textShadowColor,
+                              UITextAttributeTextShadowOffset : textShadowOffset }
+                                                      forState:UIControlStateNormal];
         
-        [MSPlainTableViewHeaderView.appearance setTitleTextAttributes:textAttributes];
+        UIColor *highlightedTextColor = [UIColor lightGrayColor];
+        NSValue *highlightedTextShadowOffset = [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)];
+        
+        // Highlighted State
+        [MSTableViewCell.appearance setTitleTextAttributes:@{
+                                      UITextAttributeFont : titleTextFont,
+                                 UITextAttributeTextColor : highlightedTextColor,
+                           UITextAttributeTextShadowColor : textShadowColor,
+                          UITextAttributeTextShadowOffset : highlightedTextShadowOffset }
+                                                  forState:UIControlStateHighlighted];
+        
+        [MSTableViewCell.appearance setDetailTextAttributes:@{
+                                      UITextAttributeFont : detailTextFont,
+                                 UITextAttributeTextColor : highlightedTextColor,
+                           UITextAttributeTextShadowColor : textShadowColor,
+                          UITextAttributeTextShadowOffset : highlightedTextShadowOffset }
+                                                  forState:UIControlStateHighlighted];
+        
+        [MSTableViewCell.appearance setAccessoryTextAttributes:@{
+                                          UITextAttributeFont : accessoryFont,
+                                     UITextAttributeTextColor : highlightedTextColor,
+                               UITextAttributeTextShadowColor : textShadowColor,
+                              UITextAttributeTextShadowOffset : highlightedTextShadowOffset }
+                                                      forState:UIControlStateHighlighted];
+        
+        // Header View
+        UIFont *headerTitleTextFont = [self detailFontOfSize:14.0];
+        UIFont *headerDetailTextFont = [self detailFontOfSize:14.0];
+        UIColor *headerDetailTextColor = [UIColor lightGrayColor];
+        NSValue *headerTextShadowOffset = [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)];
+        
+        [MSTableViewHeaderFooterView.appearance setTitleTextAttributes:@{
+                                                 UITextAttributeFont : headerTitleTextFont,
+                                            UITextAttributeTextColor : headerDetailTextColor,
+                                      UITextAttributeTextShadowColor : textShadowColor,
+                                     UITextAttributeTextShadowOffset : headerTextShadowOffset }];
+        
+        [MSTableViewHeaderFooterView.appearance setDetailTextAttributes:@{
+                                                  UITextAttributeFont : headerDetailTextFont,
+                                             UITextAttributeTextColor : headerDetailTextColor,
+                                       UITextAttributeTextShadowColor : textShadowColor,
+                                      UITextAttributeTextShadowOffset : headerTextShadowOffset }];
         
     }
     return self;
@@ -88,7 +148,7 @@ static SFStyleManager *singletonInstance = nil;
     return [UIFont fontWithName:@"FuturaCom-Bold" size:size];
 }
 
-- (UIFont *)subtitleFontOfSize:(CGFloat)size
+- (UIFont *)detailFontOfSize:(CGFloat)size
 {
     return [UIFont fontWithName:@"Futura-Medium" size:size];
 }
@@ -126,7 +186,7 @@ static SFStyleManager *singletonInstance = nil;
 {
     [self styleBarButtonItemCustomView:button];
     button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    button.titleLabel.shadowColor = [UIColor blackColor];
+    [button setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setTitle:title forState:UIControlStateNormal];
@@ -138,7 +198,7 @@ static SFStyleManager *singletonInstance = nil;
 {
     [self styleBackBarButtonItemCustomView:button];
     button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    button.titleLabel.shadowColor = [UIColor blackColor];
+    [button setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setTitle:title forState:UIControlStateNormal];

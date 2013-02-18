@@ -51,6 +51,11 @@
     [eventMapping addAttributeMappingsFromArray:@[ @"name" ]];
     [eventMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"start_datetime" : @"start", @"end_datetime" : @"end", @"description" : @"detail" }];
     
+    RKEntityMapping *announcementMapping = [RKEntityMapping mappingForEntityForName:@"Announcement" inManagedObjectStore:managedObjectStore];
+    announcementMapping.identificationAttributes = @[ @"remoteID" ];
+    [announcementMapping addAttributeMappingsFromArray:@[ @"title", @"body" ]];
+    [announcementMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"publish_datetime" : @"published" }];
+    
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"directors" toKeyPath:@"directors" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"writers" toKeyPath:@"writers" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"stars" toKeyPath:@"stars" withMapping:personMapping]];
@@ -61,6 +66,9 @@
     
     RKResponseDescriptor *eventIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:@"/events.json" keyPath:@"event" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:eventIndexResponseDescriptor];
+    
+    RKResponseDescriptor *announcementIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:announcementMapping pathPattern:@"/announcements.json" keyPath:@"announcement" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [objectManager addResponseDescriptor:announcementIndexResponseDescriptor];
     
     [managedObjectStore createPersistentStoreCoordinator];
     NSString *storePath = [RKApplicationDataDirectory() stringByAppendingPathComponent:@"Stanley.sqlite"];

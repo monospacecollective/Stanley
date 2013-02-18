@@ -11,6 +11,7 @@
 #import "SFFilmsViewController.h"
 #import "SFNavigationBar.h"
 #import "SFMasterTableViewCell.h"
+#import "SFNewsViewController.h"
 #import "SFSplashViewController.h"
 
 NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewControllerCellReuseIdentifier";
@@ -54,6 +55,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
                              @(SFPaneTypeFilms) : SFFilmsViewController.class,
                              @(SFPaneTypeNews) : UITableViewController.class,
                              @(SFPaneTypeEvents) : UITableViewController.class,
+                             @(SFPaneTypeNews) : SFNewsViewController.class,
                              @(SFPaneTypeMap) : UITableViewController.class,
                              @(SFPaneTypeStanley) : UITableViewController.class
                              };

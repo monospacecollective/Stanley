@@ -8,6 +8,8 @@ pod 'FXLabel',                          '~> 1.4.2'
 pod 'KGNoise',                          '~> 1.1.0'
 pod 'PonyDebugger',                     :head
 pod 'PSTCollectionView'
+pod 'FormatterKit',                     '~> 1.1.1'
+pod 'CupertinoYankee',                  '~> 0.1.1'
 
 pod 'MSTableKit',                       :git => 'https://github.com/monospacecollective/MSTableKit.git', :branch => 'development'
 pod 'MSNavigationPaneViewController',   :git => 'https://github.com/monospacecollective/MSNavigationPaneViewController.git', :branch => 'open-directions'
