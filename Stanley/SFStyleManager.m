@@ -228,7 +228,7 @@ static SFStyleManager *singletonInstance = nil;
     [self styleBarButtonItemCustomView:button];
     [button setImage:image forState:UIControlStateNormal];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        button.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 12.0, 5.0);
+        button.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 14.0, 5.0);
     } else {
         button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 5.0, 5.0);
     }
