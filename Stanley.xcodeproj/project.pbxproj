@@ -8,6 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		35959A89E2B1403EAD079A7A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B62A2C1ECF1B4CF59339BFCD /* libPods.a */; };
+		3A2BE26016CC68C1000726C5 /* SFFooterBackground~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE25C16CC68C1000726C5 /* SFFooterBackground~ipad.png */; };
+		3A2BE26216CC68C1000726C5 /* SFHeaderBackground~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE25E16CC68C1000726C5 /* SFHeaderBackground~ipad.png */; };
+		3A2BE26316CC68C1000726C5 /* SFHeaderBackground@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE25F16CC68C1000726C5 /* SFHeaderBackground@2x~ipad.png */; };
+		3A2BE26616CC6B16000726C5 /* SFHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26416CC6B16000726C5 /* SFHeaderBackground.png */; };
+		3A2BE26716CC6B16000726C5 /* SFHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26516CC6B16000726C5 /* SFHeaderBackground@2x.png */; };
+		3A2BE26916CC6B79000726C5 /* SFFooterBackground@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26816CC6B79000726C5 /* SFFooterBackground@2x~ipad.png */; };
+		3A2BE27516CC73B7000726C5 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26B16CC73B7000726C5 /* Icon-72.png */; };
+		3A2BE27616CC73B7000726C5 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26C16CC73B7000726C5 /* Icon-72@2x.png */; };
+		3A2BE27716CC73B7000726C5 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26D16CC73B7000726C5 /* Icon-Small-50.png */; };
+		3A2BE27816CC73B7000726C5 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26E16CC73B7000726C5 /* Icon-Small-50@2x.png */; };
+		3A2BE27916CC73B7000726C5 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE26F16CC73B7000726C5 /* Icon-Small.png */; };
+		3A2BE27A16CC73B7000726C5 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE27016CC73B7000726C5 /* Icon-Small@2x.png */; };
+		3A2BE27B16CC73B7000726C5 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE27116CC73B7000726C5 /* Icon.png */; };
+		3A2BE27C16CC73B7000726C5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE27216CC73B7000726C5 /* Icon@2x.png */; };
+		3A2BE27D16CC73B7000726C5 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE27316CC73B7000726C5 /* iTunesArtwork.png */; };
+		3A2BE27E16CC73B7000726C5 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BE27416CC73B7000726C5 /* iTunesArtwork@2x.png */; };
+		3A2BE28116CD5402000726C5 /* SFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BE28016CD5402000726C5 /* SFEventsViewController.m */; };
+		3A2BE28616CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BE28516CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m */; };
+		3A4DC8D716CF085E008C22DC /* SFNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DC8D616CF085E008C22DC /* SFNewsViewController.m */; };
+		3A6BEB4216CEA06800893A7D /* SFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6BEB4116CEA06800893A7D /* SFConstants.m */; };
+		3AAEBDD316D0815D006A08A3 /* SFLogoBarButtonItemIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDD116D0815D006A08A3 /* SFLogoBarButtonItemIcon.png */; };
+		3AAEBDD416D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDD216D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png */; };
+		3AAEBDD616D084A3006A08A3 /* SFSplashBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDD516D084A3006A08A3 /* SFSplashBackground.jpg */; };
+		3AAEBDD916D084E2006A08A3 /* SFSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAEBDD816D084E2006A08A3 /* SFSplashViewController.m */; };
+		3AAEBDDC16D16F1D006A08A3 /* SFLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAEBDDB16D16F1D006A08A3 /* SFLogoView.m */; };
+		3AAEBDDF16D1BDA2006A08A3 /* SFLogoBarButtonItemIcon@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDDD16D1BDA1006A08A3 /* SFLogoBarButtonItemIcon@2x~ipad.png */; };
+		3AAEBDE016D1BDA2006A08A3 /* SFLogoBarButtonItemIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDDE16D1BDA2006A08A3 /* SFLogoBarButtonItemIcon~ipad.png */; };
 		3AAF0F7C16C95CA40091D077 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAF0F7B16C95CA40091D077 /* UIKit.framework */; };
 		3AAF0F7E16C95CA40091D077 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAF0F7D16C95CA40091D077 /* Foundation.framework */; };
 		3AAF0F8016C95CA40091D077 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAF0F7F16C95CA40091D077 /* CoreGraphics.framework */; };
@@ -21,8 +48,6 @@
 		3AAF0F9C16CA079C0091D077 /* SFStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0F9B16CA079C0091D077 /* SFStyleManager.m */; };
 		3AAF0FA216CA0AAD0091D077 /* SFFooterBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF0F9E16CA0AAD0091D077 /* SFFooterBackground.png */; };
 		3AAF0FA316CA0AAD0091D077 /* SFFooterBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF0F9F16CA0AAD0091D077 /* SFFooterBackground@2x.png */; };
-		3AAF0FA416CA0AAD0091D077 /* SFHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF0FA016CA0AAD0091D077 /* SFHeaderBackground.png */; };
-		3AAF0FA516CA0AAD0091D077 /* SFHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF0FA116CA0AAD0091D077 /* SFHeaderBackground@2x.png */; };
 		3AAF0FA816CA0CC60091D077 /* Stanley.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FA616CA0CC60091D077 /* Stanley.xcdatamodeld */; };
 		3AAF0FAC16CAA8360091D077 /* Announcement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FAB16CAA8360091D077 /* Announcement.m */; };
 		3AAF0FAF16CAA8460091D077 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FAE16CAA8460091D077 /* Event.m */; };
@@ -37,9 +62,42 @@
 		3AAF0FCB16CB30740091D077 /* SSStandard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF0FCA16CB30740091D077 /* SSStandard.ttf */; };
 		3AAF0FCE16CB35EC0091D077 /* SFMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */; };
 		3AAF0FD116CB60840091D077 /* SFMasterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FD016CB60840091D077 /* SFMasterTableViewCell.m */; };
+		3AEC7E4A16CF22E90086EA55 /* SFAnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEC7E4916CF22E90086EA55 /* SFAnnouncementTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A2BE25C16CC68C1000726C5 /* SFFooterBackground~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFooterBackground~ipad.png"; sourceTree = "<group>"; };
+		3A2BE25E16CC68C1000726C5 /* SFHeaderBackground~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFHeaderBackground~ipad.png"; sourceTree = "<group>"; };
+		3A2BE25F16CC68C1000726C5 /* SFHeaderBackground@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFHeaderBackground@2x~ipad.png"; sourceTree = "<group>"; };
+		3A2BE26416CC6B16000726C5 /* SFHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFHeaderBackground.png; sourceTree = "<group>"; };
+		3A2BE26516CC6B16000726C5 /* SFHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFHeaderBackground@2x.png"; sourceTree = "<group>"; };
+		3A2BE26816CC6B79000726C5 /* SFFooterBackground@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFooterBackground@2x~ipad.png"; sourceTree = "<group>"; };
+		3A2BE26B16CC73B7000726C5 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		3A2BE26C16CC73B7000726C5 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		3A2BE26D16CC73B7000726C5 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		3A2BE26E16CC73B7000726C5 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		3A2BE26F16CC73B7000726C5 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		3A2BE27016CC73B7000726C5 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		3A2BE27116CC73B7000726C5 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		3A2BE27216CC73B7000726C5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		3A2BE27316CC73B7000726C5 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		3A2BE27416CC73B7000726C5 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		3A2BE27F16CD5402000726C5 /* SFEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventsViewController.h; sourceTree = "<group>"; };
+		3A2BE28016CD5402000726C5 /* SFEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventsViewController.m; sourceTree = "<group>"; };
+		3A2BE28416CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCollectionViewStickyHeaderFlowLayout.h; sourceTree = "<group>"; };
+		3A2BE28516CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCollectionViewStickyHeaderFlowLayout.m; sourceTree = "<group>"; };
+		3A4DC8D516CF085E008C22DC /* SFNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNewsViewController.h; sourceTree = "<group>"; };
+		3A4DC8D616CF085E008C22DC /* SFNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNewsViewController.m; sourceTree = "<group>"; };
+		3A6BEB4116CEA06800893A7D /* SFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFConstants.m; sourceTree = "<group>"; };
+		3AAEBDD116D0815D006A08A3 /* SFLogoBarButtonItemIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFLogoBarButtonItemIcon.png; sourceTree = "<group>"; };
+		3AAEBDD216D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFLogoBarButtonItemIcon@2x.png"; sourceTree = "<group>"; };
+		3AAEBDD516D084A3006A08A3 /* SFSplashBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SFSplashBackground.jpg; sourceTree = "<group>"; };
+		3AAEBDD716D084E2006A08A3 /* SFSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSplashViewController.h; sourceTree = "<group>"; };
+		3AAEBDD816D084E2006A08A3 /* SFSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSplashViewController.m; sourceTree = "<group>"; };
+		3AAEBDDA16D16F1D006A08A3 /* SFLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLogoView.h; sourceTree = "<group>"; };
+		3AAEBDDB16D16F1D006A08A3 /* SFLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLogoView.m; sourceTree = "<group>"; };
+		3AAEBDDD16D1BDA1006A08A3 /* SFLogoBarButtonItemIcon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFLogoBarButtonItemIcon@2x~ipad.png"; sourceTree = "<group>"; };
+		3AAEBDDE16D1BDA2006A08A3 /* SFLogoBarButtonItemIcon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFLogoBarButtonItemIcon~ipad.png"; sourceTree = "<group>"; };
 		3AAF0F7816C95CA40091D077 /* Stanley Film.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stanley Film.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AAF0F7B16C95CA40091D077 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3AAF0F7D16C95CA40091D077 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,8 +116,6 @@
 		3AAF0F9B16CA079C0091D077 /* SFStyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFStyleManager.m; sourceTree = "<group>"; };
 		3AAF0F9E16CA0AAD0091D077 /* SFFooterBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFFooterBackground.png; sourceTree = "<group>"; };
 		3AAF0F9F16CA0AAD0091D077 /* SFFooterBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFooterBackground@2x.png"; sourceTree = "<group>"; };
-		3AAF0FA016CA0AAD0091D077 /* SFHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFHeaderBackground.png; sourceTree = "<group>"; };
-		3AAF0FA116CA0AAD0091D077 /* SFHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		3AAF0FA716CA0CC60091D077 /* Stanley.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stanley.xcdatamodel; sourceTree = "<group>"; };
 		3AAF0FAA16CAA8360091D077 /* Announcement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Announcement.h; sourceTree = "<group>"; };
 		3AAF0FAB16CAA8360091D077 /* Announcement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Announcement.m; sourceTree = "<group>"; };
@@ -71,8 +127,8 @@
 		3AAF0FB416CAA8680091D077 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		3AAF0FB616CAA8770091D077 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		3AAF0FB716CAA8770091D077 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		3AAF0FBA16CAF7420091D077 /* SFFilmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFFilmsViewController.h; path = Stanley/SFFilmsViewController.h; sourceTree = "<group>"; };
-		3AAF0FBB16CAF7420091D077 /* SFFilmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFFilmsViewController.m; path = Stanley/SFFilmsViewController.m; sourceTree = "<group>"; };
+		3AAF0FBA16CAF7420091D077 /* SFFilmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmsViewController.h; sourceTree = "<group>"; };
+		3AAF0FBB16CAF7420091D077 /* SFFilmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmsViewController.m; sourceTree = "<group>"; };
 		3AAF0FBE16CAFD400091D077 /* SFFilmCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmCollectionViewCell.h; sourceTree = "<group>"; };
 		3AAF0FBF16CAFD400091D077 /* SFFilmCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmCollectionViewCell.m; sourceTree = "<group>"; };
 		3AAF0FC216CB08810091D077 /* SFNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavigationBar.h; sourceTree = "<group>"; };
@@ -80,10 +136,13 @@
 		3AAF0FC516CB0C440091D077 /* FuturaCom-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Bold.ttf"; sourceTree = "<group>"; };
 		3AAF0FC716CB1EDB0091D077 /* Shining.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Shining.jpg; sourceTree = "<group>"; };
 		3AAF0FCA16CB30740091D077 /* SSStandard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SSStandard.ttf; sourceTree = "<group>"; };
-		3AAF0FCC16CB35EC0091D077 /* SFMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFMasterViewController.h; path = Stanley/SFMasterViewController.h; sourceTree = "<group>"; };
-		3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFMasterViewController.m; path = Stanley/SFMasterViewController.m; sourceTree = "<group>"; };
+		3AAF0FCC16CB35EC0091D077 /* SFMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMasterViewController.h; sourceTree = "<group>"; };
+		3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMasterViewController.m; sourceTree = "<group>"; };
 		3AAF0FCF16CB60840091D077 /* SFMasterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMasterTableViewCell.h; sourceTree = "<group>"; };
 		3AAF0FD016CB60840091D077 /* SFMasterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMasterTableViewCell.m; sourceTree = "<group>"; };
+		3AE4852D16CEA00100144845 /* SFConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFConstants.h; sourceTree = "<group>"; };
+		3AEC7E4816CF22E90086EA55 /* SFAnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnnouncementTableViewCell.h; sourceTree = "<group>"; };
+		3AEC7E4916CF22E90086EA55 /* SFAnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		B62A2C1ECF1B4CF59339BFCD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF26C07D62E74258ACF50492 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -104,6 +163,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A2BE26A16CC73B1000726C5 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				3A2BE26B16CC73B7000726C5 /* Icon-72.png */,
+				3A2BE26C16CC73B7000726C5 /* Icon-72@2x.png */,
+				3A2BE26D16CC73B7000726C5 /* Icon-Small-50.png */,
+				3A2BE26E16CC73B7000726C5 /* Icon-Small-50@2x.png */,
+				3A2BE26F16CC73B7000726C5 /* Icon-Small.png */,
+				3A2BE27016CC73B7000726C5 /* Icon-Small@2x.png */,
+				3A2BE27116CC73B7000726C5 /* Icon.png */,
+				3A2BE27216CC73B7000726C5 /* Icon@2x.png */,
+				3A2BE27316CC73B7000726C5 /* iTunesArtwork.png */,
+				3A2BE27416CC73B7000726C5 /* iTunesArtwork@2x.png */,
+			);
+			name = Icon;
+			sourceTree = "<group>";
+		};
+		3A2BE28216CD5438000726C5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3AAF0FBA16CAF7420091D077 /* SFFilmsViewController.h */,
+				3AAF0FBB16CAF7420091D077 /* SFFilmsViewController.m */,
+				3A4DC8D516CF085E008C22DC /* SFNewsViewController.h */,
+				3A4DC8D616CF085E008C22DC /* SFNewsViewController.m */,
+				3A2BE27F16CD5402000726C5 /* SFEventsViewController.h */,
+				3A2BE28016CD5402000726C5 /* SFEventsViewController.m */,
+				3AAF0FCC16CB35EC0091D077 /* SFMasterViewController.h */,
+				3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */,
+				3AAEBDD716D084E2006A08A3 /* SFSplashViewController.h */,
+				3AAEBDD816D084E2006A08A3 /* SFSplashViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3A2BE28316CD6183000726C5 /* Collection View Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				3A2BE28416CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.h */,
+				3A2BE28516CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m */,
+			);
+			name = "Collection View Layouts";
+			sourceTree = "<group>";
+		};
+		3AAEBDD016D08153006A08A3 /* Bar Button Item Icons */ = {
+			isa = PBXGroup;
+			children = (
+				3AAEBDDD16D1BDA1006A08A3 /* SFLogoBarButtonItemIcon@2x~ipad.png */,
+				3AAEBDDE16D1BDA2006A08A3 /* SFLogoBarButtonItemIcon~ipad.png */,
+				3AAEBDD116D0815D006A08A3 /* SFLogoBarButtonItemIcon.png */,
+				3AAEBDD216D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png */,
+			);
+			name = "Bar Button Item Icons";
+			sourceTree = "<group>";
+		};
 		3AAF0F6F16C95CA40091D077 = {
 			isa = PBXGroup;
 			children = (
@@ -144,10 +257,13 @@
 				3AAF0F8B16C95CA40091D077 /* SFAppDelegate.m */,
 				3AAF0F9A16CA079C0091D077 /* SFStyleManager.h */,
 				3AAF0F9B16CA079C0091D077 /* SFStyleManager.m */,
+				3AE4852D16CEA00100144845 /* SFConstants.h */,
+				3A6BEB4116CEA06800893A7D /* SFConstants.m */,
 				3AAF0FA616CA0CC60091D077 /* Stanley.xcdatamodeld */,
+				3A2BE28316CD6183000726C5 /* Collection View Layouts */,
 				3AAF0FC116CB08720091D077 /* Views */,
 				3AAF0FBD16CAFD240091D077 /* Cells */,
-				3AAF0FB916CAF5AD0091D077 /* View Controllers */,
+				3A2BE28216CD5438000726C5 /* View Controllers */,
 				3AAF0FA916CAA81E0091D077 /* Model */,
 				3AAF0F9D16CA0AA30091D077 /* Images */,
 				3AAF0F8216C95CA40091D077 /* Supporting Files */,
@@ -175,10 +291,17 @@
 		3AAF0F9D16CA0AA30091D077 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AAEBDD516D084A3006A08A3 /* SFSplashBackground.jpg */,
+				3AAEBDD016D08153006A08A3 /* Bar Button Item Icons */,
+				3A2BE26A16CC73B1000726C5 /* Icon */,
+				3A2BE26416CC6B16000726C5 /* SFHeaderBackground.png */,
+				3A2BE26516CC6B16000726C5 /* SFHeaderBackground@2x.png */,
+				3A2BE25E16CC68C1000726C5 /* SFHeaderBackground~ipad.png */,
+				3A2BE25F16CC68C1000726C5 /* SFHeaderBackground@2x~ipad.png */,
+				3A2BE25C16CC68C1000726C5 /* SFFooterBackground~ipad.png */,
+				3A2BE26816CC6B79000726C5 /* SFFooterBackground@2x~ipad.png */,
 				3AAF0F9E16CA0AAD0091D077 /* SFFooterBackground.png */,
 				3AAF0F9F16CA0AAD0091D077 /* SFFooterBackground@2x.png */,
-				3AAF0FA016CA0AAD0091D077 /* SFHeaderBackground.png */,
-				3AAF0FA116CA0AAD0091D077 /* SFHeaderBackground@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -200,18 +323,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		3AAF0FB916CAF5AD0091D077 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				3AAF0FBA16CAF7420091D077 /* SFFilmsViewController.h */,
-				3AAF0FBB16CAF7420091D077 /* SFFilmsViewController.m */,
-				3AAF0FCC16CB35EC0091D077 /* SFMasterViewController.h */,
-				3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */,
-			);
-			name = "View Controllers";
-			path = ..;
-			sourceTree = "<group>";
-		};
 		3AAF0FBD16CAFD240091D077 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +330,8 @@
 				3AAF0FBF16CAFD400091D077 /* SFFilmCollectionViewCell.m */,
 				3AAF0FCF16CB60840091D077 /* SFMasterTableViewCell.h */,
 				3AAF0FD016CB60840091D077 /* SFMasterTableViewCell.m */,
+				3AEC7E4816CF22E90086EA55 /* SFAnnouncementTableViewCell.h */,
+				3AEC7E4916CF22E90086EA55 /* SFAnnouncementTableViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -228,6 +341,8 @@
 			children = (
 				3AAF0FC216CB08810091D077 /* SFNavigationBar.h */,
 				3AAF0FC316CB08810091D077 /* SFNavigationBar.m */,
+				3AAEBDDA16D16F1D006A08A3 /* SFLogoView.h */,
+				3AAEBDDB16D16F1D006A08A3 /* SFLogoView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -292,11 +407,30 @@
 				3AAF0F9216C95CA40091D077 /* Default-568h@2x.png in Resources */,
 				3AAF0FA216CA0AAD0091D077 /* SFFooterBackground.png in Resources */,
 				3AAF0FA316CA0AAD0091D077 /* SFFooterBackground@2x.png in Resources */,
-				3AAF0FA416CA0AAD0091D077 /* SFHeaderBackground.png in Resources */,
-				3AAF0FA516CA0AAD0091D077 /* SFHeaderBackground@2x.png in Resources */,
 				3AAF0FC616CB0C440091D077 /* FuturaCom-Bold.ttf in Resources */,
 				3AAF0FC816CB1EDB0091D077 /* Shining.jpg in Resources */,
 				3AAF0FCB16CB30740091D077 /* SSStandard.ttf in Resources */,
+				3A2BE26016CC68C1000726C5 /* SFFooterBackground~ipad.png in Resources */,
+				3A2BE26216CC68C1000726C5 /* SFHeaderBackground~ipad.png in Resources */,
+				3A2BE26316CC68C1000726C5 /* SFHeaderBackground@2x~ipad.png in Resources */,
+				3A2BE26616CC6B16000726C5 /* SFHeaderBackground.png in Resources */,
+				3A2BE26716CC6B16000726C5 /* SFHeaderBackground@2x.png in Resources */,
+				3A2BE26916CC6B79000726C5 /* SFFooterBackground@2x~ipad.png in Resources */,
+				3A2BE27516CC73B7000726C5 /* Icon-72.png in Resources */,
+				3A2BE27616CC73B7000726C5 /* Icon-72@2x.png in Resources */,
+				3A2BE27716CC73B7000726C5 /* Icon-Small-50.png in Resources */,
+				3A2BE27816CC73B7000726C5 /* Icon-Small-50@2x.png in Resources */,
+				3A2BE27916CC73B7000726C5 /* Icon-Small.png in Resources */,
+				3A2BE27A16CC73B7000726C5 /* Icon-Small@2x.png in Resources */,
+				3A2BE27B16CC73B7000726C5 /* Icon.png in Resources */,
+				3A2BE27C16CC73B7000726C5 /* Icon@2x.png in Resources */,
+				3A2BE27D16CC73B7000726C5 /* iTunesArtwork.png in Resources */,
+				3A2BE27E16CC73B7000726C5 /* iTunesArtwork@2x.png in Resources */,
+				3AAEBDD316D0815D006A08A3 /* SFLogoBarButtonItemIcon.png in Resources */,
+				3AAEBDD416D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png in Resources */,
+				3AAEBDD616D084A3006A08A3 /* SFSplashBackground.jpg in Resources */,
+				3AAEBDDF16D1BDA2006A08A3 /* SFLogoBarButtonItemIcon@2x~ipad.png in Resources */,
+				3AAEBDE016D1BDA2006A08A3 /* SFLogoBarButtonItemIcon~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +486,13 @@
 				3AAF0FC416CB08810091D077 /* SFNavigationBar.m in Sources */,
 				3AAF0FCE16CB35EC0091D077 /* SFMasterViewController.m in Sources */,
 				3AAF0FD116CB60840091D077 /* SFMasterTableViewCell.m in Sources */,
+				3A2BE28116CD5402000726C5 /* SFEventsViewController.m in Sources */,
+				3A2BE28616CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m in Sources */,
+				3A6BEB4216CEA06800893A7D /* SFConstants.m in Sources */,
+				3A4DC8D716CF085E008C22DC /* SFNewsViewController.m in Sources */,
+				3AEC7E4A16CF22E90086EA55 /* SFAnnouncementTableViewCell.m in Sources */,
+				3AAEBDD916D084E2006A08A3 /* SFSplashViewController.m in Sources */,
+				3AAEBDDC16D16F1D006A08A3 /* SFLogoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
