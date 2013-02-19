@@ -134,7 +134,8 @@ NSString * const SFEventCurrentTimeIndicatorReuseIdentifier = @"SFEventCurrentTi
 
 - (PSUICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PSUICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
+    SFEventCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
+    cell.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return cell;
 }
 

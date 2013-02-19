@@ -83,8 +83,7 @@
 - (void)setEvent:(Event *)event
 {
     _event = event;
-    self.title.text = event.name;
-    
+    self.title.text = [event.name uppercaseString];
     [self setNeedsLayout];
 }
 
@@ -100,7 +99,7 @@
 
 + (UIFont *)titleFont
 {
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 25.0 : 23.0);
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20.0 : 18.0);
     return [[SFStyleManager sharedManager] titleFontOfSize:fontSize];
 }
 

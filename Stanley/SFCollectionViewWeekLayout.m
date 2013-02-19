@@ -240,7 +240,7 @@ CGFloat const SFCollectionElementKindDayColumnHeaderIndexZ = 1.0;
             earliestHour = sectionEarliestHour;
         }
     }
-    return ((earliestHour != NSIntegerMax) ? earliestHour : NSUndefinedDateComponent);
+    return ((earliestHour != NSIntegerMax) ? earliestHour : 0);
 }
 
 - (NSInteger)latestHour
@@ -252,7 +252,7 @@ CGFloat const SFCollectionElementKindDayColumnHeaderIndexZ = 1.0;
             latestHour = sectionLatestHour;
         }
     }
-    return ((latestHour != NSIntegerMax) ? latestHour : NSUndefinedDateComponent);
+    return ((latestHour != NSIntegerMin) ? latestHour : 0);
 }
 
 - (NSInteger)earliestHourForSection:(NSInteger)section
@@ -265,7 +265,7 @@ CGFloat const SFCollectionElementKindDayColumnHeaderIndexZ = 1.0;
             earliestHour = itemStartTime.hour;
         }
     }
-    return ((earliestHour != NSIntegerMax) ? earliestHour : NSUndefinedDateComponent);
+    return ((earliestHour != NSIntegerMax) ? earliestHour : 0);
 }
 
 - (NSInteger)latestHourForSection:(NSInteger)section
@@ -279,7 +279,7 @@ CGFloat const SFCollectionElementKindDayColumnHeaderIndexZ = 1.0;
             latestHour = itemEndTimeHour;
         }
     }
-    return ((latestHour != NSIntegerMax) ? latestHour : NSUndefinedDateComponent);
+    return ((latestHour != NSIntegerMin) ? latestHour : 0);
 }
 
 #pragma mark Delegate Wrappers
