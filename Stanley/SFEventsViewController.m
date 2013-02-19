@@ -9,11 +9,19 @@
 #import "SFEventsViewController.h"
 #import "SFStyleManager.h"
 #import "SFCollectionViewStickyHeaderFlowLayout.h"
+#import "SFCollectionViewWeekLayout.h"
+#import "SFCurrentTimeIndicatorCollectionViewCell.h"
+#import "Event.h"
+#import "SFTimeRowHeaderCollectionReusableView.h"
+#import "SFDayColumnHeaderCollectionReusableView.h"
+#import "SFEventCollectionViewCell.h"
 
-NSString * const SFEventCollectionViewCellReuseIdentifier = @"SFEventCollectionViewCellReuseIdentifier";
-NSString * const SFEventDayHeaderCollectionReusableViewReuseIdentifier = @"SFEventDayHeaderCollectionReusableViewReuseIdentifier";
+NSString * const SFEventCellReuseIdentifier = @"SFEventCollectionViewCellReuseIdentifier";
+NSString * const SFEventDayColumnHeaderReuseIdentifier = @"SFEventDayColumnHeaderReuseIdentifier";
+NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReuseIdentifier";
+NSString * const SFEventCurrentTimeIndicatorReuseIdentifier = @"SFEventCurrentTimeIndicatorReuseIdentifier";
 
-@interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate>
+@interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SFCollectionViewDelegateWeekLayout>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -27,7 +35,8 @@ NSString * const SFEventDayHeaderCollectionReusableViewReuseIdentifier = @"SFEve
 {
     id layout;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        layout = [[SFCollectionViewStickyHeaderFlowLayout alloc] init];
+        layout = [[SFCollectionViewWeekLayout alloc] init];
+        [layout setDelegate:self];
     } else {
         layout = [[SFCollectionViewStickyHeaderFlowLayout alloc] init];
     }
@@ -43,7 +52,7 @@ NSString * const SFEventDayHeaderCollectionReusableViewReuseIdentifier = @"SFEve
     [super viewDidLoad];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"start" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
                                                                           sectionNameKeyPath:@"day"
@@ -54,8 +63,15 @@ NSString * const SFEventDayHeaderCollectionReusableViewReuseIdentifier = @"SFEve
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
     [[SFStyleManager sharedManager] styleCollectionView:(PSUICollectionView *)self.collectionView];
-    [self.collectionView registerClass:PSUICollectionViewCell.class forCellWithReuseIdentifier:SFEventCollectionViewCellReuseIdentifier];
-    [self.collectionView registerClass:PSUICollectionReusableView.class forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:SFEventDayHeaderCollectionReusableViewReuseIdentifier];
+    [self.collectionView registerClass:SFEventCollectionViewCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
+        [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionViewCell.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
+    } else {
+        [self.collectionView registerClass:PSUICollectionReusableView.class forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
+    }
     
     [self reloadData];
 }
@@ -69,6 +85,7 @@ NSString * const SFEventDayHeaderCollectionReusableViewReuseIdentifier = @"SFEve
 - (void)viewWillLayoutSubviews
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        
         
     } else {
         
@@ -117,20 +134,68 @@ NSString * const SFEventDayHeaderCollectionReusableViewReuseIdentifier = @"SFEve
 
 - (PSUICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PSUICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCollectionViewCellReuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
-    cell.layer.borderColor = [[UIColor greenColor] CGColor];
-    cell.layer.borderWidth = 1.0;
+    PSUICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
     return cell;
 }
 
 - (PSUICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    PSUICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:SFEventDayHeaderCollectionReusableViewReuseIdentifier forIndexPath:indexPath];
-    view.backgroundColor = [UIColor blueColor];
-    view.layer.borderColor = [[UIColor purpleColor] CGColor];
-    view.layer.borderWidth = 1.0;
+    PSUICollectionReusableView *view;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if ([kind isEqualToString:SFCollectionElementKindDayColumnHeader]) {
+            
+            NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForDayColumnHeaderAtIndexPath:indexPath];
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            dateFormatter.dateFormat = @"EEEE, MMM d";
+            SFDayColumnHeaderCollectionReusableView *dayColumnView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
+            dayColumnView.day.text = [[dateFormatter stringFromDate:date] uppercaseString];
+            view = (PSUICollectionReusableView *)dayColumnView;
+        }
+        else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {
+            
+            NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForTimeRowHeaderAtIndexPath:indexPath];
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            dateFormatter.dateFormat = @"h a";
+            
+            SFTimeRowHeaderCollectionReusableView *timeRowView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier forIndexPath:indexPath];
+            timeRowView.time.text = [dateFormatter stringFromDate:date];
+            view = (PSUICollectionReusableView *)timeRowView;
+        }
+    } else {
+        view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
+        view.backgroundColor = [UIColor blueColor];
+    }
     return view;
+}
+
+#pragma mark - SFCollectionViewDelegateWeekLayout
+
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout dayForSection:(NSInteger)section
+{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+    if (sectionInfo.objects.count != 0) {
+        Event *event = sectionInfo.objects[0];
+        return [event.start beginningOfDay];
+    } else {
+        return nil;
+    }
+}
+
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    return event.start;
+}
+
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    return event.end;
+}
+
+- (NSDate *)currentTimeComponentsForCollectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout
+{
+    return [NSDate date];
 }
 
 @end

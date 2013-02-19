@@ -27,4 +27,6 @@
     #import <CupertinoYankee/NSDate+CupertinoYankee.h>
     // Constants
     #import "SFConstants.h"
+    // Macros
+    #import "MSSystemVersion.h"
 #endif
