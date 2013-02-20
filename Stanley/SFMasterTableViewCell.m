@@ -17,7 +17,7 @@
     if (self) {
         self.icon = [UILabel new];
         self.icon.backgroundColor = [UIColor clearColor];
-        self.icon.font = [[SFStyleManager sharedManager] symbolSetFontOfSize:20.0];
+        self.icon.font = [[SFStyleManager sharedManager] symbolSetFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 26.0 : 20.0)];
         self.icon.textColor = [UIColor whiteColor];
         self.icon.textAlignment = UITextAlignmentCenter;
         self.icon.shadowColor = [UIColor blackColor];
@@ -31,7 +31,7 @@
 {
     [super layoutSubviews];
     
-    CGFloat iconOffset = 40.0;
+    CGFloat iconOffset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 48.0 : 40.0);
     self.textLabel.frame = CGRectOffset(self.textLabel.frame, iconOffset, 3.0);
     
     [self.icon sizeToFit];
