@@ -159,7 +159,7 @@ static SFStyleManager *singletonInstance = nil;
 {
     collectionView.backgroundColor = [self viewBackgroundColor];
     collectionView.backgroundView = nil;
-    collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    collectionView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
 }
 
 #pragma mark - UIBarButtonItem Custom Views
