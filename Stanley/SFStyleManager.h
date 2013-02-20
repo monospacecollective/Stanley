@@ -12,6 +12,7 @@
 
 // Colors
 - (UIColor *)viewBackgroundColor;
+- (UIColor *)secondaryViewBackgroundColor;
 
 // Fonts
 - (UIFont *)symbolSetFontOfSize:(CGFloat)size;

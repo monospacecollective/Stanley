@@ -32,7 +32,7 @@
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
-        self.contentView.backgroundColor = [UIColor colorWithHexString:@"303030"];
+        self.contentView.backgroundColor = [[SFStyleManager sharedManager] secondaryViewBackgroundColor];
         
         self.image = [UIImageView new];
         self.image.contentMode = UIViewContentModeScaleAspectFill;

@@ -156,7 +156,6 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
             dateFormatter.dateFormat = @"EEEE, MMM d";
             SFDayColumnHeaderCollectionReusableView *dayColumnView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
             dayColumnView.day.text = [[dateFormatter stringFromDate:date] uppercaseString];
-            dayColumnView.today = YES;
             view = (PSUICollectionReusableView *)dayColumnView;
         }
         else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {

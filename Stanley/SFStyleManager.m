@@ -39,7 +39,7 @@ static SFStyleManager *singletonInstance = nil;
         [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.1]];
         [MSPlainTableViewHeaderView.appearance setTopEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
         [MSPlainTableViewHeaderView.appearance setBottomEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
-        [MSPlainTableViewHeaderView.appearance setBackgroundColor:[UIColor colorWithHexString:@"303030"]];
+        [MSPlainTableViewHeaderView.appearance setBackgroundColor:[self secondaryViewBackgroundColor]];
         
         UIFont *titleTextFont = [self titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20.0 : 17.0)];
         UIFont *detailTextFont = [self detailFontOfSize:15.0];
@@ -123,6 +123,11 @@ static SFStyleManager *singletonInstance = nil;
 - (UIColor *)viewBackgroundColor
 {
     return [[UIColor colorWithHexString:@"1c1c1c"] colorWithNoiseWithOpacity:0.025 andBlendMode:kCGBlendModeScreen];
+}
+
+- (UIColor *)secondaryViewBackgroundColor
+{
+    return [UIColor colorWithHexString:@"303030"];
 }
 
 #pragma mark - Fonts
