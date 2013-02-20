@@ -96,7 +96,6 @@
     self.navigationPaneViewController.paneViewSlideOffAnimationEnabled = NO;
     self.navigationPaneViewController.openStateRevealWidth = ((44.0 * SFPaneTypeCount) + 20.0);
     self.navigationPaneViewController.appearanceType = MSNavigationPaneAppearanceTypeFade;
-    self.navigationPaneViewController.view.backgroundColor = [[SFStyleManager sharedManager] viewBackgroundColor];
     
     SFMasterViewController *masterViewController = [[SFMasterViewController alloc] initWithNibName:nil bundle:nil];
     masterViewController.navigationPaneViewController = self.navigationPaneViewController;
