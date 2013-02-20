@@ -39,26 +39,26 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         _paneType = NSUIntegerMax;
         
         self.paneTitles = @{
-                            @(SFPaneTypeFilms) : @"Films",
-                            @(SFPaneTypeNews) : @"News",
-                            @(SFPaneTypeEvents) : @"Events",
-                            @(SFPaneTypeMap) : @"Map",
-                            @(SFPaneTypeStanley) : @"Stanley"
-                            };
+            @(SFPaneTypeFilms) : @"Films",
+            @(SFPaneTypeNews) : @"News",
+            @(SFPaneTypeEvents) : @"Events",
+            @(SFPaneTypeMap) : @"Map",
+            @(SFPaneTypeCommunity) : @"Community"
+        };
         self.paneIcons = @{
-                            @(SFPaneTypeFilms) : @"\U0000E320",
-                            @(SFPaneTypeNews) : @"\U00002709",
-                            @(SFPaneTypeEvents) : @"\U0001F4C6",
-                            @(SFPaneTypeMap) : @"\U0000E6D0",
-                            @(SFPaneTypeStanley) : @"\U00002302"
-                            };
+            @(SFPaneTypeFilms) : @"\U0000E320",
+            @(SFPaneTypeNews) : @"\U00002709",
+            @(SFPaneTypeEvents) : @"\U0001F4C6",
+            @(SFPaneTypeMap) : @"\U0000E673",
+            @(SFPaneTypeCommunity) : @"\U0001F4AC"
+        };
         self.paneClasses = @{
-                             @(SFPaneTypeFilms) : SFFilmsViewController.class,
-                             @(SFPaneTypeNews) : SFNewsViewController.class,
-                             @(SFPaneTypeEvents) : SFEventsViewController.class,
-                             @(SFPaneTypeMap) : UITableViewController.class,
-                             @(SFPaneTypeStanley) : UITableViewController.class
-                             };
+            @(SFPaneTypeFilms) : SFFilmsViewController.class,
+            @(SFPaneTypeNews) : SFNewsViewController.class,
+            @(SFPaneTypeEvents) : SFEventsViewController.class,
+            @(SFPaneTypeMap) : UITableViewController.class,
+            @(SFPaneTypeCommunity) : UITableViewController.class
+        };
     }
     return self;
 }

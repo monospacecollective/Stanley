@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, SFPaneType) {
     SFPaneTypeNews,
     SFPaneTypeEvents,
     SFPaneTypeMap,
-    SFPaneTypeStanley,
+    SFPaneTypeCommunity,
     SFPaneTypeCount
 };
 
