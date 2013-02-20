@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+// Headers
 extern NSString *const SFCollectionElementKindTimeRowHeader;
 extern NSString *const SFCollectionElementKindDayColumnHeader;
 extern NSString *const SFCollectionElementKindCurrentTimeIndicator;
+extern NSString *const SFCollectionElementKindTimeRowHeaderBackground;
+extern NSString *const SFCollectionElementKindDayColumnHeaderBackground;
+
+// Gridlines
+extern NSString *const SFCollectionElementHorizontalGridline;
+extern NSString *const SFCollectionElementCurrentTimeHorizontalGridline;
 
 @class SFCollectionViewWeekLayout;
 
@@ -33,7 +40,12 @@ extern NSString *const SFCollectionElementKindCurrentTimeIndicator;
 @property (nonatomic, assign) CGFloat hourHeight;
 @property (nonatomic, assign) CGFloat dayColumnHeaderReferenceHeight;
 @property (nonatomic, assign) CGFloat timeRowHeaderReferenceWidth;
+
 @property (nonatomic, assign) CGSize currentTimeIndicatorReferenceSize;
+
+@property (nonatomic, assign) CGFloat horizontalGridlineReferenceHeight;
+@property (nonatomic, assign) CGFloat currentTimeHorizontalGridlineReferenceHeight;
+
 @property (nonatomic, assign) UIEdgeInsets sectionInset;
 
 - (NSDate *)dateForTimeRowHeaderAtIndexPath:(NSIndexPath *)indexPath;

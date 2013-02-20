@@ -28,7 +28,7 @@
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
      
-        self.contentView.backgroundColor = [UIColor colorWithHexString:@"302f2f"];
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"303030"];
         
         self.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.1] CGColor];
         self.layer.borderWidth = 1.0;
@@ -99,7 +99,7 @@
 
 + (UIFont *)titleFont
 {
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20.0 : 18.0);
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 18.0 : 16.0);
     return [[SFStyleManager sharedManager] titleFontOfSize:fontSize];
 }
 
