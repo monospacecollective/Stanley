@@ -49,7 +49,7 @@
 
 + (CGSize)padding
 {
-    return CGSizeMake(8.0, 0.0);
+    return CGSizeMake(15.0, 0.0);
 }
 
 @end
