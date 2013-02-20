@@ -32,7 +32,7 @@
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
-        self.backgroundColor = [[UIColor whiteColor] colorWithNoiseWithOpacity:0.1 andBlendMode:kCGBlendModeMultiply];
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"303030"];
         
         self.image = [UIImageView new];
         self.image.contentMode = UIViewContentModeScaleAspectFill;
@@ -43,13 +43,13 @@
         self.placeholderIcon = [FXLabel new];
         self.placeholderIcon.font = self.class.placeholderIconFont;
         self.placeholderIcon.text = @"\U0000E320";
-        self.placeholderIcon.textColor = [[UIColor colorWithHexString:@"404040"] colorWithNoiseWithOpacity:0.1 andBlendMode:kCGBlendModeMultiply];
+        self.placeholderIcon.textColor = [UIColor colorWithHexString:@"222222"];
         self.placeholderIcon.backgroundColor = [UIColor clearColor];
-        self.placeholderIcon.shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
+        self.placeholderIcon.shadowColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
         self.placeholderIcon.shadowOffset = CGSizeMake(0.0, 1.0);
         self.placeholderIcon.shadowBlur = 0.0;
         self.placeholderIcon.innerShadowColor = [UIColor colorWithHexString:@"101010"];
-        self.placeholderIcon.innerShadowOffset = CGSizeMake(0.0, 1.0);
+        self.placeholderIcon.innerShadowOffset = CGSizeMake(0.0, 2.0);
         self.placeholderIcon.textAlignment = UITextAlignmentCenter;
         [self.contentView addSubview:self.placeholderIcon];
         
@@ -65,8 +65,8 @@
         self.title.layer.masksToBounds = NO;
         [self.contentView addSubview:self.title];
         
-        self.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.3] CGColor];
-        self.layer.borderWidth = (([[UIScreen mainScreen] scale] == 2.0) ? 0.5 : 1.0);;
+        self.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.1] CGColor];
+        self.layer.borderWidth = 1.0;
         
         self.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.layer.shadowRadius = 0.0;
@@ -137,7 +137,6 @@
     
     __weak typeof(self) weakSelf = self;
     [self.image setImageWithURLRequest:imageRequest placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        
         weakSelf.image.image = image;
         weakSelf.placeholderIcon.hidden = YES;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
