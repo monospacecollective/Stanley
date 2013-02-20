@@ -26,7 +26,7 @@ static SFStyleManager *singletonInstance = nil;
     if (self) {
         [[UITableView appearance] setBackgroundColor:[self viewBackgroundColor]];
         
-        [MSPlainTableViewCell.appearance setEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.1]];
+        [MSPlainTableViewCell.appearance setEtchHighlightColor:[UIColor colorWithWhite:0.15 alpha:1.0]];
         [MSPlainTableViewCell.appearance setEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
         [MSPlainTableViewCell.appearance setSelectionColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
 
@@ -36,18 +36,12 @@ static SFStyleManager *singletonInstance = nil;
         [MSPlainTableViewCell.appearance setAccessoryCharacter:@"\U000025BB" forAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         [MSPlainTableViewCell.appearance setAccessoryCharacter:@"\U00002713" forAccessoryType:UITableViewCellAccessoryCheckmark];
         
-        [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.15]];
+        [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.1]];
         [MSPlainTableViewHeaderView.appearance setTopEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
         [MSPlainTableViewHeaderView.appearance setBottomEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
-        [MSPlainTableViewHeaderView.appearance setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
+        [MSPlainTableViewHeaderView.appearance setBackgroundColor:[UIColor colorWithHexString:@"303030"]];
         
-        CAGradientLayer *defaultBackgroundGradient = [CAGradientLayer layer];
-        UIColor *gradientTopColor = [UIColor colorWithWhite:0.225 alpha:1.0];
-        UIColor *gradientBottomColor = [UIColor colorWithWhite:0.25 alpha:1.0];
-        defaultBackgroundGradient.colors = @[(id)[gradientTopColor CGColor], (id)[gradientBottomColor CGColor]];
-        [MSPlainTableViewHeaderView.appearance setBackgroundGradient:defaultBackgroundGradient];
-        
-        UIFont *titleTextFont = [self titleFontOfSize:17.0];
+        UIFont *titleTextFont = [self titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20.0 : 17.0)];
         UIFont *detailTextFont = [self detailFontOfSize:15.0];
         UIFont *accessoryFont = [self symbolSetFontOfSize:15.0];
         UIColor *textColor = [UIColor whiteColor];
