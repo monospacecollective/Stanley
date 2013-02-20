@@ -13,13 +13,15 @@
 #import "SFCurrentTimeIndicatorCollectionViewCell.h"
 #import "Event.h"
 #import "SFTimeRowHeaderCollectionReusableView.h"
+#import "SFHorizontalGridlineCollectionReusableView.h"
 #import "SFDayColumnHeaderCollectionReusableView.h"
 #import "SFEventCollectionViewCell.h"
+#import "SFCurrentTimeHorizontalGridlineCollectionReusableView.h"
+#import "SFHeaderBackgroundCollectionReusableView.h"
 
 NSString * const SFEventCellReuseIdentifier = @"SFEventCollectionViewCellReuseIdentifier";
 NSString * const SFEventDayColumnHeaderReuseIdentifier = @"SFEventDayColumnHeaderReuseIdentifier";
 NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReuseIdentifier";
-NSString * const SFEventCurrentTimeIndicatorReuseIdentifier = @"SFEventCurrentTimeIndicatorReuseIdentifier";
 
 @interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SFCollectionViewDelegateWeekLayout>
 
@@ -69,6 +71,10 @@ NSString * const SFEventCurrentTimeIndicatorReuseIdentifier = @"SFEventCurrentTi
         [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
         [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
         [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionViewCell.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementHorizontalGridline];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementCurrentTimeHorizontalGridline];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindTimeRowHeaderBackground];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindDayColumnHeaderBackground];
     } else {
         [self.collectionView registerClass:PSUICollectionReusableView.class forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
     }
@@ -136,7 +142,7 @@ NSString * const SFEventCurrentTimeIndicatorReuseIdentifier = @"SFEventCurrentTi
 {
     SFEventCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
     cell.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    return cell;
+    return (PSUICollectionViewCell *)cell;
 }
 
 - (PSUICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -150,6 +156,7 @@ NSString * const SFEventCurrentTimeIndicatorReuseIdentifier = @"SFEventCurrentTi
             dateFormatter.dateFormat = @"EEEE, MMM d";
             SFDayColumnHeaderCollectionReusableView *dayColumnView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
             dayColumnView.day.text = [[dateFormatter stringFromDate:date] uppercaseString];
+            dayColumnView.today = YES;
             view = (PSUICollectionReusableView *)dayColumnView;
         }
         else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {
