@@ -1,5 +1,5 @@
 //
-//  SFCurrentTimeIndicatorCollectionViewCell.h
+//  SFCurrentTimeIndicatorCollectionReusableView.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/18/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFCurrentTimeIndicatorCollectionViewCell : UICollectionReusableView
+@interface SFCurrentTimeIndicatorCollectionReusableView : UICollectionReusableView
 
 @end

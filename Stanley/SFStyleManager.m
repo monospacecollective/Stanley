@@ -130,6 +130,16 @@ static SFStyleManager *singletonInstance = nil;
     return [UIColor colorWithHexString:@"303030"];
 }
 
+- (UIColor *)primaryTextColor;
+{
+    return [UIColor colorWithHexString:@"ffffff"];
+}
+
+- (UIColor *)secondaryTextColor
+{
+    return [UIColor colorWithHexString:@"aaaaaa"];
+}
+
 #pragma mark - Fonts
 
 - (UIFont *)symbolSetFontOfSize:(CGFloat)size
@@ -158,7 +168,7 @@ static SFStyleManager *singletonInstance = nil;
 {
     collectionView.backgroundColor = [self viewBackgroundColor];
     collectionView.backgroundView = nil;
-    collectionView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
+    collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 }
 
 #pragma mark - UIBarButtonItem Custom Views

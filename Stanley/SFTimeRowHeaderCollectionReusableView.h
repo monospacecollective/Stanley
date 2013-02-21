@@ -12,6 +12,4 @@
 
 @property (nonatomic, strong) UILabel *time;
 
-+ (CGSize)padding;
-
 @end

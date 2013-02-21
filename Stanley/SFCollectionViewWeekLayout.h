@@ -16,8 +16,13 @@ extern NSString *const SFCollectionElementKindTimeRowHeaderBackground;
 extern NSString *const SFCollectionElementKindDayColumnHeaderBackground;
 
 // Gridlines
-extern NSString *const SFCollectionElementHorizontalGridline;
-extern NSString *const SFCollectionElementCurrentTimeHorizontalGridline;
+extern NSString *const SFCollectionElementKindHorizontalGridline;
+extern NSString *const SFCollectionElementKindCurrentTimeHorizontalGridline;
+
+typedef NS_ENUM(NSUInteger, SFWeekLayoutSectionLayoutType) {
+    SFWeekLayoutSectionLayoutTypeHorizontalTile,
+    SFWeekLayoutSectionLayoutTypeVerticalTile
+};
 
 @class SFCollectionViewWeekLayout;
 
@@ -25,14 +30,14 @@ extern NSString *const SFCollectionElementCurrentTimeHorizontalGridline;
 
 @required
 
-- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout dayForSection:(NSInteger)section;
-- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (NSDate *)currentTimeComponentsForCollectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout;
+- (NSDate *)collectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout dayForSection:(NSInteger)section;
+- (NSDate *)collectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (NSDate *)collectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (NSDate *)currentTimeComponentsForCollectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout;
 
 @end
 
-@interface SFCollectionViewWeekLayout : UICollectionViewLayout
+@interface SFCollectionViewWeekLayout : PSUICollectionViewLayout
 
 @property (nonatomic, weak) id <SFCollectionViewDelegateWeekLayout> delegate;
 
@@ -40,13 +45,13 @@ extern NSString *const SFCollectionElementCurrentTimeHorizontalGridline;
 @property (nonatomic, assign) CGFloat hourHeight;
 @property (nonatomic, assign) CGFloat dayColumnHeaderReferenceHeight;
 @property (nonatomic, assign) CGFloat timeRowHeaderReferenceWidth;
-
 @property (nonatomic, assign) CGSize currentTimeIndicatorReferenceSize;
-
 @property (nonatomic, assign) CGFloat horizontalGridlineReferenceHeight;
 @property (nonatomic, assign) CGFloat currentTimeHorizontalGridlineReferenceHeight;
-
+@property (nonatomic, assign) UIEdgeInsets sectionMargin;
 @property (nonatomic, assign) UIEdgeInsets sectionInset;
+
+@property (nonatomic, assign) SFWeekLayoutSectionLayoutType sectionLayoutType;
 
 - (NSDate *)dateForTimeRowHeaderAtIndexPath:(NSIndexPath *)indexPath;
 - (NSDate *)dateForDayColumnHeaderAtIndexPath:(NSIndexPath *)indexPath;

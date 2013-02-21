@@ -69,7 +69,7 @@
 		3AAF0FCE16CB35EC0091D077 /* SFMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */; };
 		3AAF0FD116CB60840091D077 /* SFMasterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF0FD016CB60840091D077 /* SFMasterTableViewCell.m */; };
 		3AE72F7216D29E5D000B23AF /* SFCollectionViewWeekLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7116D29E5D000B23AF /* SFCollectionViewWeekLayout.m */; };
-		3AE72F7916D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7816D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.m */; };
+		3AE72F7916D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7816D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.m */; };
 		3AE72F7C16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7B16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.m */; };
 		3AE72F7F16D3254A000B23AF /* SFDayColumnHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F7E16D3254A000B23AF /* SFDayColumnHeaderCollectionReusableView.m */; };
 		3AE72F8216D332FC000B23AF /* SFEventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE72F8116D332FC000B23AF /* SFEventCollectionViewCell.m */; };
@@ -164,8 +164,8 @@
 		3AE72F7016D29E5D000B23AF /* SFCollectionViewWeekLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCollectionViewWeekLayout.h; sourceTree = "<group>"; };
 		3AE72F7116D29E5D000B23AF /* SFCollectionViewWeekLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCollectionViewWeekLayout.m; sourceTree = "<group>"; };
 		3AE72F7316D2EFD8000B23AF /* MSSystemVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSSystemVersion.h; sourceTree = "<group>"; };
-		3AE72F7716D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCurrentTimeIndicatorCollectionViewCell.h; sourceTree = "<group>"; };
-		3AE72F7816D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCurrentTimeIndicatorCollectionViewCell.m; sourceTree = "<group>"; };
+		3AE72F7716D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCurrentTimeIndicatorCollectionReusableView.h; sourceTree = "<group>"; };
+		3AE72F7816D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCurrentTimeIndicatorCollectionReusableView.m; sourceTree = "<group>"; };
 		3AE72F7A16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTimeRowHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		3AE72F7B16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTimeRowHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		3AE72F7D16D3254A000B23AF /* SFDayColumnHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDayColumnHeaderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 		3A0B2C5B16D467B300221F93 /* Collection Reusable Views */ = {
 			isa = PBXGroup;
 			children = (
-				3AE72F7716D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.h */,
-				3AE72F7816D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.m */,
+				3AE72F7716D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.h */,
+				3AE72F7816D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.m */,
 				3AE72F7A16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.h */,
 				3AE72F7B16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.m */,
 				3AE72F7D16D3254A000B23AF /* SFDayColumnHeaderCollectionReusableView.h */,
@@ -572,7 +572,7 @@
 				3AAEBDD916D084E2006A08A3 /* SFSplashViewController.m in Sources */,
 				3AAEBDDC16D16F1D006A08A3 /* SFLogoView.m in Sources */,
 				3AE72F7216D29E5D000B23AF /* SFCollectionViewWeekLayout.m in Sources */,
-				3AE72F7916D2F490000B23AF /* SFCurrentTimeIndicatorCollectionViewCell.m in Sources */,
+				3AE72F7916D2F490000B23AF /* SFCurrentTimeIndicatorCollectionReusableView.m in Sources */,
 				3AE72F7C16D2F625000B23AF /* SFTimeRowHeaderCollectionReusableView.m in Sources */,
 				3AE72F7F16D3254A000B23AF /* SFDayColumnHeaderCollectionReusableView.m in Sources */,
 				3AE72F8216D332FC000B23AF /* SFEventCollectionViewCell.m in Sources */,
@@ -704,7 +704,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Eric Horacek (VYB2MA7NV4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "stanley/Stanley-Prefix.pch";
-				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "stanley/Stanley-Info.plist";
 				PRODUCT_NAME = "Stanley Film";
 				PROVISIONING_PROFILE = "EDD5270B-81AD-4AEF-AB7C-58CC9753130C";

@@ -11,6 +11,8 @@
 @interface SFDayColumnHeaderCollectionReusableView : UICollectionReusableView
 
 @property (nonatomic, strong) UILabel *day;
+@property (nonatomic, strong) UIView *todayBackground;
+@property (nonatomic, assign) BOOL today;
 
 + (CGSize)padding;
 

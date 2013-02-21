@@ -30,7 +30,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.backgroundImage.frame = (CGRect){CGPointZero, {(self.frame.size.width + 2.0), self.frame.size.height}};
+    CGFloat backgroundImageInset = -2.0;
+    self.backgroundImage.frame = CGRectInset((CGRect){CGPointZero, self.frame.size}, backgroundImageInset, 0.0);
 }
 
 @end

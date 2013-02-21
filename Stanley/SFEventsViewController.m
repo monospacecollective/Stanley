@@ -10,12 +10,12 @@
 #import "SFStyleManager.h"
 #import "SFCollectionViewStickyHeaderFlowLayout.h"
 #import "SFCollectionViewWeekLayout.h"
-#import "SFCurrentTimeIndicatorCollectionViewCell.h"
 #import "Event.h"
+#import "SFEventCollectionViewCell.h"
+#import "SFCurrentTimeIndicatorCollectionReusableView.h"
 #import "SFTimeRowHeaderCollectionReusableView.h"
 #import "SFHorizontalGridlineCollectionReusableView.h"
 #import "SFDayColumnHeaderCollectionReusableView.h"
-#import "SFEventCollectionViewCell.h"
 #import "SFCurrentTimeHorizontalGridlineCollectionReusableView.h"
 #import "SFHeaderBackgroundCollectionReusableView.h"
 
@@ -35,13 +35,17 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (id)init
 {
-    id layout;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        layout = [[SFCollectionViewWeekLayout alloc] init];
-        [layout setDelegate:self];
-    } else {
-        layout = [[SFCollectionViewStickyHeaderFlowLayout alloc] init];
-    }
+    SFCollectionViewWeekLayout *layout = [[SFCollectionViewWeekLayout alloc] init];
+    layout.delegate = self;
+    
+    layout.sectionLayoutType = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? SFWeekLayoutSectionLayoutTypeHorizontalTile : SFWeekLayoutSectionLayoutTypeVerticalTile);
+    layout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 70.0 : 60.0);
+    layout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 266.0);
+    layout.timeRowHeaderReferenceWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
+    layout.dayColumnHeaderReferenceHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 60.0);
+    layout.currentTimeIndicatorReferenceSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(80.0, 40.0) : CGSizeMake(54.0, 40.0));
+    layout.sectionInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0) : UIEdgeInsetsMake(8.0, 12.0, 8.0, 12.0));
+    layout.sectionMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 60.0, 0.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 0.0));
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         // Custom initialization
@@ -67,16 +71,15 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     [[SFStyleManager sharedManager] styleCollectionView:(PSUICollectionView *)self.collectionView];
     [self.collectionView registerClass:SFEventCollectionViewCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
-        [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionViewCell.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementHorizontalGridline];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementCurrentTimeHorizontalGridline];
+    [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
+    [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindHorizontalGridline];
+        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline];
         [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindTimeRowHeaderBackground];
         [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindDayColumnHeaderBackground];
-    } else {
-        [self.collectionView registerClass:PSUICollectionReusableView.class forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
     }
     
     [self reloadData];
@@ -86,25 +89,6 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillLayoutSubviews
-{
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        
-        
-    } else {
-        
-        PSUICollectionViewFlowLayout *flowLayout = (PSUICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-        
-        flowLayout.itemSize = CGSizeMake(320.0, 88.0);
-        flowLayout.headerReferenceSize = CGSizeMake(320.0, 44.0);
-        
-        CGFloat spacingSize = 0;
-        flowLayout.sectionInset = UIEdgeInsetsMake(spacingSize, spacingSize, spacingSize, spacingSize);
-        flowLayout.minimumLineSpacing = spacingSize;
-
-    }
 }
 
 #pragma mark - SFEventsViewController
@@ -148,29 +132,26 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 - (PSUICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     PSUICollectionReusableView *view;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        if ([kind isEqualToString:SFCollectionElementKindDayColumnHeader]) {
-            
-            NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForDayColumnHeaderAtIndexPath:indexPath];
-            NSDateFormatter *dateFormatter = [NSDateFormatter new];
-            dateFormatter.dateFormat = @"EEEE, MMM d";
-            SFDayColumnHeaderCollectionReusableView *dayColumnView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
-            dayColumnView.day.text = [[dateFormatter stringFromDate:date] uppercaseString];
-            view = (PSUICollectionReusableView *)dayColumnView;
-        }
-        else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {
-            
-            NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForTimeRowHeaderAtIndexPath:indexPath];
-            NSDateFormatter *dateFormatter = [NSDateFormatter new];
-            dateFormatter.dateFormat = @"h a";
-            
-            SFTimeRowHeaderCollectionReusableView *timeRowView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier forIndexPath:indexPath];
-            timeRowView.time.text = [dateFormatter stringFromDate:date];
-            view = (PSUICollectionReusableView *)timeRowView;
-        }
-    } else {
-        view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
-        view.backgroundColor = [UIColor blueColor];
+    if ([kind isEqualToString:SFCollectionElementKindDayColumnHeader]) {
+        
+        NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForDayColumnHeaderAtIndexPath:indexPath];
+        
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"EEEE, MMM d";
+        SFDayColumnHeaderCollectionReusableView *dayColumnView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
+        dayColumnView.day.text = [[dateFormatter stringFromDate:date] uppercaseString];
+        dayColumnView.today = [[date beginningOfDay] isEqualToDate:[[NSDate date] beginningOfDay]];
+        view = (PSUICollectionReusableView *)dayColumnView;
+    }
+    else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {
+        
+        NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForTimeRowHeaderAtIndexPath:indexPath];
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"h a";
+        
+        SFTimeRowHeaderCollectionReusableView *timeRowView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier forIndexPath:indexPath];
+        timeRowView.time.text = [dateFormatter stringFromDate:date];
+        view = (PSUICollectionReusableView *)timeRowView;
     }
     return view;
 }

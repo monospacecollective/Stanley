@@ -11,6 +11,12 @@
 
 //#define LAYOUT_DEBUG
 
+@interface SFTimeRowHeaderCollectionReusableView ()
+
++ (UIEdgeInsets)padding;
+
+@end
+
 @implementation SFTimeRowHeaderCollectionReusableView
 
 - (id)initWithFrame:(CGRect)frame
@@ -20,7 +26,7 @@
         self.time = [UILabel new];
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [UIColor colorWithHexString:@"aaaaaa"];
-        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:15.0];
+        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 13.0)];
         self.time.textAlignment = UITextAlignmentRight;
         self.time.shadowColor = [UIColor blackColor];
         self.time.shadowOffset = CGSizeMake(0.0, -1.0);
@@ -41,15 +47,15 @@
     
     [self.time sizeToFit];
     CGRect timeFrame = self.time.frame;
-    timeFrame.size.width = (CGRectGetWidth(self.frame) - (self.class.padding.width * 2.0));
-    timeFrame.origin.x = self.class.padding.width;
+    timeFrame.size.width = (CGRectGetWidth(self.frame) - (self.class.padding.left + self.class.padding.right));
+    timeFrame.origin.x = self.class.padding.left;
     timeFrame.origin.y = nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0));
     self.time.frame = timeFrame;
 }
 
-+ (CGSize)padding
++ (UIEdgeInsets)padding
 {
-    return CGSizeMake(15.0, 0.0);
+    return ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(0.0, 0.0, 0.0, 15.0) : UIEdgeInsetsMake(0.0, 0.0, 0.0, 6.0));
 }
 
 @end

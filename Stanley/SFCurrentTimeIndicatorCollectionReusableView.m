@@ -1,15 +1,17 @@
 //
-//  SFCurrentTimeIndicatorCollectionViewCell.m
+//  SFCurrentTimeIndicatorCollectionReusableView.m
 //  Stanley
 //
 //  Created by Eric Horacek on 2/18/13.
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "SFCurrentTimeIndicatorCollectionViewCell.h"
+#import "SFCurrentTimeIndicatorCollectionReusableView.h"
 #import "SFStyleManager.h"
 
-@interface SFCurrentTimeIndicatorCollectionViewCell ()
+//#define LAYOUT_DEBUG
+
+@interface SFCurrentTimeIndicatorCollectionReusableView ()
 
 @property (nonatomic, strong) UILabel *time;
 @property (nonatomic, strong) UIImageView *backgroundImage;
@@ -17,13 +19,9 @@
 
 @end
 
-@implementation SFCurrentTimeIndicatorCollectionViewCell
+@implementation SFCurrentTimeIndicatorCollectionReusableView
 
-- (void)dealloc
-{
-    [self.minuteTimer invalidate];
-    self.minuteTimer = nil;
-}
+#pragma mark - UIView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -37,7 +35,7 @@
         self.time = [UILabel new];
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [UIColor whiteColor];
-        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:17.0];
+        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 17.0 : 15.0)];
         self.time.textAlignment = UITextAlignmentCenter;
         self.time.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.time.layer.shadowRadius = 0.0;
@@ -55,11 +53,25 @@
         [[NSRunLoop currentRunLoop] addTimer:self.minuteTimer forMode:NSDefaultRunLoopMode];
         
         [self updateTime];
+        
+#if defined(LAYOUT_DEBUG)
+        self.time.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+        self.backgroundImage.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
+#endif
     }
     return self;
 }
 
--(void)minuteTick:(id)sender
+- (void)removeFromSuperview
+{
+    [self.minuteTimer invalidate];
+    self.minuteTimer = nil;
+    [super removeFromSuperview];
+}
+
+#pragma mark - SFCurrentTimeIndicatorCollectionReusableView
+
+- (void)minuteTick:(id)sender
 {
     [self updateTime];
 }
@@ -74,8 +86,15 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.backgroundImage.frame = (CGRect){{4.0, 0.0}, self.frame.size};
-    self.time.frame = (CGRect){{4.0, 0.0}, self.frame.size};
+    
+    CGFloat backgroundImageInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? -4.0 : -2.0);
+    self.backgroundImage.frame = CGRectInset((CGRect){CGPointZero, self.frame.size}, backgroundImageInset, 0.0);
+    
+    [self.time sizeToFit];
+    CGRect timeFrame = self.time.frame;
+    timeFrame.origin.x = nearbyintf((CGRectGetWidth(self.frame) / 2.0) - (CGRectGetWidth(timeFrame) / 2.0));
+    timeFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0)) - 1.0);
+    self.time.frame = timeFrame;
 }
 
 @end
