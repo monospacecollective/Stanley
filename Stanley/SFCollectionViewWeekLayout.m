@@ -171,6 +171,8 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems
 {
+    [UIView setAnimationsEnabled:NO];
+    
     [super prepareForCollectionViewUpdates:updateItems];
     
     // Invalidate cached values
@@ -184,6 +186,11 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     [self.cachedColumnHeights removeAllObjects];
     [self.cachedEarliestHours removeAllObjects];
     [self.cachedLatestHours removeAllObjects];
+}
+
+- (void)finalizeCollectionViewUpdates
+{
+    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)prepareLayout
