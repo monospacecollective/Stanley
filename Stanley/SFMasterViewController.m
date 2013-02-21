@@ -17,7 +17,7 @@
 
 NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewControllerCellReuseIdentifier";
 
-@interface SFMasterViewController ()
+@interface SFMasterViewController () <MSNavigationPaneViewControllerDelegate>
 
 @property (nonatomic, strong) NSDictionary *paneTitles;
 @property (nonatomic, strong) NSDictionary *paneIcons;
@@ -74,10 +74,12 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.scrollsToTop = NO;
     self.tableView.rowHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 52.0 : 44.0);;
     [self.tableView registerClass:SFMasterTableViewCell.class forCellReuseIdentifier:SFMasterViewControllerCellReuseIdentifier];
     
     [self configureNavigationPaneForInterfaceOrientation:self.interfaceOrientation];
+    self.navigationPaneViewController.delegate = self;
     
     NSUInteger paneType = [[NSUserDefaults standardUserDefaults] integerForKey:SFUserDefaultsCurrentPaneType];
     [self transitionToPane:paneType];
@@ -192,6 +194,13 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     SFPaneType paneType = [self paneTypeForIndexPath:indexPath];
     [self transitionToPane:paneType];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - MSNavigationPaneViewControllerDelegate
+
+- (void)navigationPaneViewController:(MSNavigationPaneViewController *)navigationPaneViewController didUpdateToPaneState:(MSNavigationPaneState)state
+{
+    self.tableView.scrollsToTop = (state == MSNavigationPaneStateOpen);
 }
 
 @end
