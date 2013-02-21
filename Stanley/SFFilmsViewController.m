@@ -64,7 +64,6 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 - (void)viewWillLayoutSubviews
 {
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    
     flowLayout.itemSize = [SFFilmCollectionViewCell cellSizeForInterfaceOrientation:self.interfaceOrientation];
     flowLayout.sectionInset = [SFFilmCollectionViewCell cellMarginForInterfaceOrientation:self.interfaceOrientation];
     flowLayout.minimumLineSpacing = [SFFilmCollectionViewCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
@@ -99,11 +98,10 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
     return self.fetchedResultsController.fetchedObjects.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (PSUICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SFFilmCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier forIndexPath:indexPath];
     cell.film = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
     return cell;
 }
 
