@@ -16,4 +16,9 @@
 @dynamic latitude;
 @dynamic longitude;
 
+- (CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.latitude.doubleValue, self.longitude.doubleValue);
+}
+
 @end

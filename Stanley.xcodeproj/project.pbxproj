@@ -34,6 +34,9 @@
 		3A2BE28116CD5402000726C5 /* SFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BE28016CD5402000726C5 /* SFEventsViewController.m */; };
 		3A2BE28616CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BE28516CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m */; };
 		3A4DC8D716CF085E008C22DC /* SFNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DC8D616CF085E008C22DC /* SFNewsViewController.m */; };
+		3A502D7316D6D6910011C4AC /* SFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A502D7216D6D6910011C4AC /* SFMapViewController.m */; };
+		3A502D7516D6EBF10011C4AC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A502D7416D6EBF10011C4AC /* MapKit.framework */; };
+		3A502D7916D6EE170011C4AC /* SFLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A502D7816D6EE170011C4AC /* SFLocationAnnotation.m */; };
 		3A6BEB4216CEA06800893A7D /* SFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6BEB4116CEA06800893A7D /* SFConstants.m */; };
 		3AAEBDD316D0815D006A08A3 /* SFLogoBarButtonItemIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDD116D0815D006A08A3 /* SFLogoBarButtonItemIcon.png */; };
 		3AAEBDD416D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAEBDD216D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png */; };
@@ -109,6 +112,11 @@
 		3A2BE28516CD61AC000726C5 /* SFCollectionViewStickyHeaderFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCollectionViewStickyHeaderFlowLayout.m; sourceTree = "<group>"; };
 		3A4DC8D516CF085E008C22DC /* SFNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNewsViewController.h; sourceTree = "<group>"; };
 		3A4DC8D616CF085E008C22DC /* SFNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNewsViewController.m; sourceTree = "<group>"; };
+		3A502D7116D6D6910011C4AC /* SFMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapViewController.h; sourceTree = "<group>"; };
+		3A502D7216D6D6910011C4AC /* SFMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapViewController.m; sourceTree = "<group>"; };
+		3A502D7416D6EBF10011C4AC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3A502D7716D6EE170011C4AC /* SFLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLocationAnnotation.h; sourceTree = "<group>"; };
+		3A502D7816D6EE170011C4AC /* SFLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocationAnnotation.m; sourceTree = "<group>"; };
 		3A6BEB4116CEA06800893A7D /* SFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFConstants.m; sourceTree = "<group>"; };
 		3AAEBDD116D0815D006A08A3 /* SFLogoBarButtonItemIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFLogoBarButtonItemIcon.png; sourceTree = "<group>"; };
 		3AAEBDD216D0815D006A08A3 /* SFLogoBarButtonItemIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFLogoBarButtonItemIcon@2x.png"; sourceTree = "<group>"; };
@@ -183,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A502D7516D6EBF10011C4AC /* MapKit.framework in Frameworks */,
 				3AAF0F9916C95DE80091D077 /* QuartzCore.framework in Frameworks */,
 				3AAF0F7C16C95CA40091D077 /* UIKit.framework in Frameworks */,
 				3AAF0F7E16C95CA40091D077 /* Foundation.framework in Frameworks */,
@@ -265,6 +274,8 @@
 				3AAF0FCD16CB35EC0091D077 /* SFMasterViewController.m */,
 				3AAEBDD716D084E2006A08A3 /* SFSplashViewController.h */,
 				3AAEBDD816D084E2006A08A3 /* SFSplashViewController.m */,
+				3A502D7116D6D6910011C4AC /* SFMapViewController.h */,
+				3A502D7216D6D6910011C4AC /* SFMapViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -278,6 +289,15 @@
 				3AE72F7116D29E5D000B23AF /* SFCollectionViewWeekLayout.m */,
 			);
 			name = "Collection View Layouts";
+			sourceTree = "<group>";
+		};
+		3A502D7616D6ED8B0011C4AC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				3A502D7716D6EE170011C4AC /* SFLocationAnnotation.h */,
+				3A502D7816D6EE170011C4AC /* SFLocationAnnotation.m */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		3AAEBDD016D08153006A08A3 /* Bar Button Item Icons */ = {
@@ -294,6 +314,7 @@
 		3AAF0F6F16C95CA40091D077 = {
 			isa = PBXGroup;
 			children = (
+				3A502D7416D6EBF10011C4AC /* MapKit.framework */,
 				3AAF0F8116C95CA40091D077 /* Stanley */,
 				3AAF0F7A16C95CA40091D077 /* Frameworks */,
 				3AAF0F7916C95CA40091D077 /* Products */,
@@ -335,6 +356,7 @@
 				3AE4852D16CEA00100144845 /* SFConstants.h */,
 				3A6BEB4116CEA06800893A7D /* SFConstants.m */,
 				3AAF0FA616CA0CC60091D077 /* Stanley.xcdatamodeld */,
+				3A502D7616D6ED8B0011C4AC /* Map */,
 				3A2BE28316CD6183000726C5 /* Collection View Layouts */,
 				3AAF0FC116CB08720091D077 /* Views */,
 				3A0B2C5C16D467E800221F93 /* Table Cells */,
@@ -579,6 +601,8 @@
 				3A0B2C4F16D3F8CB00221F93 /* SFHorizontalGridlineCollectionReusableView.m in Sources */,
 				3A0B2C5216D403D900221F93 /* SFCurrentTimeHorizontalGridlineCollectionReusableView.m in Sources */,
 				3A0B2C5A16D4422E00221F93 /* SFHeaderBackgroundCollectionReusableView.m in Sources */,
+				3A502D7316D6D6910011C4AC /* SFMapViewController.m in Sources */,
+				3A502D7916D6EE170011C4AC /* SFLocationAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

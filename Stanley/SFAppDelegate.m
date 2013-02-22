@@ -56,6 +56,11 @@
     [announcementMapping addAttributeMappingsFromArray:@[ @"title", @"body" ]];
     [announcementMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"publish_datetime" : @"published" }];
     
+    RKEntityMapping *locationMapping = [RKEntityMapping mappingForEntityForName:@"Location" inManagedObjectStore:managedObjectStore];
+    locationMapping.identificationAttributes = @[ @"remoteID" ];
+    [locationMapping addAttributeMappingsFromArray:@[ @"name", @"latitude", @"longitude" ]];
+    [locationMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail" }];
+    
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"directors" toKeyPath:@"directors" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"writers" toKeyPath:@"writers" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"stars" toKeyPath:@"stars" withMapping:personMapping]];
@@ -69,7 +74,10 @@
     
     RKResponseDescriptor *announcementIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:announcementMapping pathPattern:@"/announcements.json" keyPath:@"announcement" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:announcementIndexResponseDescriptor];
-    
+
+    RKResponseDescriptor *locationIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping pathPattern:@"/locations.json" keyPath:@"location" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [objectManager addResponseDescriptor:locationIndexResponseDescriptor];
+
     [objectManager addFetchRequestBlock:^NSFetchRequest *(NSURL *URL) {
         RKPathMatcher *pathMatcher = [RKPathMatcher pathMatcherWithPattern:@"/films.json"];
         NSDictionary *argsDict = nil;
@@ -101,6 +109,18 @@
         if (match) {
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Announcement"];
             fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"published" ascending:YES] ];
+            return fetchRequest;
+        }
+        return nil;
+    }];
+    
+    [objectManager addFetchRequestBlock:^NSFetchRequest *(NSURL *URL) {
+        RKPathMatcher *pathMatcher = [RKPathMatcher pathMatcherWithPattern:@"/locations.json"];
+        NSDictionary *argsDict = nil;
+        BOOL match = [pathMatcher matchesPath:[URL relativePath] tokenizeQueryStrings:NO parsedArguments:&argsDict];
+        if (match) {
+            NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
+            fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
             return fetchRequest;
         }
         return nil;

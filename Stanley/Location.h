@@ -17,4 +17,6 @@
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 
+- (CLLocationCoordinate2D)coordinate;
+
 @end

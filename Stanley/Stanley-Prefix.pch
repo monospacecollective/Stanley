@@ -13,6 +13,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <QuartzCore/QuartzCore.h>
+    #import <MapKit/MapKit.h>
     // Pods
     #import <RestKit/RestKit.h>
     #import <UIColor-Utilities/UIColor+Expanded.h>
