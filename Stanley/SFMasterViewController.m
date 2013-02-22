@@ -44,7 +44,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
             @(SFPaneTypeNews) : @"News",
             @(SFPaneTypeEvents) : @"Events",
             @(SFPaneTypeMap) : @"Map",
-            @(SFPaneTypeCommunity) : @"Community"
+            @(SFPaneTypeCommunity) : @"Social"
         };
         self.paneIcons = @{
             @(SFPaneTypeFilms) : @"\U0000E320",
