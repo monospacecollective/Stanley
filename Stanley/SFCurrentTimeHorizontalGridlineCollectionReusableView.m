@@ -30,7 +30,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    CGFloat backgroundImageInset = -2.0;
+    CGFloat backgroundImageInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? -2.0 : -12.0);
     self.backgroundImage.frame = CGRectInset((CGRect){CGPointZero, self.frame.size}, backgroundImageInset, 0.0);
 }
 
