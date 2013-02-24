@@ -314,7 +314,6 @@
 		3AAF0F6F16C95CA40091D077 = {
 			isa = PBXGroup;
 			children = (
-				3A502D7416D6EBF10011C4AC /* MapKit.framework */,
 				3AAF0F8116C95CA40091D077 /* Stanley */,
 				3AAF0F7A16C95CA40091D077 /* Frameworks */,
 				3AAF0F7916C95CA40091D077 /* Products */,
@@ -336,6 +335,7 @@
 		3AAF0F7A16C95CA40091D077 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A502D7416D6EBF10011C4AC /* MapKit.framework */,
 				3AAF0F9816C95DE80091D077 /* QuartzCore.framework */,
 				3AAF0F7B16C95CA40091D077 /* UIKit.framework */,
 				3AAF0F7D16C95CA40091D077 /* Foundation.framework */,
