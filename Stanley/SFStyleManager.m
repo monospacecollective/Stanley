@@ -7,6 +7,7 @@
 //
 
 #import "SFStyleManager.h"
+#import "SFMasterViewController.h"
 
 static SFStyleManager *singletonInstance = nil;
 
@@ -24,7 +25,11 @@ static SFStyleManager *singletonInstance = nil;
 {
     self = [super init];
     if (self) {
+        
         [[UITableView appearance] setBackgroundColor:[self viewBackgroundColor]];
+        
+        [[UITableView appearanceWhenContainedIn:SFMasterViewController.class, nil] setBackgroundColor:[UIColor blackColor]];
+        [[MSPlainTableViewCell appearanceWhenContainedIn:SFMasterViewController.class, nil] setEtchHighlightColor:[UIColor blackColor]];
         
         [MSPlainTableViewCell.appearance setEtchHighlightColor:[UIColor colorWithWhite:0.15 alpha:1.0]];
         [MSPlainTableViewCell.appearance setEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
