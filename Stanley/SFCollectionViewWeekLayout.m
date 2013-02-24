@@ -218,6 +218,10 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 
 - (void)prepareHorizontalTileSectionLayout
 {
+    if (self.collectionView.numberOfSections == 0) {
+        return;
+    }
+    
     NSInteger earliestHour = [self earliestHour];
     NSInteger latestHour = [self latestHour];
     
@@ -334,6 +338,10 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 
 - (void)prepareVerticalTileSectionLayout
 {
+    if (self.collectionView.numberOfSections == 0) {
+        return;
+    }
+    
     // Current Time Indicator
     self.currentTimeIndicatorAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator withIndexPath:nil];
     [self.allAttributes addObject:self.currentTimeIndicatorAttributes];
