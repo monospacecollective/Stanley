@@ -11,9 +11,11 @@
 // Headers
 extern NSString *const SFCollectionElementKindTimeRowHeader;
 extern NSString *const SFCollectionElementKindDayColumnHeader;
-extern NSString *const SFCollectionElementKindCurrentTimeIndicator;
 extern NSString *const SFCollectionElementKindTimeRowHeaderBackground;
 extern NSString *const SFCollectionElementKindDayColumnHeaderBackground;
+
+// Current Time Indicator
+extern NSString *const SFCollectionElementKindCurrentTimeIndicator;
 
 // Gridlines
 extern NSString *const SFCollectionElementKindHorizontalGridline;
