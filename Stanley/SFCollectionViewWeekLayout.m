@@ -171,8 +171,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems
 {
-    [UIView setAnimationsEnabled:NO];
-    
     [super prepareForCollectionViewUpdates:updateItems];
     
     // Invalidate cached values
@@ -190,7 +188,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 
 - (void)finalizeCollectionViewUpdates
 {
-    [UIView setAnimationsEnabled:YES];
 }
 
 - (void)prepareLayout
@@ -222,6 +219,8 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
         return;
     }
     
+    // TODO: Current time indicator can float over the day header when scrolled all the way to the left
+    
     NSInteger earliestHour = [self earliestHour];
     NSInteger latestHour = [self latestHour];
     
@@ -234,9 +233,9 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     BOOL currentTimeIndicatorVisible = ((currentTimeDateComponents.hour >= earliestHour) && (currentTimeDateComponents.hour < latestHour));
     
     // Current Time Indicator
-    self.currentTimeIndicatorAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator withIndexPath:nil];
+    self.currentTimeIndicatorAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.allAttributes addObject:self.currentTimeIndicatorAttributes];
-    self.currentTimeHorizontalGridlineAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline withIndexPath:nil];
+    self.currentTimeHorizontalGridlineAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.allAttributes addObject:self.currentTimeHorizontalGridlineAttributes];
     
     self.currentTimeIndicatorAttributes.hidden = !currentTimeIndicatorVisible;
@@ -343,9 +342,9 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     }
     
     // Current Time Indicator
-    self.currentTimeIndicatorAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator withIndexPath:nil];
+    self.currentTimeIndicatorAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.allAttributes addObject:self.currentTimeIndicatorAttributes];
-    self.currentTimeHorizontalGridlineAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline withIndexPath:nil];
+    self.currentTimeHorizontalGridlineAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.allAttributes addObject:self.currentTimeHorizontalGridlineAttributes];
     BOOL currentTimeIndicatorVisible = NO;
     
@@ -479,7 +478,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
         return self.dayColumnHeaderAttributes[indexPath.section];
     }
     else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {
-        return self.timeRowHeaderAttributes[indexPath.row];
+        return self.timeRowHeaderAttributes[indexPath.item];
     }
     return nil;
 }
@@ -490,7 +489,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
         return self.currentTimeIndicatorAttributes;
     }
     else if ([decorationViewKind isEqualToString:SFCollectionElementKindHorizontalGridline]) {
-        return self.horizontalGridlineAttributes[indexPath.row];
+        return self.horizontalGridlineAttributes[indexPath.item];
     }
     else if ([decorationViewKind isEqualToString:SFCollectionElementKindCurrentTimeHorizontalGridline]) {
         return self.currentTimeHorizontalGridlineAttributes;
@@ -538,13 +537,45 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
             break;
     }
     NSDateComponents *dateComponents = [self dayForSection:indexPath.section];
-    dateComponents.hour = (earliestHour + indexPath.row);
+    dateComponents.hour = (earliestHour + indexPath.item);
     return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
 }
 
 - (NSDate *)dateForDayColumnHeaderAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[self.delegate collectionView:(PSUICollectionView *)self.collectionView layout:self dayForSection:indexPath.section] beginningOfDay];
+}
+
+- (void)scrollCollectionViewToClosetSectionToCurrentTimeAnimated:(BOOL)animated
+{
+    if (self.collectionView.numberOfSections != 0) {
+        
+        NSInteger closestSectionToCurrentTime = [self closestSectionToCurrentTime];
+        
+        CGPoint contentOffset;
+        if (self.sectionLayoutType == SFWeekLayoutSectionLayoutTypeHorizontalTile) {
+            contentOffset = CGPointMake(self.sectionMargin.left + (self.sectionWidth * closestSectionToCurrentTime), 0.0);
+        } else {
+            contentOffset = CGPointMake(0.0, [self stackedColumnHeightUpToSection:closestSectionToCurrentTime]);
+        }
+        [self.collectionView setContentOffset:contentOffset animated:animated];
+    }
+}
+
+- (NSInteger)closestSectionToCurrentTime
+{
+    NSDate *currentDate = [[self.delegate currentTimeComponentsForCollectionView:(PSUICollectionView *)self.collectionView layout:self] beginningOfDay];
+    NSTimeInterval minTimeInterval = CGFLOAT_MAX;
+    NSInteger closestSection = NSIntegerMax;
+    for (NSInteger section = 0; section < self.collectionView.numberOfSections; section++) {
+        NSDate *sectionDayDate = [self.delegate collectionView:(PSUICollectionView *)self.collectionView layout:self dayForSection:section];
+        NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:sectionDayDate];
+        if ((timeInterval < 0) && abs(timeInterval) < minTimeInterval) {
+            minTimeInterval = abs(timeInterval);
+            closestSection = section;
+        }
+    }
+    return ((closestSection != NSIntegerMax) ? closestSection : 0);
 }
 
 #pragma mark Column Heights
@@ -796,8 +827,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     NSDate *date = [self.delegate collectionView:(PSUICollectionView *)self.collectionView layout:self dayForSection:section];
     NSDateComponents *dayDateComponents = [[NSCalendar currentCalendar] components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSEraCalendarUnit) fromDate:date];
     
-//    NSAssert((dayDateComponents.day != NSUndefinedDateComponent), @"The collectionView:layout:dayForSection: date component must contain a 'day' component");
-    
     [self.cachedDayDateComponents setObject:dayDateComponents forKey:@(section)];
     return dayDateComponents;
 }
@@ -811,10 +840,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     NSDate *date = [self.delegate collectionView:(PSUICollectionView *)self.collectionView layout:self startTimeForItemAtIndexPath:indexPath];
     NSDateComponents *itemStartTimeDateComponents = [[NSCalendar currentCalendar] components:(NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
     
-    // Ensure the day component of the item is the same as the day component of the item's section
-//    NSDateComponents *day = [self dayForSection:indexPath.section];
-//    NSAssert1(day.day == itemStartTimeDateComponents.day, @"The 'day' date component (%i) from collectionView:layout:dayForSection: must match the 'day' component in collectionView:layout:startTimeForItemAtIndexPath:", indexPath.section);
-
     [self.cachedStartTimeDateComponents setObject:itemStartTimeDateComponents forKey:indexPath];
     return itemStartTimeDateComponents;
 }
@@ -827,10 +852,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     
     NSDate *date = [self.delegate collectionView:(PSUICollectionView *)self.collectionView layout:self endTimeForItemAtIndexPath:indexPath];
     NSDateComponents *itemEndTime = [[NSCalendar currentCalendar] components:(NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
-    
-    // Ensure the day component of the item is the same as the day component of the item's section
-//    NSDateComponents *day = [self dayForSection:indexPath.section];
-//    NSAssert1(day.day == itemEndTime.day, @"The 'day' date component (%i) from collectionView:layout:dayForSection: must match the 'day' component in collectionView:layout:endTimeForItemAtIndexPath:", indexPath.section);
     
     [self.cachedEndTimeDateComponents setObject:itemEndTime forKey:indexPath];
     return itemEndTime;

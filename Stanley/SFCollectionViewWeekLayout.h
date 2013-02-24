@@ -58,4 +58,7 @@ typedef NS_ENUM(NSUInteger, SFWeekLayoutSectionLayoutType) {
 - (NSDate *)dateForTimeRowHeaderAtIndexPath:(NSIndexPath *)indexPath;
 - (NSDate *)dateForDayColumnHeaderAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)scrollCollectionViewToClosetSectionToCurrentTimeAnimated:(BOOL)animated;
+- (NSInteger)closestSectionToCurrentTime;
+
 @end
