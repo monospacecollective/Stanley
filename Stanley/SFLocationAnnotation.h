@@ -19,6 +19,5 @@
 - (NSString *)title;
 - (NSString *)subtitle;
 - (CLLocationCoordinate2D)coordinate;
-- (CLLocationDistance)radius;
 
 @end
