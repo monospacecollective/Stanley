@@ -26,6 +26,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 @interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SFCollectionViewDelegateWeekLayout>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) SFCollectionViewWeekLayout *collectionViewLayout;
 @property (nonatomic, strong) NSMutableArray *objectChanges;
 @property (nonatomic, strong) NSMutableArray *sectionChanges;
 
@@ -40,19 +41,19 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     self.objectChanges = [NSMutableArray new];
     self.sectionChanges = [NSMutableArray new];
     
-    SFCollectionViewWeekLayout *layout = [[SFCollectionViewWeekLayout alloc] init];
-    layout.delegate = self;
-    layout.sectionLayoutType = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? SFWeekLayoutSectionLayoutTypeHorizontalTile : SFWeekLayoutSectionLayoutTypeVerticalTile);
-    layout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 100.0 : 80.0);
-    layout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 256.0);
-    layout.timeRowHeaderReferenceWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
-    layout.dayColumnHeaderReferenceHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
-    layout.currentTimeIndicatorReferenceSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
-    layout.sectionInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0) : UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0));
-    layout.sectionMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
-    layout.horizontalGridlineReferenceHeight = 2.0;
+    self.collectionViewLayout = [[SFCollectionViewWeekLayout alloc] init];
+    self.collectionViewLayout.delegate = self;
+    self.collectionViewLayout.sectionLayoutType = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? SFWeekLayoutSectionLayoutTypeHorizontalTile : SFWeekLayoutSectionLayoutTypeVerticalTile);
+    self.collectionViewLayout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 100.0 : 80.0);
+    self.collectionViewLayout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 256.0);
+    self.collectionViewLayout.timeRowHeaderReferenceWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
+    self.collectionViewLayout.dayColumnHeaderReferenceHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
+    self.collectionViewLayout.currentTimeIndicatorReferenceSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
+    self.collectionViewLayout.sectionInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0) : UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0));
+    self.collectionViewLayout.sectionMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
+    self.collectionViewLayout.horizontalGridlineReferenceHeight = 2.0;
     
-    self = [super initWithCollectionViewLayout:layout];
+    self = [super initWithCollectionViewLayout:self.collectionViewLayout];
     if (self) {
         // Custom initialization
     }
@@ -70,11 +71,11 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindHorizontalGridline];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindTimeRowHeaderBackground];
-        [(UICollectionViewLayout *)self.collectionView.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindDayColumnHeaderBackground];
+        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
+        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindHorizontalGridline];
+        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline];
+        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindTimeRowHeaderBackground];
+        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindDayColumnHeaderBackground];
     }
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
@@ -93,13 +94,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:4] atScrollPosition:PSTCollectionViewScrollPositionCenteredHorizontally animated:NO];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
 }
 
 #pragma mark - SFEventsViewController
