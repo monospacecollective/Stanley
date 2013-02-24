@@ -133,7 +133,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 - (void)transitionToPane:(SFPaneType)paneType
 {
     if (paneType == self.paneType) {
-        [self.navigationPaneViewController setPaneState:MSNavigationPaneStateClosed animated:YES];
+        [self.navigationPaneViewController setPaneState:MSNavigationPaneStateClosed animated:YES completion:nil];
         return;
     }
     BOOL animateTransition = self.navigationPaneViewController.paneViewController != nil;
@@ -141,7 +141,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     NSParameterAssert([paneViewControllerClass isSubclassOfClass:UIViewController.class]);
     UIViewController *paneViewController = (UIViewController *)[[paneViewControllerClass alloc] init];
     paneViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:self.paneIcons[@(paneType)] action:^{
-        [self.navigationPaneViewController setPaneState:MSNavigationPaneStateOpen animated:YES];
+        [self.navigationPaneViewController setPaneState:MSNavigationPaneStateOpen animated:YES completion:nil];
     }];
     
     paneViewController.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithImage:[UIImage imageNamed:@"SFLogoBarButtonItemIcon"] action:^{
