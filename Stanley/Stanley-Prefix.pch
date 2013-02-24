@@ -14,6 +14,8 @@
     #import <Foundation/Foundation.h>
     #import <QuartzCore/QuartzCore.h>
     #import <MapKit/MapKit.h>
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
     // Pods
     #import <RestKit/RestKit.h>
     #import <UIColor-Utilities/UIColor+Expanded.h>
@@ -22,7 +24,6 @@
     #import <UIControl-BlockAction/UIControl+BlockAction.h>
     #import <MSTableKit/MSTableKit.h>
     #import <MSNavigationPaneViewController/MSNavigationPaneViewController.h>
-    #import <StandardPaths/StandardPaths.h>
     #import <PSTCollectionView/PSTCollectionView.h>
     #import <FormatterKit/TTTTimeIntervalFormatter.h>
     #import <CupertinoYankee/NSDate+CupertinoYankee.h>
