@@ -155,17 +155,17 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     if ([self.sectionChanges count] > 0) {
         [self.collectionView performBatchUpdates:^{
             for (NSDictionary *change in self.sectionChanges) {
-                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
+                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id object, BOOL *stop) {
                     NSFetchedResultsChangeType type = [key unsignedIntegerValue];
                     switch (type) {
                         case NSFetchedResultsChangeInsert:
-                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
                             break;
                         case NSFetchedResultsChangeDelete:
-                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
                             break;
                         case NSFetchedResultsChangeUpdate:
-                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
                             break;
                     }
                 }];
@@ -184,20 +184,20 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         } else {
             [self.collectionView performBatchUpdates:^{
                 for (NSDictionary *change in self.objectChanges) {
-                    [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
+                    [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id object, BOOL *stop) {
                         NSFetchedResultsChangeType type = [key unsignedIntegerValue];
                         switch (type) {
                             case NSFetchedResultsChangeInsert:
-                                [self.collectionView insertItemsAtIndexPaths:@[obj]];
+                                [self.collectionView insertItemsAtIndexPaths:@[object]];
                                 break;
                             case NSFetchedResultsChangeDelete:
-                                [self.collectionView deleteItemsAtIndexPaths:@[obj]];
+                                [self.collectionView deleteItemsAtIndexPaths:@[object]];
                                 break;
                             case NSFetchedResultsChangeUpdate:
-                                [self.collectionView reloadItemsAtIndexPaths:@[obj]];
+                                [self.collectionView reloadItemsAtIndexPaths:@[object]];
                                 break;
                             case NSFetchedResultsChangeMove:
-                                [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
+                                [self.collectionView moveItemAtIndexPath:object[0] toIndexPath:object[1]];
                                 break;
                         }
                     }];
@@ -211,9 +211,9 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 {
     __block BOOL shouldReload = NO;
     for (NSDictionary *change in self.objectChanges) {
-        [change enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [change enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
             NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-            NSIndexPath *indexPath = obj;
+            NSIndexPath *indexPath = object;
             switch (type) {
                 case NSFetchedResultsChangeInsert:
                     if ([self.collectionView numberOfItemsInSection:indexPath.section] == 0) {
