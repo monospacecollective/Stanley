@@ -55,10 +55,9 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
     [self reloadData];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self zoomToAnnotationsAnimated:YES];
 }
 
 #pragma mark - SFMapViewController
@@ -123,9 +122,9 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
             
             // Calculate edge insets based on screen scale (1.0 or 2.0)
             CGFloat screenScale = [[UIScreen mainScreen] scale];
-            CGFloat topInset = 46.0 * screenScale;
-            CGFloat sideInset = 13.0 * screenScale;
-            CGFloat bottomInset = 6.0 * screenScale;
+            CGFloat topInset = 50.0 * screenScale;
+            CGFloat sideInset = 20.0 * screenScale;
+            CGFloat bottomInset = 10.0 * screenScale;
             
             UIEdgeInsets edgePadding = UIEdgeInsetsMake(topInset, sideInset, bottomInset, sideInset);
             [self.mapView setVisibleMapRect:routeRect edgePadding:edgePadding animated:animated];
