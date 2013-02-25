@@ -15,9 +15,9 @@
 @property (nonatomic, weak) Event *event;
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *time;
+@property (nonatomic, strong) UILabel *detail;
 @property (nonatomic, strong) UILabel *location;
-
-+ (CGFloat)cellSpacing;
-+ (UIEdgeInsets)padding;
+@property (nonatomic, strong) UILabel *timeIcon;
+@property (nonatomic, strong) UILabel *locationIcon;
 
 @end
