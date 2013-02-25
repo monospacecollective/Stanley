@@ -6,7 +6,7 @@ pod 'RestKit',                          '0.20.0rc1'
 pod 'UIColor-Utilities',                '~> 1.0.1'
 pod 'FXLabel',                          '~> 1.4.2'
 pod 'KGNoise',                          '~> 1.1.0'
-pod 'PonyDebugger',                     :head
+pod 'PonyDebugger',                     '0.2.1beta1'
 pod 'PSTCollectionView'
 pod 'FormatterKit',                     '~> 1.1.1'
 pod 'CupertinoYankee',                  '~> 0.1.1'
