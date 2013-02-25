@@ -16,6 +16,7 @@
 @interface SFAppDelegate ()
 
 - (void)setupRestKitWithBaseURL:(NSURL *)baseURL;
+- (void)setupPonyDebugger;
 
 @end
 
@@ -139,6 +140,14 @@
 //    RKLogConfigureByName("RestKit/CoreData", RKLogLevelDebug);
 }
 
+- (void)setupPonyDebugger
+{
+    PDDebugger *debugger = [PDDebugger defaultInstance];
+    [debugger autoConnect];
+    
+    [debugger enableViewHierarchyDebugging];
+}
+
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -146,6 +155,10 @@
     [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"MST"]];
     
     [self setupRestKitWithBaseURL:[NSURL URLWithString:@"http://stanley-film.herokuapp.com"]];
+    
+#if defined(DEBUG)
+    [self setupPonyDebugger];
+#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
