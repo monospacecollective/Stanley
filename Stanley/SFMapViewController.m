@@ -84,11 +84,9 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 {
     // Zoom in on an enclosing rect of the user's locations
     if (self.mapView.annotations.count > 1) {
-        
         // Calculate enclosing rect
         MKMapPoint northEastPoint = MKMapPointForCoordinate([self.mapView.annotations[0] coordinate]);
         MKMapPoint southWestPoint = MKMapPointForCoordinate([self.mapView.annotations[0] coordinate]);
-        
         // Iterate through the annotations, building an enclosing rect for all of them (with north east corner and south west corner)
         for (MKPointAnnotation *annotation in self.mapView.annotations) {
             MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
@@ -101,10 +99,8 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
             if (point.y < southWestPoint.y)
                 southWestPoint.y = point.y;
         }
-        
         // If the points are eqivalent, then just zoom in on them as a point
         if (MKMapPointEqualToPoint(northEastPoint, southWestPoint)) {
-            
             CLLocationCoordinate2D coordinate = MKCoordinateForMapPoint(northEastPoint);
             // Check the validity of the coordinate
             if (CLLocationCoordinate2DIsValid(coordinate)) {
@@ -115,18 +111,8 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
         // Otherwise we have a rect, build it and zoom on it (keeping paddings)
         else {
             // Build a rect of the locations from our corners
-            MKMapRect routeRect = MKMapRectMake(southWestPoint.x,
-                                                southWestPoint.y,
-                                                (northEastPoint.x - southWestPoint.x),
-                                                (northEastPoint.y - southWestPoint.y));
-            
-            // Calculate edge insets based on screen scale (1.0 or 2.0)
-            CGFloat screenScale = [[UIScreen mainScreen] scale];
-            CGFloat topInset = 50.0 * screenScale;
-            CGFloat sideInset = 20.0 * screenScale;
-            CGFloat bottomInset = 10.0 * screenScale;
-            
-            UIEdgeInsets edgePadding = UIEdgeInsetsMake(topInset, sideInset, bottomInset, sideInset);
+            MKMapRect routeRect = MKMapRectMake(southWestPoint.x, southWestPoint.y, (northEastPoint.x - southWestPoint.x), (northEastPoint.y - southWestPoint.y));
+            UIEdgeInsets edgePadding = UIEdgeInsetsMake(100.0, 40.0, 20.0, 40.0);
             [self.mapView setVisibleMapRect:routeRect edgePadding:edgePadding animated:animated];
         }
     }
@@ -211,6 +197,5 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 {
     
 }
-
 
 @end
