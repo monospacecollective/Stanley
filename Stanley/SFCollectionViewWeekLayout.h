@@ -32,14 +32,14 @@ typedef NS_ENUM(NSUInteger, SFWeekLayoutSectionLayoutType) {
 
 @required
 
-- (NSDate *)collectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout dayForSection:(NSInteger)section;
-- (NSDate *)collectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (NSDate *)collectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
-- (NSDate *)currentTimeComponentsForCollectionView:(PSUICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout;
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout dayForSection:(NSInteger)section;
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (NSDate *)currentTimeComponentsForCollectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout;
 
 @end
 
-@interface SFCollectionViewWeekLayout : PSUICollectionViewLayout
+@interface SFCollectionViewWeekLayout : UICollectionViewLayout
 
 @property (nonatomic, weak) id <SFCollectionViewDelegateWeekLayout> delegate;
 
