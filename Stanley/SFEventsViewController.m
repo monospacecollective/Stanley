@@ -81,7 +81,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
+                                                                        managedObjectContext:[RKManagedObjectStore defaultStore].persistentStoreManagedObjectContext
                                                                           sectionNameKeyPath:@"day"
                                                                                    cacheName:nil];
     self.fetchedResultsController.delegate = self;
@@ -118,16 +118,16 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-    NSMutableDictionary *change = [NSMutableDictionary new];
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            change[@(type)] = @(sectionIndex);
-            break;
         case NSFetchedResultsChangeDelete:
+        case NSFetchedResultsChangeUpdate: {
+            NSMutableDictionary *change = [NSMutableDictionary new];
             change[@(type)] = @(sectionIndex);
+            [self.sectionChanges addObject:change];
             break;
+        }
     }
-    [self.sectionChanges addObject:change];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
@@ -138,8 +138,6 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
             change[@(type)] = newIndexPath;
             break;
         case NSFetchedResultsChangeDelete:
-            change[@(type)] = indexPath;
-            break;
         case NSFetchedResultsChangeUpdate:
             change[@(type)] = indexPath;
             break;
@@ -152,7 +150,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    if ([self.sectionChanges count] > 0) {
+    if (self.sectionChanges.count != 0) {
         [self.collectionView performBatchUpdates:^{
             for (NSDictionary *change in self.sectionChanges) {
                 [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id object, BOOL *stop) {
@@ -166,14 +164,15 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                             break;
                         case NSFetchedResultsChangeUpdate:
                             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
-                            break;
                     }
                 }];
             }
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            [self.sectionChanges removeAllObjects];
+        }];
     }
     
-    if ([self.objectChanges count] > 0 && [self.sectionChanges count] == 0) {
+    if ((self.objectChanges.count != 0) && (self.sectionChanges.count == 0)) {
         if ([self shouldReloadCollectionViewToPreventKnownIssue]) {
             // This is to prevent a bug in UICollectionView from occurring.
             // The bug presents itself when inserting the first object or deleting the last object in a collection view.
@@ -202,7 +201,9 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                         }
                     }];
                 }
-            } completion:nil];
+            } completion:^(BOOL finished) {
+                [self.objectChanges removeAllObjects];
+            }];
         }
     }
 }

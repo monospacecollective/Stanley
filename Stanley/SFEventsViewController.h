@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFEventsViewController : PSUICollectionViewController
+@interface SFEventsViewController : UICollectionViewController
 
 @end
