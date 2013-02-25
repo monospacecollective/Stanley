@@ -176,6 +176,19 @@ static SFStyleManager *singletonInstance = nil;
     collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 }
 
+#pragma mark -  UIButton
+
+- (UIButton *)styledDisclosureButton
+{
+    UIButton* disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    UIImage *disclosureIcon = [UIImage imageNamed:@"SFDisclosureButtonBackground"];
+    UIImage *disclosureIconPressed = [UIImage imageNamed:@"SFDisclosureButtonPressedBackground"];
+    [disclosureButton setImage:disclosureIcon forState:UIControlStateNormal];
+    [disclosureButton setImage:disclosureIconPressed forState:UIControlStateHighlighted];
+    disclosureButton.frame = (CGRect){CGPointZero, disclosureIcon.size};
+    return disclosureButton;
+}
+
 #pragma mark - UIBarButtonItem Custom Views
 
 - (void)styleBarButtonItemCustomView:(UIButton *)button

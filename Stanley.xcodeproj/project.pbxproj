@@ -75,6 +75,10 @@
 		3A6CBAD916DAA6A000B4F041 /* SSStandard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */; };
 		3A6CBADB16DAB29A00B4F041 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBADA16DAB29A00B4F041 /* MapKit.framework */; };
 		3A6CBADE16DAB34000B4F041 /* Stanley.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBADC16DAB34000B4F041 /* Stanley.xcdatamodeld */; };
+		3AC0C0E116DB3E5600EBF550 /* SFDisclosureButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */; };
+		3AC0C0E216DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */; };
+		3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */; };
+		3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */; };
 		A8745C5921024A15A921C4AD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0133068B604C4BA86ECCAD /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +184,10 @@
 		3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SSStandard.ttf; sourceTree = "<group>"; };
 		3A6CBADA16DAB29A00B4F041 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A6CBADD16DAB34000B4F041 /* Stanley.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stanley.xcdatamodel; sourceTree = "<group>"; };
+		3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonBackground.png; sourceTree = "<group>"; };
+		3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonBackground@2x.png"; sourceTree = "<group>"; };
+		3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonPressedBackground.png; sourceTree = "<group>"; };
+		3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonPressedBackground@2x.png"; sourceTree = "<group>"; };
 		BB49208211714987AAD32B5E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BC0133068B604C4BA86ECCAD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -388,6 +396,10 @@
 		3A6CBAE716DAB68200B4F041 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */,
+				3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */,
+				3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */,
+				3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */,
 				3A6CBA4016DAA60300B4F041 /* Default.png */,
 				3A6CBA4216DAA60300B4F041 /* Default@2x.png */,
 				3A6CBA4416DAA60300B4F041 /* Default-568h@2x.png */,
@@ -527,6 +539,10 @@
 				3A6CBACE16DAA6A000B4F041 /* SFLogoBarButtonItemIcon~ipad.png in Resources */,
 				3A6CBAD516DAA6A000B4F041 /* SFSplashBackground.jpg in Resources */,
 				3A6CBAD916DAA6A000B4F041 /* SSStandard.ttf in Resources */,
+				3AC0C0E116DB3E5600EBF550 /* SFDisclosureButtonBackground.png in Resources */,
+				3AC0C0E216DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png in Resources */,
+				3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */,
+				3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

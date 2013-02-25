@@ -9,6 +9,7 @@
 #import "SFMapViewController.h"
 #import "Location.h"
 #import "SFLocationAnnotation.h"
+#import "SFStyleManager.h"
 
 NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 
@@ -169,24 +170,13 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:SFLocationAnnotation.class]) {
-        
         MKPinAnnotationView *pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFMapViewPinIdentifier];
-        
         if (!pinView) {
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:SFMapViewPinIdentifier];
         }
         pinView.animatesDrop = YES;
         pinView.canShowCallout = YES;
-        
-        UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        // TODO: Add button style image
-//        UIImage *disclosureIcon = [UIImage imageNamed:@"ERDisclosureIcon"];
-//        [rightButton setImage:disclosureIcon forState:UIControlStateNormal];
-//        [rightButton setImage:[disclosureIcon darkenedImageWithOverlayAlpha:0.3] forState:UIControlStateHighlighted];
-//        [rightButton setFrame:CGRectMake(0.0, 0.0, disclosureIcon.size.width, disclosureIcon.size.height)];
-//        rightButton.tag = [self.annotations indexOfObject:annotation];
-        pinView.rightCalloutAccessoryView = rightButton;
-        
+        pinView.rightCalloutAccessoryView = [[SFStyleManager sharedManager] styledDisclosureButton];
         return pinView;
     } else {
         return nil;
@@ -195,7 +185,7 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    
+    NSLog(@"%@ tapped", [[(SFLocationAnnotation *)view.annotation location] name]);
 }
 
 @end

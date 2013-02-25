@@ -66,7 +66,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 
 - (void)loadView
 {
-    self.tableView = [[MSPlainTableView alloc] init];
+    self.tableView = [[UITableView alloc] init];
     self.tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -75,6 +75,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.scrollsToTop = NO;
     self.tableView.rowHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 52.0 : 44.0);;
     [self.tableView registerClass:SFMasterTableViewCell.class forCellReuseIdentifier:SFMasterViewControllerCellReuseIdentifier];

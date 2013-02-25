@@ -25,6 +25,9 @@
 // UICollectionView
 - (void)styleCollectionView:(PSUICollectionView *)collectionView;
 
+// UIButton
+- (UIButton *)styledDisclosureButton;
+
 // UIBarButtonItem Custom Views
 - (void)styleBarButtonItemCustomView:(UIButton *)button;
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button;
