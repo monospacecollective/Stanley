@@ -16,10 +16,9 @@
 @dynamic end;
 @dynamic detail;
 
-- (NSUInteger)day
+- (NSDate *)day
 {
-    NSDateComponents *dayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:self.start];
-    return dayComponents.day;
+    return [self.start beginningOfDay];
 }
 
 @end

@@ -45,12 +45,12 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     self.collectionViewLayout.delegate = self;
     self.collectionViewLayout.sectionLayoutType = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? SFWeekLayoutSectionLayoutTypeHorizontalTile : SFWeekLayoutSectionLayoutTypeVerticalTile);
     self.collectionViewLayout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 100.0 : 80.0);
-    self.collectionViewLayout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 256.0);
+    self.collectionViewLayout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 240.0);
     self.collectionViewLayout.timeRowHeaderReferenceWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
     self.collectionViewLayout.dayColumnHeaderReferenceHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
     self.collectionViewLayout.currentTimeIndicatorReferenceSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
-    self.collectionViewLayout.sectionInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0) : UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0));
-    self.collectionViewLayout.sectionMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
+    self.collectionViewLayout.cellMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 3.0, 1.0, 3.0) : UIEdgeInsetsMake(1.0, 3.0, 1.0, 3.0));
+    self.collectionViewLayout.contentMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
     self.collectionViewLayout.horizontalGridlineReferenceHeight = 2.0;
     
     self = [super initWithCollectionViewLayout:self.collectionViewLayout];
@@ -118,16 +118,16 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
+    NSMutableDictionary *change = [NSMutableDictionary new];
     switch(type) {
         case NSFetchedResultsChangeInsert:
-        case NSFetchedResultsChangeDelete:
-        case NSFetchedResultsChangeUpdate: {
-            NSMutableDictionary *change = [NSMutableDictionary new];
             change[@(type)] = @(sectionIndex);
-            [self.sectionChanges addObject:change];
             break;
-        }
+        case NSFetchedResultsChangeDelete:
+            change[@(type)] = @(sectionIndex);
+            break;
     }
+    [self.sectionChanges addObject:change];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
@@ -138,6 +138,8 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
             change[@(type)] = newIndexPath;
             break;
         case NSFetchedResultsChangeDelete:
+            change[@(type)] = indexPath;
+            break;
         case NSFetchedResultsChangeUpdate:
             change[@(type)] = indexPath;
             break;
@@ -150,75 +152,76 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    void(^completion)(BOOL finished) = ^(BOOL finished) {
-        [self.sectionChanges removeAllObjects];
-        [self.objectChanges removeAllObjects];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
-//        });
-    };
+    NSLog(@"SECTION CHANGES: %@", self.sectionChanges);
+    NSLog(@"OBJECT CHANGES: %@", self.objectChanges);
     
-    if (self.sectionChanges.count) {
+    if ([self.sectionChanges count] > 0) {
         [self.collectionView performBatchUpdates:^{
             for (NSDictionary *change in self.sectionChanges) {
-                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id object, BOOL *stop) {
+                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
                     NSFetchedResultsChangeType type = [key unsignedIntegerValue];
                     switch (type) {
                         case NSFetchedResultsChangeInsert:
-                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
                             break;
                         case NSFetchedResultsChangeDelete:
-                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
                             break;
                         case NSFetchedResultsChangeUpdate:
-                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
                             break;
                     }
                 }];
             }
-        } completion:completion];
-    } else if (self.objectChanges.count) {
+        } completion:nil];
+    }
+    
+    if ([self.objectChanges count] > 0 && [self.sectionChanges count] == 0) {
+        
         if ([self shouldReloadCollectionViewToPreventKnownIssue]) {
-            // This is to prevent a bug in UICollectionView from occurring.
-            // The bug presents itself when inserting the first object or deleting the last object in a collection view.
-            // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
-            // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
-            // http://openradar.appspot.com/12954582
             [self.collectionView reloadData];
-            completion(YES);
         } else {
             [self.collectionView performBatchUpdates:^{
                 for (NSDictionary *change in self.objectChanges) {
-                    [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id object, BOOL *stop) {
+                    [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
                         NSFetchedResultsChangeType type = [key unsignedIntegerValue];
                         switch (type) {
                             case NSFetchedResultsChangeInsert:
-                                [self.collectionView insertItemsAtIndexPaths:@[object]];
+                                [self.collectionView insertItemsAtIndexPaths:@[obj]];
                                 break;
                             case NSFetchedResultsChangeDelete:
-                                [self.collectionView deleteItemsAtIndexPaths:@[object]];
+                                [self.collectionView deleteItemsAtIndexPaths:@[obj]];
                                 break;
                             case NSFetchedResultsChangeUpdate:
-                                [self.collectionView reloadItemsAtIndexPaths:@[object]];
+                                [self.collectionView reloadItemsAtIndexPaths:@[obj]];
                                 break;
                             case NSFetchedResultsChangeMove:
-                                [self.collectionView moveItemAtIndexPath:object[0] toIndexPath:object[1]];
+                                [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
                                 break;
                         }
                     }];
                 }
-            } completion:completion];
+            } completion:nil];
         }
+        
+        [self.sectionChanges removeAllObjects];
+        [self.objectChanges removeAllObjects];
     }
 }
 
 - (BOOL)shouldReloadCollectionViewToPreventKnownIssue
 {
+    // This is to prevent a bug in UICollectionView from occurring.
+    // The bug presents itself when inserting the first object or deleting the last object in a collection view.
+    // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
+    // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
+    // http://openradar.appspot.com/12954582
+    
     __block BOOL shouldReload = NO;
     for (NSDictionary *change in self.objectChanges) {
-        [change enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+        [change enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-            NSIndexPath *indexPath = object;
+            NSIndexPath *indexPath = obj;
             switch (type) {
                 case NSFetchedResultsChangeInsert:
                     if ([self.collectionView numberOfItemsInSection:indexPath.section] == 0) {
@@ -243,6 +246,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
             }
         }];
     }
+    
     return shouldReload;
 }
 

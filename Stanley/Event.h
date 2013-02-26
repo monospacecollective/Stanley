@@ -17,6 +17,6 @@
 @property (nonatomic, retain) NSDate * end;
 @property (nonatomic, retain) NSString * detail;
 
-- (NSUInteger)day;
+- (NSDate *)day;
 
 @end
