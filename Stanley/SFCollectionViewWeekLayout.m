@@ -178,8 +178,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 {
     [super prepareForCollectionViewUpdates:updateItems];
     
-    UIView.animationsEnabled = NO;
-    
     // Invalidate cached values
     [self.cachedDayDateComponents removeAllObjects];
     [self.cachedStartTimeDateComponents removeAllObjects];
@@ -206,8 +204,6 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
         }
     }
     [self.collectionView reloadData];
-    
-    UIView.animationsEnabled = YES;
 }
 
 - (void)registerClass:(Class)viewClass forDecorationViewOfKind:(NSString *)decorationViewKind

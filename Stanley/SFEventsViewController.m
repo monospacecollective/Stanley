@@ -153,10 +153,12 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     void(^completion)(BOOL finished) = ^(BOOL finished) {
         [self.sectionChanges removeAllObjects];
         [self.objectChanges removeAllObjects];
-        [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
+//        });
     };
     
-    if (self.sectionChanges.count != 0) {
+    if (self.sectionChanges.count) {
         [self.collectionView performBatchUpdates:^{
             for (NSDictionary *change in self.sectionChanges) {
                 [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id object, BOOL *stop) {
@@ -170,13 +172,12 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                             break;
                         case NSFetchedResultsChangeUpdate:
                             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[object unsignedIntegerValue]]];
+                            break;
                     }
                 }];
             }
         } completion:completion];
-    }
-    
-    if ((self.objectChanges.count != 0) && (self.sectionChanges.count == 0)) {
+    } else if (self.objectChanges.count) {
         if ([self shouldReloadCollectionViewToPreventKnownIssue]) {
             // This is to prevent a bug in UICollectionView from occurring.
             // The bug presents itself when inserting the first object or deleting the last object in a collection view.
