@@ -196,7 +196,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     [self.cachedColumnHeights removeAllObjects];
     [self.cachedEarliestHours removeAllObjects];
     [self.cachedLatestHours removeAllObjects];
-
+    
     // Invalidate Cached Item Attributes
     [self.cachedItemAttributes removeAllObjects];
     [self.cachedHorizontalGridlineAttributes removeAllObjects];
@@ -420,6 +420,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     
     CGFloat calendarGridMinX = (self.timeRowHeaderReferenceWidth + self.contentMargin.left);
     CGFloat calendarGridWidth = (self.collectionViewContentSize.width - self.timeRowHeaderReferenceWidth - self.contentMargin.left - self.contentMargin.right);
+    CGFloat sectionMinX = (calendarGridMinX + self.sectionMargin.left);
     
     for (NSInteger section = 0; section < self.collectionView.numberOfSections; section++) {
         
@@ -495,7 +496,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
                 
                 CGFloat itemMinY = (calendarGridMinY + (((itemStartTime.hour - earliestHour) * self.hourHeight) + (itemStartTime.minute * self.minuteHeight) + self.cellMargin.top));
                 CGFloat itemMaxY = (calendarGridMinY + (((itemEndTime.hour - earliestHour) * self.hourHeight) + (itemEndTime.minute * self.minuteHeight) - self.cellMargin.bottom));
-                CGFloat itemMinX = (calendarGridMinX + self.sectionMargin.left + self.cellMargin.left);
+                CGFloat itemMinX = (sectionMinX + self.cellMargin.left);
                 CGFloat itemMaxX = (itemMinX + (self.sectionWidth - self.cellMargin.left - self.cellMargin.right));
                 itemAttributes.frame = CGRectMake(itemMinX, itemMinY, (itemMaxX - itemMinX), (itemMaxY - itemMinY));
                 
@@ -504,7 +505,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
                 
                 self.cachedItemAttributes[indexPath] = itemAttributes;
             }
-            [self adjustItemsForOverlap:sectionItemAttributes inSection:section sectionMinX:calendarGridMinX];
+            [self adjustItemsForOverlap:sectionItemAttributes inSection:section sectionMinX:sectionMinX];
         }
         
         if (needsToPopulateCachedHorizontalGridlineAttributes) {
