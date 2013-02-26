@@ -55,12 +55,6 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
     [self reloadData];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewWillLayoutSubviews
 {
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
