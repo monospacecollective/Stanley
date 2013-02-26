@@ -108,7 +108,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 - (void)configureNavigationPaneForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     self.navigationPaneViewController.openDirection = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? MSNavigationPaneOpenDirectionTop : MSNavigationPaneOpenDirectionLeft);
-    self.navigationPaneViewController.openStateRevealWidth = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? ((self.tableView.rowHeight * SFPaneTypeCount) + 20.0) : 320.0);
+    self.navigationPaneViewController.openStateRevealWidth = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? (self.tableView.rowHeight * SFPaneTypeCount) : 320.0);
     
     if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
         CGRect tableViewFrame = self.tableView.frame;
