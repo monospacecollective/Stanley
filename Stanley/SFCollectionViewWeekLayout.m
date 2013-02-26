@@ -573,14 +573,24 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
 - (void)scrollCollectionViewToClosetSectionToCurrentTimeAnimated:(BOOL)animated
 {
     if (self.collectionView.numberOfSections != 0) {
-        
         NSInteger closestSectionToCurrentTime = [self closestSectionToCurrentTime];
-        
         CGPoint contentOffset;
         if (self.sectionLayoutType == SFWeekLayoutSectionLayoutTypeHorizontalTile) {
-            contentOffset = CGPointMake(self.sectionMargin.left + (self.sectionWidth * closestSectionToCurrentTime), 0.0);
+            CGFloat yOffset;
+            if (!CGRectEqualToRect(self.currentTimeHorizontalGridlineAttributes.frame, CGRectZero)) {
+                yOffset = nearbyintf(CGRectGetMinY(self.currentTimeHorizontalGridlineAttributes.frame) - (CGRectGetHeight(self.collectionView.frame) / 2.0));
+            } else {
+                yOffset = 0.0;
+            }
+            contentOffset = CGPointMake(self.sectionMargin.left + (self.sectionWidth * closestSectionToCurrentTime), yOffset);
         } else {
-            contentOffset = CGPointMake(0.0, [self stackedColumnHeightUpToSection:closestSectionToCurrentTime]);
+            CGFloat yOffset;
+            if (!CGRectEqualToRect(self.currentTimeHorizontalGridlineAttributes.frame, CGRectZero)) {
+                yOffset = fmaxf(nearbyintf(CGRectGetMinY(self.currentTimeHorizontalGridlineAttributes.frame) - (CGRectGetHeight(self.collectionView.frame) / 2.0)), [self stackedColumnHeightUpToSection:closestSectionToCurrentTime]);
+            } else {
+                yOffset = [self stackedColumnHeightUpToSection:closestSectionToCurrentTime];
+            }
+            contentOffset = CGPointMake(0.0, yOffset);
         }
         [self.collectionView setContentOffset:contentOffset animated:animated];
     }
@@ -594,7 +604,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     for (NSInteger section = 0; section < self.collectionView.numberOfSections; section++) {
         NSDate *sectionDayDate = [self.delegate collectionView:self.collectionView layout:self dayForSection:section];
         NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:sectionDayDate];
-        if ((timeInterval < 0) && abs(timeInterval) < minTimeInterval) {
+        if ((timeInterval <= 0) && abs(timeInterval) < minTimeInterval) {
             minTimeInterval = abs(timeInterval);
             closestSection = section;
         }
