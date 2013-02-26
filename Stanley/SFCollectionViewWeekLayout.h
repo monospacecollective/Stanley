@@ -50,8 +50,10 @@ typedef NS_ENUM(NSUInteger, SFWeekLayoutSectionLayoutType) {
 @property (nonatomic, assign) CGSize currentTimeIndicatorReferenceSize;
 @property (nonatomic, assign) CGFloat horizontalGridlineReferenceHeight;
 @property (nonatomic, assign) CGFloat currentTimeHorizontalGridlineReferenceHeight;
+
 @property (nonatomic, assign) UIEdgeInsets sectionMargin;
-@property (nonatomic, assign) UIEdgeInsets sectionInset;
+@property (nonatomic, assign) UIEdgeInsets contentMargin;
+@property (nonatomic, assign) UIEdgeInsets cellMargin;
 
 @property (nonatomic, assign) SFWeekLayoutSectionLayoutType sectionLayoutType;
 

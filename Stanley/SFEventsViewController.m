@@ -49,7 +49,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     self.collectionViewLayout.timeRowHeaderReferenceWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
     self.collectionViewLayout.dayColumnHeaderReferenceHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
     self.collectionViewLayout.currentTimeIndicatorReferenceSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
-    self.collectionViewLayout.sectionInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0) : UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0));
+    self.collectionViewLayout.cellMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0) : UIEdgeInsetsMake(1.0, 8.0, 1.0, 8.0));
     self.collectionViewLayout.sectionMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
     self.collectionViewLayout.horizontalGridlineReferenceHeight = 2.0;
     
