@@ -16,6 +16,7 @@
 @property (nonatomic, strong) SFLogoView *logoView;
 @property (nonatomic, strong) UILabel *taglineLabel;
 @property (nonatomic, strong) UIButton *doneButton;
+@property (nonatomic, strong) UIView *border;
 
 @end
 
@@ -31,6 +32,12 @@
     self.backgroundImageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:self.backgroundImageView];
+    
+    self.border = [UIView new];
+    self.border.backgroundColor = [UIColor clearColor];
+    self.border.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.border.layer.borderWidth = 1.0;
+    [self.view addSubview:self.border];
     
     self.logoView = [SFLogoView new];
     [self.view addSubview:self.logoView];
@@ -64,12 +71,15 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+
+    CGFloat borderInsetSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20.0 : 10.0);
+    self.border.frame = CGRectInset((CGRect){CGPointZero, self.backgroundImageView.frame.size}, borderInsetSize, borderInsetSize);
     
-    self.logoView.stanleyFontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 40.0 : 30.0));
+    self.logoView.stanleyFontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 36.0 : 30.0));
     
     [self.logoView sizeToFit];
     CGRect logoViewFrame = self.logoView.frame;
-    logoViewFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 80.0 : 20.0));
+    logoViewFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
     logoViewFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(logoViewFrame) / 2.0));
     self.logoView.frame = logoViewFrame;
     
@@ -83,7 +93,7 @@
     
     [self.doneButton sizeToFit];
     CGRect doneButtonFrame = self.doneButton.frame;
-    doneButtonFrame.origin.y = CGRectGetHeight(self.backgroundImageView.frame) - CGRectGetHeight(doneButtonFrame) - ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 80.0 : 20.0));
+    doneButtonFrame.origin.y = CGRectGetHeight(self.backgroundImageView.frame) - CGRectGetHeight(doneButtonFrame) - ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
     doneButtonFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(doneButtonFrame) / 2.0));
     self.doneButton.frame = doneButtonFrame;
 }
