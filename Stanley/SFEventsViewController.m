@@ -102,7 +102,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 - (void)reloadData
 {
     [[RKObjectManager sharedManager] getObjectsAtPath:@"/events.json" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"%@",[mappingResult array]);
+        
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"Event load failed with error: %@", error);
     }];

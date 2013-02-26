@@ -12,13 +12,6 @@
 
 @interface SFEventCollectionViewCell ()
 
-+ (UIFont *)titleFont;
-+ (UIFont *)detailFont;
-+ (UIFont *)iconFont;
-
-+ (CGFloat)contentMargin;
-+ (UIEdgeInsets)padding;
-
 @property (nonatomic, strong) UIView *shadowView;
 
 @end
@@ -56,7 +49,7 @@
         self.title = [UILabel new];
         self.title.backgroundColor = [UIColor clearColor];
         self.title.textColor = [[SFStyleManager sharedManager] primaryTextColor];
-        self.title.font = self.class.titleFont;
+        self.title.font = [[SFStyleManager sharedManager] titleFontOfSize:17.0];
         self.title.numberOfLines = 0;
         self.title.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.title.layer.shadowRadius = 2.0;
@@ -68,7 +61,7 @@
         self.time = [UILabel new];
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
-        self.time.font = self.class.detailFont;
+        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:14.0];
         self.time.numberOfLines = 0;
         self.time.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.time.layer.shadowRadius = 0.0;
@@ -80,7 +73,7 @@
         self.location = [UILabel new];
         self.location.backgroundColor = [UIColor clearColor];
         self.location.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
-        self.location.font = self.class.detailFont;
+        self.location.font = [[SFStyleManager sharedManager] detailFontOfSize:14.0];
         self.location.numberOfLines = 0;
         self.location.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.location.layer.shadowRadius = 0.0;
@@ -92,7 +85,7 @@
         self.detail = [UILabel new];
         self.detail.backgroundColor = [UIColor clearColor];
         self.detail.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
-        self.detail.font = self.class.detailFont;
+        self.detail.font = [[SFStyleManager sharedManager] detailFontOfSize:14.0];
         self.detail.numberOfLines = 0;
         self.detail.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.detail.layer.shadowRadius = 0.0;
@@ -104,7 +97,7 @@
         self.timeIcon = [UILabel new];
         self.timeIcon.backgroundColor = [UIColor clearColor];
         self.timeIcon.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
-        self.timeIcon.font = self.class.iconFont;
+        self.timeIcon.font = [[SFStyleManager sharedManager] symbolSetFontOfSize:14.0];
         self.timeIcon.numberOfLines = 0;
         self.timeIcon.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.timeIcon.layer.shadowRadius = 0.0;
@@ -117,7 +110,7 @@
         self.locationIcon = [UILabel new];
         self.locationIcon.backgroundColor = [UIColor clearColor];
         self.locationIcon.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
-        self.locationIcon.font = self.class.iconFont;
+        self.locationIcon.font = [[SFStyleManager sharedManager] symbolSetFontOfSize:14.0];
         self.locationIcon.numberOfLines = 0;
         self.locationIcon.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.locationIcon.layer.shadowRadius = 0.0;
@@ -137,53 +130,71 @@
     self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(self.contentView.frame, -2.0, -2.0)] CGPath];
     self.shadowView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(self.contentView.frame, -2.0, -2.0)] CGPath];
     
-    CGSize maxTitleSize = CGRectInset(self.contentView.frame, self.class.padding.left, self.class.padding.top).size;
+    UIEdgeInsets padding = (CGRectGetWidth(self.frame) > 120.0) ? UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0) : UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
+    CGFloat contentMargin = 5.0;
+    CGFloat minIconDisplayWidth = 120.0;
+    
+    CGSize maxTitleSize = CGRectInset(self.contentView.frame, padding.left, padding.top).size;
     CGSize titleSize = [self.title.text sizeWithFont:self.title.font constrainedToSize:maxTitleSize lineBreakMode:self.title.lineBreakMode];
     CGRect titleFrame = self.title.frame;
     titleFrame.size = titleSize;
-    titleFrame.origin.x = self.class.padding.left;
-    titleFrame.origin.y = self.class.padding.top;
+    titleFrame.origin.x = padding.left;
+    titleFrame.origin.y = padding.top;
     self.title.frame = titleFrame;
     
     [self.timeIcon sizeToFit];
     CGRect timeIconFrame = self.timeIcon.frame;
-    timeIconFrame.origin.x = self.class.padding.left;
-    timeIconFrame.origin.y = (CGRectGetMaxY(titleFrame) + self.class.contentMargin);
+    timeIconFrame.origin.x = padding.left;
+    timeIconFrame.origin.y = (CGRectGetMaxY(titleFrame) + contentMargin);
+    if (CGRectGetWidth(self.frame) < minIconDisplayWidth) {
+        timeIconFrame.size = CGSizeZero;
+    }
     self.timeIcon.frame = timeIconFrame;
     
-    CGSize maxTimeSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - CGRectGetMaxX(self.timeIcon.frame) - self.class.padding.right), CGFLOAT_MAX);
-    CGSize timeSize = [self.time.text sizeWithFont:self.time.font constrainedToSize:maxTimeSize];
+    CGFloat maxTimeWidth = (CGRectGetWidth(self.contentView.frame) - CGRectGetMaxX(self.timeIcon.frame) - padding.right);
+    CGSize timeSize = [self.time.text sizeWithFont:self.time.font forWidth:maxTimeWidth lineBreakMode:self.time.lineBreakMode];
     CGRect timeFrame = self.time.frame;
     timeFrame.size = timeSize;
-    timeFrame.origin.x = (CGRectGetMaxX(self.timeIcon.frame) + self.class.contentMargin);
-    timeFrame.origin.y = (CGRectGetMaxY(titleFrame) + self.class.contentMargin - 2.0);
+    if (CGRectGetWidth(self.frame) < minIconDisplayWidth) {
+        timeFrame.origin.x = padding.left;
+    } else {
+        timeFrame.origin.x = (CGRectGetMaxX(self.timeIcon.frame) + contentMargin);
+    }
+    timeFrame.origin.y = (CGRectGetMaxY(titleFrame) + contentMargin - 2.0);
     self.time.frame = timeFrame;
     
     [self.locationIcon sizeToFit];
     CGRect locationIconFrame = self.locationIcon.frame;
-    locationIconFrame.origin.x = self.class.padding.left;
-    locationIconFrame.origin.y = (CGRectGetMaxY(timeFrame) + self.class.contentMargin);
+    locationIconFrame.origin.x = padding.left;
+    locationIconFrame.origin.y = (CGRectGetMaxY(timeFrame) + contentMargin);
+    if (CGRectGetWidth(self.frame) < minIconDisplayWidth) {
+        locationIconFrame.size = CGSizeZero;
+    }
     self.locationIcon.frame = locationIconFrame;
     
-    CGSize maxLocationSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - CGRectGetMaxX(self.locationIcon.frame) - self.class.padding.right), CGFLOAT_MAX);
+    CGSize maxLocationSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - CGRectGetMaxX(self.locationIcon.frame) - padding.right), CGFLOAT_MAX);
     CGSize locationSize = [self.location.text sizeWithFont:self.location.font constrainedToSize:maxLocationSize];
     CGRect locationFrame = self.location.frame;
     locationFrame.size = locationSize;
-    locationFrame.origin.x = (CGRectGetMaxX(self.locationIcon.frame) + self.class.contentMargin);
-    locationFrame.origin.y = (CGRectGetMaxY(timeFrame) + self.class.contentMargin - 1.0);
+    if (CGRectGetWidth(self.frame) < minIconDisplayWidth) {
+        locationFrame.origin.x = padding.left;
+    } else {
+        locationFrame.origin.x = (CGRectGetMaxX(self.locationIcon.frame) + contentMargin);
+    }
+    locationFrame.origin.y = (CGRectGetMaxY(timeFrame) + contentMargin - 1.0);
     self.location.frame = locationFrame;
     
     CGFloat titleDetailMargin = 8.0;
     
-    CGSize maxDetailSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - self.class.padding.left - self.class.padding.right), CGRectGetHeight(self.contentView.frame) - CGRectGetMaxY(locationFrame) - titleDetailMargin - self.class.padding.bottom);
+    CGSize maxDetailSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - padding.left - padding.right), CGRectGetHeight(self.contentView.frame) - CGRectGetMaxY(locationFrame) - titleDetailMargin - padding.bottom);
     CGSize detailSize = [self.detail.text sizeWithFont:self.detail.font constrainedToSize:maxDetailSize];
     CGRect detailFrame = self.detail.frame;
     detailFrame.size = detailSize;
-    detailFrame.origin.x = self.class.padding.left;
+    detailFrame.origin.x = padding.left;
     detailFrame.origin.y = (CGRectGetMaxY(locationFrame) + titleDetailMargin);
     self.detail.frame = detailFrame;
     
-    CGFloat maxY = (CGRectGetHeight(self.contentView.frame) - self.class.padding.bottom);
+    CGFloat maxY = (CGRectGetHeight(self.contentView.frame) - padding.bottom);
     
     // If the time label is off the bottom, remove it
     if (CGRectGetMaxY(self.time.frame) > maxY) {
@@ -219,32 +230,6 @@
     self.detail.text = event.detail;
     
     [self setNeedsLayout];
-}
-
-+ (CGFloat)contentMargin
-{
-    return 5.0;
-}
-
-+ (UIEdgeInsets)padding
-{
-    CGFloat padding = 15.0;
-    return UIEdgeInsetsMake(padding, padding, padding, padding);
-}
-
-+ (UIFont *)titleFont
-{
-    return [[SFStyleManager sharedManager] titleFontOfSize:17.0];
-}
-
-+ (UIFont *)detailFont
-{
-    return [[SFStyleManager sharedManager] detailFontOfSize:14.0];
-}
-
-+ (UIFont *)iconFont
-{
-    return [[SFStyleManager sharedManager] symbolSetFontOfSize:14.0];
 }
 
 @end

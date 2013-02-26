@@ -319,6 +319,8 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     
     for (NSInteger section = 0; section < self.collectionView.numberOfSections; section++) {
         
+        CGFloat sectionMinX = (calendarGridMinX + (self.sectionWidth * section));
+        
         // Day Column Header
         UICollectionViewLayoutAttributes *dayColumnHeaderAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withIndexPath:[NSIndexPath indexPathForItem:0 inSection:section]];
         CGFloat dayColumnHeaderMinX = (self.sectionWidth * section) + self.timeRowHeaderReferenceWidth;
@@ -327,6 +329,8 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
         self.dayColumnHeaderAttributes[section] = dayColumnHeaderAttributes;
         [self.allAttributes addObject:dayColumnHeaderAttributes];
         
+        // Items
+        NSMutableArray *sectionItemAttributes = [NSMutableArray new];
         for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:section]; item++) {
             
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
@@ -338,13 +342,15 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
             
             CGFloat itemMinY = (((itemStartTime.hour - earliestHour) * self.hourHeight) + (itemStartTime.minute * self.minuteHeight) + calendarGridMinY + self.sectionInset.top);
             CGFloat itemMaxY = (((itemEndTime.hour - earliestHour) * self.hourHeight) + (itemEndTime.minute * self.minuteHeight) + calendarGridMinY - self.sectionInset.bottom);
-            CGFloat itemMinX = (calendarGridMinX + (self.sectionWidth * section) + self.sectionInset.left);
+            CGFloat itemMinX = (sectionMinX + self.sectionInset.left);
             CGFloat itemMaxX = (itemMinX + (self.sectionWidth - self.sectionInset.left - self.sectionInset.right));
             itemAttributes.frame = CGRectMake(itemMinX, itemMinY, (itemMaxX - itemMinX), (itemMaxY - itemMinY));
             
             self.itemAttributes[indexPath] = itemAttributes;
             [self.allAttributes addObject:itemAttributes];
+            [sectionItemAttributes addObject:itemAttributes];
         }
+        [self adjustItemsForOverlap:sectionItemAttributes inSection:section sectionMinX:sectionMinX];
     }
     
     // Horizontal Gridlines
@@ -438,6 +444,7 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
         [self.allAttributes addObject:dayColumnHeaderAttributes];
         
         // Items
+        NSMutableArray *sectionItemAttributes = [NSMutableArray new];
         for (NSInteger item = 0; item < [self.collectionView numberOfItemsInSection:section]; item++) {
             
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
@@ -455,7 +462,9 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
             
             self.itemAttributes[indexPath] = itemAttributes;
             [self.allAttributes addObject:itemAttributes];
+            [sectionItemAttributes addObject:itemAttributes];
         }
+        [self adjustItemsForOverlap:sectionItemAttributes inSection:section sectionMinX:calendarGridMinX];
         
         // Horizontal Gridlines
         NSUInteger horizontalGridlineIndex = 0;
@@ -472,6 +481,33 @@ NSString *const SFCollectionElementKindDayColumnHeaderBackground = @"SFCollectio
     
     self.currentTimeIndicatorAttributes.hidden = !currentTimeIndicatorVisible;
     self.currentTimeHorizontalGridlineAttributes.hidden = !currentTimeIndicatorVisible;
+}
+
+- (void)adjustItemsForOverlap:(NSArray *)sectionItemAttributes inSection:(NSUInteger)section sectionMinX:(CGFloat)sectionMinX
+{
+    NSMutableSet *overlappingItems = [NSMutableSet new];
+    for (UICollectionViewLayoutAttributes *itemAttributes in sectionItemAttributes) {
+        CGRect itemFrame = itemAttributes.frame;
+        [overlappingItems addObjectsFromArray:[sectionItemAttributes filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(UICollectionViewLayoutAttributes *layoutAttributes, NSDictionary *bindings) {
+            if (layoutAttributes != itemAttributes) {
+                return CGRectIntersectsRect(itemFrame, layoutAttributes.frame);
+            } else {
+                return NO;
+            }
+        }]]];
+    }
+    if (overlappingItems.count != 0) {
+        CGFloat divisions = (overlappingItems.count);
+        CGFloat divisionWidth = floorf(self.sectionWidth / divisions);
+        NSInteger currentDivision = 0;
+        for (UICollectionViewLayoutAttributes *divisionAttributes in overlappingItems) {
+            CGRect divisionAttributesFrame = divisionAttributes.frame;
+            divisionAttributesFrame.origin.x = sectionMinX + ((divisionWidth * currentDivision) + self.sectionInset.left);
+            divisionAttributesFrame.size.width = (divisionWidth - self.sectionInset.left - self.sectionInset.right);
+            divisionAttributes.frame = divisionAttributesFrame;
+            currentDivision++;
+        }
+    }
 }
 
 - (CGSize)collectionViewContentSize
