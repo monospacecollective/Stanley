@@ -150,6 +150,12 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    void(^completion)(BOOL finished) = ^(BOOL finished) {
+        [self.sectionChanges removeAllObjects];
+        [self.objectChanges removeAllObjects];
+        [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
+    };
+    
     if (self.sectionChanges.count != 0) {
         [self.collectionView performBatchUpdates:^{
             for (NSDictionary *change in self.sectionChanges) {
@@ -167,9 +173,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                     }
                 }];
             }
-        } completion:^(BOOL finished) {
-            [self.sectionChanges removeAllObjects];
-        }];
+        } completion:completion];
     }
     
     if ((self.objectChanges.count != 0) && (self.sectionChanges.count == 0)) {
@@ -180,6 +184,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
             // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
             // http://openradar.appspot.com/12954582
             [self.collectionView reloadData];
+            completion(YES);
         } else {
             [self.collectionView performBatchUpdates:^{
                 for (NSDictionary *change in self.objectChanges) {
@@ -201,9 +206,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                         }
                     }];
                 }
-            } completion:^(BOOL finished) {
-                [self.objectChanges removeAllObjects];
-            }];
+            } completion:completion];
         }
     }
 }
