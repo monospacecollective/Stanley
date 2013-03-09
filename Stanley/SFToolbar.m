@@ -22,7 +22,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImage *backgroundImage = [[UIImage imageNamed:@"SFHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0)];
+        UIImage *backgroundImage = [[UIImage imageNamed:@"SFFooterBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0)];
         [self setBackgroundImage:backgroundImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
 
     }
