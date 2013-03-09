@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A4CE8E116EBDF2200C7928C /* SFEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E016EBDF2200C7928C /* SFEventViewController.m */; };
 		3A6CBA2F16DAA60200B4F041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA2E16DAA60200B4F041 /* UIKit.framework */; };
 		3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3016DAA60200B4F041 /* Foundation.framework */; };
 		3A6CBA3316DAA60200B4F041 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3216DAA60200B4F041 /* CoreGraphics.framework */; };
@@ -106,6 +107,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A4CE8DF16EBDF2200C7928C /* SFEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventViewController.h; sourceTree = "<group>"; };
+		3A4CE8E016EBDF2200C7928C /* SFEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventViewController.m; sourceTree = "<group>"; };
 		3A6CBA2B16DAA60200B4F041 /* Stanley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6CBA2E16DAA60200B4F041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A6CBA3016DAA60200B4F041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -352,6 +355,8 @@
 				3AAF7AF416EA943B00081130 /* SFWebViewController.m */,
 				3AAF7AFC16EAA7A500081130 /* SFLocationViewController.h */,
 				3AAF7AFD16EAA7A500081130 /* SFLocationViewController.m */,
+				3A4CE8DF16EBDF2200C7928C /* SFEventViewController.h */,
+				3A4CE8E016EBDF2200C7928C /* SFEventViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -743,6 +748,7 @@
 				3AAF7AF816EA947500081130 /* SFTryAgainView.m in Sources */,
 				3AAF7AFE16EAA7A500081130 /* SFLocationViewController.m in Sources */,
 				3AAF7B0116EAB45400081130 /* SFMapCell.m in Sources */,
+				3A4CE8E116EBDF2200C7928C /* SFEventViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

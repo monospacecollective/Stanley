@@ -17,15 +17,19 @@
 #import "SFDayColumnHeaderCollectionReusableView.h"
 #import "SFCurrentTimeHorizontalGridlineCollectionReusableView.h"
 #import "SFHeaderBackgroundCollectionReusableView.h"
+#import "SFEventViewController.h"
+#import "SFNavigationBar.h"
+#import "SFToolbar.h"
 
 NSString * const SFEventCellReuseIdentifier = @"SFEventCellReuseIdentifier";
 NSString * const SFEventDayColumnHeaderReuseIdentifier = @"SFEventDayColumnHeaderReuseIdentifier";
 NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReuseIdentifier";
 
-@interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, MSCollectionViewDelegateCalendarLayout>
+@interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, MSCollectionViewDelegateCalendarLayout, UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) MSCollectionViewCalendarLayout *collectionViewLayout;
+@property (nonatomic, strong) UIPopoverController *eventPopoverController;
 
 - (void)reloadData;
 
@@ -157,6 +161,25 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     return view;
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFEventViewController *eventController = [[SFEventViewController alloc] init];
+    eventController.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.eventPopoverController = [[UIPopoverController alloc] initWithContentViewController:eventController];
+        self.eventPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
+        self.eventPopoverController.delegate = self;
+        [self.eventPopoverController presentPopoverFromRect:[self.collectionView layoutAttributesForItemAtIndexPath:indexPath].frame inView:self.collectionView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
+        [navigationController addChildViewController:eventController];
+        [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    }
+}
+
 #pragma mark - SFCollectionViewDelegateWeekLayout
 
 - (NSDate *)collectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout dayForSection:(NSInteger)section
@@ -185,6 +208,14 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 - (NSDate *)currentTimeComponentsForCollectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout
 {
     return [NSDate date];
+}
+
+#pragma mark - UIPopoverControllerDelegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    // Required to get the popover to dealloc when it's removed
+    self.eventPopoverController = nil;
 }
 
 @end
