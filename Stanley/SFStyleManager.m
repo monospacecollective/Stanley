@@ -395,10 +395,10 @@ static SFStyleManager *singletonInstance = nil;
 {
     SVSegmentedControl *segmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:titles];
     segmentedControl.changeHandler = handler;
-    segmentedControl.font = [self titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 18.0 : 16.0)];
-    segmentedControl.titleEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 20.0, 0.0, 20.0) : UIEdgeInsetsMake(1.0, 10.0, 0.0, 10.0));
+    segmentedControl.font = [self titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 18.0 : 15.0)];
+    segmentedControl.titleEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 20.0, 0.0, 20.0) : UIEdgeInsetsMake(2.0, 10.0, 0.0, 10.0));
     segmentedControl.height = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.0 : 32.0);
-    segmentedControl.thumb.tintColor = [UIColor colorWithHexString:@"606060"];
+    segmentedControl.thumb.tintColor = [UIColor colorWithHexString:@"505050"];
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
     return barItem;
 }
