@@ -10,7 +10,7 @@
 #import "SFStyleManager.h"
 #import "SFCollectionViewStickyHeaderFlowLayout.h"
 #import "Event.h"
-#import "SFEventCollectionViewCell.h"
+#import "SFEventCell.h"
 #import "SFCurrentTimeIndicatorCollectionReusableView.h"
 #import "SFTimeRowHeaderCollectionReusableView.h"
 #import "SFHorizontalGridlineCollectionReusableView.h"
@@ -18,7 +18,7 @@
 #import "SFCurrentTimeHorizontalGridlineCollectionReusableView.h"
 #import "SFHeaderBackgroundCollectionReusableView.h"
 
-NSString * const SFEventCellReuseIdentifier = @"SFEventCollectionViewCellReuseIdentifier";
+NSString * const SFEventCellReuseIdentifier = @"SFEventCellReuseIdentifier";
 NSString * const SFEventDayColumnHeaderReuseIdentifier = @"SFEventDayColumnHeaderReuseIdentifier";
 NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReuseIdentifier";
 
@@ -60,7 +60,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     [super viewDidLoad];
     
     [[SFStyleManager sharedManager] styleCollectionView:(UICollectionView *)self.collectionView];
-    [self.collectionView registerClass:SFEventCollectionViewCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
+    [self.collectionView registerClass:SFEventCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
     [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
     [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
     
@@ -125,7 +125,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFEventCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
+    SFEventCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
     cell.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return (UICollectionViewCell *)cell;
 }

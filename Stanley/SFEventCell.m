@@ -1,22 +1,22 @@
 //
-//  SFEventCollectionViewCell.m
+//  SFEventCell.m
 //  Stanley
 //
 //  Created by Eric Horacek on 2/18/13.
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "SFEventCollectionViewCell.h"
+#import "SFEventCell.h"
 #import "SFStyleManager.h"
 #import "Event.h"
 
-@interface SFEventCollectionViewCell ()
+@interface SFEventCell ()
 
 @property (nonatomic, strong) UIView *shadowView;
 
 @end
 
-@implementation SFEventCollectionViewCell
+@implementation SFEventCell
 
 #pragma mark - UIView
 
@@ -214,7 +214,7 @@
     }
 }
 
-#pragma mark - SFEventCollectionViewCell
+#pragma mark - SFEventCell
 
 - (void)setEvent:(Event *)event
 {

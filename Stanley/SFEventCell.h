@@ -1,5 +1,5 @@
 //
-//  SFEventCollectionViewCell.h
+//  SFEventCell.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/18/13.
@@ -10,7 +10,7 @@
 
 @class Event;
 
-@interface SFEventCollectionViewCell : UICollectionViewCell
+@interface SFEventCell : UICollectionViewCell
 
 @property (nonatomic, weak) Event *event;
 @property (nonatomic, strong) UILabel *title;

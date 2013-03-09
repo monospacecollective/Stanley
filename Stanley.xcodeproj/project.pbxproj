@@ -42,7 +42,7 @@
 		3A6CBAB916DAA6A000B4F041 /* SFCurrentTimeIndicatorBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6E16DAA69F00B4F041 /* SFCurrentTimeIndicatorBackground@2x.png */; };
 		3A6CBABA16DAA6A000B4F041 /* SFCurrentTimeIndicatorCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7016DAA69F00B4F041 /* SFCurrentTimeIndicatorCollectionReusableView.m */; };
 		3A6CBABB16DAA6A000B4F041 /* SFDayColumnHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7216DAA69F00B4F041 /* SFDayColumnHeaderCollectionReusableView.m */; };
-		3A6CBABC16DAA6A000B4F041 /* SFEventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */; };
+		3A6CBABC16DAA6A000B4F041 /* SFEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7416DAA69F00B4F041 /* SFEventCell.m */; };
 		3A6CBABD16DAA6A000B4F041 /* SFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7616DAA69F00B4F041 /* SFEventsViewController.m */; };
 		3A6CBABE16DAA6A000B4F041 /* SFFilmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7816DAA69F00B4F041 /* SFFilmCell.m */; };
 		3A6CBABF16DAA6A000B4F041 /* SFFilmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7A16DAA69F00B4F041 /* SFFilmsViewController.m */; };
@@ -157,8 +157,8 @@
 		3A6CBA7016DAA69F00B4F041 /* SFCurrentTimeIndicatorCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCurrentTimeIndicatorCollectionReusableView.m; sourceTree = "<group>"; };
 		3A6CBA7116DAA69F00B4F041 /* SFDayColumnHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDayColumnHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		3A6CBA7216DAA69F00B4F041 /* SFDayColumnHeaderCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDayColumnHeaderCollectionReusableView.m; sourceTree = "<group>"; };
-		3A6CBA7316DAA69F00B4F041 /* SFEventCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventCollectionViewCell.h; sourceTree = "<group>"; };
-		3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventCollectionViewCell.m; sourceTree = "<group>"; };
+		3A6CBA7316DAA69F00B4F041 /* SFEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventCell.h; sourceTree = "<group>"; };
+		3A6CBA7416DAA69F00B4F041 /* SFEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventCell.m; sourceTree = "<group>"; };
 		3A6CBA7516DAA69F00B4F041 /* SFEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventsViewController.h; sourceTree = "<group>"; };
 		3A6CBA7616DAA69F00B4F041 /* SFEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventsViewController.m; sourceTree = "<group>"; };
 		3A6CBA7716DAA69F00B4F041 /* SFFilmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmCell.h; sourceTree = "<group>"; };
@@ -383,8 +383,8 @@
 				3A6CBA6216DAA69F00B4F041 /* SFAnnouncementCell.m */,
 				3A6CBA9116DAA69F00B4F041 /* SFMasterCell.h */,
 				3A6CBA9216DAA69F00B4F041 /* SFMasterCell.m */,
-				3A6CBA7316DAA69F00B4F041 /* SFEventCollectionViewCell.h */,
-				3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */,
+				3A6CBA7316DAA69F00B4F041 /* SFEventCell.h */,
+				3A6CBA7416DAA69F00B4F041 /* SFEventCell.m */,
 				3A6CBA7716DAA69F00B4F041 /* SFFilmCell.h */,
 				3A6CBA7816DAA69F00B4F041 /* SFFilmCell.m */,
 				3AAF7AFF16EAB45300081130 /* SFMapCell.h */,
@@ -719,7 +719,7 @@
 				3A6CBAB716DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineCollectionReusableView.m in Sources */,
 				3A6CBABA16DAA6A000B4F041 /* SFCurrentTimeIndicatorCollectionReusableView.m in Sources */,
 				3A6CBABB16DAA6A000B4F041 /* SFDayColumnHeaderCollectionReusableView.m in Sources */,
-				3A6CBABC16DAA6A000B4F041 /* SFEventCollectionViewCell.m in Sources */,
+				3A6CBABC16DAA6A000B4F041 /* SFEventCell.m in Sources */,
 				3A6CBABD16DAA6A000B4F041 /* SFEventsViewController.m in Sources */,
 				3A6CBABE16DAA6A000B4F041 /* SFFilmCell.m in Sources */,
 				3A6CBABF16DAA6A000B4F041 /* SFFilmsViewController.m in Sources */,
