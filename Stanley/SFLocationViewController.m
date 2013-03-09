@@ -27,7 +27,6 @@ NSString *const SFLocationReuseIdentifierDescription = @"Description";
 NSString *const SFLocationReuseIdentifierMap = @"Map";
 NSString *const SFLocationReuseIdentifierEvent = @"Event";
 NSString *const SFLocationReuseIdentifierDirections = @"Directions";
-NSString *const SFLocationReuseIdentifierTickets = @"Tickets";
 
 @interface SFLocationViewController () <NSFetchedResultsControllerDelegate>
 
@@ -154,18 +153,6 @@ NSString *const SFLocationReuseIdentifierTickets = @"Tickets";
     // Actions Section
     {        
         NSMutableArray *rows = [NSMutableArray new];
-        
-        [rows addObject:@{
-            MSTableReuseIdentifer : SFLocationReuseIdentifierTickets,
-            MSTableClass : MSGroupedTableViewCell.class,
-            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"PURCHASE TICKETS";
-                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
-            },
-            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-#warning implement
-            }
-        }];
         
         [rows addObject:@{
             MSTableReuseIdentifer : SFLocationReuseIdentifierDirections,
