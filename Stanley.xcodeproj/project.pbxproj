@@ -305,7 +305,6 @@
 				3A6CBA6716DAA69F00B4F041 /* SFConstants.h */,
 				3A6CBA6816DAA69F00B4F041 /* SFConstants.m */,
 				3A6CBADC16DAB34000B4F041 /* Stanley.xcdatamodeld */,
-				3A6CBAE616DAB62200B4F041 /* Icon */,
 				3A6CBAE516DAB60700B4F041 /* Map */,
 				3A6CBAE416DAB5F500B4F041 /* Views */,
 				3A6CBAEA16DAB6C200B4F041 /* Collection View Layouts */,
@@ -454,6 +453,7 @@
 		3A6CBAE716DAB68200B4F041 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3A6CBAE616DAB62200B4F041 /* Icon */,
 				3AAF7ACC16E8243600081130 /* GIKPopoverBackgroundView */,
 				3AAF7AF916EA9E3400081130 /* Film Cell Favorite Indicator */,
 				3AAF7AFA16EA9E4300081130 /* Disclosure Button Background */,
