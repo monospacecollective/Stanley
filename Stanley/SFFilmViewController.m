@@ -7,7 +7,7 @@
 //
 
 #import "SFFilmViewController.h"
-#import "SFFilmCollectionViewCell.h"
+#import "SFFilmCell.h"
 #import "SFStyleManager.h"
 #import "Film.h"
 
@@ -105,8 +105,8 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionTitle,
                 MSTableSectionRows : @[@{
                     MSTableReuseIdentifer : SFFilmReuseIdentifierTitle,
-                    MSTableClass : SFFilmCollectionViewCell.class,
-                    MSTableConfigurationBlock : ^(SFFilmCollectionViewCell *cell){
+                    MSTableClass : SFFilmCell.class,
+                    MSTableConfigurationBlock : ^(SFFilmCell *cell){
                         cell.film = weakSelf.film;
                     },
                     MSTableSizeBlock : ^CGSize(CGFloat width){

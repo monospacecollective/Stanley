@@ -8,13 +8,13 @@
 
 #import "SFFilmsViewController.h"
 #import "Film.h"
-#import "SFFilmCollectionViewCell.h"
+#import "SFFilmCell.h"
 #import "SFStyleManager.h"
 #import "SFFilmViewController.h"
 #import "SFNavigationBar.h"
 #import "SFToolbar.h"
 
-NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionViewCellReuseIdentifier";
+NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 
 @interface SFFilmsViewController () <NSFetchedResultsControllerDelegate, UIPopoverControllerDelegate>
 
@@ -107,7 +107,7 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
     self.collectionView.alwaysBounceVertical = YES;
     [[SFStyleManager sharedManager] styleCollectionView:(UICollectionView *)self.collectionView];
     
-    [self.collectionView registerClass:SFFilmCollectionViewCell.class forCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier];
+    [self.collectionView registerClass:SFFilmCell.class forCellWithReuseIdentifier:SFFilmCellReuseIdentifier];
     
     [self reloadData];
 }
@@ -115,9 +115,9 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 - (void)viewWillLayoutSubviews
 {
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    flowLayout.itemSize = [SFFilmCollectionViewCell cellSizeForInterfaceOrientation:self.interfaceOrientation];
-    flowLayout.sectionInset = [SFFilmCollectionViewCell cellMarginForInterfaceOrientation:self.interfaceOrientation];
-    flowLayout.minimumLineSpacing = [SFFilmCollectionViewCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
+    flowLayout.itemSize = [SFFilmCell cellSizeForInterfaceOrientation:self.interfaceOrientation];
+    flowLayout.sectionInset = [SFFilmCell cellMarginForInterfaceOrientation:self.interfaceOrientation];
+    flowLayout.minimumLineSpacing = [SFFilmCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
 }
 
 #pragma mark - SFFilmsViewController
@@ -151,7 +151,7 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFFilmCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier forIndexPath:indexPath];
+    SFFilmCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFFilmCellReuseIdentifier forIndexPath:indexPath];
     cell.film = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return cell;
 }

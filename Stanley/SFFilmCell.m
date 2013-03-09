@@ -1,18 +1,18 @@
 //
-//  SFFilmCollectionViewCell.m
+//  SFFilmCell.m
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "SFFilmCollectionViewCell.h"
+#import "SFFilmCell.h"
 #import "Film.h"
 #import "SFStyleManager.h"
 
 //#define LAYOUT_DEBUG
 
-@interface SFFilmCollectionViewCell ()
+@interface SFFilmCell ()
 
 + (CGSize)padding;
 + (UIFont *)titleFont;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation SFFilmCollectionViewCell
+@implementation SFFilmCell
 
 #pragma mark - UICollectionViewCell
 
@@ -132,7 +132,7 @@
     self.placeholderIcon.hidden = NO;
 }
 
-#pragma mark - SFFilmCollectionViewCell
+#pragma mark - SFFilmCell
 
 - (void)setFilm:(Film *)film
 {

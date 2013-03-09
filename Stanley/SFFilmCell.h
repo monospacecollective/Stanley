@@ -1,5 +1,5 @@
 //
-//  SFFilmCollectionViewCell.h
+//  SFFilmCell.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
@@ -10,7 +10,7 @@
 
 @class Film;
 
-@interface SFFilmCollectionViewCell : UICollectionViewCell
+@interface SFFilmCell : UICollectionViewCell
 
 @property (nonatomic, weak) Film *film;
 @property (nonatomic, strong) UILabel *title;

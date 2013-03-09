@@ -44,7 +44,7 @@
 		3A6CBABB16DAA6A000B4F041 /* SFDayColumnHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7216DAA69F00B4F041 /* SFDayColumnHeaderCollectionReusableView.m */; };
 		3A6CBABC16DAA6A000B4F041 /* SFEventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */; };
 		3A6CBABD16DAA6A000B4F041 /* SFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7616DAA69F00B4F041 /* SFEventsViewController.m */; };
-		3A6CBABE16DAA6A000B4F041 /* SFFilmCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7816DAA69F00B4F041 /* SFFilmCollectionViewCell.m */; };
+		3A6CBABE16DAA6A000B4F041 /* SFFilmCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7816DAA69F00B4F041 /* SFFilmCell.m */; };
 		3A6CBABF16DAA6A000B4F041 /* SFFilmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7A16DAA69F00B4F041 /* SFFilmsViewController.m */; };
 		3A6CBAC016DAA6A000B4F041 /* SFFooterBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7B16DAA69F00B4F041 /* SFFooterBackground.png */; };
 		3A6CBAC116DAA6A000B4F041 /* SFFooterBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA7C16DAA69F00B4F041 /* SFFooterBackground@2x.png */; };
@@ -161,8 +161,8 @@
 		3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventCollectionViewCell.m; sourceTree = "<group>"; };
 		3A6CBA7516DAA69F00B4F041 /* SFEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventsViewController.h; sourceTree = "<group>"; };
 		3A6CBA7616DAA69F00B4F041 /* SFEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventsViewController.m; sourceTree = "<group>"; };
-		3A6CBA7716DAA69F00B4F041 /* SFFilmCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmCollectionViewCell.h; sourceTree = "<group>"; };
-		3A6CBA7816DAA69F00B4F041 /* SFFilmCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmCollectionViewCell.m; sourceTree = "<group>"; };
+		3A6CBA7716DAA69F00B4F041 /* SFFilmCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmCell.h; sourceTree = "<group>"; };
+		3A6CBA7816DAA69F00B4F041 /* SFFilmCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmCell.m; sourceTree = "<group>"; };
 		3A6CBA7916DAA69F00B4F041 /* SFFilmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmsViewController.h; sourceTree = "<group>"; };
 		3A6CBA7A16DAA69F00B4F041 /* SFFilmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmsViewController.m; sourceTree = "<group>"; };
 		3A6CBA7B16DAA69F00B4F041 /* SFFooterBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFFooterBackground.png; sourceTree = "<group>"; };
@@ -385,8 +385,8 @@
 				3A6CBA9216DAA69F00B4F041 /* SFMasterCell.m */,
 				3A6CBA7316DAA69F00B4F041 /* SFEventCollectionViewCell.h */,
 				3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */,
-				3A6CBA7716DAA69F00B4F041 /* SFFilmCollectionViewCell.h */,
-				3A6CBA7816DAA69F00B4F041 /* SFFilmCollectionViewCell.m */,
+				3A6CBA7716DAA69F00B4F041 /* SFFilmCell.h */,
+				3A6CBA7816DAA69F00B4F041 /* SFFilmCell.m */,
 				3AAF7AFF16EAB45300081130 /* SFMapCell.h */,
 				3AAF7B0016EAB45300081130 /* SFMapCell.m */,
 			);
@@ -721,7 +721,7 @@
 				3A6CBABB16DAA6A000B4F041 /* SFDayColumnHeaderCollectionReusableView.m in Sources */,
 				3A6CBABC16DAA6A000B4F041 /* SFEventCollectionViewCell.m in Sources */,
 				3A6CBABD16DAA6A000B4F041 /* SFEventsViewController.m in Sources */,
-				3A6CBABE16DAA6A000B4F041 /* SFFilmCollectionViewCell.m in Sources */,
+				3A6CBABE16DAA6A000B4F041 /* SFFilmCell.m in Sources */,
 				3A6CBABF16DAA6A000B4F041 /* SFFilmsViewController.m in Sources */,
 				3A6CBAC816DAA6A000B4F041 /* SFHeaderBackgroundCollectionReusableView.m in Sources */,
 				3A6CBAC916DAA6A000B4F041 /* SFHorizontalGridlineCollectionReusableView.m in Sources */,
