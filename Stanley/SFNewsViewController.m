@@ -8,13 +8,17 @@
 
 #import "SFNewsViewController.h"
 #import "Announcement.h"
-#import "SFAnnouncementTableViewCell.h"
+#import "SFAnnouncementCell.h"
+#import "SFStyleManager.h"
+#import "SFCollectionViewStickyHeaderFlowLayout.h"
 
 NSString * const SFNewsTableViewCellReuseIdentifier = @"SFNewsTableViewCellReuseIdentifier";
+NSString * const SFHeaderReuseIdentifier = @"SFHeaderReuseIdentifier";
 
 @interface SFNewsViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) SFCollectionViewStickyHeaderFlowLayout *collectionViewLayout;
 
 - (void)reloadData;
 
@@ -22,22 +26,26 @@ NSString * const SFNewsTableViewCellReuseIdentifier = @"SFNewsTableViewCellReuse
 
 @implementation SFNewsViewController
 
-- (void)loadView
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self.tableView = [[MSPlainTableView alloc] init];
-    self.tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.collectionViewLayout = [[SFCollectionViewStickyHeaderFlowLayout alloc] init];
+    self.collectionViewLayout.minimumLineSpacing = 0.0;
+    self.collectionViewLayout.stickySectionHeaders = YES;
+    self.collectionViewLayout.sectionInset = UIEdgeInsetsZero;
+    self = [super initWithCollectionViewLayout:self.collectionViewLayout];
+    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.tableView.rowHeight = 110.0;
+    [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
+    self.collectionView.alwaysBounceVertical = YES;
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Announcement"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"published" ascending:NO]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(published != nil)"];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
                                                                           sectionNameKeyPath:@"dayPublished"
@@ -47,7 +55,8 @@ NSString * const SFNewsTableViewCellReuseIdentifier = @"SFNewsTableViewCellReuse
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
-    [self.tableView registerClass:SFAnnouncementTableViewCell.class forCellReuseIdentifier:SFNewsTableViewCellReuseIdentifier];
+    [self.collectionView registerClass:SFAnnouncementCell.class forCellWithReuseIdentifier:SFNewsTableViewCellReuseIdentifier];
+    [self.collectionView registerClass:MSPlainTableViewHeaderView.class forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SFHeaderReuseIdentifier];
     
     [self reloadData];
 }
@@ -67,71 +76,70 @@ NSString * const SFNewsTableViewCellReuseIdentifier = @"SFNewsTableViewCellReuse
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return self.fetchedResultsController.sections.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFAnnouncementTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SFNewsTableViewCellReuseIdentifier];
+    SFAnnouncementCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:SFNewsTableViewCellReuseIdentifier forIndexPath:indexPath];
     Announcement *announcement = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.announcement = announcement;
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)collectionView:(UICollectionView *)collectionView titleForSupplementaryElementOfKind:(NSString *)kind inSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    NSString *title;
-    if (sectionInfo.objects.count != 0) {
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
-        dateFormatter.doesRelativeDateFormatting = YES;
-        dateFormatter.timeStyle = NSDateFormatterNoStyle;
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        Announcement *announcement = sectionInfo.objects[0];
-        title = [dateFormatter stringFromDate:[announcement.published beginningOfDay]];
+    if (kind == UICollectionElementKindSectionHeader) {   
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+        NSString *title;
+        if (sectionInfo.objects.count != 0) {
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            dateFormatter.dateFormat = @"EEEE, MMM d";
+            Announcement *announcement = sectionInfo.objects[0];
+            title = [dateFormatter stringFromDate:[announcement.published beginningOfDay]];
+        }
+        return [title uppercaseString];
     }
-    return [title uppercaseString];
+    return nil;
 }
 
-- (NSString *)tableView:(UITableView *)tableView detailForHeaderInSection:(NSInteger)section
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    NSString *detail;
-    if (sectionInfo.objects.count != 0) {
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"EEEE, MMM d";
-        Announcement *announcement = sectionInfo.objects[0];
-        detail = [dateFormatter stringFromDate:[announcement.published beginningOfDay]];
+    if (kind == UICollectionElementKindSectionHeader) {
+        MSPlainTableViewHeaderView *headerView = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFHeaderReuseIdentifier forIndexPath:indexPath];
+        headerView.title.text = [self collectionView:collectionView titleForSupplementaryElementOfKind:kind inSection:indexPath.section];
+        return headerView;
     }
-    return [detail uppercaseString];
+    return nil;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UICollectionViewDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MSPlainTableViewHeaderView *headerView = [[MSPlainTableViewHeaderView alloc] init];
-    headerView.textLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    headerView.detailTextLabel.text = [self tableView:tableView detailForHeaderInSection:section];
-    return headerView;
+    CGFloat width = CGRectGetWidth(self.collectionView.frame);
+    CGFloat height = [SFAnnouncementCell height];
+    return CGSizeMake(width, height);
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return 26.0;
+    CGFloat width = CGRectGetWidth(self.collectionView.frame);
+    CGFloat height = 28.0;
+    return CGSizeMake(width, height);
 }
 
 @end

@@ -14,10 +14,11 @@ typedef NS_ENUM(NSUInteger, SFPaneType) {
     SFPaneTypeEvents,
     SFPaneTypeMap,
     SFPaneTypeCommunity,
+    SFPaneTypeAbout,
     SFPaneTypeCount
 };
 
-@interface SFMasterViewController : UITableViewController
+@interface SFMasterViewController : UICollectionViewController
 
 @property (nonatomic, assign) SFPaneType paneType;
 @property (nonatomic, weak) MSNavigationPaneViewController *navigationPaneViewController;

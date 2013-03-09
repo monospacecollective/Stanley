@@ -10,12 +10,15 @@
 #import "Location.h"
 #import "SFLocationAnnotation.h"
 #import "SFStyleManager.h"
+#import "SFLocationViewController.h"
+#import "SFNavigationBar.h"
+#import "SFToolbar.h"
 
 NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
+NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationIdentifier";
 
 @interface SFMapViewController () <MKMapViewDelegate, NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)reloadData;
@@ -66,7 +69,6 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 - (void)reloadData
 {
     [[RKObjectManager sharedManager] getObjectsAtPath:@"/locations.json" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"%@",[mappingResult array]);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"Event load failed with error: %@", error);
     }];
@@ -175,17 +177,66 @@ NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:SFMapViewPinIdentifier];
         }
         pinView.animatesDrop = YES;
-        pinView.canShowCallout = YES;
+        pinView.canShowCallout = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
         pinView.rightCalloutAccessoryView = [[SFStyleManager sharedManager] styledDisclosureButton];
         return pinView;
-    } else {
+    }
+    else if ([annotation isKindOfClass:MKUserLocation.class]) {
+        SVPulsingAnnotationView *pulsingView = (SVPulsingAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:SFMapViewCurrentLocationIdentifier];
+        if(pulsingView == nil) {
+            pulsingView = [[SVPulsingAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:SFMapViewCurrentLocationIdentifier];
+            pulsingView.annotationColor = [UIColor colorWithRed:0.678431 green:0 blue:0 alpha:1];
+        }
+        pulsingView.canShowCallout = YES;
+        return pulsingView;
+    }
+    else {
         return nil;
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view.annotation isKindOfClass:SFLocationAnnotation.class]) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            
+            SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
+            locationController.location = [(SFLocationAnnotation *)view.annotation location];
+            
+            self.locationPopoverController = [[UIPopoverController alloc] initWithContentViewController:locationController];
+            self.locationPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
+            self.locationPopoverController.delegate = self;
+            
+            CGPoint origin = [self.mapView convertCoordinate:view.annotation.coordinate toPointToView:self.mapView];
+            origin.x -= nearbyintf(view.frame.size.width / 2.0);
+            origin.y -= view.frame.size.height;
+            CGRect frame = (CGRect){origin, view.frame.size};
+            
+            [self.locationPopoverController presentPopoverFromRect:frame inView:self.mapView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    NSLog(@"%@ tapped", [[(SFLocationAnnotation *)view.annotation location] name]);
+    SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
+    locationController.location = [(SFLocationAnnotation *)view.annotation location];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
+    [navigationController addChildViewController:locationController];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark - UIPopoverControllerDelegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    // Required to get the popover to dealloc when it's removed
+    self.locationPopoverController = nil;
+    
+    for (id <MKAnnotation> annotation in self.mapView.selectedAnnotations) {
+        [self.mapView deselectAnnotation:annotation animated:YES];
+    }
 }
 
 @end

@@ -46,6 +46,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>FuturaCom-Bold.ttf</string>
+		<string>FuturaCom-Medium.ttf</string>
 		<string>SSStandard.ttf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>

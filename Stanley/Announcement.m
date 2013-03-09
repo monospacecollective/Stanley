@@ -15,10 +15,9 @@
 @dynamic body;
 @dynamic published;
 
-- (NSInteger)dayPublished
+- (NSDate *)dayPublished
 {
-    NSDateComponents *dayComponents = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:self.published];
-    return dayComponents.day;
+    return [self.published beginningOfDay];
 }
 
 @end

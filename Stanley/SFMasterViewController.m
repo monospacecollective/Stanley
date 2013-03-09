@@ -9,12 +9,14 @@
 #import "SFMasterViewController.h"
 #import "SFStyleManager.h"
 #import "SFNavigationBar.h"
-#import "SFMasterTableViewCell.h"
+#import "SFToolbar.h"
+#import "SFMasterCell.h"
 #import "SFFilmsViewController.h"
 #import "SFEventsViewController.h"
 #import "SFNewsViewController.h"
 #import "SFSplashViewController.h"
 #import "SFMapViewController.h"
+#import "SFAboutViewController.h"
 
 NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewControllerCellReuseIdentifier";
 
@@ -23,6 +25,8 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 @property (nonatomic, strong) NSDictionary *paneTitles;
 @property (nonatomic, strong) NSDictionary *paneIcons;
 @property (nonatomic, strong) NSDictionary *paneClasses;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *collectionViewLayout;
 
 - (void)configureNavigationPaneForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 - (SFPaneType)paneTypeForIndexPath:(NSIndexPath *)indexPath;
@@ -34,7 +38,11 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self.collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.collectionViewLayout.minimumLineSpacing = 0.0;
+    self.collectionViewLayout.sectionInset = UIEdgeInsetsZero;
+    self.collectionViewLayout.itemSize = CGSizeMake(0.0, [SFMasterCell height]);
+    self = [super initWithCollectionViewLayout:self.collectionViewLayout];
     if (self) {
         
         _paneType = NSUIntegerMax;
@@ -44,41 +52,37 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
             @(SFPaneTypeNews) : @"News",
             @(SFPaneTypeEvents) : @"Events",
             @(SFPaneTypeMap) : @"Map",
-            @(SFPaneTypeCommunity) : @"Social"
+            @(SFPaneTypeCommunity) : @"Social",
+            @(SFPaneTypeAbout) : @"About"
         };
         self.paneIcons = @{
             @(SFPaneTypeFilms) : @"\U0000E320",
             @(SFPaneTypeNews) : @"\U00002709",
             @(SFPaneTypeEvents) : @"\U0001F4C6",
             @(SFPaneTypeMap) : @"\U0000E673",
-            @(SFPaneTypeCommunity) : @"\U0001F4AC"
+            @(SFPaneTypeCommunity) : @"\U0001F4AC",
+            @(SFPaneTypeAbout) : @"\U00002139"
         };
         self.paneClasses = @{
             @(SFPaneTypeFilms) : SFFilmsViewController.class,
             @(SFPaneTypeNews) : SFNewsViewController.class,
             @(SFPaneTypeEvents) : SFEventsViewController.class,
             @(SFPaneTypeMap) : SFMapViewController.class,
-            @(SFPaneTypeCommunity) : UITableViewController.class
+            @(SFPaneTypeCommunity) : UITableViewController.class,
+            @(SFPaneTypeAbout) : SFAboutViewController.class
         };
     }
     return self;
 }
 
-- (void)loadView
-{
-    self.tableView = [[UITableView alloc] init];
-    self.tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.scrollsToTop = NO;
-    self.tableView.rowHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 52.0 : 44.0);;
-    [self.tableView registerClass:SFMasterTableViewCell.class forCellReuseIdentifier:SFMasterViewControllerCellReuseIdentifier];
+    
+    self.collectionView.bounces = YES;
+    self.collectionView.scrollsToTop = NO;
+    self.collectionView.alwaysBounceVertical = YES;
+    [self.collectionView registerClass:SFMasterCell.class forCellWithReuseIdentifier:SFMasterViewControllerCellReuseIdentifier];
     
     [self configureNavigationPaneForInterfaceOrientation:self.interfaceOrientation];
     self.navigationPaneViewController.delegate = self;
@@ -103,22 +107,22 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     [self configureNavigationPaneForInterfaceOrientation:toInterfaceOrientation];
 }
 
-#pragma mark - SFMAsterViewController
+#pragma mark - SFMasterViewController
 
 - (void)configureNavigationPaneForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     self.navigationPaneViewController.openDirection = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? MSNavigationPaneOpenDirectionTop : MSNavigationPaneOpenDirectionLeft);
-    self.navigationPaneViewController.openStateRevealWidth = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? (self.tableView.rowHeight * SFPaneTypeCount) : 320.0);
+    self.navigationPaneViewController.openStateRevealWidth = (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? (self.collectionViewLayout.itemSize.height * SFPaneTypeCount) : 320.0);
     
+    CGRect viewFrame = self.collectionView.frame;
     if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
-        CGRect tableViewFrame = self.tableView.frame;
-        tableViewFrame.size.width = 320.0;
-        self.tableView.frame = tableViewFrame;
+        viewFrame.size.width = 320.0;
+        viewFrame.size.height = self.collectionView.superview.frame.size.height;
     } else {
-        CGRect tableViewFrame = self.tableView.frame;
-        tableViewFrame.size = self.tableView.superview.frame.size;
-        self.tableView.frame = tableViewFrame;
+        viewFrame.size = self.collectionView.superview.frame.size;
     }
+    self.collectionView.frame = viewFrame;
+    [self.collectionView reloadData];
 }
 
 - (SFPaneType)paneTypeForIndexPath:(NSIndexPath *)indexPath
@@ -152,14 +156,18 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     }];
     
     // Build navigation title with spaces between each character
-    NSMutableString *navigationTitle = [self.paneTitles[@(paneType)] mutableCopy];
-    for (NSUInteger characterIndex = 1; characterIndex < navigationTitle.length; characterIndex += 2) {
-        [navigationTitle insertString:@" " atIndex:characterIndex];
-    }
-    paneViewController.navigationItem.title = [navigationTitle uppercaseString];
+//    NSMutableString *navigationTitle = [self.paneTitles[@(paneType)] mutableCopy];
+//    for (NSUInteger characterIndex = 1; characterIndex < navigationTitle.length; characterIndex += 2) {
+//        [navigationTitle insertString:@" " atIndex:characterIndex];
+//    }
+//    paneViewController.navigationItem.title = [navigationTitle uppercaseString];
+    
+    paneViewController.navigationItem.title = [self.paneTitles[@(paneType)] uppercaseString];
 
-    UINavigationController *paneNavigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:UIToolbar.class];
+    UINavigationController *paneNavigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
     [paneNavigationController addChildViewController:paneViewController];
+    
+    [((SFNavigationBar *)paneNavigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:YES];
     
     [self.navigationPaneViewController setPaneViewController:paneNavigationController animated:animateTransition completion:^{
         [[NSUserDefaults standardUserDefaults] setInteger:paneType forKey:SFUserDefaultsCurrentPaneType];
@@ -167,42 +175,49 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     self.paneType = paneType;
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return SFPaneTypeCount;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SFMasterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SFMasterViewControllerCellReuseIdentifier];
+    SFMasterCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:SFMasterViewControllerCellReuseIdentifier forIndexPath:indexPath];
     SFPaneType paneType = [self paneTypeForIndexPath:indexPath];
-    cell.textLabel.text = [self.paneTitles[@(paneType)] uppercaseString];
+    cell.title.text = [self.paneTitles[@(paneType)] uppercaseString];
     cell.icon.text = self.paneIcons[@(paneType)];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UICollectionViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat width = CGRectGetWidth(self.collectionView.frame);
+    CGFloat height = [SFMasterCell height];
+    return CGSizeMake(width, height);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SFPaneType paneType = [self paneTypeForIndexPath:indexPath];
     [self transitionToPane:paneType];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - MSNavigationPaneViewControllerDelegate
 
 - (void)navigationPaneViewController:(MSNavigationPaneViewController *)navigationPaneViewController didUpdateToPaneState:(MSNavigationPaneState)state
 {
-    self.tableView.scrollsToTop = (state == MSNavigationPaneStateOpen);
+    self.collectionView.scrollsToTop = (state == MSNavigationPaneStateOpen);
 }
 
 @end

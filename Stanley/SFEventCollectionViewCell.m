@@ -160,7 +160,7 @@
     } else {
         timeFrame.origin.x = (CGRectGetMaxX(self.timeIcon.frame) + contentMargin);
     }
-    timeFrame.origin.y = (CGRectGetMaxY(titleFrame) + contentMargin - 2.0);
+    timeFrame.origin.y = (CGRectGetMaxY(titleFrame) + contentMargin);
     self.time.frame = timeFrame;
     
     [self.locationIcon sizeToFit];
@@ -181,7 +181,7 @@
     } else {
         locationFrame.origin.x = (CGRectGetMaxX(self.locationIcon.frame) + contentMargin);
     }
-    locationFrame.origin.y = (CGRectGetMaxY(timeFrame) + contentMargin - 1.0);
+    locationFrame.origin.y = (CGRectGetMaxY(timeFrame) + contentMargin);
     self.location.frame = locationFrame;
     
     CGFloat titleDetailMargin = 8.0;

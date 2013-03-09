@@ -10,7 +10,7 @@
 
 @class Announcement;
 
-@interface SFAnnouncementTableViewCell : MSSubtitleDetailPlainTableViewCell
+@interface SFAnnouncementCell : MSSubtitleDetailPlainTableViewCell
 
 @property (nonatomic, weak) Announcement *announcement;
 

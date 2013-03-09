@@ -43,18 +43,18 @@
     [self.view addSubview:self.logoView];
     
     self.taglineLabel = [UILabel new];
-    self.taglineLabel.text = [@"Yeah, it's Creepy" uppercaseString];
+    self.taglineLabel.text = [@"Yeah, it's\nCreepy\n\nMay 2 - 5" uppercaseString];
+    self.taglineLabel.numberOfLines = 0;
+    self.taglineLabel.textAlignment = NSTextAlignmentCenter;
     self.taglineLabel.backgroundColor = [UIColor clearColor];
     self.taglineLabel.textColor = [UIColor whiteColor];
-    self.taglineLabel.font = [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 50.0 : 28.0)];
     [self.view addSubview:self.taglineLabel];
     
     self.doneButton = [UIButton new];
     [self.doneButton setTitle:[@"Enter" uppercaseString] forState:UIControlStateNormal];
     [self.doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.doneButton.backgroundColor = [UIColor blackColor];
-    self.doneButton.contentEdgeInsets = UIEdgeInsetsMake(10.0, 30.0, 10.0, 30.0);
-    self.doneButton.titleLabel.font = [[SFStyleManager sharedManager] detailFontOfSize:20.0];
+    self.doneButton.contentEdgeInsets = UIEdgeInsetsMake(13.0, 30.0, 7.0, 30.0);
     __weak typeof (self) weakSelf = self;
     [self.doneButton addEventHandler:^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -70,24 +70,23 @@
     self.border.frame = CGRectInset((CGRect){CGPointZero, self.backgroundImageView.frame.size}, borderInsetSize, borderInsetSize);
     
     self.logoView.stanleyFontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 36.0 : 30.0));
-    
     [self.logoView sizeToFit];
     CGRect logoViewFrame = self.logoView.frame;
-    logoViewFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
+    logoViewFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 120.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
     logoViewFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(logoViewFrame) / 2.0));
     self.logoView.frame = logoViewFrame;
     
+    self.taglineLabel.font = [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 50.0 : 30.0)];
     [self.taglineLabel sizeToFit];
     CGRect taglineLabelFrame = self.taglineLabel.frame;
     taglineLabelFrame.origin.y = floorf((CGRectGetHeight(self.backgroundImageView.frame) / 2.0) - (CGRectGetHeight(taglineLabelFrame) / 2.0)) + ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 70.0 : 30.0);
     taglineLabelFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(taglineLabelFrame) / 2.0));
     self.taglineLabel.frame = taglineLabelFrame;
     
-    self.doneButton.titleLabel.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 24.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 20.0 : 16.0))];
-    
+    self.doneButton.titleLabel.font = [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 24.0 : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 20.0 : 16.0))];
     [self.doneButton sizeToFit];
     CGRect doneButtonFrame = self.doneButton.frame;
-    doneButtonFrame.origin.y = CGRectGetHeight(self.backgroundImageView.frame) - CGRectGetHeight(doneButtonFrame) - ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 200.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
+    doneButtonFrame.origin.y = CGRectGetHeight(self.backgroundImageView.frame) - CGRectGetHeight(doneButtonFrame) - ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 120.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
     doneButtonFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(doneButtonFrame) / 2.0));
     self.doneButton.frame = doneButtonFrame;
 }

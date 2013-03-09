@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFNewsViewController : UITableViewController
+@interface SFNewsViewController : UICollectionViewController
 
 @end

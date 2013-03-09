@@ -10,4 +10,6 @@
 
 @interface SFNavigationBar : UINavigationBar
 
+@property (nonatomic, assign) BOOL shouldDisplayNavigationPaneDirectonLabel; // Default NO
+
 @end

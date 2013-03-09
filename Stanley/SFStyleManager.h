@@ -23,7 +23,7 @@
 - (UIFont *)detailFontOfSize:(CGFloat)size;
 
 // UICollectionView
-- (void)styleCollectionView:(PSUICollectionView *)collectionView;
+- (void)styleCollectionView:(UICollectionView *)collectionView;
 
 // UIButton
 - (UIButton *)styledDisclosureButton;
@@ -45,5 +45,11 @@
 - (UIBarButtonItem *)styledBackBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBackBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
+
+// SVSegmentedControl
+- (UIBarButtonItem *)styledBarSegmentedControlWithTitles:(NSArray *)titles action:(void(^)(NSUInteger newIndex))handler;
+
+// Activity Indicator
+- (UIBarButtonItem *)activityIndicatorBarButtonItem;
 
 @end

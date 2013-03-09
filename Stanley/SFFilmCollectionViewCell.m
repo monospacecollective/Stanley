@@ -40,6 +40,11 @@
         self.image.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.image];
         
+        self.favoriteIndicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SFFilmCellFavoriteIndicator"]];
+        self.favoriteIndicator.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.favoriteIndicator];
+        
+        
         self.placeholderIcon = [FXLabel new];
         self.placeholderIcon.font = self.class.placeholderIconFont;
         self.placeholderIcon.text = @"\U0000E320";
@@ -50,7 +55,7 @@
         self.placeholderIcon.shadowBlur = 0.0;
         self.placeholderIcon.innerShadowColor = [UIColor colorWithHexString:@"101010"];
         self.placeholderIcon.innerShadowOffset = CGSizeMake(0.0, 2.0);
-        self.placeholderIcon.textAlignment = UITextAlignmentCenter;
+        self.placeholderIcon.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.placeholderIcon];
         
         self.title = [UILabel new];
@@ -96,6 +101,10 @@
     
     self.image.frame = self.contentView.frame;
     
+    CGRect favoriteIndicatorFrame = self.favoriteIndicator.frame;
+    favoriteIndicatorFrame.origin.x = (CGRectGetWidth(self.image.frame) - CGRectGetWidth(favoriteIndicatorFrame));
+    self.favoriteIndicator.frame = favoriteIndicatorFrame;
+    
     CGSize padding = self.class.padding;
     
     CGSize maxContentSize = CGRectInset(self.contentView.frame, padding.width, padding.height).size;
@@ -129,6 +138,7 @@
 {
     _film = film;
     self.title.text = [film.name uppercaseString];
+    self.favoriteIndicator.hidden = ![self.film.favorite boolValue];
     
     NSURL *imageURL = [NSURL URLWithString:film.featureImage];
     NSMutableURLRequest *imageRequest = [NSMutableURLRequest requestWithURL:imageURL];
@@ -166,9 +176,9 @@
 + (CGSize)cellSizeForInterfaceOrientation:(UIInterfaceOrientation)orientation;
 {
     CGFloat screenWidth = (UIInterfaceOrientationIsPortrait(orientation) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height);
-    CGFloat cellHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 400.0 : ceilf(screenWidth * (UIInterfaceOrientationIsPortrait(orientation) ? 0.5625 : 0.375)));
+    CGFloat height = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 400.0 : ceilf(screenWidth * (UIInterfaceOrientationIsPortrait(orientation) ? 0.5625 : 0.375)));
     CGFloat cellWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 310.0 : (screenWidth - ([self cellSpacingForInterfaceOrientation:orientation] * 2.0)));
-    return CGSizeMake(cellWidth, cellHeight);
+    return CGSizeMake(cellWidth, height);
 }
 
 + (UIEdgeInsets)cellMarginForInterfaceOrientation:(UIInterfaceOrientation)orientation

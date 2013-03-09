@@ -12,54 +12,34 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSMutableArray *headerAttributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+    NSMutableArray *rectAttributes = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
     
-    NSMutableIndexSet *missingSections = [NSMutableIndexSet indexSet];
-    for (PSUICollectionViewLayoutAttributes *layoutAttributes in headerAttributes) {
-        if (layoutAttributes.representedElementCategory == PSTCollectionViewItemTypeCell) {
-            [missingSections addIndex:layoutAttributes.indexPath.section];
-        }
-    }
-    for (PSUICollectionViewLayoutAttributes *layoutAttributes in headerAttributes) {
-        if ([layoutAttributes.representedElementKind isEqualToString:PSTCollectionElementKindSectionHeader]) {
-            [missingSections removeIndex:layoutAttributes.indexPath.section];
-        }
+    if (!self.stickySectionHeaders) {
+        return rectAttributes;
     }
     
-    [missingSections enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:idx];
-        PSUICollectionViewLayoutAttributes *layoutAttributes = (PSUICollectionViewLayoutAttributes *)[self layoutAttributesForSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader atIndexPath:indexPath];
-        [headerAttributes addObject:layoutAttributes];
-    }];
-    
-    for (UICollectionViewLayoutAttributes *layoutAttributes in headerAttributes) {
-        
-        if ([layoutAttributes.representedElementKind isEqualToString:PSTCollectionElementKindSectionHeader]) {
+    for (UICollectionViewLayoutAttributes *attributes in rectAttributes) {
+        if (attributes.representedElementKind == UICollectionElementKindSectionHeader) {
             
-            NSInteger section = layoutAttributes.indexPath.section;
-            NSInteger numberOfItemsInSection = [self.collectionView numberOfItemsInSection:section];
+            NSIndexPath *firstCellIndexPath = [NSIndexPath indexPathForItem:0 inSection:attributes.indexPath.section];
+            NSIndexPath *lastCellIndexPath = [NSIndexPath indexPathForItem:fmaxf(0, ([self.collectionView numberOfItemsInSection:attributes.indexPath.section] - 1)) inSection:attributes.indexPath.section];
             
-            NSIndexPath *firstCellIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
-            NSIndexPath *lastCellIndexPath = [NSIndexPath indexPathForItem:MAX(0, (numberOfItemsInSection - 1)) inSection:section];
+            UICollectionViewLayoutAttributes *firstCellAttributes = (UICollectionViewLayoutAttributes *)[self layoutAttributesForItemAtIndexPath:firstCellIndexPath];
+            UICollectionViewLayoutAttributes *lastCellAttributes = (UICollectionViewLayoutAttributes *)[self layoutAttributesForItemAtIndexPath:lastCellIndexPath];
             
-            PSUICollectionViewLayoutAttributes *firstCellAttrs = (PSUICollectionViewLayoutAttributes *)[self layoutAttributesForItemAtIndexPath:firstCellIndexPath];
-            PSUICollectionViewLayoutAttributes *lastCellAttrs = (PSUICollectionViewLayoutAttributes *)[self layoutAttributesForItemAtIndexPath:lastCellIndexPath];
+            attributes.zIndex = 1;
             
-            CGFloat headerHeight = CGRectGetHeight(layoutAttributes.frame);
-            CGPoint origin = layoutAttributes.frame.origin;
-            origin.y = fminf(fmaxf(self.collectionView.contentOffset.y, (CGRectGetMinY(firstCellAttrs.frame) - headerHeight)), (CGRectGetMaxY(lastCellAttrs.frame) - headerHeight));
-            
-            layoutAttributes.zIndex = 1;
-            layoutAttributes.frame = (CGRect){origin, layoutAttributes.frame.size};
+            CGPoint origin = attributes.frame.origin;
+            origin.y = fminf(fmaxf(self.collectionView.contentOffset.y, (CGRectGetMinY(firstCellAttributes.frame) - CGRectGetHeight(attributes.frame))), (CGRectGetMaxY(lastCellAttributes.frame) - CGRectGetHeight(attributes.frame)));
+            attributes.frame = (CGRect){origin, attributes.frame.size};
         }
     }
-    
-    return headerAttributes;
+    return rectAttributes;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBound
-{    
-    return YES;
+{
+    return self.stickySectionHeaders;
 }
 
 @end

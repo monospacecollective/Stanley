@@ -18,10 +18,24 @@
 @property (nonatomic, retain) NSString * detail;
 @property (nonatomic, retain) NSString * synopsis;
 @property (nonatomic, retain) NSString * featureImage;
+@property (nonatomic, retain) NSNumber * favorite;
 @property (nonatomic, retain) NSSet *directors;
 @property (nonatomic, retain) NSSet *writers;
 @property (nonatomic, retain) NSSet *producers;
 @property (nonatomic, retain) NSSet *stars;
+
+- (NSString *)runtimeString;
+
+- (NSString *)directorsTitleString;
+- (NSString *)writersTitleString;
+- (NSString *)producersTitleString;
+- (NSString *)starsTitleString;
+
+- (NSString *)directorsListSeparatedByString:(NSString *)string;
+- (NSString *)writersListSeparatedByString:(NSString *)string;
+- (NSString *)producersListSeparatedByString:(NSString *)string;
+- (NSString *)starsListSeparatedByString:(NSString *)string;
+
 @end
 
 @interface Film (CoreDataGeneratedAccessors)

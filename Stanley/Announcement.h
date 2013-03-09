@@ -16,6 +16,6 @@
 @property (nonatomic, retain) NSString * body;
 @property (nonatomic, retain) NSDate * published;
 
-- (NSInteger)dayPublished;
+- (NSDate *)dayPublished;
 
 @end

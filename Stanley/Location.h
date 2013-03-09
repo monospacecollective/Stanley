@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 
+- (void)openInMapsWithRoute;
 - (CLLocationCoordinate2D)coordinate;
+- (MKMapItem *)mapItem;
 
 @end

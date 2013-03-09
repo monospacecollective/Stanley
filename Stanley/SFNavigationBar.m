@@ -47,6 +47,8 @@
             UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)]
         };
         
+        self.shouldDisplayNavigationPaneDirectonLabel = NO;
+        
         self.navigationPaneDirectionLabel = [UILabel new];
         self.navigationPaneDirectionLabel.text = @"\U000025BE";
         self.navigationPaneDirectionLabel.backgroundColor = [UIColor clearColor];
@@ -98,14 +100,15 @@
             navigationPaneDirectionLabelFrame.origin.x = (CGRectGetMaxX(buttonFrame) - 3.0);
             navigationPaneDirectionLabelFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 22.0 : 17.0);
             self.navigationPaneDirectionLabel.frame = navigationPaneDirectionLabelFrame;
+            
+            self.navigationPaneDirectionLabel.hidden = !self.shouldDisplayNavigationPaneDirectonLabel;
         }
     }
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize newSize = CGSizeMake([super sizeThatFits:size].width, self.class.barHeight);
-    return newSize;
+    return CGSizeMake([super sizeThatFits:size].width, self.class.barHeight);
 }
 
 #pragma mark - SFNavigationBar
@@ -119,6 +122,12 @@
         self.navigationPaneDirectionLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
         self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(1.0, 0.0);
     }
+}
+
+- (void)setShouldDisplayNavigationPaneDirectonLabel:(BOOL)shouldDisplayNavigationPaneDirectonLabel
+{
+    _shouldDisplayNavigationPaneDirectonLabel = shouldDisplayNavigationPaneDirectonLabel;
+    [self setNeedsLayout];
 }
 
 - (void)didChangeOrientation:(NSNotification *)notification

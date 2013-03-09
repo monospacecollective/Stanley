@@ -32,9 +32,8 @@
 		3A6CBAAE16DAA6A000B4F041 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5B16DAA69F00B4F041 /* iTunesArtwork@2x.png */; };
 		3A6CBAAF16DAA6A000B4F041 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5D16DAA69F00B4F041 /* Location.m */; };
 		3A6CBAB016DAA6A000B4F041 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6016DAA69F00B4F041 /* Person.m */; };
-		3A6CBAB116DAA6A000B4F041 /* SFAnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6216DAA69F00B4F041 /* SFAnnouncementTableViewCell.m */; };
+		3A6CBAB116DAA6A000B4F041 /* SFAnnouncementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6216DAA69F00B4F041 /* SFAnnouncementCell.m */; };
 		3A6CBAB216DAA6A000B4F041 /* SFCollectionViewStickyHeaderFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6416DAA69F00B4F041 /* SFCollectionViewStickyHeaderFlowLayout.m */; };
-		3A6CBAB316DAA6A000B4F041 /* SFCollectionViewWeekLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6616DAA69F00B4F041 /* SFCollectionViewWeekLayout.m */; };
 		3A6CBAB416DAA6A000B4F041 /* SFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6816DAA69F00B4F041 /* SFConstants.m */; };
 		3A6CBAB516DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6916DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png */; };
 		3A6CBAB616DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6A16DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground@2x.png */; };
@@ -64,7 +63,7 @@
 		3A6CBACE16DAA6A000B4F041 /* SFLogoBarButtonItemIcon~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA8C16DAA69F00B4F041 /* SFLogoBarButtonItemIcon~ipad.png */; };
 		3A6CBACF16DAA6A000B4F041 /* SFLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA8E16DAA69F00B4F041 /* SFLogoView.m */; };
 		3A6CBAD016DAA6A000B4F041 /* SFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA9016DAA69F00B4F041 /* SFMapViewController.m */; };
-		3A6CBAD116DAA6A000B4F041 /* SFMasterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA9216DAA69F00B4F041 /* SFMasterTableViewCell.m */; };
+		3A6CBAD116DAA6A000B4F041 /* SFMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA9216DAA69F00B4F041 /* SFMasterCell.m */; };
 		3A6CBAD216DAA6A000B4F041 /* SFMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA9416DAA6A000B4F041 /* SFMasterViewController.m */; };
 		3A6CBAD316DAA6A000B4F041 /* SFNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA9616DAA6A000B4F041 /* SFNavigationBar.m */; };
 		3A6CBAD416DAA6A000B4F041 /* SFNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA9816DAA6A000B4F041 /* SFNewsViewController.m */; };
@@ -75,10 +74,34 @@
 		3A6CBAD916DAA6A000B4F041 /* SSStandard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */; };
 		3A6CBADB16DAB29A00B4F041 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBADA16DAB29A00B4F041 /* MapKit.framework */; };
 		3A6CBADE16DAB34000B4F041 /* Stanley.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBADC16DAB34000B4F041 /* Stanley.xcdatamodeld */; };
+		3AAF7ADB16E8244500081130 /* PopoverBackgroundArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ACD16E8244500081130 /* PopoverBackgroundArrowDown.png */; };
+		3AAF7ADC16E8244500081130 /* PopoverBackgroundArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ACE16E8244500081130 /* PopoverBackgroundArrowDown@2x.png */; };
+		3AAF7ADD16E8244500081130 /* PopoverBackgroundArrowDownRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ACF16E8244500081130 /* PopoverBackgroundArrowDownRight.png */; };
+		3AAF7ADE16E8244500081130 /* PopoverBackgroundArrowDownRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD016E8244500081130 /* PopoverBackgroundArrowDownRight@2x.png */; };
+		3AAF7ADF16E8244500081130 /* PopoverBackgroundArrowSide.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD116E8244500081130 /* PopoverBackgroundArrowSide.png */; };
+		3AAF7AE016E8244500081130 /* PopoverBackgroundArrowSide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD216E8244500081130 /* PopoverBackgroundArrowSide@2x.png */; };
+		3AAF7AE116E8244500081130 /* PopoverBackgroundArrowSideBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD316E8244500081130 /* PopoverBackgroundArrowSideBottom.png */; };
+		3AAF7AE216E8244500081130 /* PopoverBackgroundArrowSideBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD416E8244500081130 /* PopoverBackgroundArrowSideBottom@2x.png */; };
+		3AAF7AE316E8244500081130 /* PopoverBackgroundArrowSideTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD516E8244500081130 /* PopoverBackgroundArrowSideTop.png */; };
+		3AAF7AE416E8244500081130 /* PopoverBackgroundArrowSideTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD616E8244500081130 /* PopoverBackgroundArrowSideTop@2x.png */; };
+		3AAF7AE516E8244500081130 /* PopoverBackgroundArrowUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD716E8244500081130 /* PopoverBackgroundArrowUp.png */; };
+		3AAF7AE616E8244500081130 /* PopoverBackgroundArrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD816E8244500081130 /* PopoverBackgroundArrowUp@2x.png */; };
+		3AAF7AE716E8244500081130 /* PopoverBackgroundArrowUpRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AD916E8244500081130 /* PopoverBackgroundArrowUpRight.png */; };
+		3AAF7AE816E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ADA16E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png */; };
+		3AAF7AEB16E9448300081130 /* SFFilmCellFavoriteIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AE916E9448300081130 /* SFFilmCellFavoriteIndicator.png */; };
+		3AAF7AEC16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AEA16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png */; };
+		3AAF7AEF16E94D4200081130 /* SFAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AEE16E94D4100081130 /* SFAboutViewController.m */; };
+		3AAF7AF216EA55FF00081130 /* SFToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF116EA55FF00081130 /* SFToolbar.m */; };
+		3AAF7AF516EA943C00081130 /* SFWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF416EA943B00081130 /* SFWebViewController.m */; };
+		3AAF7AF816EA947500081130 /* SFTryAgainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF716EA947500081130 /* SFTryAgainView.m */; };
+		3AAF7AFE16EAA7A500081130 /* SFLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AFD16EAA7A500081130 /* SFLocationViewController.m */; };
+		3AAF7B0116EAB45400081130 /* SFMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7B0016EAB45300081130 /* SFMapCell.m */; };
+		3AB2E43716E78FC500A93A7E /* SFFilmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB2E43616E78FC500A93A7E /* SFFilmViewController.m */; };
 		3AC0C0E116DB3E5600EBF550 /* SFDisclosureButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */; };
 		3AC0C0E216DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */; };
 		3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */; };
 		3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */; };
+		3ADFD8EC16E7FD07003B1D22 /* FuturaCom-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */; };
 		A8745C5921024A15A921C4AD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0133068B604C4BA86ECCAD /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -118,12 +141,10 @@
 		3A6CBA5E16DAA69F00B4F041 /* MSSystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSystemVersion.h; sourceTree = "<group>"; };
 		3A6CBA5F16DAA69F00B4F041 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		3A6CBA6016DAA69F00B4F041 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		3A6CBA6116DAA69F00B4F041 /* SFAnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnnouncementTableViewCell.h; sourceTree = "<group>"; };
-		3A6CBA6216DAA69F00B4F041 /* SFAnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnouncementTableViewCell.m; sourceTree = "<group>"; };
+		3A6CBA6116DAA69F00B4F041 /* SFAnnouncementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAnnouncementCell.h; sourceTree = "<group>"; };
+		3A6CBA6216DAA69F00B4F041 /* SFAnnouncementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAnnouncementCell.m; sourceTree = "<group>"; };
 		3A6CBA6316DAA69F00B4F041 /* SFCollectionViewStickyHeaderFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCollectionViewStickyHeaderFlowLayout.h; sourceTree = "<group>"; };
 		3A6CBA6416DAA69F00B4F041 /* SFCollectionViewStickyHeaderFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCollectionViewStickyHeaderFlowLayout.m; sourceTree = "<group>"; };
-		3A6CBA6516DAA69F00B4F041 /* SFCollectionViewWeekLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCollectionViewWeekLayout.h; sourceTree = "<group>"; };
-		3A6CBA6616DAA69F00B4F041 /* SFCollectionViewWeekLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCollectionViewWeekLayout.m; sourceTree = "<group>"; };
 		3A6CBA6716DAA69F00B4F041 /* SFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFConstants.h; sourceTree = "<group>"; };
 		3A6CBA6816DAA69F00B4F041 /* SFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFConstants.m; sourceTree = "<group>"; };
 		3A6CBA6916DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFCurrentTimeHorizontalGridlineBackground.png; sourceTree = "<group>"; };
@@ -166,8 +187,8 @@
 		3A6CBA8E16DAA69F00B4F041 /* SFLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLogoView.m; sourceTree = "<group>"; };
 		3A6CBA8F16DAA69F00B4F041 /* SFMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapViewController.h; sourceTree = "<group>"; };
 		3A6CBA9016DAA69F00B4F041 /* SFMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapViewController.m; sourceTree = "<group>"; };
-		3A6CBA9116DAA69F00B4F041 /* SFMasterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMasterTableViewCell.h; sourceTree = "<group>"; };
-		3A6CBA9216DAA69F00B4F041 /* SFMasterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMasterTableViewCell.m; sourceTree = "<group>"; };
+		3A6CBA9116DAA69F00B4F041 /* SFMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMasterCell.h; sourceTree = "<group>"; };
+		3A6CBA9216DAA69F00B4F041 /* SFMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMasterCell.m; sourceTree = "<group>"; };
 		3A6CBA9316DAA69F00B4F041 /* SFMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMasterViewController.h; sourceTree = "<group>"; };
 		3A6CBA9416DAA6A000B4F041 /* SFMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMasterViewController.m; sourceTree = "<group>"; };
 		3A6CBA9516DAA6A000B4F041 /* SFNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNavigationBar.h; sourceTree = "<group>"; };
@@ -184,10 +205,41 @@
 		3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SSStandard.ttf; sourceTree = "<group>"; };
 		3A6CBADA16DAB29A00B4F041 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A6CBADD16DAB34000B4F041 /* Stanley.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stanley.xcdatamodel; sourceTree = "<group>"; };
+		3AAF7ACD16E8244500081130 /* PopoverBackgroundArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowDown.png; sourceTree = "<group>"; };
+		3AAF7ACE16E8244500081130 /* PopoverBackgroundArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowDown@2x.png"; sourceTree = "<group>"; };
+		3AAF7ACF16E8244500081130 /* PopoverBackgroundArrowDownRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowDownRight.png; sourceTree = "<group>"; };
+		3AAF7AD016E8244500081130 /* PopoverBackgroundArrowDownRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowDownRight@2x.png"; sourceTree = "<group>"; };
+		3AAF7AD116E8244500081130 /* PopoverBackgroundArrowSide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowSide.png; sourceTree = "<group>"; };
+		3AAF7AD216E8244500081130 /* PopoverBackgroundArrowSide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowSide@2x.png"; sourceTree = "<group>"; };
+		3AAF7AD316E8244500081130 /* PopoverBackgroundArrowSideBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowSideBottom.png; sourceTree = "<group>"; };
+		3AAF7AD416E8244500081130 /* PopoverBackgroundArrowSideBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowSideBottom@2x.png"; sourceTree = "<group>"; };
+		3AAF7AD516E8244500081130 /* PopoverBackgroundArrowSideTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowSideTop.png; sourceTree = "<group>"; };
+		3AAF7AD616E8244500081130 /* PopoverBackgroundArrowSideTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowSideTop@2x.png"; sourceTree = "<group>"; };
+		3AAF7AD716E8244500081130 /* PopoverBackgroundArrowUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowUp.png; sourceTree = "<group>"; };
+		3AAF7AD816E8244500081130 /* PopoverBackgroundArrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowUp@2x.png"; sourceTree = "<group>"; };
+		3AAF7AD916E8244500081130 /* PopoverBackgroundArrowUpRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowUpRight.png; sourceTree = "<group>"; };
+		3AAF7ADA16E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowUpRight@2x.png"; sourceTree = "<group>"; };
+		3AAF7AE916E9448300081130 /* SFFilmCellFavoriteIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFFilmCellFavoriteIndicator.png; sourceTree = "<group>"; };
+		3AAF7AEA16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFilmCellFavoriteIndicator@2x.png"; sourceTree = "<group>"; };
+		3AAF7AED16E94D4100081130 /* SFAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAboutViewController.h; sourceTree = "<group>"; };
+		3AAF7AEE16E94D4100081130 /* SFAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAboutViewController.m; sourceTree = "<group>"; };
+		3AAF7AF016EA55FF00081130 /* SFToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFToolbar.h; sourceTree = "<group>"; };
+		3AAF7AF116EA55FF00081130 /* SFToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFToolbar.m; sourceTree = "<group>"; };
+		3AAF7AF316EA943B00081130 /* SFWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFWebViewController.h; sourceTree = "<group>"; };
+		3AAF7AF416EA943B00081130 /* SFWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFWebViewController.m; sourceTree = "<group>"; };
+		3AAF7AF616EA947500081130 /* SFTryAgainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTryAgainView.h; sourceTree = "<group>"; };
+		3AAF7AF716EA947500081130 /* SFTryAgainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTryAgainView.m; sourceTree = "<group>"; };
+		3AAF7AFC16EAA7A500081130 /* SFLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLocationViewController.h; sourceTree = "<group>"; };
+		3AAF7AFD16EAA7A500081130 /* SFLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocationViewController.m; sourceTree = "<group>"; };
+		3AAF7AFF16EAB45300081130 /* SFMapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapCell.h; sourceTree = "<group>"; };
+		3AAF7B0016EAB45300081130 /* SFMapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapCell.m; sourceTree = "<group>"; };
+		3AB2E43516E78FC500A93A7E /* SFFilmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmViewController.h; sourceTree = "<group>"; };
+		3AB2E43616E78FC500A93A7E /* SFFilmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmViewController.m; sourceTree = "<group>"; };
 		3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonBackground.png; sourceTree = "<group>"; };
 		3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonBackground@2x.png"; sourceTree = "<group>"; };
 		3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonPressedBackground.png; sourceTree = "<group>"; };
 		3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonPressedBackground@2x.png"; sourceTree = "<group>"; };
+		3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Medium.ttf"; sourceTree = "<group>"; };
 		BB49208211714987AAD32B5E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BC0133068B604C4BA86ECCAD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -256,7 +308,6 @@
 				3A6CBAE616DAB62200B4F041 /* Icon */,
 				3A6CBAE516DAB60700B4F041 /* Map */,
 				3A6CBAE416DAB5F500B4F041 /* Views */,
-				3A6CBAE116DAB5A300B4F041 /* Table View Cells */,
 				3A6CBAEA16DAB6C200B4F041 /* Collection View Layouts */,
 				3A6CBAE216DAB5B600B4F041 /* Collection View Cells */,
 				3A6CBAE016DAB57B00B4F041 /* Collection Reusable Views */,
@@ -286,6 +337,8 @@
 				3A6CBA7616DAA69F00B4F041 /* SFEventsViewController.m */,
 				3A6CBA7916DAA69F00B4F041 /* SFFilmsViewController.h */,
 				3A6CBA7A16DAA69F00B4F041 /* SFFilmsViewController.m */,
+				3AB2E43516E78FC500A93A7E /* SFFilmViewController.h */,
+				3AB2E43616E78FC500A93A7E /* SFFilmViewController.m */,
 				3A6CBA8F16DAA69F00B4F041 /* SFMapViewController.h */,
 				3A6CBA9016DAA69F00B4F041 /* SFMapViewController.m */,
 				3A6CBA9316DAA69F00B4F041 /* SFMasterViewController.h */,
@@ -294,6 +347,12 @@
 				3A6CBA9816DAA6A000B4F041 /* SFNewsViewController.m */,
 				3A6CBA9A16DAA6A000B4F041 /* SFSplashViewController.h */,
 				3A6CBA9B16DAA6A000B4F041 /* SFSplashViewController.m */,
+				3AAF7AED16E94D4100081130 /* SFAboutViewController.h */,
+				3AAF7AEE16E94D4100081130 /* SFAboutViewController.m */,
+				3AAF7AF316EA943B00081130 /* SFWebViewController.h */,
+				3AAF7AF416EA943B00081130 /* SFWebViewController.m */,
+				3AAF7AFC16EAA7A500081130 /* SFLocationViewController.h */,
+				3AAF7AFD16EAA7A500081130 /* SFLocationViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -317,24 +376,19 @@
 			name = "Collection Reusable Views";
 			sourceTree = "<group>";
 		};
-		3A6CBAE116DAB5A300B4F041 /* Table View Cells */ = {
-			isa = PBXGroup;
-			children = (
-				3A6CBA6116DAA69F00B4F041 /* SFAnnouncementTableViewCell.h */,
-				3A6CBA6216DAA69F00B4F041 /* SFAnnouncementTableViewCell.m */,
-				3A6CBA9116DAA69F00B4F041 /* SFMasterTableViewCell.h */,
-				3A6CBA9216DAA69F00B4F041 /* SFMasterTableViewCell.m */,
-			);
-			name = "Table View Cells";
-			sourceTree = "<group>";
-		};
 		3A6CBAE216DAB5B600B4F041 /* Collection View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3A6CBA6116DAA69F00B4F041 /* SFAnnouncementCell.h */,
+				3A6CBA6216DAA69F00B4F041 /* SFAnnouncementCell.m */,
+				3A6CBA9116DAA69F00B4F041 /* SFMasterCell.h */,
+				3A6CBA9216DAA69F00B4F041 /* SFMasterCell.m */,
 				3A6CBA7316DAA69F00B4F041 /* SFEventCollectionViewCell.h */,
 				3A6CBA7416DAA69F00B4F041 /* SFEventCollectionViewCell.m */,
 				3A6CBA7716DAA69F00B4F041 /* SFFilmCollectionViewCell.h */,
 				3A6CBA7816DAA69F00B4F041 /* SFFilmCollectionViewCell.m */,
+				3AAF7AFF16EAB45300081130 /* SFMapCell.h */,
+				3AAF7B0016EAB45300081130 /* SFMapCell.m */,
 			);
 			name = "Collection View Cells";
 			sourceTree = "<group>";
@@ -363,6 +417,10 @@
 				3A6CBA8E16DAA69F00B4F041 /* SFLogoView.m */,
 				3A6CBA9516DAA6A000B4F041 /* SFNavigationBar.h */,
 				3A6CBA9616DAA6A000B4F041 /* SFNavigationBar.m */,
+				3AAF7AF016EA55FF00081130 /* SFToolbar.h */,
+				3AAF7AF116EA55FF00081130 /* SFToolbar.m */,
+				3AAF7AF616EA947500081130 /* SFTryAgainView.h */,
+				3AAF7AF716EA947500081130 /* SFTryAgainView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -396,13 +454,10 @@
 		3A6CBAE716DAB68200B4F041 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */,
-				3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */,
-				3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */,
-				3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */,
-				3A6CBA4016DAA60300B4F041 /* Default.png */,
-				3A6CBA4216DAA60300B4F041 /* Default@2x.png */,
-				3A6CBA4416DAA60300B4F041 /* Default-568h@2x.png */,
+				3AAF7ACC16E8243600081130 /* GIKPopoverBackgroundView */,
+				3AAF7AF916EA9E3400081130 /* Film Cell Favorite Indicator */,
+				3AAF7AFA16EA9E4300081130 /* Disclosure Button Background */,
+				3AAF7AFB16EA9E4E00081130 /* Default */,
 				3A6CBA9916DAA6A000B4F041 /* SFSplashBackground.jpg */,
 				3A6CBA6916DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png */,
 				3A6CBA6A16DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground@2x.png */,
@@ -437,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				3A6CBA5116DAA69E00B4F041 /* FuturaCom-Bold.ttf */,
+				3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -446,10 +502,59 @@
 			children = (
 				3A6CBA6316DAA69F00B4F041 /* SFCollectionViewStickyHeaderFlowLayout.h */,
 				3A6CBA6416DAA69F00B4F041 /* SFCollectionViewStickyHeaderFlowLayout.m */,
-				3A6CBA6516DAA69F00B4F041 /* SFCollectionViewWeekLayout.h */,
-				3A6CBA6616DAA69F00B4F041 /* SFCollectionViewWeekLayout.m */,
 			);
 			name = "Collection View Layouts";
+			sourceTree = "<group>";
+		};
+		3AAF7ACC16E8243600081130 /* GIKPopoverBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				3AAF7ACD16E8244500081130 /* PopoverBackgroundArrowDown.png */,
+				3AAF7ACE16E8244500081130 /* PopoverBackgroundArrowDown@2x.png */,
+				3AAF7ACF16E8244500081130 /* PopoverBackgroundArrowDownRight.png */,
+				3AAF7AD016E8244500081130 /* PopoverBackgroundArrowDownRight@2x.png */,
+				3AAF7AD116E8244500081130 /* PopoverBackgroundArrowSide.png */,
+				3AAF7AD216E8244500081130 /* PopoverBackgroundArrowSide@2x.png */,
+				3AAF7AD316E8244500081130 /* PopoverBackgroundArrowSideBottom.png */,
+				3AAF7AD416E8244500081130 /* PopoverBackgroundArrowSideBottom@2x.png */,
+				3AAF7AD516E8244500081130 /* PopoverBackgroundArrowSideTop.png */,
+				3AAF7AD616E8244500081130 /* PopoverBackgroundArrowSideTop@2x.png */,
+				3AAF7AD716E8244500081130 /* PopoverBackgroundArrowUp.png */,
+				3AAF7AD816E8244500081130 /* PopoverBackgroundArrowUp@2x.png */,
+				3AAF7AD916E8244500081130 /* PopoverBackgroundArrowUpRight.png */,
+				3AAF7ADA16E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png */,
+			);
+			name = GIKPopoverBackgroundView;
+			sourceTree = "<group>";
+		};
+		3AAF7AF916EA9E3400081130 /* Film Cell Favorite Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				3AAF7AE916E9448300081130 /* SFFilmCellFavoriteIndicator.png */,
+				3AAF7AEA16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png */,
+			);
+			name = "Film Cell Favorite Indicator";
+			sourceTree = "<group>";
+		};
+		3AAF7AFA16EA9E4300081130 /* Disclosure Button Background */ = {
+			isa = PBXGroup;
+			children = (
+				3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */,
+				3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */,
+				3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */,
+				3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */,
+			);
+			name = "Disclosure Button Background";
+			sourceTree = "<group>";
+		};
+		3AAF7AFB16EA9E4E00081130 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				3A6CBA4016DAA60300B4F041 /* Default.png */,
+				3A6CBA4216DAA60300B4F041 /* Default@2x.png */,
+				3A6CBA4416DAA60300B4F041 /* Default-568h@2x.png */,
+			);
+			name = Default;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -543,6 +648,23 @@
 				3AC0C0E216DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png in Resources */,
 				3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */,
 				3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */,
+				3ADFD8EC16E7FD07003B1D22 /* FuturaCom-Medium.ttf in Resources */,
+				3AAF7ADB16E8244500081130 /* PopoverBackgroundArrowDown.png in Resources */,
+				3AAF7ADC16E8244500081130 /* PopoverBackgroundArrowDown@2x.png in Resources */,
+				3AAF7ADD16E8244500081130 /* PopoverBackgroundArrowDownRight.png in Resources */,
+				3AAF7ADE16E8244500081130 /* PopoverBackgroundArrowDownRight@2x.png in Resources */,
+				3AAF7ADF16E8244500081130 /* PopoverBackgroundArrowSide.png in Resources */,
+				3AAF7AE016E8244500081130 /* PopoverBackgroundArrowSide@2x.png in Resources */,
+				3AAF7AE116E8244500081130 /* PopoverBackgroundArrowSideBottom.png in Resources */,
+				3AAF7AE216E8244500081130 /* PopoverBackgroundArrowSideBottom@2x.png in Resources */,
+				3AAF7AE316E8244500081130 /* PopoverBackgroundArrowSideTop.png in Resources */,
+				3AAF7AE416E8244500081130 /* PopoverBackgroundArrowSideTop@2x.png in Resources */,
+				3AAF7AE516E8244500081130 /* PopoverBackgroundArrowUp.png in Resources */,
+				3AAF7AE616E8244500081130 /* PopoverBackgroundArrowUp@2x.png in Resources */,
+				3AAF7AE716E8244500081130 /* PopoverBackgroundArrowUpRight.png in Resources */,
+				3AAF7AE816E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png in Resources */,
+				3AAF7AEB16E9448300081130 /* SFFilmCellFavoriteIndicator.png in Resources */,
+				3AAF7AEC16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,9 +713,8 @@
 				3A6CBAA316DAA6A000B4F041 /* Film.m in Sources */,
 				3A6CBAAF16DAA6A000B4F041 /* Location.m in Sources */,
 				3A6CBAB016DAA6A000B4F041 /* Person.m in Sources */,
-				3A6CBAB116DAA6A000B4F041 /* SFAnnouncementTableViewCell.m in Sources */,
+				3A6CBAB116DAA6A000B4F041 /* SFAnnouncementCell.m in Sources */,
 				3A6CBAB216DAA6A000B4F041 /* SFCollectionViewStickyHeaderFlowLayout.m in Sources */,
-				3A6CBAB316DAA6A000B4F041 /* SFCollectionViewWeekLayout.m in Sources */,
 				3A6CBAB416DAA6A000B4F041 /* SFConstants.m in Sources */,
 				3A6CBAB716DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineCollectionReusableView.m in Sources */,
 				3A6CBABA16DAA6A000B4F041 /* SFCurrentTimeIndicatorCollectionReusableView.m in Sources */,
@@ -607,7 +728,7 @@
 				3A6CBACA16DAA6A000B4F041 /* SFLocationAnnotation.m in Sources */,
 				3A6CBACF16DAA6A000B4F041 /* SFLogoView.m in Sources */,
 				3A6CBAD016DAA6A000B4F041 /* SFMapViewController.m in Sources */,
-				3A6CBAD116DAA6A000B4F041 /* SFMasterTableViewCell.m in Sources */,
+				3A6CBAD116DAA6A000B4F041 /* SFMasterCell.m in Sources */,
 				3A6CBAD216DAA6A000B4F041 /* SFMasterViewController.m in Sources */,
 				3A6CBAD316DAA6A000B4F041 /* SFNavigationBar.m in Sources */,
 				3A6CBAD416DAA6A000B4F041 /* SFNewsViewController.m in Sources */,
@@ -615,6 +736,13 @@
 				3A6CBAD716DAA6A000B4F041 /* SFStyleManager.m in Sources */,
 				3A6CBAD816DAA6A000B4F041 /* SFTimeRowHeaderCollectionReusableView.m in Sources */,
 				3A6CBADE16DAB34000B4F041 /* Stanley.xcdatamodeld in Sources */,
+				3AB2E43716E78FC500A93A7E /* SFFilmViewController.m in Sources */,
+				3AAF7AEF16E94D4200081130 /* SFAboutViewController.m in Sources */,
+				3AAF7AF216EA55FF00081130 /* SFToolbar.m in Sources */,
+				3AAF7AF516EA943C00081130 /* SFWebViewController.m in Sources */,
+				3AAF7AF816EA947500081130 /* SFTryAgainView.m in Sources */,
+				3AAF7AFE16EAA7A500081130 /* SFLocationViewController.m in Sources */,
+				3AAF7B0116EAB45400081130 /* SFMapCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,7 +853,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stanley/Stanley-Prefix.pch";
 				INFOPLIST_FILE = "Stanley/Stanley-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -739,7 +867,7 @@
 				GCC_PREFIX_HEADER = "Stanley/Stanley-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Stanley/Stanley-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

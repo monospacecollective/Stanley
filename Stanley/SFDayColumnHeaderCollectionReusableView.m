@@ -31,7 +31,7 @@
         self.day.backgroundColor = [UIColor clearColor];
         self.day.textColor = [UIColor colorWithHexString:@"aaaaaa"];
         self.day.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 18.0)];
-        self.day.textAlignment = UITextAlignmentCenter;
+        self.day.textAlignment = NSTextAlignmentCenter;
         self.day.shadowColor = [UIColor blackColor];
         self.day.shadowOffset = CGSizeMake(0.0, -1.0);
         [self addSubview:self.day];
@@ -53,7 +53,7 @@
     CGRect dayFrame = self.day.frame;
     dayFrame.size.width = (CGRectGetWidth(self.frame) - (self.class.padding.width * 2.0));
     dayFrame.origin.x = self.class.padding.width;
-    dayFrame.origin.y = nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(dayFrame) / 2.0));
+    dayFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(dayFrame) / 2.0)) + 3.0);
     self.day.frame = dayFrame;
     
     CGFloat todayBackgroundHorizontalInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0.0 : 8.0);

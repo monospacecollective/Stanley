@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFCollectionViewStickyHeaderFlowLayout : PSUICollectionViewFlowLayout
+@interface SFCollectionViewStickyHeaderFlowLayout : UICollectionViewFlowLayout
+
+@property (nonatomic, assign) BOOL stickySectionHeaders;
 
 @end

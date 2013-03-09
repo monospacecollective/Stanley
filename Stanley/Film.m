@@ -17,9 +17,60 @@
 @dynamic detail;
 @dynamic synopsis;
 @dynamic featureImage;
+@dynamic favorite;
 @dynamic directors;
 @dynamic writers;
 @dynamic producers;
 @dynamic stars;
+
+- (NSString *)runtimeString
+{
+    NSInteger runtime = [self.runtime integerValue];
+    if (runtime >= 60) {
+        return [NSString stringWithFormat:@"%dh %dm", (runtime / 60), (runtime % 60)];
+    } else {
+        return [NSString stringWithFormat:@"%dm", runtime];
+    }
+}
+
+- (NSString *)directorsTitleString
+{
+    return [((self.directors.count == 1) ? @"director" : @"directors") uppercaseString];
+}
+
+- (NSString *)writersTitleString
+{
+    return [((self.writers.count == 1) ? @"writer" : @"writers") uppercaseString];
+}
+
+- (NSString *)producersTitleString
+{
+    return [((self.producers.count == 1) ? @"producer" : @"producers") uppercaseString];
+}
+
+- (NSString *)starsTitleString
+{
+    return [@"cast" uppercaseString];
+}
+
+- (NSString *)directorsListSeparatedByString:(NSString *)string
+{
+    return [[[self.directors allObjects] valueForKey:@"name"] componentsJoinedByString:string];
+}
+
+- (NSString *)writersListSeparatedByString:(NSString *)string
+{
+    return [[[self.writers allObjects] valueForKey:@"name"] componentsJoinedByString:string];
+}
+
+- (NSString *)producersListSeparatedByString:(NSString *)string
+{
+    return [[[self.producers allObjects] valueForKey:@"name"] componentsJoinedByString:string];
+}
+
+- (NSString *)starsListSeparatedByString:(NSString *)string
+{
+    return [[[self.stars allObjects] valueForKey:@"name"] componentsJoinedByString:string];
+}
 
 @end

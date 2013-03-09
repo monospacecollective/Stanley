@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFFilmsViewController : PSUICollectionViewController
+@interface SFFilmsViewController : UICollectionViewController
 
 @end

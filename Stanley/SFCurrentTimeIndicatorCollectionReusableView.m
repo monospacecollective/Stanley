@@ -36,7 +36,7 @@
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [UIColor whiteColor];
         self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 17.0 : 15.0)];
-        self.time.textAlignment = UITextAlignmentCenter;
+        self.time.textAlignment = NSTextAlignmentCenter;
         self.time.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.time.layer.shadowRadius = 0.0;
         self.time.layer.shadowOpacity = 1.0;

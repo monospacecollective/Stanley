@@ -13,7 +13,7 @@
 
 @interface Person : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSSet *directed;
 @property (nonatomic, retain) Film *starred;
 @property (nonatomic, retain) Film *produced;

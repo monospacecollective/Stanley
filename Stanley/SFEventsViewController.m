@@ -9,7 +9,6 @@
 #import "SFEventsViewController.h"
 #import "SFStyleManager.h"
 #import "SFCollectionViewStickyHeaderFlowLayout.h"
-#import "SFCollectionViewWeekLayout.h"
 #import "Event.h"
 #import "SFEventCollectionViewCell.h"
 #import "SFCurrentTimeIndicatorCollectionReusableView.h"
@@ -23,12 +22,10 @@ NSString * const SFEventCellReuseIdentifier = @"SFEventCollectionViewCellReuseId
 NSString * const SFEventDayColumnHeaderReuseIdentifier = @"SFEventDayColumnHeaderReuseIdentifier";
 NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReuseIdentifier";
 
-@interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, SFCollectionViewDelegateWeekLayout>
+@interface SFEventsViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate, MSCollectionViewDelegateCalendarLayout>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) SFCollectionViewWeekLayout *collectionViewLayout;
-@property (nonatomic, strong) NSMutableArray *objectChanges;
-@property (nonatomic, strong) NSMutableArray *sectionChanges;
+@property (nonatomic, strong) MSCollectionViewCalendarLayout *collectionViewLayout;
 
 - (void)reloadData;
 
@@ -38,20 +35,18 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (id)init
 {
-    self.objectChanges = [NSMutableArray new];
-    self.sectionChanges = [NSMutableArray new];
-    
-    self.collectionViewLayout = [[SFCollectionViewWeekLayout alloc] init];
+    self.collectionViewLayout = [[MSCollectionViewCalendarLayout alloc] init];
     self.collectionViewLayout.delegate = self;
-    self.collectionViewLayout.sectionLayoutType = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? SFWeekLayoutSectionLayoutTypeHorizontalTile : SFWeekLayoutSectionLayoutTypeVerticalTile);
     self.collectionViewLayout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 100.0 : 80.0);
     self.collectionViewLayout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 240.0);
-    self.collectionViewLayout.timeRowHeaderReferenceWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
-    self.collectionViewLayout.dayColumnHeaderReferenceHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
-    self.collectionViewLayout.currentTimeIndicatorReferenceSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
+    self.collectionViewLayout.timeRowHeaderWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
+    self.collectionViewLayout.dayColumnHeaderHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
+    self.collectionViewLayout.currentTimeIndicatorSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
+    self.collectionViewLayout.currentTimeHorizontalGridlineHeight = 8.0;
     self.collectionViewLayout.cellMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 3.0, 1.0, 3.0) : UIEdgeInsetsMake(1.0, 3.0, 1.0, 3.0));
     self.collectionViewLayout.contentMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
-    self.collectionViewLayout.horizontalGridlineReferenceHeight = 2.0;
+    self.collectionViewLayout.horizontalGridlineHeight = 2.0;
+    self.collectionViewLayout.displayHeaderBackgroundAtOrigin = NO;
     
     self = [super initWithCollectionViewLayout:self.collectionViewLayout];
     if (self) {
@@ -64,18 +59,17 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 {
     [super viewDidLoad];
     
-    [[SFStyleManager sharedManager] styleCollectionView:(PSUICollectionView *)self.collectionView];
+    [[SFStyleManager sharedManager] styleCollectionView:(UICollectionView *)self.collectionView];
     [self.collectionView registerClass:SFEventCollectionViewCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
-    
-    [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
-    [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:SFCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
+    [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
+    [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
-        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeIndicator];
-        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindHorizontalGridline];
-        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindCurrentTimeHorizontalGridline];
-        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindTimeRowHeaderBackground];
-        [(UICollectionViewLayout *)self.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:SFCollectionElementKindDayColumnHeaderBackground];
+        [self.collectionViewLayout registerClass:SFCurrentTimeIndicatorCollectionReusableView.class forDecorationViewOfKind:MSCollectionElementKindCurrentTimeIndicator];
+        [self.collectionViewLayout registerClass:SFHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:MSCollectionElementKindHorizontalGridline];
+        [self.collectionViewLayout registerClass:SFCurrentTimeHorizontalGridlineCollectionReusableView.class forDecorationViewOfKind:MSCollectionElementKindCurrentTimeHorizontalGridline];
+        [self.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:MSCollectionElementKindTimeRowHeaderBackground];
+        [self.collectionViewLayout registerClass:SFHeaderBackgroundCollectionReusableView.class forDecorationViewOfKind:MSCollectionElementKindDayColumnHeaderBackground];
     }
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
@@ -110,144 +104,10 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.objectChanges removeAllObjects];
-    [self.sectionChanges removeAllObjects];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    NSMutableDictionary *change = [NSMutableDictionary new];
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            change[@(type)] = @(sectionIndex);
-            break;
-        case NSFetchedResultsChangeDelete:
-            change[@(type)] = @(sectionIndex);
-            break;
-    }
-    [self.sectionChanges addObject:change];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
-{
-    NSMutableDictionary *change = [NSMutableDictionary new];
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            change[@(type)] = newIndexPath;
-            break;
-        case NSFetchedResultsChangeDelete:
-            change[@(type)] = indexPath;
-            break;
-        case NSFetchedResultsChangeUpdate:
-            change[@(type)] = indexPath;
-            break;
-        case NSFetchedResultsChangeMove:
-            change[@(type)] = @[indexPath, newIndexPath];
-            break;
-    }
-    [self.objectChanges addObject:change];
-}
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    NSLog(@"SECTION CHANGES: %@", self.sectionChanges);
-    NSLog(@"OBJECT CHANGES: %@", self.objectChanges);
-    
-    if ([self.sectionChanges count] > 0) {
-        [self.collectionView performBatchUpdates:^{
-            for (NSDictionary *change in self.sectionChanges) {
-                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
-                    NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-                    switch (type) {
-                        case NSFetchedResultsChangeInsert:
-                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
-                            break;
-                        case NSFetchedResultsChangeDelete:
-                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
-                            break;
-                        case NSFetchedResultsChangeUpdate:
-                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
-                            break;
-                    }
-                }];
-            }
-        } completion:nil];
-    }
-    
-    if ([self.objectChanges count] > 0 && [self.sectionChanges count] == 0) {
-        
-        if ([self shouldReloadCollectionViewToPreventKnownIssue]) {
-            [self.collectionView reloadData];
-        } else {
-            [self.collectionView performBatchUpdates:^{
-                for (NSDictionary *change in self.objectChanges) {
-                    [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
-                        NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-                        switch (type) {
-                            case NSFetchedResultsChangeInsert:
-                                [self.collectionView insertItemsAtIndexPaths:@[obj]];
-                                break;
-                            case NSFetchedResultsChangeDelete:
-                                [self.collectionView deleteItemsAtIndexPaths:@[obj]];
-                                break;
-                            case NSFetchedResultsChangeUpdate:
-                                [self.collectionView reloadItemsAtIndexPaths:@[obj]];
-                                break;
-                            case NSFetchedResultsChangeMove:
-                                [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
-                                break;
-                        }
-                    }];
-                }
-            } completion:nil];
-        }
-        
-        [self.sectionChanges removeAllObjects];
-        [self.objectChanges removeAllObjects];
-    }
-}
-
-- (BOOL)shouldReloadCollectionViewToPreventKnownIssue
-{
-    // This is to prevent a bug in UICollectionView from occurring.
-    // The bug presents itself when inserting the first object or deleting the last object in a collection view.
-    // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
-    // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
-    // http://openradar.appspot.com/12954582
-    
-    __block BOOL shouldReload = NO;
-    for (NSDictionary *change in self.objectChanges) {
-        [change enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-            NSIndexPath *indexPath = obj;
-            switch (type) {
-                case NSFetchedResultsChangeInsert:
-                    if ([self.collectionView numberOfItemsInSection:indexPath.section] == 0) {
-                        shouldReload = YES;
-                    } else {
-                        shouldReload = NO;
-                    }
-                    break;
-                case NSFetchedResultsChangeDelete:
-                    if ([self.collectionView numberOfItemsInSection:indexPath.section] == 1) {
-                        shouldReload = YES;
-                    } else {
-                        shouldReload = NO;
-                    }
-                    break;
-                case NSFetchedResultsChangeUpdate:
-                    shouldReload = NO;
-                    break;
-                case NSFetchedResultsChangeMove:
-                    shouldReload = NO;
-                    break;
-            }
-        }];
-    }
-    
-    return shouldReload;
+    [self.collectionView reloadData];
+    [self.collectionViewLayout invalidateLayoutCache];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -263,43 +123,43 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     return [sectionInfo numberOfObjects];
 }
 
-- (PSUICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SFEventCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
     cell.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    return (PSUICollectionViewCell *)cell;
+    return (UICollectionViewCell *)cell;
 }
 
-- (PSUICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    PSUICollectionReusableView *view;
-    if ([kind isEqualToString:SFCollectionElementKindDayColumnHeader]) {
+    UICollectionReusableView *view;
+    if ([kind isEqualToString:MSCollectionElementKindDayColumnHeader]) {
         
-        NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForDayColumnHeaderAtIndexPath:indexPath];
+        NSDate *date = [self.collectionViewLayout dateForDayColumnHeaderAtIndexPath:indexPath];
         
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"EEEE, MMM d";
         SFDayColumnHeaderCollectionReusableView *dayColumnView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier forIndexPath:indexPath];
         dayColumnView.day.text = [[dateFormatter stringFromDate:date] uppercaseString];
         dayColumnView.today = [[date beginningOfDay] isEqualToDate:[[NSDate date] beginningOfDay]];
-        view = (PSUICollectionReusableView *)dayColumnView;
+        view = (UICollectionReusableView *)dayColumnView;
     }
-    else if ([kind isEqualToString:SFCollectionElementKindTimeRowHeader]) {
+    else if ([kind isEqualToString:MSCollectionElementKindTimeRowHeader]) {
         
-        NSDate *date = [(SFCollectionViewWeekLayout *)self.collectionView.collectionViewLayout dateForTimeRowHeaderAtIndexPath:indexPath];
+        NSDate *date = [self.collectionViewLayout dateForTimeRowHeaderAtIndexPath:indexPath];
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"h a";
         
         SFTimeRowHeaderCollectionReusableView *timeRowView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier forIndexPath:indexPath];
         timeRowView.time.text = [dateFormatter stringFromDate:date];
-        view = (PSUICollectionReusableView *)timeRowView;
+        view = (UICollectionReusableView *)timeRowView;
     }
     return view;
 }
 
 #pragma mark - SFCollectionViewDelegateWeekLayout
 
-- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout dayForSection:(NSInteger)section
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout dayForSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
     if (sectionInfo.objects.count != 0) {
@@ -310,19 +170,19 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     }
 }
 
-- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return event.start;
 }
 
-- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (NSDate *)collectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return event.end;
 }
 
-- (NSDate *)currentTimeComponentsForCollectionView:(UICollectionView *)collectionView layout:(SFCollectionViewWeekLayout *)collectionViewLayout
+- (NSDate *)currentTimeComponentsForCollectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout
 {
     return [NSDate date];
 }

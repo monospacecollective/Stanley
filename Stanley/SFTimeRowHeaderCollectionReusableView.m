@@ -27,7 +27,7 @@
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [UIColor colorWithHexString:@"aaaaaa"];
         self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 13.0)];
-        self.time.textAlignment = UITextAlignmentRight;
+        self.time.textAlignment = NSTextAlignmentRight;
         self.time.shadowColor = [UIColor blackColor];
         self.time.shadowOffset = CGSizeMake(0.0, -1.0);
         [self addSubview:self.time];

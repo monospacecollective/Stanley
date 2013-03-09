@@ -10,12 +10,16 @@
 #import "Film.h"
 #import "SFFilmCollectionViewCell.h"
 #import "SFStyleManager.h"
+#import "SFFilmViewController.h"
+#import "SFNavigationBar.h"
+#import "SFToolbar.h"
 
 NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionViewCellReuseIdentifier";
 
-@interface SFFilmsViewController () <PSUICollectionViewDataSource, PSUICollectionViewDelegate, NSFetchedResultsControllerDelegate>
+@interface SFFilmsViewController () <NSFetchedResultsControllerDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) UIPopoverController *filmPopoverController;
 
 - (void)reloadData;
 
@@ -25,7 +29,7 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
 
 - (id)init
 {
-    PSUICollectionViewFlowLayout *layout = [[PSUICollectionViewFlowLayout alloc] init];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         // Custom initialization
@@ -38,8 +42,7 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
     [super viewDidLoad];
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Film"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO]];
-    
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -49,7 +52,61 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
-    [[SFStyleManager sharedManager] styleCollectionView:(PSUICollectionView *)self.collectionView];
+    [self.navigationController setToolbarHidden:NO];
+    
+    __weak typeof(self) weakSelf = self;
+    UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"ALL FILMS", @"FAVORITES"] action:^(NSUInteger newIndex) {
+        
+        if (newIndex == 1) {
+            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
+        } else {
+            weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
+        }
+        
+        NSSet *previousObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
+        NSMutableDictionary *previousObjectIndexPaths = [NSMutableDictionary new];
+        for (Film *film in previousObjects) {
+            NSIndexPath *indexPath = [weakSelf.fetchedResultsController indexPathForObject:film];
+            previousObjectIndexPaths[indexPath] = film;
+        }
+        
+        [weakSelf.fetchedResultsController performFetch:nil];
+        
+        NSSet *newObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
+        NSMutableDictionary *newObjectIndexPaths = [NSMutableDictionary new];
+        for (Film *film in newObjects) {
+            NSIndexPath *indexPath = [weakSelf.fetchedResultsController indexPathForObject:film];
+            newObjectIndexPaths[indexPath] = film;
+        }
+        
+        NSMutableSet *insertions = [newObjects mutableCopy];
+        [insertions minusSet:previousObjects];
+        
+        NSMutableSet *deletions = [previousObjects mutableCopy];
+        [deletions minusSet:newObjects];
+        
+        NSMutableArray *insertedIndexPaths = [NSMutableArray new];
+        for (Film *film in insertions) {
+            [insertedIndexPaths addObjectsFromArray:[newObjectIndexPaths allKeysForObject:film]];
+        }
+        
+        NSMutableArray *deletedIndexPaths = [NSMutableArray new];
+        for (Film *film in deletions) {
+            [deletedIndexPaths addObjectsFromArray:[previousObjectIndexPaths allKeysForObject:film]];
+        }
+        
+        [weakSelf.collectionView performBatchUpdates:^{
+            [weakSelf.collectionView insertItemsAtIndexPaths:insertedIndexPaths];
+            [weakSelf.collectionView deleteItemsAtIndexPaths:deletedIndexPaths];
+        } completion:nil];
+    }];
+    
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
+    
+    
+    self.collectionView.alwaysBounceVertical = YES;
+    [[SFStyleManager sharedManager] styleCollectionView:(UICollectionView *)self.collectionView];
+    
     [self.collectionView registerClass:SFFilmCollectionViewCell.class forCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier];
     
     [self reloadData];
@@ -92,11 +149,38 @@ NSString * const SFFilmCollectionViewCellReuseIdentifier = @"SFFilmCollectionVie
     return self.fetchedResultsController.fetchedObjects.count;
 }
 
-- (PSUICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SFFilmCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFFilmCollectionViewCellReuseIdentifier forIndexPath:indexPath];
     cell.film = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    SFFilmViewController *filmController = [[SFFilmViewController alloc] init];
+    filmController.film = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.filmPopoverController = [[UIPopoverController alloc] initWithContentViewController:filmController];
+        self.filmPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
+        self.filmPopoverController.delegate = self;
+        [self.filmPopoverController presentPopoverFromRect:[self.collectionView layoutAttributesForItemAtIndexPath:indexPath].frame inView:self.collectionView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
+        [navigationController addChildViewController:filmController];
+        [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    }
+}
+
+#pragma mark - UIPopoverControllerDelegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    // Required to get the popover to dealloc when it's removed
+    self.filmPopoverController = nil;
 }
 
 @end

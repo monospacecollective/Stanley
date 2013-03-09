@@ -8,7 +8,7 @@
 
 #import "MSPlainTableViewCell.h"
 
-@interface SFMasterTableViewCell : MSPlainTableViewCell
+@interface SFMasterCell : MSPlainTableViewCell
 
 @property (nonatomic, strong) UILabel *icon;
 
