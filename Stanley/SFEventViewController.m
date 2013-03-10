@@ -9,7 +9,7 @@
 #import "SFEventViewController.h"
 #import "SFStyleManager.h"
 #import "Event.h"
-#import "SFWebViewController.h"
+#import "SFLocationViewController.h"
 
 // Sections
 NSString *const SFEventTableSectionName = @"Name";
@@ -142,9 +142,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     }
     
     // Location
-#warning check location existence
-//    if (event.location) {
-    {
+    if (event.location) {
         NSMutableArray *rows = [NSMutableArray new];
         
         [rows addObject:@{
@@ -156,7 +154,9 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-            
+                SFLocationViewController *locationViewController = [[SFLocationViewController alloc] init];
+                [locationViewController setLocation:weakSelf.event.location];
+                [weakSelf.navigationController pushViewController:locationViewController animated:YES];
             }
         }];
         
@@ -181,7 +181,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                         cell.selectionStyle = MSTableCellSelectionStyleNone;
                     },
                     MSTableSizeBlock : ^CGSize(CGFloat width){
-                        return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:event.detail forWidth:width]);
+                        return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:weakSelf.event.detail forWidth:width]);
                     }
                  }]
              }];

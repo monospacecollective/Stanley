@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * detail;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSSet *events;
 
 - (void)openInMapsWithRoute;
 - (CLLocationCoordinate2D)coordinate;

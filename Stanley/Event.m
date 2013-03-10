@@ -15,6 +15,7 @@
 @dynamic start;
 @dynamic end;
 @dynamic detail;
+@dynamic location;
 
 - (NSDate *)day
 {

@@ -15,6 +15,7 @@
 @dynamic detail;
 @dynamic latitude;
 @dynamic longitude;
+@dynamic events;
 
 - (CLLocationCoordinate2D)coordinate
 {
