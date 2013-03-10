@@ -65,18 +65,20 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
+    
+    BOOL iphone568 = (UIScreen.mainScreen.bounds.size.height == 568.0);
 
     CGFloat borderInsetSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 20.0 : 10.0);
     self.border.frame = CGRectInset((CGRect){CGPointZero, self.backgroundImageView.frame.size}, borderInsetSize, borderInsetSize);
     
-    self.logoView.stanleyFontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 60.0 : 50.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 36.0 : 30.0));
+    self.logoView.stanleyFontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 60.0 : 50.0) : (iphone568 ? 34.0 : 28.0));
     [self.logoView sizeToFit];
     CGRect logoViewFrame = self.logoView.frame;
     logoViewFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 120.0 : 100.0) : (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 30.0));
     logoViewFrame.origin.x = floorf((CGRectGetWidth(self.backgroundImageView.frame) / 2.0) - (CGRectGetWidth(logoViewFrame) / 2.0));
     self.logoView.frame = logoViewFrame;
     
-    self.taglineLabel.font = [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 40.0) : 30.0)];
+    self.taglineLabel.font = [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 50.0 : 40.0) : (iphone568 ? 28.0 : 24.0))];
     CGSize taglineLabelSize = [self.taglineLabel sizeThatFits:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(400.0, 400.0) : CGSizeMake(280.0, 280.0))];
     CGRect taglineLabelFrame = self.taglineLabel.frame;
     taglineLabelFrame.size = taglineLabelSize;
