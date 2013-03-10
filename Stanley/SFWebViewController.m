@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [[SFStyleManager sharedManager] viewBackgroundColor];
     
     __weak typeof (self) weakSelf = self;
     self.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
@@ -42,6 +42,13 @@
     self.webView.opaque = NO;
     self.webView.delegate = self;
     self.webView.backgroundColor = [UIColor clearColor];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.webView.layer.borderColor = [[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor];
+        self.webView.layer.borderWidth = 1.0;
+        self.webView.layer.cornerRadius = 5.0;
+    }
+    
     self.webView.scalesPageToFit = self.shouldScale;
     [self.view addSubview:self.webView];
     [self loadRequest];
@@ -71,7 +78,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [((SFNavigationBar *)self.navigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:NO];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setShouldDisplayNavigationPaneDirectonLabel:)]) {
+        [((SFNavigationBar *)self.navigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -82,7 +91,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setToolbarHidden:YES];
-    [((SFNavigationBar *)self.navigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:YES];
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setShouldDisplayNavigationPaneDirectonLabel:)]) {
+        [((SFNavigationBar *)self.navigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:YES];
+    }
 }
 
 - (void)viewWillLayoutSubviews
