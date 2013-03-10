@@ -61,7 +61,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     
     __weak typeof(self) weakSelf = self;
     UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"STANDARD", @"SATELLITE"] action:^(NSUInteger newIndex) {
-        weakSelf.mapView.mapType = ((newIndex == 0) ? MKMapTypeStandard : MKMapTypeSatellite);
+        weakSelf.mapView.mapType = ((newIndex == 0) ? MKMapTypeStandard : MKMapTypeHybrid);
     }];
     
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
