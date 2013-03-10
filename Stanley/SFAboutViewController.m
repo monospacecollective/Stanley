@@ -66,6 +66,14 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     [self prepareSections];
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self.collectionViewLayout invalidateLayout];
+}
+
+#pragma mark - SFAboutViewController
+
 - (void)prepareSections
 {
     __weak typeof (self) weakSelf = self;
