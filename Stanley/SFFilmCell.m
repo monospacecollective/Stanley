@@ -44,7 +44,6 @@
         self.favoriteIndicator.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.favoriteIndicator];
         
-        
         self.placeholderIcon = [FXLabel new];
         self.placeholderIcon.font = self.class.placeholderIconFont;
         self.placeholderIcon.text = @"\U0000E320";

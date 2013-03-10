@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSDate * start;
 @property (nonatomic, retain) NSDate * end;
 @property (nonatomic, retain) NSString * detail;
+@property (nonatomic, retain) NSNumber * favorite;
 @property (nonatomic, retain) Location *location;
 
 - (NSDate *)day;

@@ -65,6 +65,10 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     [super viewDidLoad];
     
     [[SFStyleManager sharedManager] styleCollectionView:(UICollectionView *)self.collectionView];
+    
+    self.collectionView.alwaysBounceHorizontal = YES;
+    self.collectionView.alwaysBounceVertical = YES;
+    
     [self.collectionView registerClass:SFEventCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
     [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
     [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
@@ -87,6 +91,20 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     NSError *error;
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
+    
+    [self.navigationController setToolbarHidden:NO];
+    __weak typeof(self) weakSelf = self;
+    UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"ALL EVENTS", @"FAVORITES"] action:^(NSUInteger newIndex) {
+        if (newIndex == 1) {
+            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
+        } else {
+            weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
+        }
+        [weakSelf.fetchedResultsController performFetch:nil];
+        [self.collectionView reloadData];
+        [self.collectionViewLayout invalidateLayoutCache];
+    }];
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
     [self reloadData];
 }

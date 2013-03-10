@@ -19,5 +19,6 @@
 @property (nonatomic, strong) UILabel *location;
 @property (nonatomic, strong) UILabel *timeIcon;
 @property (nonatomic, strong) UILabel *locationIcon;
+@property (nonatomic, strong) UIImageView *favoriteIndicator;
 
 @end

@@ -32,7 +32,7 @@ static SFStyleManager *singletonInstance = nil;
         [MSTableCell.appearance setAccessoryCharacter:@"\U000025BB" forAccessoryType:MSTableCellAccessoryDisclosureIndicator];
         [MSTableCell.appearance setAccessoryCharacter:@"\U00002713" forAccessoryType:MSTableCellAccessoryCheckmark];
         [MSTableCell.appearance setAccessoryCharacter:@"\U000022C6" forAccessoryType:MSTableCellAccessoryStarFull];
-        [MSTableCell.appearance setAccessoryCharacter:@"\U00002421" forAccessoryType:MSTableCellAccessoryStarEmpty];
+        [MSTableCell.appearance setAccessoryCharacter:@"\U0001F6AB" forAccessoryType:MSTableCellAccessoryStarEmpty];
         
         [MSPlainTableViewHeaderView.appearance setTopEtchHighlightColor:[UIColor colorWithWhite:1.0 alpha:0.1]];
         [MSPlainTableViewHeaderView.appearance setBottomEtchShadowColor:[UIColor colorWithWhite:0.0 alpha:1.0]];
@@ -120,7 +120,7 @@ static SFStyleManager *singletonInstance = nil;
         
         UIFont *groupedTitleFont = [self titleFontOfSize:17.0];
         UIFont *groupedDetailFont = [self detailFontOfSize:15.0];
-        UIFont *groupedAccessoryFont = [self symbolSetFontOfSize:15.0];
+        UIFont *groupedAccessoryFont = [self symbolSetFontOfSize:16.0];
         [MSMultlineGroupedTableViewCell.appearance setTitleTextAttributes:@{
                                            UITextAttributeFont : groupedDetailFont,
                                       UITextAttributeTextColor : textColor,

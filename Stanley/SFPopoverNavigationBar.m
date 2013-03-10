@@ -48,7 +48,7 @@
         // Hacky...
         if ([subview isKindOfClass:NSClassFromString(@"UINavigationItemView")]) {
             CGRect navigationItemFrame = subview.frame;
-            navigationItemFrame.origin.y = 9.0;
+            navigationItemFrame.origin.y = 11.0;
             navigationItemFrame.size.height = self.class.titleTextFont.lineHeight;
             subview.frame = navigationItemFrame;
         }
@@ -70,7 +70,7 @@
 
 + (UIFont *)titleTextFont
 {
-    return [[SFStyleManager sharedManager] navigationFontOfSize:30.0];
+    return [[SFStyleManager sharedManager] navigationFontOfSize:26.0];
 }
 
 @end

@@ -119,6 +119,10 @@
         self.locationIcon.layer.masksToBounds = NO;
         self.locationIcon.text = @"\U0000E6D0";
         [self.contentView addSubview:self.locationIcon];
+        
+        self.favoriteIndicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SFFilmCellFavoriteIndicator"]];
+        self.favoriteIndicator.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.favoriteIndicator];
     }
     return self;
 }
@@ -134,7 +138,8 @@
     CGFloat contentMargin = 5.0;
     CGFloat minIconDisplayWidth = 120.0;
     
-    CGSize maxTitleSize = CGRectInset(self.contentView.frame, padding.left, padding.top).size;
+    // Sizing to account for favorite label
+    CGSize maxTitleSize = CGRectInset(self.contentView.frame, (padding.left + (self.favoriteIndicator.hidden ? 0.0 : 6.0)), padding.top).size;
     CGSize titleSize = [self.title.text sizeWithFont:self.title.font constrainedToSize:maxTitleSize lineBreakMode:self.title.lineBreakMode];
     CGRect titleFrame = self.title.frame;
     titleFrame.size = titleSize;
@@ -212,6 +217,10 @@
     if (CGRectGetMinY(self.detail.frame) > maxY) {
         self.detail.frame = CGRectZero;
     }
+    
+    CGRect favoriteIndicatorFrame = self.favoriteIndicator.frame;
+    favoriteIndicatorFrame.origin.x = (CGRectGetWidth(self.contentView.frame) - CGRectGetWidth(favoriteIndicatorFrame));
+    self.favoriteIndicator.frame = favoriteIndicatorFrame;
 }
 
 #pragma mark - SFEventCell
@@ -220,6 +229,7 @@
 {
     _event = event;
     self.title.text = [event.name uppercaseString];
+    self.favoriteIndicator.hidden = ![event.favorite boolValue];
     
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     dateFormatter.dateFormat = @"h:mm a";

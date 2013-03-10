@@ -9,6 +9,7 @@
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
@@ -46,7 +47,7 @@
     </entity>
     <elements>
         <element name="Announcement" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Event" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Event" positionX="160" positionY="192" width="128" height="150"/>
         <element name="Film" positionX="160" positionY="192" width="128" height="225"/>
         <element name="Location" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Person" positionX="160" positionY="192" width="128" height="135"/>

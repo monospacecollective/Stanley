@@ -127,8 +127,8 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                 MSTableClass : MSGroupedTableViewCell.class,
                 MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                     cell.title.text = @"FAVORITE";
-                    cell.accessoryType = [self.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
-                    if ([self.film.favorite boolValue]) {
+                    cell.accessoryType = [weakSelf.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
+                    if ([weakSelf.film.favorite boolValue]) {
                         [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
                         [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
                         [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
