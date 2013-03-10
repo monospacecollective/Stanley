@@ -53,7 +53,7 @@
     self.title.layer.masksToBounds = NO;
     
     [self setTitleTextAttributes:@{
-        UITextAttributeFont : self.class.titleFont,
+        UITextAttributeFont : [[SFStyleManager sharedManager] titleFontOfSize:23.0],
         UITextAttributeTextColor : [UIColor whiteColor],
         UITextAttributeTextShadowColor : [UIColor clearColor],
         UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeZero]
@@ -87,12 +87,6 @@
 + (CGSize)padding
 {
     return CGSizeMake(15.0, 15.0);
-}
-
-+ (UIFont *)titleFont
-{
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 25.0 : 23.0);
-    return [[SFStyleManager sharedManager] titleFontOfSize:fontSize];
 }
 
 @end

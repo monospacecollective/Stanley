@@ -56,7 +56,7 @@ NSString* const SFMapCellCurrentLocationIdentifier = @"SFMapCellCurrentLocationI
     self.map.showsUserLocation = YES;
     [self.contentView insertSubview:self.map atIndex:0];
     
-    self.map.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.1] CGColor];
+    self.map.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.25] CGColor];
     self.map.layer.borderWidth = 1.0;
     
     self.backgroundView = self.map;

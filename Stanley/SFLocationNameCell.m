@@ -53,10 +53,10 @@
     self.title.layer.masksToBounds = NO;
     
     [self setTitleTextAttributes:@{
-            UITextAttributeFont : self.class.titleFont,
-       UITextAttributeTextColor : [UIColor whiteColor],
- UITextAttributeTextShadowColor : [UIColor clearColor],
-UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeZero]
+        UITextAttributeFont : self.class.titleFont,
+        UITextAttributeTextColor : [UIColor whiteColor],
+        UITextAttributeTextShadowColor : [UIColor clearColor],
+        UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeZero]
      } forState:UIControlStateNormal];
     
     self.backgroundGradient = [CAGradientLayer layer];

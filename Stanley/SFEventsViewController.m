@@ -66,7 +66,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     
     [[SFStyleManager sharedManager] styleCollectionView:(UICollectionView *)self.collectionView];
     
-    self.collectionView.alwaysBounceHorizontal = YES;
+    self.collectionView.alwaysBounceHorizontal = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
     self.collectionView.alwaysBounceVertical = YES;
     
     [self.collectionView registerClass:SFEventCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
@@ -107,11 +107,10 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
     [self reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
+    });
 }
 
 #pragma mark - SFEventsViewController
