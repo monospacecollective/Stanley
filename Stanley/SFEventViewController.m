@@ -80,7 +80,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
 
 - (void)prepareSectionsForEvent:(Event *)event
 {
-        NSMutableArray *sections = [NSMutableArray new];
+    NSMutableArray *sections = [NSMutableArray new];
     __weak typeof (self) weakSelf = self;
     
     // Name
