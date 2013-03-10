@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3A4CE8E116EBDF2200C7928C /* SFEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E016EBDF2200C7928C /* SFEventViewController.m */; };
+		3A4CE8E416ECEA2300C7928C /* SFPopoverNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E316ECEA2300C7928C /* SFPopoverNavigationBar.m */; };
+		3A4CE8E716ECF16600C7928C /* SFPopoverToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E616ECF16600C7928C /* SFPopoverToolbar.m */; };
 		3A6CBA2F16DAA60200B4F041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA2E16DAA60200B4F041 /* UIKit.framework */; };
 		3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3016DAA60200B4F041 /* Foundation.framework */; };
 		3A6CBA3316DAA60200B4F041 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3216DAA60200B4F041 /* CoreGraphics.framework */; };
@@ -109,6 +111,10 @@
 /* Begin PBXFileReference section */
 		3A4CE8DF16EBDF2200C7928C /* SFEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEventViewController.h; sourceTree = "<group>"; };
 		3A4CE8E016EBDF2200C7928C /* SFEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEventViewController.m; sourceTree = "<group>"; };
+		3A4CE8E216ECEA2300C7928C /* SFPopoverNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPopoverNavigationBar.h; sourceTree = "<group>"; };
+		3A4CE8E316ECEA2300C7928C /* SFPopoverNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPopoverNavigationBar.m; sourceTree = "<group>"; };
+		3A4CE8E516ECF16600C7928C /* SFPopoverToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPopoverToolbar.h; sourceTree = "<group>"; };
+		3A4CE8E616ECF16600C7928C /* SFPopoverToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPopoverToolbar.m; sourceTree = "<group>"; };
 		3A6CBA2B16DAA60200B4F041 /* Stanley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6CBA2E16DAA60200B4F041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A6CBA3016DAA60200B4F041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -425,6 +431,10 @@
 				3AAF7AF116EA55FF00081130 /* SFToolbar.m */,
 				3AAF7AF616EA947500081130 /* SFTryAgainView.h */,
 				3AAF7AF716EA947500081130 /* SFTryAgainView.m */,
+				3A4CE8E216ECEA2300C7928C /* SFPopoverNavigationBar.h */,
+				3A4CE8E316ECEA2300C7928C /* SFPopoverNavigationBar.m */,
+				3A4CE8E516ECF16600C7928C /* SFPopoverToolbar.h */,
+				3A4CE8E616ECF16600C7928C /* SFPopoverToolbar.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -749,6 +759,8 @@
 				3AAF7AFE16EAA7A500081130 /* SFLocationViewController.m in Sources */,
 				3AAF7B0116EAB45400081130 /* SFMapCell.m in Sources */,
 				3A4CE8E116EBDF2200C7928C /* SFEventViewController.m in Sources */,
+				3A4CE8E416ECEA2300C7928C /* SFPopoverNavigationBar.m in Sources */,
+				3A4CE8E716ECF16600C7928C /* SFPopoverToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

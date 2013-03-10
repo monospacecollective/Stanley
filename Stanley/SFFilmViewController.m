@@ -10,6 +10,7 @@
 #import "SFFilmCell.h"
 #import "SFStyleManager.h"
 #import "Film.h"
+#import "SFWebViewController.h"
 
 // Sections
 NSString *const SFFilmViewControllerTableSectionTitle = @"Title";
@@ -80,13 +81,13 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
-    [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
-    
     self.navigationItem.title = @"FILM";
-    __weak typeof (self) weakSelf = self;
-    self.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-    }];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [[SFStyleManager sharedManager] stylePopoverCollectionView:self.collectionView];
+    } else {
+        [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
+    }
     
     [self prepareSectionsForFilm:self.film];
 }
@@ -301,6 +302,12 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"PURCHASE TICKETS";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
+                webViewController.requestURL = @"http://www.stanleyhotel.com";
+                webViewController.shouldScale = YES;
+                [weakSelf.navigationController pushViewController:webViewController animated:YES];
             }
          }];
         

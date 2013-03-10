@@ -64,13 +64,13 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
-    [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
-    
     self.navigationItem.title = @"EVENT";
-    __weak typeof (self) weakSelf = self;
-    self.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-    }];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [[SFStyleManager sharedManager] stylePopoverCollectionView:self.collectionView];
+    } else {
+        [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
+    }
     
     [self prepareSectionsForEvent:self.event];
 }

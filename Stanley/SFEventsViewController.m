@@ -18,6 +18,7 @@
 #import "SFCurrentTimeHorizontalGridlineCollectionReusableView.h"
 #import "SFHeaderBackgroundCollectionReusableView.h"
 #import "SFEventViewController.h"
+#import "SFPopoverNavigationBar.h"
 #import "SFNavigationBar.h"
 #import "SFToolbar.h"
 
@@ -169,13 +170,29 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     eventController.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.eventPopoverController = [[UIPopoverController alloc] initWithContentViewController:eventController];
+        
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFPopoverNavigationBar.class toolbarClass:SFToolbar.class];
+        [navigationController addChildViewController:eventController];
+        
+        __weak typeof (self) weakSelf = self;
+        eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" action:^{
+            [weakSelf.eventPopoverController dismissPopoverAnimated:YES];
+        }];
+        
+        self.eventPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
         self.eventPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
         self.eventPopoverController.delegate = self;
         [self.eventPopoverController presentPopoverFromRect:[self.collectionView layoutAttributesForItemAtIndexPath:indexPath].frame inView:self.collectionView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
     } else {
+        
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
         [navigationController addChildViewController:eventController];
+        
+        eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+            [eventController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
         [self.navigationController presentViewController:navigationController animated:YES completion:nil];
     }
 }

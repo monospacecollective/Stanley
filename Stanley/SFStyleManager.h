@@ -24,6 +24,7 @@
 
 // UICollectionView
 - (void)styleCollectionView:(UICollectionView *)collectionView;
+- (void)stylePopoverCollectionView:(UICollectionView *)collectionView;
 
 // UIButton
 - (UIButton *)styledDisclosureButton;

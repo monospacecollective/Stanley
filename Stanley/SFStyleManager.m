@@ -239,6 +239,14 @@ static SFStyleManager *singletonInstance = nil;
     collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 }
 
+- (void)stylePopoverCollectionView:(UICollectionView *)collectionView
+{
+    [self styleCollectionView:collectionView];
+    collectionView.layer.borderColor = [[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor];
+    collectionView.layer.borderWidth = 1.0;
+    collectionView.layer.cornerRadius = 5.0;
+}
+
 #pragma mark -  UIButton
 
 - (UIButton *)styledDisclosureButton
@@ -299,7 +307,7 @@ static SFStyleManager *singletonInstance = nil;
 - (void)styleBarButtonItemCustomView:(UIButton *)button withSymbolsetTitle:(NSString *)title
 {
     [self styleBarButtonItemCustomView:button withTitle:title];
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 30.0 : 24.0);
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
     button.titleLabel.font = [self symbolSetFontOfSize:fontSize];
     button.contentEdgeInsets = UIEdgeInsetsMake(5.0, 11.0, 0.0, 11.0);
     [button sizeToFit];

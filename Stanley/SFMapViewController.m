@@ -13,6 +13,8 @@
 #import "SFLocationViewController.h"
 #import "SFNavigationBar.h"
 #import "SFToolbar.h"
+#import "SFPopoverToolbar.h"
+#import "SFPopoverNavigationBar.h"
 
 NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationIdentifier";
@@ -203,7 +205,15 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
             SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
             locationController.location = [(SFLocationAnnotation *)view.annotation location];
             
-            self.locationPopoverController = [[UIPopoverController alloc] initWithContentViewController:locationController];
+            __weak typeof (self) weakSelf = self;
+            locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" action:^{
+                [weakSelf.locationPopoverController dismissPopoverAnimated:YES];
+            }];
+            
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFPopoverNavigationBar.class toolbarClass:SFPopoverToolbar.class];
+            [navigationController addChildViewController:locationController];
+            
+            self.locationPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
             self.locationPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
             self.locationPopoverController.delegate = self;
             
@@ -221,6 +231,10 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
 {
     SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
     locationController.location = [(SFLocationAnnotation *)view.annotation location];
+    
+    locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+        [locationController dismissViewControllerAnimated:YES completion:nil];
+    }];
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
     [navigationController addChildViewController:locationController];

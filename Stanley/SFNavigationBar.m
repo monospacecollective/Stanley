@@ -77,12 +77,10 @@
     for (UIView *subview in self.subviews) {
         // Hacky...
         if ([subview isKindOfClass:NSClassFromString(@"UINavigationItemView")]) {
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                CGRect navigationItemFrame = subview.frame;
-                navigationItemFrame.origin.y = 13.0;
-                navigationItemFrame.size.height = self.class.titleTextFont.lineHeight;
-                subview.frame = navigationItemFrame;
-            }
+            CGRect navigationItemFrame = subview.frame;
+            navigationItemFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 13.0 : 9.0);
+            navigationItemFrame.size.height = self.class.titleTextFont.lineHeight;
+            subview.frame = navigationItemFrame;
 #if defined(LAYOUT_DEBUG)
             subview.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
 #endif
@@ -143,7 +141,7 @@
 
 + (UIFont *)titleTextFont
 {
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 32.0 : 25.0);
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 32.0 : 28.0);
     return [[SFStyleManager sharedManager] navigationFontOfSize:fontSize];
 }
 

@@ -13,6 +13,8 @@
 #import "SFFilmViewController.h"
 #import "SFNavigationBar.h"
 #import "SFToolbar.h"
+#import "SFPopoverNavigationBar.h"
+#import "SFPopoverToolbar.h"
 
 NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 
@@ -164,13 +166,29 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     filmController.film = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.filmPopoverController = [[UIPopoverController alloc] initWithContentViewController:filmController];
+        
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFPopoverNavigationBar.class toolbarClass:SFPopoverToolbar.class];
+        [navigationController addChildViewController:filmController];
+        
+        __weak typeof (self) weakSelf = self;
+        filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" action:^{
+            [weakSelf.filmPopoverController dismissPopoverAnimated:YES];
+        }];
+        
+        self.filmPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
         self.filmPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
         self.filmPopoverController.delegate = self;
         [self.filmPopoverController presentPopoverFromRect:[self.collectionView layoutAttributesForItemAtIndexPath:indexPath].frame inView:self.collectionView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
     } else {
+        
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
         [navigationController addChildViewController:filmController];
+        
+        filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+            [filmController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
         [self.navigationController presentViewController:navigationController animated:YES completion:nil];
     }
 }
