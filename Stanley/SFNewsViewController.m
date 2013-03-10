@@ -66,7 +66,6 @@ NSString * const SFHeaderReuseIdentifier = @"SFHeaderReuseIdentifier";
 - (void)reloadData
 {
     [[RKObjectManager sharedManager] getObjectsAtPath:@"/announcements.json" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-        NSLog(@"Fetched announcements %@", [mappingResult array]);
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"Announcement load failed with error: %@", error);
     }];
