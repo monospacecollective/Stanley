@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFMapViewController : UIViewController <UIPopoverControllerDelegate>
-
-@property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) UIPopoverController *locationPopoverController;
+@interface SFMapViewController : UIViewController
 
 @end

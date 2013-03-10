@@ -7,17 +7,17 @@
 //
 
 #import "SFFilmViewController.h"
-#import "SFFilmCell.h"
+#import "SFHeroCell.h"
 #import "SFStyleManager.h"
 #import "Film.h"
 #import "SFWebViewController.h"
 
 // Sections
 NSString *const SFFilmViewControllerTableSectionTitle = @"Title";
-NSString *const SFFilmViewControllerTableSectionFavorite = @"Favorite";
 NSString *const SFFilmViewControllerTableSectionDescription = @"Description";
-NSString *const SFFilmViewControllerTableSectionPeople = @"People";
 NSString *const SFFilmViewControllerTableSectionInfo = @"Info";
+NSString *const SFFilmViewControllerTableSectionPeople = @"People";
+NSString *const SFFilmViewControllerTableSectionFavorite = @"Favorite";
 NSString *const SFFilmViewControllerTableSectionActions = @"Actions";
 
 // Reuse Identifiers
@@ -106,45 +106,14 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionTitle,
                 MSTableSectionRows : @[@{
                     MSTableReuseIdentifer : SFFilmReuseIdentifierTitle,
-                    MSTableClass : SFFilmCell.class,
-                    MSTableConfigurationBlock : ^(SFFilmCell *cell){
-                        cell.film = weakSelf.film;
-                    },
-                    MSTableSizeBlock : ^CGSize(CGFloat width){
-                        return CGSizeMake((width - 20.0), 180.0);
+                    MSTableClass : SFHeroCell.class,
+                    MSTableConfigurationBlock : ^(SFHeroCell *cell){
+                        cell.title.text = [weakSelf.film.name uppercaseString];
+                        [cell.backgroundImage setImageWithURL:[NSURL URLWithString:film.featureImage]];
                     }
                  }]
              }];
         }
-    }
-    
-    // Favorite Section
-    {
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFFilmViewControllerTableSectionFavorite,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierFavorite,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"FAVORITE";
-                    cell.accessoryType = [weakSelf.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
-                    if ([weakSelf.film.favorite boolValue]) {
-                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
-                    } else {
-                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                    }
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    weakSelf.film.favorite = @(![weakSelf.film.favorite boolValue]);
-                    [weakSelf.film.managedObjectContext save:nil];
-                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath, [NSIndexPath indexPathForItem:0 inSection:0]]];
-                }
-             }]
-         }];
     }
     
     // Description Section
@@ -290,11 +259,38 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
         }
     }
     
+    // Favorite Section
+    {
+        [sections addObject:@{
+            MSTableSectionIdentifier : SFFilmViewControllerTableSectionFavorite,
+            MSTableSectionRows : @[@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierFavorite,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"FAVORITE";
+                    cell.accessoryType = [weakSelf.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
+                    if ([weakSelf.film.favorite boolValue]) {
+                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
+                    } else {
+                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
+                    }
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                    weakSelf.film.favorite = @(![weakSelf.film.favorite boolValue]);
+                    [weakSelf.film.managedObjectContext save:nil];
+                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
+             }]
+         }];
+    }
+    
     // Actions Section
     {
         NSMutableArray *rows = [NSMutableArray new];
-        
-#warning conditional based on having these urls
         
         [rows addObject:@{
             MSTableReuseIdentifer : SFFilmReuseIdentifierTickets,

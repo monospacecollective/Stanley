@@ -10,6 +10,7 @@
 #import "SFStyleManager.h"
 #import "Event.h"
 #import "SFLocationViewController.h"
+#import "SFHeroCell.h"
 
 // Sections
 NSString *const SFEventTableSectionName = @"Name";
@@ -92,10 +93,10 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                 MSTableSectionIdentifier : SFEventTableSectionName,
                 MSTableSectionRows : @[@{
                     MSTableReuseIdentifer : SFEventReuseIdentifierName,
-                    MSTableClass : MSGroupedTableViewCell.class,
-                    MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    MSTableClass : SFHeroCell.class,
+                    MSTableConfigurationBlock : ^(SFHeroCell *cell){
                         cell.title.text = [weakSelf.event.name uppercaseString];
-                        cell.selectionStyle = MSTableCellSelectionStyleNone;
+                        cell.backgroundImage.image = [UIImage imageNamed:@"SFSplashBackground.jpg"];
                     }
                  }]
              }];
@@ -213,7 +214,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                     weakSelf.event.favorite = @(![weakSelf.event.favorite boolValue]);
                     [weakSelf.event.managedObjectContext save:nil];
                     [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath, [NSIndexPath indexPathForItem:0 inSection:0]]];
+                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
                 }
              }]
          }];

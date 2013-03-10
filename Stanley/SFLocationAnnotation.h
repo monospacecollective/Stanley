@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak) Location * location;
 
-- (id)initWithLocation:(Location *)ocation;
+- (id)initWithLocation:(Location *)location;
 
 - (NSString *)title;
 - (NSString *)subtitle;

@@ -8,9 +8,13 @@
 
 #import "SFMapCell.h"
 
-@interface SFMapCell () <MKMapViewDelegate, MKAnnotation>
+NSString* const SFMapCellPinIdentifier = @"SFMapCellPinIdentifier";
+NSString* const SFMapCellCurrentLocationIdentifier = @"SFMapCellCurrentLocationIdentifier";
+
+@interface SFMapCell () <MKMapViewDelegate>
 
 @property (nonatomic, strong) MKMapView *map;
+@property (nonatomic, strong) MKPointAnnotation *annotation;
 
 @end
 
@@ -22,15 +26,12 @@
 {
     [super layoutSubviews];
     
-    if (CLLocationCoordinate2DIsValid(self.coordinate)) {
+    if (CLLocationCoordinate2DIsValid(self.region.center)) {
         [self.map setRegion:self.region animated:NO];
     }
     
-    CGRect mapFrame = (CGRect){CGPointZero, self.backgroundView.frame.size};
-    self.map.frame = mapFrame;
-    
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = [[self cellPathForRect:mapFrame inset:CGSizeZero offset:CGSizeZero cornerRadius:self.groupedCellBackgroundView.cornerRadius] CGPath];
+    maskLayer.path = [[self cellPathForRect:(CGRect){CGPointZero, self.map.frame.size} cornerRadius:2.0] CGPath];
     self.map.layer.mask = maskLayer;
 }
 
@@ -47,74 +48,100 @@
 {
     [super initialize];
     
+    self.annotation = [[MKPointAnnotation alloc] init];
+    
     self.map = [MKMapView new];
     self.map.userInteractionEnabled = NO;
     self.map.delegate = self;
     self.map.showsUserLocation = YES;
-    [self.map addAnnotation:self];
-    [self.contentView addSubview:self.map];
+    [self.contentView insertSubview:self.map atIndex:0];
     
-    self.map.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.5] CGColor];
+    self.map.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.1] CGColor];
     self.map.layer.borderWidth = 1.0;
+    
+    self.backgroundView = self.map;
     
     self.selectionStyle = MSTableCellSelectionStyleNone;
     
     self.padding = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
 }
 
++ (CGFloat)height
+{
+    return 200.0;
+}
+
 #pragma mark - SFMapCell
 
-- (UIBezierPath *)cellPathForRect:(CGRect)rect inset:(CGSize)insets offset:(CGSize)offset cornerRadius:(CGFloat)cornerRadius
+- (UIBezierPath *)cellPathForRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius
 {
-    CGRect pathRect = CGRectInset(rect, insets.width, insets.height);
+    MSGroupedCellBackgroundViewType type = MSGroupedCellBackgroundViewTypeSingle;
+    if ([self.superview isKindOfClass:UICollectionView.class]) {
+        UICollectionView *enclosingCollectionView = (UICollectionView *)self.superview;
+        NSIndexPath *indexPath = [enclosingCollectionView indexPathForCell:(UICollectionViewCell *)self];
+        NSInteger rowsForSection = [enclosingCollectionView numberOfItemsInSection:indexPath.section];
+        if((indexPath.row == 0) && (indexPath.row == (rowsForSection - 1))) {
+            type = MSGroupedCellBackgroundViewTypeSingle;
+        } else if (indexPath.row == 0) {
+            type = MSGroupedCellBackgroundViewTypeTop;
+        } else if (indexPath.row != (rowsForSection - 1)) {
+            type = MSGroupedCellBackgroundViewTypeMiddle;
+        } else {
+            type = MSGroupedCellBackgroundViewTypeBottom;
+        }
+    }
+    
     UIBezierPath *bezierPath;
     if (self.groupedCellBackgroundView.type == MSGroupedCellBackgroundViewTypeMiddle) {
-        bezierPath = [UIBezierPath bezierPathWithRect:pathRect];
+        bezierPath = [UIBezierPath bezierPathWithRect:rect];
     } else {
         CGSize cornerRadii = CGSizeMake(cornerRadius , cornerRadius);
-        UIRectCorner corners;
-        if (self.groupedCellBackgroundView.type == MSGroupedCellBackgroundViewTypeTop) {
+        UIRectCorner corners = 0;
+        if (type == MSGroupedCellBackgroundViewTypeTop) {
             corners = (UIRectCornerTopLeft | UIRectCornerTopRight);
-        } else if (self.groupedCellBackgroundView.type == MSGroupedCellBackgroundViewTypeBottom) {
+        } else if (type == MSGroupedCellBackgroundViewTypeBottom) {
             corners = (UIRectCornerBottomLeft | UIRectCornerBottomRight);
-        } else if (self.groupedCellBackgroundView.type == MSGroupedCellBackgroundViewTypeSingle) {
+        } else if (type == MSGroupedCellBackgroundViewTypeSingle) {
             corners = UIRectCornerAllCorners;
-        } else {
-            corners = 0;
         }
-        bezierPath = [UIBezierPath bezierPathWithRoundedRect:pathRect byRoundingCorners:corners cornerRadii:cornerRadii];
+        bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corners cornerRadii:cornerRadii];
     }
-    [bezierPath applyTransform:CGAffineTransformMakeTranslation(offset.width, offset.height)];
+    
     return bezierPath;
+}
+
+- (void)setRegion:(MKCoordinateRegion)region
+{
+    _region = region;
+    
+    self.annotation = [[MKPointAnnotation alloc] init];
+    self.annotation.coordinate = self.region.center;
+    
+    [self.map addAnnotation:self.annotation];
 }
 
 #pragma mark - MKMapViewDelegate
 
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    [mapView deselectAnnotation:view.annotation animated:NO];
-}
-
-#pragma mark - MKAnnotation
-
-- (CLLocationCoordinate2D)coordinate
-{
-    return self.region.center;
-}
-
-- (NSString *)title
-{
-    return nil;
-}
-
-- (NSString *)subtitle
-{
-    return nil;
-}
-
-+ (CGFloat)height
-{
-    return 200.0;
+    if ([annotation isKindOfClass:MKPointAnnotation.class]) {
+        MKPinAnnotationView *pinView = (MKPinAnnotationView *)[self.map dequeueReusableAnnotationViewWithIdentifier:SFMapCellPinIdentifier];
+        if (!pinView) {
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:SFMapCellPinIdentifier];
+        }
+        return pinView;
+    }
+    else if ([annotation isKindOfClass:MKUserLocation.class]) {
+        SVPulsingAnnotationView *pulsingView = (SVPulsingAnnotationView *)[self.map dequeueReusableAnnotationViewWithIdentifier:SFMapCellCurrentLocationIdentifier];
+        if(pulsingView == nil) {
+            pulsingView = [[SVPulsingAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:SFMapCellCurrentLocationIdentifier];
+            pulsingView.annotationColor = [UIColor colorWithRed:0.678431 green:0 blue:0 alpha:1];
+        }
+        return pulsingView;
+    }
+    else {
+        return nil;
+    }
 }
 
 @end

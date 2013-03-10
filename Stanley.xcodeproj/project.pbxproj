@@ -10,6 +10,8 @@
 		3A4CE8E116EBDF2200C7928C /* SFEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E016EBDF2200C7928C /* SFEventViewController.m */; };
 		3A4CE8E416ECEA2300C7928C /* SFPopoverNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E316ECEA2300C7928C /* SFPopoverNavigationBar.m */; };
 		3A4CE8E716ECF16600C7928C /* SFPopoverToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E616ECF16600C7928C /* SFPopoverToolbar.m */; };
+		3A4CE8EA16ED1A1300C7928C /* SFLocationNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8E916ED1A1300C7928C /* SFLocationNameCell.m */; };
+		3A4CE8ED16ED2CCA00C7928C /* SFHeroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE8EC16ED2CCA00C7928C /* SFHeroCell.m */; };
 		3A6CBA2F16DAA60200B4F041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA2E16DAA60200B4F041 /* UIKit.framework */; };
 		3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3016DAA60200B4F041 /* Foundation.framework */; };
 		3A6CBA3316DAA60200B4F041 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3216DAA60200B4F041 /* CoreGraphics.framework */; };
@@ -115,6 +117,10 @@
 		3A4CE8E316ECEA2300C7928C /* SFPopoverNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPopoverNavigationBar.m; sourceTree = "<group>"; };
 		3A4CE8E516ECF16600C7928C /* SFPopoverToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPopoverToolbar.h; sourceTree = "<group>"; };
 		3A4CE8E616ECF16600C7928C /* SFPopoverToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPopoverToolbar.m; sourceTree = "<group>"; };
+		3A4CE8E816ED1A1300C7928C /* SFLocationNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLocationNameCell.h; sourceTree = "<group>"; };
+		3A4CE8E916ED1A1300C7928C /* SFLocationNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocationNameCell.m; sourceTree = "<group>"; };
+		3A4CE8EB16ED2CCA00C7928C /* SFHeroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHeroCell.h; sourceTree = "<group>"; };
+		3A4CE8EC16ED2CCA00C7928C /* SFHeroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHeroCell.m; sourceTree = "<group>"; };
 		3A6CBA2B16DAA60200B4F041 /* Stanley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6CBA2E16DAA60200B4F041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A6CBA3016DAA60200B4F041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -399,6 +405,10 @@
 				3A6CBA7816DAA69F00B4F041 /* SFFilmCell.m */,
 				3AAF7AFF16EAB45300081130 /* SFMapCell.h */,
 				3AAF7B0016EAB45300081130 /* SFMapCell.m */,
+				3A4CE8E816ED1A1300C7928C /* SFLocationNameCell.h */,
+				3A4CE8E916ED1A1300C7928C /* SFLocationNameCell.m */,
+				3A4CE8EB16ED2CCA00C7928C /* SFHeroCell.h */,
+				3A4CE8EC16ED2CCA00C7928C /* SFHeroCell.m */,
 			);
 			name = "Collection View Cells";
 			sourceTree = "<group>";
@@ -761,6 +771,8 @@
 				3A4CE8E116EBDF2200C7928C /* SFEventViewController.m in Sources */,
 				3A4CE8E416ECEA2300C7928C /* SFPopoverNavigationBar.m in Sources */,
 				3A4CE8E716ECF16600C7928C /* SFPopoverToolbar.m in Sources */,
+				3A4CE8EA16ED1A1300C7928C /* SFLocationNameCell.m in Sources */,
+				3A4CE8ED16ED2CCA00C7928C /* SFHeroCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

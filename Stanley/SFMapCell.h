@@ -10,6 +10,7 @@
 
 @interface SFMapCell : MSGroupedTableViewCell
 
+@property (nonatomic, strong, readonly) MKMapView *map;
 @property (nonatomic, assign) MKCoordinateRegion region;
 
 @end

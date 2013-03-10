@@ -12,19 +12,17 @@
 #import "SFMapCell.h"
 #import "SFWebViewController.h"
 #import "SFAppDelegate.h"
-#import "SFMapViewController.h"
+#import "SFLocationNameCell.h"
 
 // Sections
 NSString *const SFLocationTableSectionName = @"Name";
 NSString *const SFLocationTableSectionDescription = @"Description";
-NSString *const SFLocationTableSectionMap = @"Map";
 NSString *const SFLocationTableSectionEvents = @"Events";
 NSString *const SFLocationTableSectionActions = @"Actions";
 
 // Reuse Identifiers
 NSString *const SFLocationReuseIdentifierName = @"Name";
 NSString *const SFLocationReuseIdentifierDescription = @"Description";
-NSString *const SFLocationReuseIdentifierMap = @"Map";
 NSString *const SFLocationReuseIdentifierEvent = @"Event";
 NSString *const SFLocationReuseIdentifierDirections = @"Directions";
 
@@ -91,9 +89,10 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
                 MSTableSectionIdentifier : SFLocationTableSectionName,
                 MSTableSectionRows : @[@{
                     MSTableReuseIdentifer : SFLocationReuseIdentifierName,
-                    MSTableClass : MSGroupedTableViewCell.class,
-                    MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    MSTableClass : SFLocationNameCell.class,
+                    MSTableConfigurationBlock : ^(SFLocationNameCell *cell){
                         cell.title.text = [weakSelf.location.name uppercaseString];
+                        cell.region = MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 500.0, 500.0);
                     }
                  }]
              }];
@@ -114,36 +113,6 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
                     },
                     MSTableSizeBlock : ^CGSize(CGFloat width){
                         return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:weakSelf.location.detail forWidth:width]);
-                    }
-                 }]
-             }];
-        }
-    }
-    
-    // Location Section
-    {
-        if (CLLocationCoordinate2DIsValid(location.coordinate)) {
-            [sections addObject:@{
-                MSTableSectionIdentifier : SFLocationTableSectionMap,
-                MSTableSectionRows : @[@{
-                    MSTableReuseIdentifer : SFLocationReuseIdentifierMap,
-                    MSTableClass : SFMapCell.class,
-                    MSTableConfigurationBlock : ^(SFMapCell *cell){
-                        cell.region = MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 500.0, 500.0);
-                    },
-                    MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                        // Whoa whoa whoa holy hackfest
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                            SFMapViewController *mapViewController = (SFMapViewController *)[(UINavigationController *)[[(SFAppDelegate *)[[UIApplication sharedApplication] delegate] navigationPaneViewController] paneViewController] childViewControllers][0];
-                            [mapViewController.locationPopoverController dismissPopoverAnimated:YES];
-                            [mapViewController.mapView setRegion:MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 500.0, 500.0) animated:YES];
-                            [mapViewController popoverControllerDidDismissPopover:mapViewController.locationPopoverController];
-                        } else {
-                            [self dismissViewControllerAnimated:YES completion:^{
-                                SFMapViewController *mapViewController = (SFMapViewController *)[(UINavigationController *)[[(SFAppDelegate *)[[UIApplication sharedApplication] delegate] navigationPaneViewController] paneViewController] childViewControllers][0];
-                                [mapViewController.mapView setRegion:MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 500.0, 500.0) animated:YES];
-                            }];
-                        }
                     }
                  }]
              }];

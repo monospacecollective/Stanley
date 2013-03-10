@@ -19,8 +19,10 @@
 NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationIdentifier";
 
-@interface SFMapViewController () <MKMapViewDelegate, NSFetchedResultsControllerDelegate>
+@interface SFMapViewController () <MKMapViewDelegate, NSFetchedResultsControllerDelegate, UIPopoverControllerDelegate>
 
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) UIPopoverController *locationPopoverController;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)reloadData;
