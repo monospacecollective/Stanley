@@ -55,6 +55,15 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
+    [self.navigationController setToolbarHidden:NO];
+    
+    __weak typeof(self) weakSelf = self;
+    UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"STANDARD", @"SATELLITE"] action:^(NSUInteger newIndex) {
+        weakSelf.mapView.mapType = ((newIndex == 0) ? MKMapTypeStandard : MKMapTypeSatellite);
+    }];
+    
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
+    
     [self addLocationAnnotations];
     [self zoomToAnnotationsAnimated:NO];
     
