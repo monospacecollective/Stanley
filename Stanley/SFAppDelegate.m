@@ -12,6 +12,7 @@
 #import "SFNavigationBar.h"
 #import "SFStyleManager.h"
 #import "SFMasterViewController.h"
+#import "SFSplashViewController.h"
 
 @interface SFAppDelegate ()
 
@@ -153,6 +154,11 @@
 {
     [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"MST"]];
     
+    // Seed NSUserDefaults defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *defaultsDictionary = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SFUserDefaults" ofType:@"plist"]];
+    [defaults registerDefaults:defaultsDictionary];
+    
     [self setupRestKitWithBaseURL:[NSURL URLWithString:@"http://stanley-film.herokuapp.com"]];
     
 #if defined(DEBUG)
@@ -175,6 +181,13 @@
     self.window.backgroundColor = [UIColor blackColor];
     self.window.rootViewController = self.navigationPaneViewController;
     [self.window makeKeyAndVisible];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:SFUserDefaultsFirstLaunch]) {
+        SFSplashViewController *splashViewController = [[SFSplashViewController alloc] initWithNibName:nil bundle:nil];
+        [masterViewController presentViewController:splashViewController animated:NO completion:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SFUserDefaultsFirstLaunch];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     return YES;
 }

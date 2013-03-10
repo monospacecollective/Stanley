@@ -10,3 +10,6 @@
 
 #pragma mark - Current Pane Type
 NSString * const SFUserDefaultsCurrentPaneType = @"SFCurrentPaneType";
+
+#pragma mark - First Launch
+NSString * const SFUserDefaultsFirstLaunch = @"SFFirstLaunch";

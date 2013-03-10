@@ -8,3 +8,6 @@
 
 // Current Pane Type
 extern NSString * const SFUserDefaultsCurrentPaneType;
+
+// First Launch
+extern NSString * const SFUserDefaultsFirstLaunch;
