@@ -12,6 +12,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="location" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="events" inverseEntity="Location" syncable="YES"/>
     </entity>
     <entity name="Film" representedClassName="Film" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,6 +34,7 @@
         <attribute name="longitude" optional="YES" attributeType="Float" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="location" inverseEntity="Event" syncable="YES"/>
     </entity>
     <entity name="Person" representedClassName="Person" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -44,9 +46,9 @@
     </entity>
     <elements>
         <element name="Announcement" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Event" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Event" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Film" positionX="160" positionY="192" width="128" height="225"/>
-        <element name="Location" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Location" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Person" positionX="160" positionY="192" width="128" height="135"/>
     </elements>
 </model>
