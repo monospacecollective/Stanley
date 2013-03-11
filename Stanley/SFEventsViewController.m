@@ -112,9 +112,16 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         
         [weakSelf.fetchedResultsController performFetch:nil];
         
-        [self updateNoContentBackgroundForType:newIndex];
-        [self.collectionView reloadData];
-        [self.collectionViewLayout invalidateLayoutCache];
+        [weakSelf updateNoContentBackgroundForType:newIndex];
+        [weakSelf.collectionView reloadData];
+        [weakSelf.collectionViewLayout invalidateLayoutCache];
+        
+        // Hacky
+        double delayInSeconds = 0.01;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [weakSelf.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
+        });
     }];
     UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.favoriteSegmentedControl];
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
