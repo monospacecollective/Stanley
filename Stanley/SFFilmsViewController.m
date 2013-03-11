@@ -82,7 +82,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         }
         
         [weakSelf.fetchedResultsController performFetch:nil];
-        [self updateNoContentBackgroundForType:newIndex];
+        [weakSelf updateNoContentBackgroundForType:newIndex];
         
         NSSet *newObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
         NSMutableDictionary *newObjectIndexPaths = [NSMutableDictionary new];
