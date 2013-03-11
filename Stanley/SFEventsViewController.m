@@ -21,6 +21,12 @@
 #import "SFPopoverNavigationBar.h"
 #import "SFNavigationBar.h"
 #import "SFToolbar.h"
+#import "SFNoContentBackgroundView.h"
+
+typedef NS_ENUM(NSUInteger, SFEventSegmentType) {
+    SFEventSegmentTypeAll,
+    SFEventSegmentTypeFavorites
+};
 
 NSString * const SFEventCellReuseIdentifier = @"SFEventCellReuseIdentifier";
 NSString * const SFEventDayColumnHeaderReuseIdentifier = @"SFEventDayColumnHeaderReuseIdentifier";
@@ -31,8 +37,10 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) MSCollectionViewCalendarLayout *collectionViewLayout;
 @property (nonatomic, strong) UIPopoverController *eventPopoverController;
+@property (nonatomic, strong) SVSegmentedControl *favoriteSegmentedControl;
 
 - (void)reloadData;
+- (void)updateNoContentBackgroundForType:(SFEventSegmentType)type;
 
 @end
 
@@ -94,19 +102,24 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     
     [self.navigationController setToolbarHidden:NO];
     __weak typeof(self) weakSelf = self;
-    SVSegmentedControl *segmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"ALL EVENTS", @"FAVORITES"] action:^(NSUInteger newIndex) {
-        if (newIndex == 1) {
-            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
-        } else {
+    self.favoriteSegmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"ALL EVENTS", @"FAVORITES"] action:^(NSUInteger newIndex) {
+        
+        if (newIndex == SFEventSegmentTypeAll) {
             weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
+        } else if (newIndex == SFEventSegmentTypeFavorites) {
+            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
         }
+        
         [weakSelf.fetchedResultsController performFetch:nil];
+        
+        [self updateNoContentBackgroundForType:newIndex];
         [self.collectionView reloadData];
         [self.collectionViewLayout invalidateLayoutCache];
     }];
-    UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
+    UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.favoriteSegmentedControl];
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
+    [self updateNoContentBackgroundForType:self.favoriteSegmentedControl.selectedIndex];
     [self reloadData];
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -125,10 +138,44 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     }];
 }
 
+- (void)updateNoContentBackgroundForType:(SFEventSegmentType)type
+{
+    BOOL shouldDisplayNoContentBackground = (self.fetchedResultsController.fetchedObjects.count == 0);
+    
+    if (shouldDisplayNoContentBackground) {
+        
+        SFNoContentBackgroundView *noContentBackgroundView;
+        if (self.collectionView.backgroundView) {
+            noContentBackgroundView = (SFNoContentBackgroundView *)self.collectionView.backgroundView;
+        } else {
+            noContentBackgroundView = [[SFNoContentBackgroundView alloc] init];
+            self.collectionView.backgroundView = noContentBackgroundView;
+        }
+        
+        switch (type) {
+            case SFEventSegmentTypeFavorites:
+                noContentBackgroundView.hidden = NO;
+                noContentBackgroundView.title.text = @"NO FAVORITE EVENTS";
+                noContentBackgroundView.icon.text = @"\U000022C6";
+                noContentBackgroundView.subtitle.text = @"Keep track of your favorite events by marking them as favorites";
+                break;
+            case SFEventSegmentTypeAll:
+                noContentBackgroundView.hidden = NO;
+                noContentBackgroundView.title.text = @"NO EVENTS";
+                noContentBackgroundView.icon.text = @"\U0001F4C6";
+                noContentBackgroundView.subtitle.text = @"The events at the Stanley Film Fest are not yet announced. Check back later.";
+                break;
+        }
+    } else {
+        self.collectionView.backgroundView.hidden = YES;
+    }
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    [self updateNoContentBackgroundForType:self.favoriteSegmentedControl.selectedIndex];
     [self.collectionView reloadData];
     [self.collectionViewLayout invalidateLayoutCache];
 }
