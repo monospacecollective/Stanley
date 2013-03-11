@@ -1,5 +1,5 @@
 //
-//  SFLocationNameCell.h
+//  SFHeroMapCell.h
 //  Stanley
 //
 //  Created by Eric Horacek on 3/10/13.
@@ -8,6 +8,6 @@
 
 #import "SFMapCell.h"
 
-@interface SFLocationNameCell : SFMapCell
+@interface SFHeroMapCell : SFMapCell
 
 @end

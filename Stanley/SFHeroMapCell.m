@@ -1,21 +1,21 @@
 //
-//  SFLocationNameCell.m
+//  SFHeroMapCell.m
 //  Stanley
 //
 //  Created by Eric Horacek on 3/10/13.
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "SFLocationNameCell.h"
+#import "SFHeroMapCell.h"
 #import "SFStyleManager.h"
 
-@interface SFLocationNameCell ()
+@interface SFHeroMapCell ()
 
 @property (nonatomic, strong) CAGradientLayer *backgroundGradient;
 
 @end
 
-@implementation SFLocationNameCell
+@implementation SFHeroMapCell
 
 #pragma mark - UIView
 
@@ -66,7 +66,7 @@
     [self.map.layer addSublayer:self.backgroundGradient];
 }
 
-#pragma mark - SFLocationNameCell
+#pragma mark - SFHeroMapCell
 
 + (CGSize)padding
 {

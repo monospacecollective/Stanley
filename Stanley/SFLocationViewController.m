@@ -12,7 +12,7 @@
 #import "SFMapCell.h"
 #import "SFWebViewController.h"
 #import "SFAppDelegate.h"
-#import "SFLocationNameCell.h"
+#import "SFHeroMapCell.h"
 
 // Sections
 NSString *const SFLocationTableSectionName = @"Name";
@@ -89,8 +89,8 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
                 MSTableSectionIdentifier : SFLocationTableSectionName,
                 MSTableSectionRows : @[@{
                     MSTableReuseIdentifer : SFLocationReuseIdentifierName,
-                    MSTableClass : SFLocationNameCell.class,
-                    MSTableConfigurationBlock : ^(SFLocationNameCell *cell){
+                    MSTableClass : SFHeroMapCell.class,
+                    MSTableConfigurationBlock : ^(SFHeroMapCell *cell){
                         cell.title.text = [weakSelf.location.name uppercaseString];
                         cell.region = MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 500.0, 500.0);
                     }
