@@ -14,6 +14,8 @@
 
 @interface SFFilmCell ()
 
+@property (nonatomic, strong) CAGradientLayer *backgroundGradient;
+
 + (CGSize)padding;
 + (UIFont *)titleFont;
 + (UIFont *)placeholderIconFont;
@@ -39,6 +41,12 @@
         self.image.layer.masksToBounds = YES;
         self.image.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.image];
+        
+        self.backgroundGradient = [CAGradientLayer layer];
+        UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.35];
+        self.backgroundGradient.colors = @[(id)[[UIColor clearColor] CGColor], (id)[overlayColor CGColor]];
+        self.backgroundGradient.locations = @[@(0.7), @(0.9)];
+        [self.image.layer addSublayer:self.backgroundGradient];
         
         self.favoriteIndicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SFFilmCellFavoriteIndicator"]];
         self.favoriteIndicator.backgroundColor = [UIColor clearColor];
@@ -122,6 +130,10 @@
     // Add a third of the line height so that the baseline is the true bottom of the frame
     titleFrame.origin.y = CGRectGetHeight(self.contentView.frame) - CGRectGetHeight(titleFrame) - padding.height + ceilf(self.title.font.lineHeight * 0.3);
     self.title.frame = titleFrame;
+    
+    CGFloat minTitleLocation = (CGRectGetMinY(titleFrame) / CGRectGetHeight(self.contentView.frame));
+    self.backgroundGradient.locations = @[@(minTitleLocation - 0.2), @(minTitleLocation)];
+    self.backgroundGradient.frame = self.image.frame;
 }
 
 - (void)prepareForReuse
