@@ -159,7 +159,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         switch (type) {
             case SFFilmSegmentTypeFavorites:
                 noContentBackgroundView.hidden = NO;
-                noContentBackgroundView.title.text = @"NO FAVORITES";
+                noContentBackgroundView.title.text = @"NO FAVORITE FILMS";
                 noContentBackgroundView.icon.text = @"\U000022C6";
                 noContentBackgroundView.subtitle.text = @"Keep track of your favorite films by marking them as favorites";
                 break;
@@ -167,7 +167,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
                 noContentBackgroundView.hidden = NO;
                 noContentBackgroundView.title.text = @"NO FILMS";
                 noContentBackgroundView.icon.text = @"\U0000E320";
-                noContentBackgroundView.subtitle.text = @"The films at showing the Stanley Film Fest are not yet announced. Check back later.";
+                noContentBackgroundView.subtitle.text = @"The films showing at the Stanley Film Fest are not yet announced. Check back later.";
                 break;
         }
         
