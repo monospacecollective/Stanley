@@ -150,7 +150,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                     cell.detail.text = weakSelf.film.language;
                     cell.selectionStyle = MSTableCellSelectionStyleNone;
                 }
-             }];
+            }];
         }
         
         // Runtime
@@ -312,12 +312,6 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                  MSTableSectionIdentifier : SFFilmViewControllerTableSectionActions,
                  MSTableSectionRows : rows
              }];
-        }
-    }
-    
-    for (NSDictionary *section in sections) {
-        for (NSDictionary *row in section[MSTableSectionRows]) {
-            [self.collectionView registerClass:row[MSTableClass] forCellWithReuseIdentifier:row[MSTableReuseIdentifer]];
         }
     }
     
