@@ -94,7 +94,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     
     [self.navigationController setToolbarHidden:NO];
     __weak typeof(self) weakSelf = self;
-    UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"ALL EVENTS", @"FAVORITES"] action:^(NSUInteger newIndex) {
+    SVSegmentedControl *segmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"ALL EVENTS", @"FAVORITES"] action:^(NSUInteger newIndex) {
         if (newIndex == 1) {
             weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
         } else {
@@ -104,6 +104,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         [self.collectionView reloadData];
         [self.collectionViewLayout invalidateLayoutCache];
     }];
+    UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
     [self reloadData];

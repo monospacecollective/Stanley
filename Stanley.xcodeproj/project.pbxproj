@@ -20,6 +20,7 @@
 		3A4CE8FD16ED4B0700C7928C /* SFUserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CE8FC16ED4B0700C7928C /* SFUserDefaults.plist */; };
 		3A4CE90016ED4DA400C7928C /* Default-Landscape~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CE8FE16ED4DA300C7928C /* Default-Landscape~iPad.png */; };
 		3A4CE90316ED4DC300C7928C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CE90216ED4DC300C7928C /* Default-568h@2x.png */; };
+		3A4CE90A16ED7AB100C7928C /* SFNoContentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE90916ED7AB000C7928C /* SFNoContentBackgroundView.m */; };
 		3A6CBA2F16DAA60200B4F041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA2E16DAA60200B4F041 /* UIKit.framework */; };
 		3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3016DAA60200B4F041 /* Foundation.framework */; };
 		3A6CBA3316DAA60200B4F041 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3216DAA60200B4F041 /* CoreGraphics.framework */; };
@@ -134,6 +135,8 @@
 		3A4CE8FC16ED4B0700C7928C /* SFUserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SFUserDefaults.plist; sourceTree = "<group>"; };
 		3A4CE8FE16ED4DA300C7928C /* Default-Landscape~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~iPad.png"; sourceTree = "<group>"; };
 		3A4CE90216ED4DC300C7928C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3A4CE90816ED7AB000C7928C /* SFNoContentBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFNoContentBackgroundView.h; sourceTree = "<group>"; };
+		3A4CE90916ED7AB000C7928C /* SFNoContentBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFNoContentBackgroundView.m; sourceTree = "<group>"; };
 		3A6CBA2B16DAA60200B4F041 /* Stanley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6CBA2E16DAA60200B4F041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A6CBA3016DAA60200B4F041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -456,6 +459,8 @@
 				3A4CE8E316ECEA2300C7928C /* SFPopoverNavigationBar.m */,
 				3A4CE8E516ECF16600C7928C /* SFPopoverToolbar.h */,
 				3A4CE8E616ECF16600C7928C /* SFPopoverToolbar.m */,
+				3A4CE90816ED7AB000C7928C /* SFNoContentBackgroundView.h */,
+				3A4CE90916ED7AB000C7928C /* SFNoContentBackgroundView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -793,6 +798,7 @@
 				3A4CE8E716ECF16600C7928C /* SFPopoverToolbar.m in Sources */,
 				3A4CE8EA16ED1A1300C7928C /* SFLocationNameCell.m in Sources */,
 				3A4CE8ED16ED2CCA00C7928C /* SFHeroCell.m in Sources */,
+				3A4CE90A16ED7AB100C7928C /* SFNoContentBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

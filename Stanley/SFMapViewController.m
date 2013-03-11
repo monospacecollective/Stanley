@@ -60,10 +60,10 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     [self.navigationController setToolbarHidden:NO];
     
     __weak typeof(self) weakSelf = self;
-    UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"STANDARD", @"SATELLITE"] action:^(NSUInteger newIndex) {
+    SVSegmentedControl *segmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"STANDARD", @"SATELLITE"] action:^(NSUInteger newIndex) {
         weakSelf.mapView.mapType = ((newIndex == 0) ? MKMapTypeStandard : MKMapTypeHybrid);
     }];
-    
+    UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
     [self addLocationAnnotations];

@@ -399,7 +399,7 @@ static SFStyleManager *singletonInstance = nil;
 
 #pragma mark - SVSegmentedControl
 
-- (UIBarButtonItem *)styledBarSegmentedControlWithTitles:(NSArray *)titles action:(void(^)(NSUInteger newIndex))handler
+- (SVSegmentedControl *)styledSegmentedControlWithTitles:(NSArray *)titles action:(void(^)(NSUInteger newIndex))handler
 {
     SVSegmentedControl *segmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:titles];
     segmentedControl.changeHandler = handler;
@@ -407,8 +407,7 @@ static SFStyleManager *singletonInstance = nil;
     segmentedControl.titleEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 20.0, 0.0, 20.0) : UIEdgeInsetsMake(2.0, 10.0, 0.0, 10.0));
     segmentedControl.height = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 40.0 : 32.0);
     segmentedControl.thumb.tintColor = [UIColor colorWithHexString:@"505050"];
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
-    return barItem;
+    return segmentedControl;
 }
 
 #pragma mark - Activity Indicator

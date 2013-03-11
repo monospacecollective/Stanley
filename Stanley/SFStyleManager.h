@@ -48,7 +48,7 @@
 - (UIBarButtonItem *)styledBackBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
 
 // SVSegmentedControl
-- (UIBarButtonItem *)styledBarSegmentedControlWithTitles:(NSArray *)titles action:(void(^)(NSUInteger newIndex))handler;
+- (SVSegmentedControl *)styledSegmentedControlWithTitles:(NSArray *)titles action:(void(^)(NSUInteger newIndex))handler;
 
 // Activity Indicator
 - (UIBarButtonItem *)activityIndicatorBarButtonItem;

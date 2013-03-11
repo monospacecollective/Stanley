@@ -15,6 +15,12 @@
 #import "SFToolbar.h"
 #import "SFPopoverNavigationBar.h"
 #import "SFPopoverToolbar.h"
+#import "SFNoContentBackgroundView.h"
+
+typedef NS_ENUM(NSUInteger, SFFilmSegmentType) {
+    SFFilmSegmentTypeAll,
+    SFFilmSegmentTypeFavorites
+};
 
 NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 
@@ -22,8 +28,10 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UIPopoverController *filmPopoverController;
+@property (nonatomic, strong) SVSegmentedControl *favoriteSegmentedControl;
 
 - (void)reloadData;
+- (void)updateNoContentBackgroundForType:(SFFilmSegmentType)type;
 
 @end
 
@@ -57,11 +65,12 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     [self.navigationController setToolbarHidden:NO];
     
     __weak typeof(self) weakSelf = self;
-    UIBarButtonItem *segmentedControlBarButtonItem = [[SFStyleManager sharedManager] styledBarSegmentedControlWithTitles:@[@"ALL FILMS", @"FAVORITES"] action:^(NSUInteger newIndex) {
+    
+    self.favoriteSegmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"ALL FILMS", @"FAVORITES"] action:^(NSUInteger newIndex) {
         
-        if (newIndex == 1) {
+        if (newIndex == SFFilmSegmentTypeFavorites) {
             weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
-        } else {
+        } else if (newIndex == SFFilmSegmentTypeAll) {
             weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
         }
         
@@ -73,6 +82,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         }
         
         [weakSelf.fetchedResultsController performFetch:nil];
+        [self updateNoContentBackgroundForType:newIndex];
         
         NSSet *newObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
         NSMutableDictionary *newObjectIndexPaths = [NSMutableDictionary new];
@@ -102,7 +112,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
             [weakSelf.collectionView deleteItemsAtIndexPaths:deletedIndexPaths];
         } completion:nil];
     }];
-    
+    UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.favoriteSegmentedControl];
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
     self.collectionView.alwaysBounceVertical = YES;
@@ -110,6 +120,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     
     [self.collectionView registerClass:SFFilmCell.class forCellWithReuseIdentifier:SFFilmCellReuseIdentifier];
     
+    [self updateNoContentBackgroundForType:self.favoriteSegmentedControl.selectedIndex];
     [self reloadData];
 }
 
@@ -131,10 +142,45 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     }];
 }
 
+- (void)updateNoContentBackgroundForType:(SFFilmSegmentType)type
+{
+    BOOL shouldDisplayNoContentBackground = (self.fetchedResultsController.fetchedObjects.count == 0);
+
+    if (shouldDisplayNoContentBackground) {
+        
+        SFNoContentBackgroundView *noContentBackgroundView;
+        if (self.collectionView.backgroundView) {
+            noContentBackgroundView = (SFNoContentBackgroundView *)self.collectionView.backgroundView;
+        } else {
+            noContentBackgroundView = [[SFNoContentBackgroundView alloc] init];
+            self.collectionView.backgroundView = noContentBackgroundView;
+        }
+        
+        switch (type) {
+            case SFFilmSegmentTypeFavorites:
+                noContentBackgroundView.hidden = NO;
+                noContentBackgroundView.title.text = @"NO FAVORITES";
+                noContentBackgroundView.icon.text = @"\U000022C6";
+                noContentBackgroundView.subtitle.text = @"Keep track of your favorite films by marking them as favorites";
+                break;
+            case SFFilmSegmentTypeAll:
+                noContentBackgroundView.hidden = NO;
+                noContentBackgroundView.title.text = @"NO FILMS";
+                noContentBackgroundView.icon.text = @"\U0000E320";
+                noContentBackgroundView.subtitle.text = @"The films at showing the Stanley Film Fest are not yet announced. Check back later.";
+                break;
+        }
+        
+    } else {
+        self.collectionView.backgroundView.hidden = YES;
+    }
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    [self updateNoContentBackgroundForType:self.favoriteSegmentedControl.selectedIndex];
     [self.collectionView reloadData];
 }
 
