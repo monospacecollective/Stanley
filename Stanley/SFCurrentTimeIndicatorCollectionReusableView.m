@@ -93,7 +93,7 @@
     [self.time sizeToFit];
     CGRect timeFrame = self.time.frame;
     timeFrame.origin.x = nearbyintf((CGRectGetWidth(self.frame) / 2.0) - (CGRectGetWidth(timeFrame) / 2.0));
-    timeFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0)) - 1.0);
+    timeFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0)) + 1.0);
     self.time.frame = timeFrame;
 }
 
