@@ -49,7 +49,7 @@
     CGRect timeFrame = self.time.frame;
     timeFrame.size.width = (CGRectGetWidth(self.frame) - (self.class.padding.left + self.class.padding.right));
     timeFrame.origin.x = self.class.padding.left;
-    timeFrame.origin.y = nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0));
+    timeFrame.origin.y = nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0) + 2.0);
     self.time.frame = timeFrame;
 }
 
