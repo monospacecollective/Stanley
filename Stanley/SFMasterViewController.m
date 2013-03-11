@@ -155,13 +155,6 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         [self presentViewController:splashViewController animated:YES completion:nil];
     }];
     
-    // Build navigation title with spaces between each character
-//    NSMutableString *navigationTitle = [self.paneTitles[@(paneType)] mutableCopy];
-//    for (NSUInteger characterIndex = 1; characterIndex < navigationTitle.length; characterIndex += 2) {
-//        [navigationTitle insertString:@" " atIndex:characterIndex];
-//    }
-//    paneViewController.navigationItem.title = [navigationTitle uppercaseString];
-    
     paneViewController.navigationItem.title = [self.paneTitles[@(paneType)] uppercaseString];
 
     UINavigationController *paneNavigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
