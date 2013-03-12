@@ -80,6 +80,10 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [self.locationPopoverController dismissPopoverAnimated:NO];
+    
+    for (id <MKAnnotation> annotation in self.mapView.selectedAnnotations) {
+        [self.mapView deselectAnnotation:annotation animated:YES];
+    }
 }
 
 #pragma mark - SFMapViewController
