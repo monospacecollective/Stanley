@@ -113,6 +113,7 @@
 		3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */; };
 		3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */; };
 		3ADFD8EC16E7FD07003B1D22 /* FuturaCom-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */; };
+		3AED301916EFD9150089A570 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED301816EFD9150089A570 /* Crashlytics.framework */; };
 		A8745C5921024A15A921C4AD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0133068B604C4BA86ECCAD /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -268,6 +269,7 @@
 		3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonPressedBackground.png; sourceTree = "<group>"; };
 		3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonPressedBackground@2x.png"; sourceTree = "<group>"; };
 		3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Medium.ttf"; sourceTree = "<group>"; };
+		3AED301816EFD9150089A570 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics.framework; sourceTree = "<group>"; };
 		BB49208211714987AAD32B5E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BC0133068B604C4BA86ECCAD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -282,6 +284,7 @@
 				3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */,
 				3A6CBA3316DAA60200B4F041 /* CoreGraphics.framework in Frameworks */,
 				A8745C5921024A15A921C4AD /* libPods.a in Frameworks */,
+				3AED301916EFD9150089A570 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +315,7 @@
 		3A6CBA2D16DAA60200B4F041 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AED301816EFD9150089A570 /* Crashlytics.framework */,
 				3A6CBA2E16DAA60200B4F041 /* UIKit.framework */,
 				3A6CBA3016DAA60200B4F041 /* Foundation.framework */,
 				3A6CBA3216DAA60200B4F041 /* CoreGraphics.framework */,
@@ -614,6 +618,7 @@
 				3A6CBA2916DAA60200B4F041 /* Resources */,
 				4842284B704D4141BEF62E11 /* Copy Pods Resources */,
 				B9795FA3F0C542A99852923C /* Warn for TODO and FIXME comments */,
+				3ADF301416EFD28B008ED844 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -721,6 +726,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3ADF301416EFD28B008ED844 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 071b8aadee1ba1cd89ac579557101520980223ca";
+		};
 		4842284B704D4141BEF62E11 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -906,6 +925,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BB49208211714987AAD32B5E /* Pods.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Vendor\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stanley/Stanley-Prefix.pch";
 				INFOPLIST_FILE = "Stanley/Stanley-Info.plist";
@@ -919,6 +943,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BB49208211714987AAD32B5E /* Pods.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Vendor\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stanley/Stanley-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;

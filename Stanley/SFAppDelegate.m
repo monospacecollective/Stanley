@@ -189,6 +189,9 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
+    // Needs to be last in application:didFinishLaunchingWithOptions:
+    [Crashlytics startWithAPIKey:@"071b8aadee1ba1cd89ac579557101520980223ca"];
+    
     return YES;
 }
 
