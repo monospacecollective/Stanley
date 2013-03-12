@@ -738,7 +738,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 071b8aadee1ba1cd89ac579557101520980223ca";
+			shellScript = "./Vendor/Crashlytics.framework/run 071b8aadee1ba1cd89ac579557101520980223ca";
 		};
 		4842284B704D4141BEF62E11 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
