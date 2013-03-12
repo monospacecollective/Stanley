@@ -178,6 +178,9 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                 noContentBackgroundView.subtitle.text = @"The events at the Stanley Film Fest are not yet announced. Check back later.";
                 break;
         }
+        
+        [noContentBackgroundView setNeedsLayout];
+        
     } else {
         self.collectionView.backgroundView.hidden = YES;
     }

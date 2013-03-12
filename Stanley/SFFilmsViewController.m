@@ -176,6 +176,8 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
                 break;
         }
         
+        [noContentBackgroundView setNeedsLayout];
+    
     } else {
         self.collectionView.backgroundView.hidden = YES;
     }
