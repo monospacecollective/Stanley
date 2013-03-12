@@ -119,7 +119,7 @@ static SFStyleManager *singletonInstance = nil;
         [MSGroupedTableViewCell.appearance setPadding:UIEdgeInsetsMake(13.0, 20.0, 7.0, 20.0)];
         
         UIFont *groupedTitleFont = [self titleFontOfSize:17.0];
-        UIFont *groupedDetailFont = [self detailFontOfSize:15.0];
+        UIFont *groupedDetailFont = [self detailFontOfSize:16.0];
         UIFont *groupedAccessoryFont = [self symbolSetFontOfSize:16.0];
         [MSMultlineGroupedTableViewCell.appearance setTitleTextAttributes:@{
                                            UITextAttributeFont : groupedDetailFont,
