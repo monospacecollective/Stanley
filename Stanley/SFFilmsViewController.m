@@ -132,6 +132,11 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     flowLayout.minimumLineSpacing = [SFFilmCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.filmPopoverController dismissPopoverAnimated:YES];
+}
+
 #pragma mark - SFFilmsViewController
 
 - (void)reloadData

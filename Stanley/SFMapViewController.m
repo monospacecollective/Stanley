@@ -77,6 +77,11 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     [self zoomToAnnotationsAnimated:YES];
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.locationPopoverController dismissPopoverAnimated:YES];
+}
+
 #pragma mark - SFMapViewController
 
 - (void)reloadData
