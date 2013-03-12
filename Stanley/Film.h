@@ -19,6 +19,10 @@
 @property (nonatomic, retain) NSString * synopsis;
 @property (nonatomic, retain) NSString * featureImage;
 @property (nonatomic, retain) NSNumber * favorite;
+@property (nonatomic, retain) NSString * country;
+@property (nonatomic, retain) NSString * filmography;
+@property (nonatomic, retain) NSString * printSource;
+@property (nonatomic, retain) NSDate * available;
 @property (nonatomic, retain) NSSet *directors;
 @property (nonatomic, retain) NSSet *writers;
 @property (nonatomic, retain) NSSet *producers;
