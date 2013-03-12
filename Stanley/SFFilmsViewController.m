@@ -134,7 +134,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [self.filmPopoverController dismissPopoverAnimated:YES];
+    [self.filmPopoverController dismissPopoverAnimated:NO];
 }
 
 #pragma mark - SFFilmsViewController

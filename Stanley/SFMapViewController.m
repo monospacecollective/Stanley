@@ -79,7 +79,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [self.locationPopoverController dismissPopoverAnimated:YES];
+    [self.locationPopoverController dismissPopoverAnimated:NO];
 }
 
 #pragma mark - SFMapViewController

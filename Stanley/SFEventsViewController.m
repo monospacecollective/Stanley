@@ -136,7 +136,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [self.eventPopoverController dismissPopoverAnimated:YES];
+    [self.eventPopoverController dismissPopoverAnimated:NO];
 }
 
 #pragma mark - SFEventsViewController
