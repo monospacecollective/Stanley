@@ -78,7 +78,6 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     [self prepareSectionsForEvent:self.event];
 }
 
-
 #pragma mark - SFEventViewController
 
 - (void)prepareSectionsForEvent:(Event *)event
