@@ -107,7 +107,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         if (newIndex == SFEventSegmentTypeAll) {
             weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
         } else if (newIndex == SFEventSegmentTypeFavorites) {
-            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
+            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES) OR (film.favorite == YES)"];
         }
         
         [weakSelf.fetchedResultsController performFetch:nil];
