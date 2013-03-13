@@ -23,4 +23,6 @@
 - (CLLocationCoordinate2D)coordinate;
 - (MKMapItem *)mapItem;
 
+- (NSArray *)sortedEvents;
+
 @end

@@ -8,7 +8,6 @@
 
 #import "Location.h"
 
-
 @implementation Location
 
 @dynamic remoteID;
@@ -58,6 +57,13 @@
     MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
     mapItem.name = self.name;
     return mapItem;
+}
+
+- (NSArray *)sortedEvents
+{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(location == %@)", self];
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
 }
 
 @end

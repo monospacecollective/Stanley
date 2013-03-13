@@ -13,6 +13,8 @@
 #import "SFWebViewController.h"
 #import "SFAppDelegate.h"
 #import "SFHeroMapCell.h"
+#import "Event.h"
+#import "SFEventViewController.h"
 
 // Sections
 NSString *const SFLocationTableSectionName = @"Name";
@@ -21,6 +23,7 @@ NSString *const SFLocationTableSectionEvents = @"Events";
 NSString *const SFLocationTableSectionActions = @"Actions";
 
 // Reuse Identifiers
+NSString *const SFLocationReuseIdentifierHeader = @"Header";
 NSString *const SFLocationReuseIdentifierName = @"Name";
 NSString *const SFLocationReuseIdentifierDescription = @"Description";
 NSString *const SFLocationReuseIdentifierEvent = @"Event";
@@ -142,6 +145,50 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
         }];
     }
     
+    // Events
+    {
+        NSString *headerTitle = @"EVENTS";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFLocationReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        for (Event *event in self.location.sortedEvents) {
+            
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFLocationReuseIdentifierEvent,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = [event.name uppercaseString];
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                    SFEventViewController *eventViewController = [[SFEventViewController alloc] init];
+                    eventViewController.event = event;
+                    eventViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }];
+                    [weakSelf.navigationController pushViewController:eventViewController animated:YES];
+                }
+            }];
+        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFLocationTableSectionEvents,
+                MSTableSectionHeader : header,
+                MSTableSectionRows : rows
+            }];
+        }
+    }
     
     self.collectionViewLayout.sections = sections;
 }
