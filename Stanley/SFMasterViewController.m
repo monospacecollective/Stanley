@@ -145,7 +145,9 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     Class paneViewControllerClass = self.paneClasses[@(paneType)];
     NSParameterAssert([paneViewControllerClass isSubclassOfClass:UIViewController.class]);
     UIViewController *paneViewController = (UIViewController *)[[paneViewControllerClass alloc] init];
-    paneViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:self.paneIcons[@(paneType)] action:^{
+    
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 30.0 : 26.0);
+    paneViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:self.paneIcons[@(paneType)] fontSize:fontSize action:^{
         [self.navigationPaneViewController setPaneState:MSNavigationPaneStateOpen animated:YES completion:nil];
     }];
     

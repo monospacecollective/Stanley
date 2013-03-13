@@ -51,13 +51,15 @@
         }
     }];
     
-    self.forwardBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000027A1" action:^{
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
+    
+    self.forwardBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000027A1" fontSize:fontSize action:^{
         if (weakSelf.webView.canGoForward) {
             [weakSelf.webView goForward];
         }
     }];
     
-    self.reloadBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000021BB" action:^{
+    self.reloadBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000021BB" fontSize:fontSize action:^{
         if ([weakSelf.webView isLoading] == NO) {
             [weakSelf.webView reload];
         }
