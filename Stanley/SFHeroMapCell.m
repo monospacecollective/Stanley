@@ -45,6 +45,8 @@
 {
     [super initialize];
     
+    self.selectionStyle = MSTableCellSelectionStyleNone;
+    
     self.title.numberOfLines = 0;
     self.title.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.title.layer.shadowRadius = 2.0;
