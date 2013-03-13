@@ -31,7 +31,7 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) MSCollectionViewTableLayout *collectionViewLayout;
 
-- (void)prepareSectionsForLocation:(Location *)location;
+- (void)prepareSections;
 
 @end
 
@@ -72,19 +72,19 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
         [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
     }
     
-    [self prepareSectionsForLocation:self.location];
+    [self prepareSections];
 }
 
 #pragma mark - SFLocationViewController
 
-- (void)prepareSectionsForLocation:(Location *)location
+- (void)prepareSections
 {
     NSMutableArray *sections = [NSMutableArray new];
     __weak typeof (self) weakSelf = self;
     
     // Name Section
     {
-        if (location.name && ![location.name isEqualToString:@""]) {
+        if (self.location.name && ![self.location.name isEqualToString:@""]) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFLocationTableSectionName,
                 MSTableSectionRows : @[@{
@@ -101,7 +101,7 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
     
     // Description Section
     {
-        if (location.detail && ![location.detail isEqualToString:@""]) {
+        if (self.location.detail && ![self.location.detail isEqualToString:@""]) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFLocationTableSectionDescription,
                 MSTableSectionRows : @[@{
@@ -155,7 +155,7 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
             [self.navigationController popViewControllerAnimated:YES];
             break;
         case NSFetchedResultsChangeUpdate:
-            [self prepareSectionsForLocation:self.location];
+            [self prepareSections];
             break;
     }
 }

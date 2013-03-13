@@ -9,8 +9,11 @@
 #import "SFEventViewController.h"
 #import "SFStyleManager.h"
 #import "Event.h"
+#import "Film.h"
+#import "Location.h"
 #import "SFLocationViewController.h"
 #import "SFHeroCell.h"
+#import "SFWebViewController.h"
 
 // Sections
 NSString *const SFEventTableSectionName = @"Name";
@@ -34,7 +37,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) MSCollectionViewTableLayout *collectionViewLayout;
 
-- (void)prepareSectionsForEvent:(Event *)event;
+- (void)prepareSections;
 
 @end
 
@@ -67,7 +70,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     BOOL fetchSuccessful = [self.fetchedResultsController performFetch:&error];
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
-    self.navigationItem.title = @"EVENT";
+    self.navigationItem.title = (self.event.film ? @"SHOWING" : @"EVENT");
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [[SFStyleManager sharedManager] stylePopoverCollectionView:self.collectionView];
@@ -75,19 +78,19 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
         [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
     }
     
-    [self prepareSectionsForEvent:self.event];
+    [self prepareSections];
 }
 
 #pragma mark - SFEventViewController
 
-- (void)prepareSectionsForEvent:(Event *)event
+- (void)prepareSections
 {
     NSMutableArray *sections = [NSMutableArray new];
     __weak typeof (self) weakSelf = self;
     
     // Name
     {
-        if (event.name && ![event.name isEqualToString:@""]) {
+        if (self.event.name && ![self.event.name isEqualToString:@""]) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFEventTableSectionName,
                 MSTableSectionRows : @[@{
@@ -95,7 +98,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                     MSTableClass : SFHeroCell.class,
                     MSTableConfigurationBlock : ^(SFHeroCell *cell){
                         cell.title.text = [weakSelf.event.name uppercaseString];
-                        cell.backgroundImage.image = [UIImage imageNamed:@"SFSplashBackground.jpg"];
+                        [cell.backgroundImage setImageWithURL:[NSURL URLWithString:weakSelf.event.featureImage] placeholderImage:[[SFStyleManager sharedManager] heroPlaceholderImage]];
                     }
                  }]
              }];
@@ -110,7 +113,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
         dateFormatter.dateFormat = @"EEE, MMM d 'at' h:mm a";
         
         // From
-        if (event.start) {
+        if (self.event.start) {
             [rows addObject:@{
                 MSTableReuseIdentifer : SFEventReuseIdentifierFrom,
                 MSTableClass : MSRightDetailGroupedTableViewCell.class,
@@ -123,7 +126,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
         }
         
         // To
-        if (event.end) {
+        if (self.event.end) {
             [rows addObject:@{
                 MSTableReuseIdentifer : SFEventReuseIdentifierTo,
                 MSTableClass : MSRightDetailGroupedTableViewCell.class,
@@ -144,7 +147,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     }
     
     // Location
-    if (event.location) {
+    if (self.event.location) {
         NSMutableArray *rows = [NSMutableArray new];
         
         [rows addObject:@{
@@ -152,13 +155,16 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
             MSTableClass : MSRightDetailGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
                 cell.title.text = @"AT";
-                cell.detail.text = @"Event Location";
+                cell.detail.text = weakSelf.event.location.name;
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFLocationViewController *locationViewController = [[SFLocationViewController alloc] init];
-                [locationViewController setLocation:weakSelf.event.location];
-                [weakSelf.navigationController pushViewController:locationViewController animated:YES];
+                SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
+                [locationController setLocation:weakSelf.event.location];
+                [weakSelf.navigationController pushViewController:locationController animated:YES];
+                locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }];
             }
         }];
         
@@ -172,7 +178,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     
     // Description Section
     {
-        if (event.detail && ![event.detail isEqualToString:@""]) {
+        if (self.event.detail && ![self.event.detail isEqualToString:@""]) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFEventTableSectionDescription,
                 MSTableSectionRows : @[@{
@@ -223,16 +229,22 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     {
         NSMutableArray *rows = [NSMutableArray new];
         
-        [rows addObject:@{
-            MSTableReuseIdentifer : SFEventReuseIdentifierTickets,
-            MSTableClass : MSGroupedTableViewCell.class,
-            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"PURCHASE TICKETS";
-                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
-            },
-            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-            }
-        }];
+        if (self.event.ticketURL) {
+             [rows addObject:@{
+                MSTableReuseIdentifer : SFEventReuseIdentifierTickets,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"PURCHASE TICKETS";
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                    SFWebViewController *webViewController = [[SFWebViewController alloc] init];
+                    webViewController.requestURL = weakSelf.event.ticketURL;
+                    webViewController.shouldScale = YES;
+                    [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                }
+            }];
+        }
         
         if (rows.count) {
             [sections addObject:@{
