@@ -230,6 +230,13 @@ static SFStyleManager *singletonInstance = nil;
     return [UIFont fontWithName:@"FuturaCom-Medium" size:size];
 }
 
+#pragma mark - Images
+
+- (UIImage *)heroPlaceholderImage
+{
+    return [UIImage imageNamed:@"SFSplashBackground.jpg"];
+}
+
 #pragma mark - UICollectionView
 
 - (void)styleCollectionView:(UICollectionView *)collectionView

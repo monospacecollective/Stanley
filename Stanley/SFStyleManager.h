@@ -22,6 +22,9 @@
 - (UIFont *)titleFontOfSize:(CGFloat)size;
 - (UIFont *)detailFontOfSize:(CGFloat)size;
 
+// Images
+- (UIImage *)heroPlaceholderImage;
+
 // UICollectionView
 - (void)styleCollectionView:(UICollectionView *)collectionView;
 - (void)stylePopoverCollectionView:(UICollectionView *)collectionView;
