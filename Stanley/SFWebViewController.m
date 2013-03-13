@@ -34,7 +34,7 @@
     self.view.backgroundColor = [[SFStyleManager sharedManager] viewBackgroundColor];
     
     __weak typeof (self) weakSelf = self;
-    self.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+    self.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
         [weakSelf.navigationController popViewControllerAnimated:YES];
     }];
     
@@ -53,7 +53,7 @@
     [self.view addSubview:self.webView];
     [self loadRequest];
     
-    self.backBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+    self.backBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
         if (weakSelf.webView.canGoBack) {
             [weakSelf.webView goBack];
         }
