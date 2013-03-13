@@ -9,6 +9,8 @@
 #import "SFAboutViewController.h"
 #import "SFStyleManager.h"
 #import "SFWebViewController.h"
+#import "SFNavigationBar.h"
+#import "SFToolbar.h"
 
 // Sections
 NSString *const SFAboutTableSectionInformation = @"Information";
@@ -78,6 +80,20 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
 {
     __weak typeof (self) weakSelf = self;
     
+    void(^presentWebViewController)(NSString *requestURL, NSIndexPath *indexPath, BOOL scalesPageToFit) = ^(NSString *requestURL, NSIndexPath *indexPath, BOOL scalesPageToFit) {
+        SFWebViewController *webViewController = [[SFWebViewController alloc] init];
+        webViewController.scalesPageToFit = scalesPageToFit;
+        webViewController.requestURL = requestURL;
+        webViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
+            [webViewController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
+        [navigationController addChildViewController:webViewController];
+        [weakSelf presentViewController:navigationController animated:YES completion:^{
+            [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        }];
+    };
+    
     NSMutableArray *sections = [NSMutableArray new];
     
     // Information Section
@@ -104,9 +120,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/how-to-fest/passes-and-tickets/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/how-to-fest/passes-and-tickets/", indexPath, NO);
             }
          }];
         
@@ -118,9 +132,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/how-to-fest/the-queue-system-rush-tickets-vouchers/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/how-to-fest/the-queue-system-rush-tickets-vouchers/", indexPath, NO);
             }
          }];
         
@@ -132,9 +144,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/how-to-fest/box-office/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/how-to-fest/box-office/", indexPath, NO);
             }
          }];
         
@@ -146,9 +156,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/how-to-fest/lodging-dining/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/how-to-fest/lodging-dining/", indexPath, NO);
             }
          }];
         
@@ -160,9 +168,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/how-to-fest/merchandise-store/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/how-to-fest/merchandise-store/", indexPath, NO);
             }
          }];
         
@@ -174,9 +180,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/how-to-fest/faq/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/how-to-fest/faq/", indexPath, NO);
             }
          }];
         
@@ -213,9 +217,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"https://tickets.stanleyhotel.com/FilmFest/WebPages/EntaWebExtra/extralist.aspx";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"https://tickets.stanleyhotel.com/FilmFest/WebPages/EntaWebExtra/extralist.aspx", indexPath, YES);
             }
          }];
         
@@ -227,9 +229,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"https://booking.ihotelier.com/istay/istay.jsp?themeId=6272&hotelId=17440&ProdID=482715";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"https://booking.ihotelier.com/istay/istay.jsp?themeId=6272&hotelId=17440&ProdID=482715", indexPath, NO);
             }
          }];
         
@@ -266,9 +266,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://stanleyfilmfest.com/contact/festival-staff/";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://stanleyfilmfest.com/contact/festival-staff/", indexPath, NO);
             }
         }];
         
@@ -280,9 +278,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://monospacecollective.com/inquire";
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                presentWebViewController(@"http://monospacecollective.com/inquire", indexPath, NO);
             }
         }];
         
@@ -382,10 +378,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                     cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
                 },
                 MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                    webViewController.requestURL = @"http://www.stanleyhotel.com";
-                    webViewController.shouldScale = YES;
-                    [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                    presentWebViewController(@"http://www.stanleyhotel.com", indexPath, NO);
                 }
             }],
             MSTableSectionHeader : @{
@@ -426,9 +419,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                     cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
                 },
                 MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                    webViewController.requestURL = @"http://monospacecollective.com";
-                    [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                    presentWebViewController(@"http://monospacecollective.com", indexPath, NO);
                 }
             }],
             MSTableSectionHeader : @{

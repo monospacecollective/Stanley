@@ -33,25 +33,17 @@
     
     self.view.backgroundColor = [[SFStyleManager sharedManager] viewBackgroundColor];
     
-    __weak typeof (self) weakSelf = self;
-    self.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    }];
-    
     self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     self.webView.opaque = NO;
     self.webView.delegate = self;
     self.webView.backgroundColor = [UIColor clearColor];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        self.webView.layer.borderColor = [[[UIColor blackColor] colorWithAlphaComponent:0.5] CGColor];
-        self.webView.layer.borderWidth = 1.0;
-        self.webView.layer.cornerRadius = 5.0;
-    }
-    
-    self.webView.scalesPageToFit = self.shouldScale;
+    self.webView.scalesPageToFit = self.scalesPageToFit;
     [self.view addSubview:self.webView];
     [self loadRequest];
+    
+    [self.navigationController setToolbarHidden:NO];
+    
+    __weak typeof (self) weakSelf = self;
     
     self.backBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
         if (weakSelf.webView.canGoBack) {
@@ -59,13 +51,13 @@
         }
     }];
     
-    self.forwardBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U000027A1" action:^{
+    self.forwardBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000027A1" action:^{
         if (weakSelf.webView.canGoForward) {
             [weakSelf.webView goForward];
         }
     }];
     
-    self.reloadBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U000021BB" action:^{
+    self.reloadBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000021BB" action:^{
         if ([weakSelf.webView isLoading] == NO) {
             [weakSelf.webView reload];
         }
@@ -80,19 +72,6 @@
 {
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setShouldDisplayNavigationPaneDirectonLabel:)]) {
         [((SFNavigationBar *)self.navigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:NO];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self.navigationController setToolbarHidden:NO];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.navigationController setToolbarHidden:YES];
-    if ([self.navigationController.navigationBar respondsToSelector:@selector(setShouldDisplayNavigationPaneDirectonLabel:)]) {
-        [((SFNavigationBar *)self.navigationController.navigationBar) setShouldDisplayNavigationPaneDirectonLabel:YES];
     }
 }
 
@@ -141,7 +120,6 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSLog(@"Loading %@", self.webView.request.URL);
     [self updateWebViewControls];
 }
 

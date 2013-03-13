@@ -252,7 +252,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
     locationController.location = [(SFLocationAnnotation *)view.annotation location];
     
-    locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
+    locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
         [locationController dismissViewControllerAnimated:YES completion:nil];
     }];
     

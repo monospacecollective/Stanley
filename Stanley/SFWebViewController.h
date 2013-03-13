@@ -10,7 +10,7 @@
 
 @interface SFWebViewController : UIViewController
 
-@property (nonatomic, assign) BOOL shouldScale;
+@property (nonatomic, assign) BOOL scalesPageToFit;
 @property (nonatomic, strong) NSString *requestURL;
 
 @end

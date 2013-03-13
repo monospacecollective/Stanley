@@ -13,6 +13,8 @@
 #import "Event.h"
 #import "SFWebViewController.h"
 #import "SFEventViewController.h"
+#import "SFNavigationBar.h"
+#import "SFToolbar.h"
 
 // Sections
 NSString *const SFFilmViewControllerTableSectionTitle = @"Title";
@@ -187,8 +189,15 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                 MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
                     SFWebViewController *webViewController = [[SFWebViewController alloc] init];
                     webViewController.requestURL = weakSelf.film.ticketURL;
-                    webViewController.shouldScale = YES;
-                    [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                    webViewController.scalesPageToFit = YES;
+                    webViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
+                        [webViewController dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
+                    [navigationController addChildViewController:webViewController];
+                    [weakSelf presentViewController:navigationController animated:YES completion:^{
+                        [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+                    }];
                 }
             }];
         }
