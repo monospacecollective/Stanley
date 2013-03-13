@@ -368,8 +368,7 @@ static SFStyleManager *singletonInstance = nil;
 - (UIBarButtonItem *)styledBackBarButtonItemWithAction:(void(^)(void))handler
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
-    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002B05" fontSize:fontSize];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002B05" fontSize:24.0];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
@@ -378,8 +377,7 @@ static SFStyleManager *singletonInstance = nil;
 - (UIBarButtonItem *)styledCloseBarButtonItemWithAction:(void(^)(void))handler
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
-    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002421" fontSize:fontSize];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002421" fontSize:24.0];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;

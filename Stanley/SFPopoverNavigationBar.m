@@ -55,7 +55,7 @@
         // If it's the right navigation button
         else if ([subview isKindOfClass:UIButton.class] && (CGRectGetMinX(subview.frame) < CGRectGetMidX(self.frame))) {
             CGRect buttonFrame = subview.frame;
-            buttonFrame.origin.y = 2.0;
+            buttonFrame.origin.y = 5.0;
             subview.frame = buttonFrame;
         }
     }
