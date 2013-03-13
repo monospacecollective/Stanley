@@ -49,7 +49,6 @@
 - (UIBarButtonItem *)styledBackBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
 - (UIBarButtonItem *)styledBackBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler;
-
 - (UIBarButtonItem *)styledBackBarButtonItemWithAction:(void(^)(void))handler;
 - (UIBarButtonItem *)styledCloseBarButtonItemWithAction:(void(^)(void))handler;
 
