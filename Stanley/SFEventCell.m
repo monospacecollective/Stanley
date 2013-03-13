@@ -191,7 +191,7 @@
     NSDictionary *views = @{ @"title" : self.title , @"timeIcon" : self.timeIcon , @"time" : self.time, @"locationIcon" : self.locationIcon , @"location" : self.location, @"detail" : self.detail };
     NSDictionary *metrics = @{ @"padding" : @(padding) , @"contentMargin" : @(6.0) , @"titleHeight" : @(titleSize.height) , @"minDetailHeight" : @(self.detail.font.lineHeight), @"iconWidth" : @(15.0) };
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[title(==titleHeight)]-contentMargin-[time(>=minDetailHeight)]-contentMargin-[location(>=minDetailHeight)]-contentMargin-[detail(>=0)]" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[title(==titleHeight)]-contentMargin-[time(>=minDetailHeight)]-contentMargin-[location(>=minDetailHeight)]-contentMargin-[detail]" options:0 metrics:metrics views:views]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[title]-contentMargin-[timeIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[time]-contentMargin-[locationIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
