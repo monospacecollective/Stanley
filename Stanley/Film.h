@@ -45,6 +45,8 @@
 - (NSString *)producersListSeparatedByString:(NSString *)string;
 - (NSString *)starsListSeparatedByString:(NSString *)string;
 
+- (NSArray *)sortedShowings;
+
 @end
 
 @interface Film (CoreDataGeneratedAccessors)

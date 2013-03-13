@@ -10,7 +10,9 @@
 #import "SFHeroCell.h"
 #import "SFStyleManager.h"
 #import "Film.h"
+#import "Event.h"
 #import "SFWebViewController.h"
+#import "SFEventViewController.h"
 
 // Sections
 NSString *const SFFilmViewControllerTableSectionTitle = @"Title";
@@ -18,9 +20,12 @@ NSString *const SFFilmViewControllerTableSectionDescription = @"Description";
 NSString *const SFFilmViewControllerTableSectionInfo = @"Info";
 NSString *const SFFilmViewControllerTableSectionPeople = @"People";
 NSString *const SFFilmViewControllerTableSectionFavorite = @"Favorite";
+NSString *const SFFilmViewControllerTableSectionShowings = @"Showings";
 NSString *const SFFilmViewControllerTableSectionActions = @"Actions";
 
 // Reuse Identifiers
+// Headers
+NSString *const SFFilmReuseIdentifierHeader = @"Header";
 // Title
 NSString *const SFFilmReuseIdentifierTitle = @"Title";
 // Favorite
@@ -40,6 +45,8 @@ NSString *const SFFilmReuseIdentifierRuntime = @"Runtime";
 NSString *const SFFilmReuseIdentifierRating = @"Rating";
 NSString *const SFFilmReuseIdentifierPrintSource = @"PrintSource";
 NSString *const SFFilmReuseIdentifierFilmography = @"Filmography";
+// Showings
+NSString *const SFFilmReuseIdentifierShowing = @"Showing";
 // Actions
 NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
 
@@ -136,8 +143,126 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
         }
     }
     
+    // Favorite Section
+    {
+        [sections addObject:@{
+            MSTableSectionIdentifier : SFFilmViewControllerTableSectionFavorite,
+            MSTableSectionRows : @[@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierFavorite,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"FAVORITE";
+                    cell.accessoryType = [weakSelf.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
+                    if ([weakSelf.film.favorite boolValue]) {
+                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
+                    } else {
+                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
+                    }
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                    weakSelf.film.favorite = @(![weakSelf.film.favorite boolValue]);
+                    [weakSelf.film.managedObjectContext save:nil];
+                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
+             }]
+         }];
+    }
+    
+    // Actions Section
+    {
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        if (self.film.ticketURL && ![self.film.ticketURL isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierTickets,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"PURCHASE TICKETS";
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                    SFWebViewController *webViewController = [[SFWebViewController alloc] init];
+                    webViewController.requestURL = weakSelf.film.ticketURL;
+                    webViewController.shouldScale = YES;
+                    [weakSelf.navigationController pushViewController:webViewController animated:YES];
+                }
+            }];
+        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionActions,
+                 MSTableSectionRows : rows
+             }];
+        }
+    }
+    
+    // Showings
+    {
+        NSString *headerTitle = @"SHOWINGS";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFFilmReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        for (Event *showing in self.film.sortedShowings) {
+            
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            dateFormatter.dateFormat = @"EEE, MMM d 'at' h:mm a";
+            
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierShowing,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = [[dateFormatter stringFromDate:showing.start] uppercaseString];
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                    SFEventViewController *eventViewController = [[SFEventViewController alloc] init];
+                    eventViewController.event = showing;
+                    eventViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }];
+                    [weakSelf.navigationController pushViewController:eventViewController animated:YES];
+                }
+            }];
+        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFFilmViewControllerTableSectionPeople,
+                MSTableSectionHeader : header,
+                MSTableSectionRows : rows
+            }];
+        }
+    }
+    
     // Info Section
     {
+        NSString *headerTitle = @"DETAILS";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFFilmReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
         NSMutableArray *rows = [NSMutableArray new];
         
         // Country
@@ -234,6 +359,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
         if (rows.count) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionInfo,
+                MSTableSectionHeader : header,
                 MSTableSectionRows : rows,
              }];
         }
@@ -241,6 +367,18 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
     
     // People Section
     {
+        NSString *headerTitle = @"PEOPLE";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFFilmReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
         NSMutableArray *rows = [NSMutableArray new];
         
         // Directors
@@ -319,64 +457,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
         if (rows.count) {
             [sections addObject:@{
                  MSTableSectionIdentifier : SFFilmViewControllerTableSectionPeople,
-                 MSTableSectionRows : rows
-             }];
-        }
-    }
-    
-    // Favorite Section
-    {
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFFilmViewControllerTableSectionFavorite,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierFavorite,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"FAVORITE";
-                    cell.accessoryType = [weakSelf.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
-                    if ([weakSelf.film.favorite boolValue]) {
-                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
-                    } else {
-                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                    }
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    weakSelf.film.favorite = @(![weakSelf.film.favorite boolValue]);
-                    [weakSelf.film.managedObjectContext save:nil];
-                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-                }
-             }]
-         }];
-    }
-    
-    // Actions Section
-    {
-        NSMutableArray *rows = [NSMutableArray new];
-        
-        if (self.film.ticketURL) {
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierTickets,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"PURCHASE TICKETS";
-                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
-                    SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                    webViewController.requestURL = weakSelf.film.ticketURL;
-                    webViewController.shouldScale = YES;
-                    [weakSelf.navigationController pushViewController:webViewController animated:YES];
-                }
-            }];
-        }
-        
-        if (rows.count) {
-            [sections addObject:@{
-                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionActions,
+                 MSTableSectionHeader : header,
                  MSTableSectionRows : rows
              }];
         }

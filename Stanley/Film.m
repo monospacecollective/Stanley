@@ -82,4 +82,11 @@
     return [[[self.stars allObjects] valueForKey:@"name"] componentsJoinedByString:string];
 }
 
+- (NSArray *)sortedShowings
+{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(film == %@)", self];
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+}
+
 @end

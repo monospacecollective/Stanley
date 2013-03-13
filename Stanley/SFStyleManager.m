@@ -178,7 +178,7 @@ static SFStyleManager *singletonInstance = nil;
             UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, -1.0)],
         };
         
-        [MSGroupedTableViewHeaderView.appearance setPadding:UIEdgeInsetsMake(15.0, 20.0, 0.0, 20.0)];
+        [MSGroupedTableViewHeaderView.appearance setPadding:UIEdgeInsetsMake(10.0, 20.0, 0.0, 20.0)];
         [MSGroupedTableViewHeaderView.appearance setTitleTextAttributes:headerFooterTextAttributes];
 
         
@@ -399,6 +399,24 @@ static SFStyleManager *singletonInstance = nil;
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [self styleBackBarButtonItemCustomView:button withImage:image];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
+- (UIBarButtonItem *)styledBackBarButtonItemWithAction:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002B05"];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
+- (UIBarButtonItem *)styledCloseBarButtonItemWithAction:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002421"];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
