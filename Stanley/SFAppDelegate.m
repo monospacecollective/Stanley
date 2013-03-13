@@ -53,11 +53,6 @@
     [eventMapping addAttributeMappingsFromArray:@[ @"name" ]];
     [eventMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"start_datetime" : @"start", @"end_datetime" : @"end", @"description" : @"detail", @"retina_feature_image" : @"featureImage", @"ticket_url" : @"ticketURL" }];
     
-    RKEntityMapping *announcementMapping = [RKEntityMapping mappingForEntityForName:@"Announcement" inManagedObjectStore:managedObjectStore];
-    announcementMapping.identificationAttributes = @[ @"remoteID" ];
-    [announcementMapping addAttributeMappingsFromArray:@[ @"title", @"body" ]];
-    [announcementMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"publish_datetime" : @"published" }];
-    
     RKEntityMapping *locationMapping = [RKEntityMapping mappingForEntityForName:@"Location" inManagedObjectStore:managedObjectStore];
     locationMapping.identificationAttributes = @[ @"remoteID" ];
     [locationMapping addAttributeMappingsFromArray:@[ @"name", @"latitude", @"longitude" ]];
@@ -81,9 +76,6 @@
     
     RKResponseDescriptor *eventIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:@"/events.json" keyPath:@"event" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:eventIndexResponseDescriptor];
-    
-    RKResponseDescriptor *announcementIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:announcementMapping pathPattern:@"/announcements.json" keyPath:@"announcement" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [objectManager addResponseDescriptor:announcementIndexResponseDescriptor];
 
     RKResponseDescriptor *locationIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping pathPattern:@"/locations.json" keyPath:@"location" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:locationIndexResponseDescriptor];
@@ -107,18 +99,6 @@
         if (match) {
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
             fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-            return fetchRequest;
-        }
-        return nil;
-    }];
-    
-    [objectManager addFetchRequestBlock:^NSFetchRequest *(NSURL *URL) {
-        RKPathMatcher *pathMatcher = [RKPathMatcher pathMatcherWithPattern:@"/announcements.json"];
-        NSDictionary *argsDict = nil;
-        BOOL match = [pathMatcher matchesPath:[URL relativePath] tokenizeQueryStrings:NO parsedArguments:&argsDict];
-        if (match) {
-            NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Announcement"];
-            fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"published" ascending:YES] ];
             return fetchRequest;
         }
         return nil;
