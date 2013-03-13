@@ -377,15 +377,6 @@ static SFStyleManager *singletonInstance = nil;
     return barButtonItem;
 }
 
-- (UIBarButtonItem *)styledBackBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler
-{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self styleBackBarButtonItemCustomView:button withSymbolsetTitle:title];
-    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    return barButtonItem;
-}
-
 - (UIBarButtonItem *)styledBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -439,11 +430,13 @@ static SFStyleManager *singletonInstance = nil;
 
 - (UIBarButtonItem *)activityIndicatorBarButtonItem
 {
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityIndicator.layer.shadowColor = [[UIColor colorWithWhite:0.0 alpha:0.8] CGColor];
-    activityIndicator.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    activityIndicator.layer.shadowOffset = CGSizeMake(0.0, -2.0);
     activityIndicator.layer.shadowRadius = 0.0;
     activityIndicator.layer.shadowOpacity = 1.0;
+    CGFloat scale = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0.8 : 0.7);
+    activityIndicator.transform = CGAffineTransformMakeScale(scale, scale);
     activityIndicator.frame = CGRectMake(0.0, 0.0, 42.0, 30.0);
     [activityIndicator startAnimating];
     return [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
