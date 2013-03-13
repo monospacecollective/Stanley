@@ -14,20 +14,22 @@
 #import "SFLocationViewController.h"
 #import "SFHeroCell.h"
 #import "SFWebViewController.h"
+#import "SFFilmViewController.h"
 
 // Sections
 NSString *const SFEventTableSectionName = @"Name";
-NSString *const SFEventTableSectionTimes = @"Times";
-NSString *const SFEventTableSectionLocation = @"Location";
 NSString *const SFEventTableSectionDescription = @"Description";
 NSString *const SFEventTableSectionFavorite = @"Favorite";
 NSString *const SFEventTableSectionActions = @"Actions";
+NSString *const SFEventTableSectionTimes = @"Times";
+NSString *const SFEventTableSectionLocation = @"Location";
 
 // Reuse Identifiers
 NSString *const SFEventReuseIdentifierName = @"Name";
 NSString *const SFEventReuseIdentifierFrom = @"From";
 NSString *const SFEventReuseIdentifierTo = @"To";
 NSString *const SFEventReuseIdentifierLocation = @"Location";
+NSString *const SFEventReuseIdentifierFilm = @"Film";
 NSString *const SFEventReuseIdentifierDescription = @"Description";
 NSString *const SFEventReuseIdentifierFavorite = @"Favorite";
 NSString *const SFEventReuseIdentifierTickets = @"Tickets";
@@ -105,6 +107,81 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
         }
     }
     
+    // Description Section
+    {
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        if (self.event.film) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFEventReuseIdentifierFilm,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = @"FILM";
+                    cell.detail.text = weakSelf.event.film.name;
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                    SFFilmViewController *filmViewController = [[SFFilmViewController alloc] init];
+                    filmViewController.film = weakSelf.event.film;
+                    [weakSelf.navigationController pushViewController:filmViewController animated:YES];
+                    filmViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }];
+                }
+            }];
+        }
+        
+        if (self.event.detail && ![self.event.detail isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFEventReuseIdentifierDescription,
+                MSTableClass : MSMultlineGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
+                    cell.title.text = weakSelf.event.detail;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:weakSelf.event.detail forWidth:width]);
+                }
+            }];
+        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFEventTableSectionDescription,
+                MSTableSectionRows : rows,
+             }];
+        }
+    }
+    
+    // Favorite Section
+    {
+        [sections addObject:@{
+            MSTableSectionIdentifier : SFEventTableSectionFavorite,
+            MSTableSectionRows : @[@{
+                MSTableReuseIdentifer : SFEventReuseIdentifierFavorite,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"FAVORITE";
+                    cell.accessoryType = [weakSelf.event.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
+                    if ([weakSelf.event.favorite boolValue]) {
+                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
+                    } else {
+                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
+                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
+                    }
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                    weakSelf.event.favorite = @(![weakSelf.event.favorite boolValue]);
+                    [weakSelf.event.managedObjectContext save:nil];
+                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
+             }]
+         }];
+    }
+    
     // Times
     {
         NSMutableArray *rows = [NSMutableArray new];
@@ -159,10 +236,10 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
-                [locationController setLocation:weakSelf.event.location];
-                [weakSelf.navigationController pushViewController:locationController animated:YES];
-                locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+                SFLocationViewController *locationViewController = [[SFLocationViewController alloc] init];
+                locationViewController.location = weakSelf.event.location;
+                [weakSelf.navigationController pushViewController:locationViewController animated:YES];
+                locationViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 }];
             }
@@ -176,60 +253,11 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
         }
     }
     
-    // Description Section
-    {
-        if (self.event.detail && ![self.event.detail isEqualToString:@""]) {
-            [sections addObject:@{
-                MSTableSectionIdentifier : SFEventTableSectionDescription,
-                MSTableSectionRows : @[@{
-                    MSTableReuseIdentifer : SFEventReuseIdentifierDescription,
-                    MSTableClass : MSMultlineGroupedTableViewCell.class,
-                    MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                        cell.title.text = weakSelf.event.detail;
-                        cell.selectionStyle = MSTableCellSelectionStyleNone;
-                    },
-                    MSTableSizeBlock : ^CGSize(CGFloat width){
-                        return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:weakSelf.event.detail forWidth:width]);
-                    }
-                 }]
-             }];
-        }
-    }
-    
-    // Favorite Section
-    {
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFEventTableSectionFavorite,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFEventReuseIdentifierFavorite,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"FAVORITE";
-                    cell.accessoryType = [weakSelf.event.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
-                    if ([weakSelf.event.favorite boolValue]) {
-                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
-                    } else {
-                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                    }
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    weakSelf.event.favorite = @(![weakSelf.event.favorite boolValue]);
-                    [weakSelf.event.managedObjectContext save:nil];
-                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-                }
-             }]
-         }];
-    }
-    
     // Actions
     {
         NSMutableArray *rows = [NSMutableArray new];
         
-        if (self.event.ticketURL) {
+        if (self.event.ticketURL && ![self.event.ticketURL isEqualToString:@""]) {
              [rows addObject:@{
                 MSTableReuseIdentifer : SFEventReuseIdentifierTickets,
                 MSTableClass : MSGroupedTableViewCell.class,
@@ -253,6 +281,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
              }];
         }
     }
+    
     
     self.collectionViewLayout.sections = sections;
 }
