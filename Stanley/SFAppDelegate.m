@@ -195,6 +195,10 @@
         [masterViewController presentViewController:splashViewController animated:NO completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SFUserDefaultsFirstLaunch];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[RKObjectManager sharedManager] getObjectsAtPath:@"/films.json" parameters:nil success:nil failure:nil];
+        [[RKObjectManager sharedManager] getObjectsAtPath:@"/events.json" parameters:nil success:nil failure:nil];
+        [[RKObjectManager sharedManager] getObjectsAtPath:@"/locations.json" parameters:nil success:nil failure:nil];
     }
     
     // Needs to be last in application:didFinishLaunchingWithOptions:
