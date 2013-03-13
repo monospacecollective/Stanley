@@ -378,7 +378,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
                     cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
                 },
                 MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    presentWebViewController(@"http://www.stanleyhotel.com", indexPath, NO);
+                    presentWebViewController(@"http://www.stanleyhotel.com", indexPath, YES);
                 }
             }],
             MSTableSectionHeader : @{
