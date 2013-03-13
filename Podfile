@@ -16,12 +16,16 @@ pod 'SVSegmentedControl',               '~> 0.1'
 # pod 'UIColor-Utilities',                '~> 1.0.1'
 
 # Remote Pods
-# pod 'MSTableKit',                       :git => 'https://github.com/monospacecollective/MSTableKit.git', :branch => 'development'
+pod 'MSTableKit',                       :git => 'https://github.com/monospacecollective/MSTableKit.git', :branch => 'development'
 pod 'UIControl-BlockAction',            :git => 'https://github.com/monospacecollective/UIControl-BlockAction.git'
+pod 'UIColor-Utilities',                :git => 'https://github.com/eric-horacek/uicolor-utilities.git'
+pod 'GIKPopoverBackgroundView',         :git => 'https://github.com/monospacecollective/GIKPopoverBackgroundView.git'
+pod 'UIView-Autolayout',                :git => 'https://github.com/eric-horacek/UIView-Autolayout'
 
 # Local Development Pods
-pod 'MSTableKit',                       :local => '~/Development/MSTableKit'
-# pod 'MSNavigationPaneViewController',   :local => '~/Development/MSNavigationPaneViewController'
+# pod 'MSTableKit',                       :local => '~/Development/MSTableKit'
+# pod 'UIColor-Utilities',                :local => '~/Development/uicolor-utilities'
 # pod 'UIControl-BlockAction',            :local => '~/Development/UIControl-BlockAction'
-pod 'UIColor-Utilities',                  :local => '~/Development/uicolor-utilities'
-pod 'GIKPopoverBackgroundView',                  :local => '~/Development/GIKPopoverBackgroundView'
+# pod 'GIKPopoverBackgroundView',         :local => '~/Development/GIKPopoverBackgroundView'
+# pod 'UIView-Autolayout',                :local => '~/Development/UIView-Autolayout'
+# pod 'MSNavigationPaneViewController',   :local => '~/Development/MSNavigationPaneViewController'
