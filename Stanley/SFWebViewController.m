@@ -45,13 +45,13 @@
     
     __weak typeof (self) weakSelf = self;
     
-    self.backBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
+    
+    self.backBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002B05" fontSize:fontSize action:^{
         if (weakSelf.webView.canGoBack) {
             [weakSelf.webView goBack];
         }
     }];
-    
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
     
     self.forwardBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U000027A1" fontSize:fontSize action:^{
         if (weakSelf.webView.canGoForward) {
