@@ -12,6 +12,7 @@
 
 @interface Location : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * remoteID;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * detail;
 @property (nonatomic, retain) NSNumber * latitude;

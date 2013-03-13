@@ -11,6 +11,7 @@
 
 @implementation Film
 
+@dynamic remoteID;
 @dynamic language;
 @dynamic runtime;
 @dynamic name;
@@ -18,10 +19,18 @@
 @dynamic synopsis;
 @dynamic featureImage;
 @dynamic favorite;
+@dynamic country;
+@dynamic filmography;
+@dynamic printSource;
+@dynamic ticketURL;
+@dynamic year;
+@dynamic rating;
+@dynamic available;
 @dynamic directors;
 @dynamic writers;
 @dynamic producers;
 @dynamic stars;
+@dynamic showings;
 
 - (NSString *)runtimeString
 {

@@ -41,7 +41,7 @@
     RKEntityMapping *filmMapping = [RKEntityMapping mappingForEntityForName:@"Film" inManagedObjectStore:managedObjectStore];
     filmMapping.identificationAttributes = @[ @"remoteID" ];
     [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime", @"rating", @"filmography", @"country" ]];
-    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage", @"print_source" : @"printSource", @"available_datetime" : @"available" }];
+    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage", @"print_source" : @"printSource", @"available_datetime" : @"available", @"ticket_url" : @"ticketURL" }];
     
     RKEntityMapping *personMapping = [RKEntityMapping mappingForEntityForName:@"Person" inManagedObjectStore:managedObjectStore];
     personMapping.identificationAttributes = @[ @"remoteID" ];
@@ -51,7 +51,7 @@
     RKEntityMapping *eventMapping = [RKEntityMapping mappingForEntityForName:@"Event" inManagedObjectStore:managedObjectStore];
     eventMapping.identificationAttributes = @[ @"remoteID" ];
     [eventMapping addAttributeMappingsFromArray:@[ @"name" ]];
-    [eventMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"start_datetime" : @"start", @"end_datetime" : @"end", @"description" : @"detail" }];
+    [eventMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"start_datetime" : @"start", @"end_datetime" : @"end", @"description" : @"detail", @"retina_feature_image" : @"featureImage", @"ticket_url" : @"ticketURL" }];
     
     RKEntityMapping *announcementMapping = [RKEntityMapping mappingForEntityForName:@"Announcement" inManagedObjectStore:managedObjectStore];
     announcementMapping.identificationAttributes = @[ @"remoteID" ];
@@ -67,6 +67,14 @@
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"writers" toKeyPath:@"writers" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"stars" toKeyPath:@"stars" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"producers" toKeyPath:@"producers" withMapping:personMapping]];
+    
+    [eventMapping addAttributeMappingsFromDictionary:@{ @"film_id" : @"filmRemoteID" }];
+    [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"showings" toKeyPath:@"showings" withMapping:eventMapping]];
+    [eventMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"film" toKeyPath:@"film" withMapping:filmMapping]];
+    
+    [eventMapping addAttributeMappingsFromDictionary:@{ @"location_id" : @"locationRemoteID" }];
+    [locationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"events" toKeyPath:@"events" withMapping:eventMapping]];
+    [eventMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location" toKeyPath:@"location" withMapping:locationMapping]];
     
     RKResponseDescriptor *flimIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:filmMapping pathPattern:@"/films.json" keyPath:@"film" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:flimIndexResponseDescriptor];

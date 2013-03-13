@@ -12,6 +12,7 @@
 
 @interface Film : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * remoteID;
 @property (nonatomic, retain) NSString * language;
 @property (nonatomic, retain) NSNumber * runtime;
 @property (nonatomic, retain) NSString * name;
@@ -22,11 +23,15 @@
 @property (nonatomic, retain) NSString * country;
 @property (nonatomic, retain) NSString * filmography;
 @property (nonatomic, retain) NSString * printSource;
+@property (nonatomic, retain) NSString * ticketURL;
+@property (nonatomic, retain) NSString * year;
+@property (nonatomic, retain) NSString * rating;
 @property (nonatomic, retain) NSDate * available;
 @property (nonatomic, retain) NSSet *directors;
 @property (nonatomic, retain) NSSet *writers;
 @property (nonatomic, retain) NSSet *producers;
 @property (nonatomic, retain) NSSet *stars;
+@property (nonatomic, retain) NSSet *showings;
 
 - (NSString *)runtimeString;
 

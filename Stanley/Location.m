@@ -11,6 +11,7 @@
 
 @implementation Location
 
+@dynamic remoteID;
 @dynamic name;
 @dynamic detail;
 @dynamic latitude;
