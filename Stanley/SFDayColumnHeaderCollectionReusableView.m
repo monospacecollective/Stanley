@@ -19,12 +19,13 @@
     if (self) {
         
         self.todayBackground = [UIView new];
-        self.todayBackground.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
+        self.todayBackground.backgroundColor = [[UIColor colorWithHexString:@"631414"] colorWithNoiseWithOpacity:0.1 andBlendMode:kCGBlendModeMultiply];
         self.todayBackground.layer.shadowColor = [[UIColor colorWithWhite:1.0 alpha:0.1] CGColor];
         self.todayBackground.layer.shadowOffset = CGSizeMake(0.0, 1.0);
         self.todayBackground.layer.shadowOpacity = 1.0;
         self.todayBackground.layer.shadowRadius = 0.0;
-        self.todayBackground.hidden = YES;
+        self.todayBackground.layer.borderColor = [[UIColor blackColor] CGColor];
+        self.todayBackground.layer.borderWidth = 2.0;
         [self addSubview:self.todayBackground];
         
         self.day = [UILabel new];
@@ -36,29 +37,21 @@
         self.day.shadowOffset = CGSizeMake(0.0, -1.0);
         [self addSubview:self.day];
         
+        self.day.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.day pinToSuperviewEdgesWithInset:UIEdgeInsetsMake(15.0, 6.0, 10.0, 6.0)];
+        
+        self.todayBackground.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.todayBackground pinToSuperviewEdgesWithInset:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 0.0, 8.0, 0.0) : UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0))];
+        
 #if defined(LAYOUT_DEBUG)
         self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
+        self.day.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+        self.todayBackground.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
         self.layer.borderColor = [[UIColor blueColor] CGColor];
         self.layer.borderWidth = 1.0;
 #endif
     }
     return self;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    [self.day sizeToFit];
-    CGRect dayFrame = self.day.frame;
-    dayFrame.size.width = (CGRectGetWidth(self.frame) - (self.class.padding.width * 2.0));
-    dayFrame.origin.x = self.class.padding.width;
-    dayFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(dayFrame) / 2.0)) + 3.0);
-    self.day.frame = dayFrame;
-    
-    CGFloat todayBackgroundHorizontalInset = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0.0 : 8.0);
-    CGFloat todayBackgroundVerticalInset = 8.0;
-    self.todayBackground.frame = CGRectInset((CGRect){CGPointZero, self.frame.size}, todayBackgroundHorizontalInset, todayBackgroundVerticalInset);
 }
 
 - (void)setToday:(BOOL)today
@@ -72,11 +65,6 @@
         self.day.textColor = [UIColor colorWithHexString:@"aaaaaa"];
         self.day.shadowOffset = CGSizeMake(0.0, -1.0);
     }
-}
-
-+ (CGSize)padding
-{
-    return CGSizeMake(0.0, 8.0);
 }
 
 @end
