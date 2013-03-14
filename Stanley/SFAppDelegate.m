@@ -32,7 +32,7 @@
     
     [MSSocialKitManager sharedManager].twitterQuery = @"YeahItsCreepy";
     [MSSocialKitManager sharedManager].instagramQuery = @"YeahItsCreepy";
-
+    
     [MSSocialKitManager sharedManager].viewBackgroundColor = [SFStyleManager sharedManager].viewBackgroundColor;
     [MSSocialKitManager sharedManager].cellBackgroundColor = [SFStyleManager sharedManager].secondaryViewBackgroundColor;
     [MSSocialKitManager sharedManager].imageBorderColor = [UIColor blackColor];
