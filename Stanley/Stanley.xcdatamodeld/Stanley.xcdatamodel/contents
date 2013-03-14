@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C2034" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Announcement" representedClassName="Announcement" syncable="YES">
-        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="published" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="featureImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="ticketURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="film" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="showings" inverseEntity="Film" syncable="YES"/>
         <relationship name="location" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="events" inverseEntity="Location" syncable="YES"/>
     </entity>
     <entity name="Film" representedClassName="Film" syncable="YES">
+        <attribute name="available" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="featureImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filmography" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="printSource" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="runtime" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="synopsis" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ticketURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="directors" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="directed" inverseEntity="Person" syncable="YES"/>
         <relationship name="producers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="produced" inverseEntity="Person" syncable="YES"/>
+        <relationship name="showings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="film" inverseEntity="Event" syncable="YES"/>
         <relationship name="stars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="starred" inverseEntity="Person" syncable="YES"/>
         <relationship name="writers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="wrote" inverseEntity="Person" syncable="YES"/>
     </entity>
@@ -46,9 +51,8 @@
         <relationship name="wrote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="writers" inverseEntity="Film" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Announcement" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Event" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="Film" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="Event" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="Film" positionX="160" positionY="192" width="128" height="345"/>
         <element name="Location" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Person" positionX="160" positionY="192" width="128" height="135"/>
     </elements>

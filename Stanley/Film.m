@@ -11,6 +11,7 @@
 
 @implementation Film
 
+@dynamic remoteID;
 @dynamic language;
 @dynamic runtime;
 @dynamic name;
@@ -18,10 +19,18 @@
 @dynamic synopsis;
 @dynamic featureImage;
 @dynamic favorite;
+@dynamic country;
+@dynamic filmography;
+@dynamic printSource;
+@dynamic ticketURL;
+@dynamic year;
+@dynamic rating;
+@dynamic available;
 @dynamic directors;
 @dynamic writers;
 @dynamic producers;
 @dynamic stars;
+@dynamic showings;
 
 - (NSString *)runtimeString
 {
@@ -71,6 +80,13 @@
 - (NSString *)starsListSeparatedByString:(NSString *)string
 {
     return [[[self.stars allObjects] valueForKey:@"name"] componentsJoinedByString:string];
+}
+
+- (NSArray *)sortedShowings
+{
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(film == %@)", self];
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
 }
 
 @end

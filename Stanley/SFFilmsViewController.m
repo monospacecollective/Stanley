@@ -132,6 +132,11 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     flowLayout.minimumLineSpacing = [SFFilmCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.filmPopoverController dismissPopoverAnimated:NO];
+}
+
 #pragma mark - SFFilmsViewController
 
 - (void)reloadData
@@ -171,6 +176,8 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
                 break;
         }
         
+        [noContentBackgroundView setNeedsLayout];
+    
     } else {
         self.collectionView.backgroundView.hidden = YES;
     }
@@ -216,7 +223,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         [navigationController addChildViewController:filmController];
         
         __weak typeof (self) weakSelf = self;
-        filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" action:^{
+        filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
             [weakSelf.filmPopoverController dismissPopoverAnimated:YES];
         }];
         
@@ -230,7 +237,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
         [navigationController addChildViewController:filmController];
         
-        filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+        filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
             [filmController dismissViewControllerAnimated:YES completion:nil];
         }];
         

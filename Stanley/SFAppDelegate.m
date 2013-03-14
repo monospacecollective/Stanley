@@ -75,8 +75,8 @@
     
     RKEntityMapping *filmMapping = [RKEntityMapping mappingForEntityForName:@"Film" inManagedObjectStore:managedObjectStore];
     filmMapping.identificationAttributes = @[ @"remoteID" ];
-    [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime" ]];
-    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage" }];
+    [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime", @"rating", @"filmography", @"country" ]];
+    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage", @"print_source" : @"printSource", @"available_datetime" : @"available", @"ticket_url" : @"ticketURL" }];
     
     RKEntityMapping *personMapping = [RKEntityMapping mappingForEntityForName:@"Person" inManagedObjectStore:managedObjectStore];
     personMapping.identificationAttributes = @[ @"remoteID" ];
@@ -86,12 +86,7 @@
     RKEntityMapping *eventMapping = [RKEntityMapping mappingForEntityForName:@"Event" inManagedObjectStore:managedObjectStore];
     eventMapping.identificationAttributes = @[ @"remoteID" ];
     [eventMapping addAttributeMappingsFromArray:@[ @"name" ]];
-    [eventMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"start_datetime" : @"start", @"end_datetime" : @"end", @"description" : @"detail" }];
-    
-    RKEntityMapping *announcementMapping = [RKEntityMapping mappingForEntityForName:@"Announcement" inManagedObjectStore:managedObjectStore];
-    announcementMapping.identificationAttributes = @[ @"remoteID" ];
-    [announcementMapping addAttributeMappingsFromArray:@[ @"title", @"body" ]];
-    [announcementMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"publish_datetime" : @"published" }];
+    [eventMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"start_datetime" : @"start", @"end_datetime" : @"end", @"description" : @"detail", @"retina_feature_image" : @"featureImage", @"ticket_url" : @"ticketURL" }];
     
     RKEntityMapping *locationMapping = [RKEntityMapping mappingForEntityForName:@"Location" inManagedObjectStore:managedObjectStore];
     locationMapping.identificationAttributes = @[ @"remoteID" ];
@@ -103,14 +98,19 @@
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"stars" toKeyPath:@"stars" withMapping:personMapping]];
     [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"producers" toKeyPath:@"producers" withMapping:personMapping]];
     
+    [eventMapping addAttributeMappingsFromDictionary:@{ @"film_id" : @"filmRemoteID" }];
+    [filmMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"showings" toKeyPath:@"showings" withMapping:eventMapping]];
+    [eventMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"film" toKeyPath:@"film" withMapping:filmMapping]];
+    
+    [eventMapping addAttributeMappingsFromDictionary:@{ @"location_id" : @"locationRemoteID" }];
+    [locationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"events" toKeyPath:@"events" withMapping:eventMapping]];
+    [eventMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"location" toKeyPath:@"location" withMapping:locationMapping]];
+    
     RKResponseDescriptor *flimIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:filmMapping pathPattern:@"/films.json" keyPath:@"film" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:flimIndexResponseDescriptor];
     
     RKResponseDescriptor *eventIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:eventMapping pathPattern:@"/events.json" keyPath:@"event" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:eventIndexResponseDescriptor];
-    
-    RKResponseDescriptor *announcementIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:announcementMapping pathPattern:@"/announcements.json" keyPath:@"announcement" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [objectManager addResponseDescriptor:announcementIndexResponseDescriptor];
 
     RKResponseDescriptor *locationIndexResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:locationMapping pathPattern:@"/locations.json" keyPath:@"location" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [objectManager addResponseDescriptor:locationIndexResponseDescriptor];
@@ -134,18 +134,6 @@
         if (match) {
             NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
             fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-            return fetchRequest;
-        }
-        return nil;
-    }];
-    
-    [objectManager addFetchRequestBlock:^NSFetchRequest *(NSURL *URL) {
-        RKPathMatcher *pathMatcher = [RKPathMatcher pathMatcherWithPattern:@"/announcements.json"];
-        NSDictionary *argsDict = nil;
-        BOOL match = [pathMatcher matchesPath:[URL relativePath] tokenizeQueryStrings:NO parsedArguments:&argsDict];
-        if (match) {
-            NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Announcement"];
-            fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"published" ascending:YES] ];
             return fetchRequest;
         }
         return nil;
@@ -224,7 +212,14 @@
         [masterViewController presentViewController:splashViewController animated:NO completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SFUserDefaultsFirstLaunch];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[RKObjectManager sharedManager] getObjectsAtPath:@"/films.json" parameters:nil success:nil failure:nil];
+        [[RKObjectManager sharedManager] getObjectsAtPath:@"/events.json" parameters:nil success:nil failure:nil];
+        [[RKObjectManager sharedManager] getObjectsAtPath:@"/locations.json" parameters:nil success:nil failure:nil];
     }
+    
+    // Needs to be last in application:didFinishLaunchingWithOptions:
+    [Crashlytics startWithAPIKey:@"071b8aadee1ba1cd89ac579557101520980223ca"];
     
     return YES;
 }

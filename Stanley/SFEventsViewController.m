@@ -107,7 +107,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         if (newIndex == SFEventSegmentTypeAll) {
             weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
         } else if (newIndex == SFEventSegmentTypeFavorites) {
-            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
+            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES) OR (film.favorite == YES)"];
         }
         
         [weakSelf.fetchedResultsController performFetch:nil];
@@ -132,6 +132,11 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
     });
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.eventPopoverController dismissPopoverAnimated:NO];
 }
 
 #pragma mark - SFEventsViewController
@@ -173,6 +178,9 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
                 noContentBackgroundView.subtitle.text = @"The events at the Stanley Film Fest are not yet announced. Check back later.";
                 break;
         }
+        
+        [noContentBackgroundView setNeedsLayout];
+        
     } else {
         self.collectionView.backgroundView.hidden = YES;
     }
@@ -247,7 +255,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         [navigationController addChildViewController:eventController];
         
         __weak typeof (self) weakSelf = self;
-        eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" action:^{
+        eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
             [weakSelf.eventPopoverController dismissPopoverAnimated:YES];
         }];
         
@@ -261,7 +269,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
         [navigationController addChildViewController:eventController];
         
-        eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+        eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
             [eventController dismissViewControllerAnimated:YES completion:nil];
         }];
         

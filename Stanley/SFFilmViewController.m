@@ -10,7 +10,11 @@
 #import "SFHeroCell.h"
 #import "SFStyleManager.h"
 #import "Film.h"
+#import "Event.h"
 #import "SFWebViewController.h"
+#import "SFEventViewController.h"
+#import "SFNavigationBar.h"
+#import "SFToolbar.h"
 
 // Sections
 NSString *const SFFilmViewControllerTableSectionTitle = @"Title";
@@ -18,9 +22,12 @@ NSString *const SFFilmViewControllerTableSectionDescription = @"Description";
 NSString *const SFFilmViewControllerTableSectionInfo = @"Info";
 NSString *const SFFilmViewControllerTableSectionPeople = @"People";
 NSString *const SFFilmViewControllerTableSectionFavorite = @"Favorite";
+NSString *const SFFilmViewControllerTableSectionShowings = @"Showings";
 NSString *const SFFilmViewControllerTableSectionActions = @"Actions";
 
 // Reuse Identifiers
+// Headers
+NSString *const SFFilmReuseIdentifierHeader = @"Header";
 // Title
 NSString *const SFFilmReuseIdentifierTitle = @"Title";
 // Favorite
@@ -40,6 +47,8 @@ NSString *const SFFilmReuseIdentifierRuntime = @"Runtime";
 NSString *const SFFilmReuseIdentifierRating = @"Rating";
 NSString *const SFFilmReuseIdentifierPrintSource = @"PrintSource";
 NSString *const SFFilmReuseIdentifierFilmography = @"Filmography";
+// Showings
+NSString *const SFFilmReuseIdentifierShowing = @"Showing";
 // Actions
 NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
 
@@ -48,7 +57,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) MSCollectionViewTableLayout *collectionViewLayout;
 
-- (void)prepareSectionsForFilm:(Film *)film;
+- (void)prepareSections;
 
 @end
 
@@ -89,19 +98,19 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
         [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
     }
     
-    [self prepareSectionsForFilm:self.film];
+    [self prepareSections];
 }
 
 #pragma mark - SFFilmViewController
 
-- (void)prepareSectionsForFilm:(Film *)film
+- (void)prepareSections
 {
     NSMutableArray *sections = [NSMutableArray new];
     __weak typeof (self) weakSelf = self;
     
     // Name Section
     {
-        if (film.name && ![film.name isEqualToString:@""]) {
+        if (self.film.name && ![self.film.name isEqualToString:@""]) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionTitle,
                 MSTableSectionRows : @[@{
@@ -109,7 +118,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                     MSTableClass : SFHeroCell.class,
                     MSTableConfigurationBlock : ^(SFHeroCell *cell){
                         cell.title.text = [weakSelf.film.name uppercaseString];
-                        [cell.backgroundImage setImageWithURL:[NSURL URLWithString:film.featureImage]];
+                        [cell.backgroundImage setImageWithURL:[NSURL URLWithString:weakSelf.film.featureImage] placeholderImage:[[SFStyleManager sharedManager] heroPlaceholderImage]];
                     }
                  }]
              }];
@@ -118,7 +127,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
     
     // Description Section
     {
-        if (film.detail && ![film.detail isEqualToString:@""]) {
+        if (self.film.detail && ![self.film.detail isEqualToString:@""]) {
             [sections addObject:@{
                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionDescription,
                 MSTableSectionRows : @[@{
@@ -132,129 +141,6 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                         return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:weakSelf.film.detail forWidth:width]);
                     }
                  }]
-             }];
-        }
-    }
-    
-    // Info Section
-    {
-        NSMutableArray *rows = [NSMutableArray new];
-        
-        // Language
-        if (film.language && ![film.language isEqualToString:@""]) {
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierLanguage,
-                MSTableClass : MSRightDetailGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
-                    cell.title.text = @"LANGUAGE";
-                    cell.detail.text = weakSelf.film.language;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                }
-            }];
-        }
-        
-        // Runtime
-        if (film.runtime) {
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierRuntime,
-                MSTableClass : MSRightDetailGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
-                    cell.title.text = @"RUNTIME";
-                    cell.detail.text = [weakSelf.film runtimeString];
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                }
-             }];
-        }
-        
-        if (rows.count) {
-            [sections addObject:@{
-                MSTableSectionIdentifier : SFFilmViewControllerTableSectionInfo,
-                MSTableSectionRows : rows,
-             }];
-        }
-    }
-    
-    // People Section
-    {
-        NSMutableArray *rows = [NSMutableArray new];
-        
-        // Directors
-        if (film.directors.count) {
-            NSString *title = [weakSelf.film directorsTitleString];
-            NSString *detail = [weakSelf.film directorsListSeparatedByString:@"\n"];
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierDirectors,
-                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
-                    cell.title.text = title;
-                    cell.detail.text = detail;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width]);
-                }
-             }];
-        }
-        
-        // Writers
-        if (film.writers.count) {
-            NSString *title = [weakSelf.film writersTitleString];
-            NSString *detail = [weakSelf.film writersListSeparatedByString:@"\n"];
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierWriters,
-                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
-                    cell.title.text = title;
-                    cell.detail.text = detail;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width]);
-                }
-             }];
-        }
-        
-        // Producers
-        if (film.producers.count) {
-            NSString *title = [weakSelf.film producersTitleString];
-            NSString *detail = [weakSelf.film producersListSeparatedByString:@"\n"];
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierProducers,
-                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
-                    cell.title.text = title;
-                    cell.detail.text = detail;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width]);
-                }
-             }];
-        }
-        
-        // Stars
-        if (film.stars.count) {
-            NSString *title = [weakSelf.film starsTitleString];
-            NSString *detail = [weakSelf.film starsListSeparatedByString:@"\n"];
-            [rows addObject:@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierStars,
-                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
-                    cell.title.text = title;
-                    cell.detail.text = detail;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    CGFloat height = [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width];
-                    return CGSizeMake(width, height);
-                }
-             }];
-        }
-        
-        if (rows.count) {
-            [sections addObject:@{
-                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionPeople,
-                 MSTableSectionRows : rows
              }];
         }
     }
@@ -292,24 +178,295 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
     {
         NSMutableArray *rows = [NSMutableArray new];
         
-        [rows addObject:@{
-            MSTableReuseIdentifer : SFFilmReuseIdentifierTickets,
-            MSTableClass : MSGroupedTableViewCell.class,
-            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"PURCHASE TICKETS";
-                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
-            },
-            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
-                SFWebViewController *webViewController = [[SFWebViewController alloc] init];
-                webViewController.requestURL = @"http://www.stanleyhotel.com";
-                webViewController.shouldScale = YES;
-                [weakSelf.navigationController pushViewController:webViewController animated:YES];
-            }
-         }];
+        if (self.film.ticketURL && ![self.film.ticketURL isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierTickets,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"PURCHASE TICKETS";
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                    SFWebViewController *webViewController = [[SFWebViewController alloc] init];
+                    webViewController.requestURL = weakSelf.film.ticketURL;
+                    webViewController.scalesPageToFit = YES;
+                    webViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" fontSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0) action:^{
+                        [webViewController dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                    UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
+                    [navigationController addChildViewController:webViewController];
+                    [weakSelf presentViewController:navigationController animated:YES completion:^{
+                        [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+                    }];
+                }
+            }];
+        }
         
         if (rows.count) {
             [sections addObject:@{
                  MSTableSectionIdentifier : SFFilmViewControllerTableSectionActions,
+                 MSTableSectionRows : rows
+             }];
+        }
+    }
+    
+    // Showings
+    {
+        NSString *headerTitle = @"SHOWINGS";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFFilmReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        for (Event *showing in self.film.sortedShowings) {
+            
+            NSDateFormatter *dateFormatter = [NSDateFormatter new];
+            dateFormatter.dateFormat = @"EEE, MMM d 'at' h:mm a";
+            
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierShowing,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = [[dateFormatter stringFromDate:showing.start] uppercaseString];
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                    SFEventViewController *eventViewController = [[SFEventViewController alloc] init];
+                    eventViewController.event = showing;
+                    eventViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithAction:^{
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }];
+                    [weakSelf.navigationController pushViewController:eventViewController animated:YES];
+                }
+            }];
+        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFFilmViewControllerTableSectionPeople,
+                MSTableSectionHeader : header,
+                MSTableSectionRows : rows
+            }];
+        }
+    }
+    
+    // Info Section
+    {
+        NSString *headerTitle = @"DETAILS";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFFilmReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        // Country
+        if (self.film.country && ![self.film.country isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierCountry,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = @"COUNTRY";
+                    cell.detail.text = weakSelf.film.country;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                }
+            }];
+        }
+        
+        // Year
+        if (self.film.year && ![self.film.year isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierYear,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = @"YEAR";
+                    cell.detail.text = weakSelf.film.year;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                }
+            }];
+        }
+        
+        // Language
+        if (self.film.language && ![self.film.language isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierLanguage,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = @"LANGUAGE";
+                    cell.detail.text = weakSelf.film.language;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                }
+            }];
+        }
+        
+        // Runtime
+        if (self.film.runtime) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierRuntime,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = @"RUNTIME";
+                    cell.detail.text = [weakSelf.film runtimeString];
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                }
+             }];
+        }
+        
+        // Rating
+        if (self.film.rating && ![self.film.rating isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierRuntime,
+                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = @"RATING";
+                    cell.detail.text = weakSelf.film.rating;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                }
+             }];
+        }
+        
+//        // Print Source
+//        if (self.film.printSource && ![self.film.printSource isEqualToString:@""]) {
+//            [rows addObject:@{
+//                MSTableReuseIdentifer : SFFilmReuseIdentifierPrintSource,
+//                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+//                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+//                    cell.title.text = @"PRINT SOURCE";
+//                    cell.detail.text = weakSelf.film.printSource;
+//                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+//                }
+//             }];
+//        }
+//        
+//        // Filmography
+//        if (self.film.filmography && ![self.film.filmography isEqualToString:@""]) {
+//            [rows addObject:@{
+//                MSTableReuseIdentifer : SFFilmReuseIdentifierFilmography,
+//                MSTableClass : MSRightDetailGroupedTableViewCell.class,
+//                MSTableConfigurationBlock : ^(MSRightDetailGroupedTableViewCell *cell){
+//                    cell.title.text = @"FILMOGRAPHY";
+//                    cell.detail.text = weakSelf.film.filmography;
+//                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+//                }
+//             }];
+//        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFFilmViewControllerTableSectionInfo,
+                MSTableSectionHeader : header,
+                MSTableSectionRows : rows,
+             }];
+        }
+    }
+    
+    // People Section
+    {
+        NSString *headerTitle = @"PEOPLE";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFFilmReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        // Directors
+        if (self.film.directors.count) {
+            NSString *title = [weakSelf.film directorsTitleString];
+            NSString *detail = [weakSelf.film directorsListSeparatedByString:@"\n"];
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierDirectors,
+                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = title;
+                    cell.detail.text = detail;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    return CGSizeMake(width, [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width]);
+                }
+             }];
+        }
+        
+        // Writers
+        if (self.film.writers.count) {
+            NSString *title = [weakSelf.film writersTitleString];
+            NSString *detail = [weakSelf.film writersListSeparatedByString:@"\n"];
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierWriters,
+                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = title;
+                    cell.detail.text = detail;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    return CGSizeMake(width, [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width]);
+                }
+             }];
+        }
+        
+        // Producers
+        if (self.film.producers.count) {
+            NSString *title = [weakSelf.film producersTitleString];
+            NSString *detail = [weakSelf.film producersListSeparatedByString:@"\n"];
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierProducers,
+                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = title;
+                    cell.detail.text = detail;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    return CGSizeMake(width, [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width]);
+                }
+             }];
+        }
+        
+        // Stars
+        if (self.film.stars.count) {
+            NSString *title = [weakSelf.film starsTitleString];
+            NSString *detail = [weakSelf.film starsListSeparatedByString:@"\n"];
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierStars,
+                MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultilineRightDetailGroupedTableViewCell *cell){
+                    cell.title.text = title;
+                    cell.detail.text = detail;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    CGFloat height = [MSMultilineRightDetailGroupedTableViewCell heightForTitle:title detail:detail forWidth:width];
+                    return CGSizeMake(width, height);
+                }
+             }];
+        }
+        
+        if (rows.count) {
+            [sections addObject:@{
+                 MSTableSectionIdentifier : SFFilmViewControllerTableSectionPeople,
+                 MSTableSectionHeader : header,
                  MSTableSectionRows : rows
              }];
         }
@@ -327,7 +484,7 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
             [self.navigationController popViewControllerAnimated:YES];
             break;
         case NSFetchedResultsChangeUpdate:
-            [self prepareSectionsForFilm:self.film];
+            [self prepareSections];
             break;
     }
 }

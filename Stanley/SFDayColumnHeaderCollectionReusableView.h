@@ -14,6 +14,4 @@
 @property (nonatomic, strong) UIView *todayBackground;
 @property (nonatomic, assign) BOOL today;
 
-+ (CGSize)padding;
-
 @end

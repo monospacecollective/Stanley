@@ -119,7 +119,7 @@ static SFStyleManager *singletonInstance = nil;
         [MSGroupedTableViewCell.appearance setPadding:UIEdgeInsetsMake(13.0, 20.0, 7.0, 20.0)];
         
         UIFont *groupedTitleFont = [self titleFontOfSize:17.0];
-        UIFont *groupedDetailFont = [self detailFontOfSize:15.0];
+        UIFont *groupedDetailFont = [self detailFontOfSize:16.0];
         UIFont *groupedAccessoryFont = [self symbolSetFontOfSize:16.0];
         [MSMultlineGroupedTableViewCell.appearance setTitleTextAttributes:@{
                                            UITextAttributeFont : groupedDetailFont,
@@ -178,7 +178,7 @@ static SFStyleManager *singletonInstance = nil;
             UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, -1.0)],
         };
         
-        [MSGroupedTableViewHeaderView.appearance setPadding:UIEdgeInsetsMake(15.0, 20.0, 0.0, 20.0)];
+        [MSGroupedTableViewHeaderView.appearance setPadding:UIEdgeInsetsMake(10.0, 20.0, 0.0, 20.0)];
         [MSGroupedTableViewHeaderView.appearance setTitleTextAttributes:headerFooterTextAttributes];
 
         
@@ -230,6 +230,13 @@ static SFStyleManager *singletonInstance = nil;
     return [UIFont fontWithName:@"FuturaCom-Medium" size:size];
 }
 
+#pragma mark - Images
+
+- (UIImage *)heroPlaceholderImage
+{
+    return [UIImage imageNamed:@"SFSplashBackground.jpg"];
+}
+
 #pragma mark - UICollectionView
 
 - (void)styleCollectionView:(UICollectionView *)collectionView
@@ -262,27 +269,9 @@ static SFStyleManager *singletonInstance = nil;
 
 #pragma mark - UIBarButtonItem Custom Views
 
-- (void)styleBarButtonItemCustomView:(UIButton *)button
-{
-    //    UIEdgeInsets buttonBackgroundImageCapInsets = UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0);
-    //    UIImage *backgroundImage = [[UIImage imageNamed:@"ELBarBackgroundItemCustomViewBackground"] resizableImageWithCapInsets:buttonBackgroundImageCapInsets];
-    //    [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    //    UIImage *highlightedBackgroundImage = [[UIImage imageNamed:@"ELBarBackgroundItemCustomViewPressedBackground"] resizableImageWithCapInsets:buttonBackgroundImageCapInsets];
-    //    [button setBackgroundImage:highlightedBackgroundImage forState:UIControlStateHighlighted];
-}
-
-- (void)styleBackBarButtonItemCustomView:(UIButton *)button
-{
-    //    UIEdgeInsets buttonBackgroundImageCapInsets = UIEdgeInsetsMake(6.0, 13.0, 6.0, 6.0);
-    //    UIImage *backgroundImage = [[UIImage imageNamed:@"ELBackBarBackgroundItemCustomViewBackground"] resizableImageWithCapInsets:buttonBackgroundImageCapInsets];
-    //    [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    //    UIImage *highlightedBackgroundImage = [[UIImage imageNamed:@"ELBackBarBackgroundItemCustomViewPressedBackground"] resizableImageWithCapInsets:buttonBackgroundImageCapInsets];
-    //    [button setBackgroundImage:highlightedBackgroundImage forState:UIControlStateHighlighted];
-}
-
 - (void)styleBarButtonItemCustomView:(UIButton *)button withTitle:(NSString *)title
 {
-    [self styleBarButtonItemCustomView:button];
+//    [self styleBarButtonItemCustomView:button];
     button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     [button setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
@@ -294,7 +283,7 @@ static SFStyleManager *singletonInstance = nil;
 
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button withTitle:(NSString *)title
 {
-    [self styleBackBarButtonItemCustomView:button];
+//    [self styleBackBarButtonItemCustomView:button];
     button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     [button setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
@@ -304,10 +293,9 @@ static SFStyleManager *singletonInstance = nil;
     [button sizeToFit];
 }
 
-- (void)styleBarButtonItemCustomView:(UIButton *)button withSymbolsetTitle:(NSString *)title
+- (void)styleBarButtonItemCustomView:(UIButton *)button withSymbolsetTitle:(NSString *)title fontSize:(CGFloat)fontSize
 {
     [self styleBarButtonItemCustomView:button withTitle:title];
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
     button.titleLabel.font = [self symbolSetFontOfSize:fontSize];
     button.contentEdgeInsets = UIEdgeInsetsMake(5.0, 11.0, 0.0, 11.0);
     [button sizeToFit];
@@ -324,7 +312,6 @@ static SFStyleManager *singletonInstance = nil;
 
 - (void)styleBarButtonItemCustomView:(UIButton *)button withImage:(UIImage *)image
 {
-    [self styleBarButtonItemCustomView:button];
     [button setImage:image forState:UIControlStateNormal];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         button.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 14.0, 5.0);
@@ -336,7 +323,6 @@ static SFStyleManager *singletonInstance = nil;
 
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button withImage:(UIImage *)image
 {
-    [self styleBarButtonItemCustomView:button];
     [button setImage:image forState:UIControlStateNormal];
     [button sizeToFit];
 }
@@ -361,19 +347,10 @@ static SFStyleManager *singletonInstance = nil;
     return barButtonItem;
 }
 
-- (UIBarButtonItem *)styledBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler
+- (UIBarButtonItem *)styledBarButtonItemWithSymbolsetTitle:(NSString *)title fontSize:(CGFloat)fontSize action:(void(^)(void))handler
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self styleBarButtonItemCustomView:button withSymbolsetTitle:title];
-    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    return barButtonItem;
-}
-
-- (UIBarButtonItem *)styledBackBarButtonItemWithSymbolsetTitle:(NSString *)title action:(void(^)(void))handler
-{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self styleBackBarButtonItemCustomView:button withSymbolsetTitle:title];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:title fontSize:fontSize];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
@@ -388,10 +365,19 @@ static SFStyleManager *singletonInstance = nil;
     return barButtonItem;
 }
 
-- (UIBarButtonItem *)styledBackBarButtonItemWithImage:(UIImage *)image action:(void(^)(void))handler
+- (UIBarButtonItem *)styledBackBarButtonItemWithAction:(void(^)(void))handler
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self styleBackBarButtonItemCustomView:button withImage:image];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002B05" fontSize:24.0];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
+- (UIBarButtonItem *)styledCloseBarButtonItemWithAction:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002421" fontSize:24.0];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
@@ -414,11 +400,13 @@ static SFStyleManager *singletonInstance = nil;
 
 - (UIBarButtonItem *)activityIndicatorBarButtonItem
 {
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityIndicator.layer.shadowColor = [[UIColor colorWithWhite:0.0 alpha:0.8] CGColor];
-    activityIndicator.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    activityIndicator.layer.shadowOffset = CGSizeMake(0.0, -2.0);
     activityIndicator.layer.shadowRadius = 0.0;
     activityIndicator.layer.shadowOpacity = 1.0;
+    CGFloat scale = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0.8 : 0.7);
+    activityIndicator.transform = CGAffineTransformMakeScale(scale, scale);
     activityIndicator.frame = CGRectMake(0.0, 0.0, 42.0, 30.0);
     [activityIndicator startAnimating];
     return [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];

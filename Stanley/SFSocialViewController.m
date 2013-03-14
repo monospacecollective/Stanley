@@ -58,7 +58,9 @@ typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
     self.toolbarItems = toolbarItems;
     [self.navigationController setToolbarHidden:NO];
     
-    self.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U0001F4DD" action:^{
+    self.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U0001F4DD"
+                                                                                                          fontSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0)
+                                                                                                            action:^{
         [self.currentChildViewController addNew];
     }];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

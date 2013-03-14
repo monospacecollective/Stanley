@@ -32,6 +32,8 @@
     #import <MSTableKit/MSTableKit.h>
     #import <GIKPopoverBackgroundView/GIKPopoverBackgroundView.h>
     #import <SVSegmentedControl/SVSegmentedControl.h>
+    #import <Crashlytics/Crashlytics.h>
+    #import <UIView-Autolayout/UIView+AutoLayout.h>
     // Constants
     #import "SFConstants.h"
     // Macros

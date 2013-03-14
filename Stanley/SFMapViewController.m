@@ -77,6 +77,15 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     [self zoomToAnnotationsAnimated:YES];
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.locationPopoverController dismissPopoverAnimated:NO];
+    
+    for (id <MKAnnotation> annotation in self.mapView.selectedAnnotations) {
+        [self.mapView deselectAnnotation:annotation animated:YES];
+    }
+}
+
 #pragma mark - SFMapViewController
 
 - (void)reloadData
@@ -217,7 +226,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
             locationController.location = [(SFLocationAnnotation *)view.annotation location];
             
             __weak typeof (self) weakSelf = self;
-            locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" action:^{
+            locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
                 [weakSelf.locationPopoverController dismissPopoverAnimated:YES];
             }];
             
@@ -243,7 +252,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
     locationController.location = [(SFLocationAnnotation *)view.annotation location];
     
-    locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBackBarButtonItemWithSymbolsetTitle:@"\U00002B05" action:^{
+    locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
         [locationController dismissViewControllerAnimated:YES completion:nil];
     }];
     

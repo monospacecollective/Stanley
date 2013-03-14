@@ -43,7 +43,7 @@
         [self.contentView addSubview:self.image];
         
         self.backgroundGradient = [CAGradientLayer layer];
-        UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.35];
+        UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
         self.backgroundGradient.colors = @[(id)[[UIColor clearColor] CGColor], (id)[overlayColor CGColor]];
         self.backgroundGradient.locations = @[@(0.7), @(0.9)];
         [self.image.layer addSublayer:self.backgroundGradient];
