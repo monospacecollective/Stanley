@@ -10,7 +10,6 @@
 
 typedef NS_ENUM(NSUInteger, SFPaneType) {
     SFPaneTypeFilms,
-    SFPaneTypeNews,
     SFPaneTypeEvents,
     SFPaneTypeMap,
     SFPaneTypeCommunity,
