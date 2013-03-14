@@ -13,6 +13,7 @@
 #import "SFStyleManager.h"
 #import "SFMasterViewController.h"
 #import "SFSplashViewController.h"
+#import "SFNoContentBackgroundView.h"
 #import "MSSocialKitManager.h"
 
 @interface SFAppDelegate ()
@@ -55,6 +56,19 @@
     [MSSocialKitManager sharedManager].primaryTextAttributes = primaryTextAttributes;
     [MSSocialKitManager sharedManager].secondaryTextAttributes = secondaryTextAttributes;
     [MSSocialKitManager sharedManager].contentTextAttributes = contentTextAttributes;
+    
+    
+    SFNoContentBackgroundView *twitterPlaceholderView = [[SFNoContentBackgroundView alloc] init];
+    twitterPlaceholderView.title.text = @"NO TWEETS";
+    twitterPlaceholderView.icon.text = @"\U0001F4AC";
+    twitterPlaceholderView.subtitle.text = @"Tweets about the Stanley Film Festival are currently not available. Check back later.";
+    [MSSocialKitManager sharedManager].twitterPlaceholderView = twitterPlaceholderView;
+    
+    SFNoContentBackgroundView *instagramPlaceholderView = [[SFNoContentBackgroundView alloc] init];
+    instagramPlaceholderView.title.text = @"NO PHOTOS";
+    instagramPlaceholderView.icon.text = @"\U0001F304";
+    instagramPlaceholderView.subtitle.text = @"Instagram photos of the Stanley Film Festival are currently not available. Check back later.";
+    [MSSocialKitManager sharedManager].instagramPlaceholderView = instagramPlaceholderView;
     
 }
 
