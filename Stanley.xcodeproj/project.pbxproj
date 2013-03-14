@@ -113,6 +113,7 @@
 		3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */; };
 		3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */; };
 		3ADFD8EC16E7FD07003B1D22 /* FuturaCom-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */; };
+		916187B216F15A1800CBAF32 /* SFSocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916187B116F15A1800CBAF32 /* SFSocialViewController.m */; };
 		A8745C5921024A15A921C4AD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0133068B604C4BA86ECCAD /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -268,6 +269,8 @@
 		3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonPressedBackground.png; sourceTree = "<group>"; };
 		3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonPressedBackground@2x.png"; sourceTree = "<group>"; };
 		3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Medium.ttf"; sourceTree = "<group>"; };
+		916187B016F15A1800CBAF32 /* SFSocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSocialViewController.h; sourceTree = "<group>"; };
+		916187B116F15A1800CBAF32 /* SFSocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSocialViewController.m; sourceTree = "<group>"; };
 		BB49208211714987AAD32B5E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BC0133068B604C4BA86ECCAD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -361,6 +364,8 @@
 		3A6CBADF16DAB56100B4F041 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				916187B016F15A1800CBAF32 /* SFSocialViewController.h */,
+				916187B116F15A1800CBAF32 /* SFSocialViewController.m */,
 				3A6CBA7516DAA69F00B4F041 /* SFEventsViewController.h */,
 				3A6CBA7616DAA69F00B4F041 /* SFEventsViewController.m */,
 				3A6CBA7916DAA69F00B4F041 /* SFFilmsViewController.h */,
@@ -799,6 +804,7 @@
 				3A4CE8EA16ED1A1300C7928C /* SFHeroMapCell.m in Sources */,
 				3A4CE8ED16ED2CCA00C7928C /* SFHeroCell.m in Sources */,
 				3A4CE90A16ED7AB100C7928C /* SFNoContentBackgroundView.m in Sources */,
+				916187B216F15A1800CBAF32 /* SFSocialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,11 +912,39 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BB49208211714987AAD32B5E /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Devon Tivona (KZR69S9RCQ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stanley/Stanley-Prefix.pch";
 				INFOPLIST_FILE = "Stanley/Stanley-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-licucore",
+					"-framework",
+					AddressBook,
+					"-framework",
+					AddressBookUI,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreData,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					MapKit,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					Social,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EDD5270B-81AD-4AEF-AB7C-58CC9753130C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -919,12 +953,40 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BB49208211714987AAD32B5E /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Devon Tivona (KZR69S9RCQ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stanley/Stanley-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Stanley/Stanley-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-licucore",
+					"-framework",
+					AddressBook,
+					"-framework",
+					AddressBookUI,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreData,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					MapKit,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					Social,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EDD5270B-81AD-4AEF-AB7C-58CC9753130C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -17,6 +17,7 @@
 #import "SFSplashViewController.h"
 #import "SFMapViewController.h"
 #import "SFAboutViewController.h"
+#import "SFSocialViewController.h"
 
 NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewControllerCellReuseIdentifier";
 
@@ -49,7 +50,6 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         
         self.paneTitles = @{
             @(SFPaneTypeFilms) : @"Films",
-            @(SFPaneTypeNews) : @"News",
             @(SFPaneTypeEvents) : @"Events",
             @(SFPaneTypeMap) : @"Map",
             @(SFPaneTypeCommunity) : @"Social",
@@ -57,7 +57,6 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         };
         self.paneIcons = @{
             @(SFPaneTypeFilms) : @"\U0000E320",
-            @(SFPaneTypeNews) : @"\U00002709",
             @(SFPaneTypeEvents) : @"\U0001F4C6",
             @(SFPaneTypeMap) : @"\U0000E673",
             @(SFPaneTypeCommunity) : @"\U0001F4AC",
@@ -65,10 +64,9 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         };
         self.paneClasses = @{
             @(SFPaneTypeFilms) : SFFilmsViewController.class,
-            @(SFPaneTypeNews) : SFNewsViewController.class,
             @(SFPaneTypeEvents) : SFEventsViewController.class,
             @(SFPaneTypeMap) : SFMapViewController.class,
-            @(SFPaneTypeCommunity) : UITableViewController.class,
+            @(SFPaneTypeCommunity) : SFSocialViewController.class,
             @(SFPaneTypeAbout) : SFAboutViewController.class
         };
     }

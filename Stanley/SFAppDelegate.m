@@ -13,15 +13,50 @@
 #import "SFStyleManager.h"
 #import "SFMasterViewController.h"
 #import "SFSplashViewController.h"
+#import "MSSocialKitManager.h"
 
 @interface SFAppDelegate ()
 
+- (void)setupSocialKit;
 - (void)setupRestKitWithBaseURL:(NSURL *)baseURL;
 - (void)setupPonyDebugger;
 
 @end
 
 @implementation SFAppDelegate
+
+- (void)setupSocialKit
+{
+    [[MSSocialKitManager sharedManager] configureStorage];
+    
+    [MSSocialKitManager sharedManager].twitterQuery = @"YeahItsCreepy";
+    [MSSocialKitManager sharedManager].instagramQuery = @"YeahItsCreepy";
+
+    [MSSocialKitManager sharedManager].viewBackgroundColor = [SFStyleManager sharedManager].viewBackgroundColor;
+    [MSSocialKitManager sharedManager].cellBackgroundColor = [SFStyleManager sharedManager].secondaryViewBackgroundColor;
+    [MSSocialKitManager sharedManager].imageBorderColor = [UIColor blackColor];
+    [MSSocialKitManager sharedManager].cellBorderColor = [UIColor blackColor];
+    
+    NSDictionary *primaryTextAttributes = @{ UITextAttributeFont: [[SFStyleManager sharedManager] titleFontOfSize:15.0],
+                                             UITextAttributeTextColor: [UIColor whiteColor],
+                                             UITextAttributeTextShadowColor: [UIColor blackColor],
+                                             UITextAttributeTextShadowOffset: [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)] };
+    
+    NSDictionary *secondaryTextAttributes = @{ UITextAttributeFont: [[SFStyleManager sharedManager] titleFontOfSize:15.0],
+                                               UITextAttributeTextColor: [UIColor lightGrayColor],
+                                               UITextAttributeTextShadowColor: [UIColor blackColor],
+                                               UITextAttributeTextShadowOffset: [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)] };
+    
+    NSDictionary *contentTextAttributes = @{ UITextAttributeFont: [[SFStyleManager sharedManager] detailFontOfSize:15.0],
+                                             UITextAttributeTextColor: [UIColor whiteColor],
+                                             UITextAttributeTextShadowColor: [UIColor blackColor],
+                                             UITextAttributeTextShadowOffset: [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)] };
+    
+    [MSSocialKitManager sharedManager].primaryTextAttributes = primaryTextAttributes;
+    [MSSocialKitManager sharedManager].secondaryTextAttributes = secondaryTextAttributes;
+    [MSSocialKitManager sharedManager].contentTextAttributes = contentTextAttributes;
+    
+}
 
 - (void)setupRestKitWithBaseURL:(NSURL *)baseURL
 {
@@ -164,6 +199,8 @@
 #if defined(DEBUG)
     [self setupPonyDebugger];
 #endif
+    
+    [self setupSocialKit];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
