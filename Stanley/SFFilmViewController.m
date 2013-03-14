@@ -32,6 +32,9 @@ NSString *const SFFilmReuseIdentifierHeader = @"Header";
 NSString *const SFFilmReuseIdentifierTitle = @"Title";
 // Favorite
 NSString *const SFFilmReuseIdentifierFavorite = @"Favorite";
+// Actions
+NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
+NSString *const SFFilmReuseIdentifierTrailer = @"Trailer";
 // Description
 NSString *const SFFilmReuseIdentifierDescription = @"Description";
 // People
@@ -49,13 +52,12 @@ NSString *const SFFilmReuseIdentifierPrintSource = @"PrintSource";
 NSString *const SFFilmReuseIdentifierFilmography = @"Filmography";
 // Showings
 NSString *const SFFilmReuseIdentifierShowing = @"Showing";
-// Actions
-NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
 
 @interface SFFilmViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) MSCollectionViewTableLayout *collectionViewLayout;
+@property (nonatomic, strong) MPMoviePlayerViewController *moviePlayerViewController;
 
 - (void)prepareSections;
 
@@ -107,6 +109,38 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
 {
     NSMutableArray *sections = [NSMutableArray new];
     __weak typeof (self) weakSelf = self;
+    
+    void(^playMovie)(NSString *movieURL) = ^(NSString *movieURL){
+        
+        void(^presentMoviePlayerViewController)(NSURL *contentURL) = ^(NSURL *contentURL) {
+            weakSelf.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:contentURL];
+            [weakSelf.moviePlayerViewController.moviePlayer prepareToPlay];
+            [weakSelf presentViewController:weakSelf.moviePlayerViewController animated:YES completion:nil];
+        };
+        
+        void(^contentExtractionFailure)(NSError *error) = ^(NSError *error) {
+            [[[UIAlertView alloc] initWithTitle:@"Unable to Play Trailer" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
+        };
+        
+        if ([movieURL rangeOfString:@"vimeo"].length != 0) {
+            [YTVimeoExtractor fetchVideoURLFromURL:movieURL quality:YTVimeoVideoQualityMedium success:^(NSURL *contentURL) {
+                presentMoviePlayerViewController(contentURL);
+            } failure:^(NSError *error) {
+                contentExtractionFailure(error);
+            }];
+        }
+        else if ([movieURL rangeOfString:@"youtube"].length != 0) {
+            NSDictionary *videos = [HCYoutubeParser h264videosWithYoutubeURL:[NSURL URLWithString:movieURL]];
+            NSURL *contentURL = [NSURL URLWithString:[videos objectForKey:@"medium"]];
+            if (contentURL) {
+                presentMoviePlayerViewController(contentURL);
+            } else {
+                contentExtractionFailure([NSError errorWithDomain:@"" code:0 userInfo:@{ NSLocalizedDescriptionKey : @"Invalid YouTube URL. Please try again later." }]);
+            }
+        } else {
+            contentExtractionFailure([NSError errorWithDomain:@"" code:0 userInfo:@{ NSLocalizedDescriptionKey : @"URL is not hosted on YouTube or Vimeo. Please try again later." }]);
+        }
+    };
     
     // Name Section
     {
@@ -198,6 +232,21 @@ NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
                     [weakSelf presentViewController:navigationController animated:YES completion:^{
                         [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
                     }];
+                }
+            }];
+        }
+        
+        if (self.film.trailerURL && ![self.film.trailerURL isEqualToString:@""]) {
+            [rows addObject:@{
+                MSTableReuseIdentifer : SFFilmReuseIdentifierTrailer,
+                MSTableClass : MSGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                    cell.title.text = @"TRAILER";
+                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+                },
+                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
+                    playMovie(@"http://www.youtube.com/watch?v=HLI4EuDckgM");
+                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
                 }
             }];
         }

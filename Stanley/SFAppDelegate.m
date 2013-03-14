@@ -41,7 +41,7 @@
     RKEntityMapping *filmMapping = [RKEntityMapping mappingForEntityForName:@"Film" inManagedObjectStore:managedObjectStore];
     filmMapping.identificationAttributes = @[ @"remoteID" ];
     [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime", @"rating", @"filmography", @"country" ]];
-    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage", @"print_source" : @"printSource", @"available_datetime" : @"available", @"ticket_url" : @"ticketURL" }];
+    [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage", @"print_source" : @"printSource", @"available_datetime" : @"available", @"ticket_url" : @"ticketURL", @"trailer_url" : @"trailerURL" }];
     
     RKEntityMapping *personMapping = [RKEntityMapping mappingForEntityForName:@"Person" inManagedObjectStore:managedObjectStore];
     personMapping.identificationAttributes = @[ @"remoteID" ];

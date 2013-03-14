@@ -12,13 +12,15 @@ pod 'MSCollectionViewCalendarLayout',   '~> 0.0.1'
 pod 'SVPulsingAnnotationView',          '~> 0.1'
 pod 'MSNavigationPaneViewController',   '~> 0.2.0'
 pod 'SVSegmentedControl',               '~> 0.1'
+pod 'HCYoutubeParser',                  '~> 0.0.1'
+pod 'YTVimeoExtractor',                 '~> 0.0.2'
 
-# pod 'UIColor-Utilities',                '~> 1.0.1'
+pod 'UIColor-Utilities',                '~> 1.0.1'
 
 # Remote Pods
 pod 'MSTableKit',                       :git => 'https://github.com/monospacecollective/MSTableKit.git', :branch => 'development'
 pod 'UIControl-BlockAction',            :git => 'https://github.com/monospacecollective/UIControl-BlockAction.git'
-pod 'UIColor-Utilities',                :git => 'https://github.com/eric-horacek/uicolor-utilities.git'
+# pod 'UIColor-Utilities',                :git => 'https://github.com/eric-horacek/uicolor-utilities.git'
 pod 'GIKPopoverBackgroundView',         :git => 'https://github.com/monospacecollective/GIKPopoverBackgroundView.git'
 pod 'UIView-Autolayout',                :git => 'https://github.com/eric-horacek/UIView-Autolayout'
 

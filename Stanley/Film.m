@@ -23,6 +23,7 @@
 @dynamic filmography;
 @dynamic printSource;
 @dynamic ticketURL;
+@dynamic trailerURL;
 @dynamic year;
 @dynamic rating;
 @dynamic available;

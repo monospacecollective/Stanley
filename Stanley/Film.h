@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSString * filmography;
 @property (nonatomic, retain) NSString * printSource;
 @property (nonatomic, retain) NSString * ticketURL;
+@property (nonatomic, retain) NSString * trailerURL;
 @property (nonatomic, retain) NSString * year;
 @property (nonatomic, retain) NSString * rating;
 @property (nonatomic, retain) NSDate * available;

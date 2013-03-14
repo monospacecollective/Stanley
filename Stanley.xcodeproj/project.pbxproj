@@ -84,6 +84,7 @@
 		3A6CBAD916DAA6A000B4F041 /* SSStandard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */; };
 		3A6CBADB16DAB29A00B4F041 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBADA16DAB29A00B4F041 /* MapKit.framework */; };
 		3A6CBADE16DAB34000B4F041 /* Stanley.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBADC16DAB34000B4F041 /* Stanley.xcdatamodeld */; };
+		3AABDFBC16F164BC0037224F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AABDFBB16F164BC0037224F /* MediaPlayer.framework */; };
 		3AAF7ADB16E8244500081130 /* PopoverBackgroundArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ACD16E8244500081130 /* PopoverBackgroundArrowDown.png */; };
 		3AAF7ADC16E8244500081130 /* PopoverBackgroundArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ACE16E8244500081130 /* PopoverBackgroundArrowDown@2x.png */; };
 		3AAF7ADD16E8244500081130 /* PopoverBackgroundArrowDownRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ACF16E8244500081130 /* PopoverBackgroundArrowDownRight.png */; };
@@ -231,6 +232,7 @@
 		3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SSStandard.ttf; sourceTree = "<group>"; };
 		3A6CBADA16DAB29A00B4F041 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A6CBADD16DAB34000B4F041 /* Stanley.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stanley.xcdatamodel; sourceTree = "<group>"; };
+		3AABDFBB16F164BC0037224F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3AAF7ACD16E8244500081130 /* PopoverBackgroundArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowDown.png; sourceTree = "<group>"; };
 		3AAF7ACE16E8244500081130 /* PopoverBackgroundArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowDown@2x.png"; sourceTree = "<group>"; };
 		3AAF7ACF16E8244500081130 /* PopoverBackgroundArrowDownRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverBackgroundArrowDownRight.png; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AABDFBC16F164BC0037224F /* MediaPlayer.framework in Frameworks */,
 				3A6CBADB16DAB29A00B4F041 /* MapKit.framework in Frameworks */,
 				3A6CBA2F16DAA60200B4F041 /* UIKit.framework in Frameworks */,
 				3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */,
@@ -312,6 +315,7 @@
 		3A6CBA2D16DAA60200B4F041 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AABDFBB16F164BC0037224F /* MediaPlayer.framework */,
 				3AED301816EFD9150089A570 /* Crashlytics.framework */,
 				3A6CBA2E16DAA60200B4F041 /* UIKit.framework */,
 				3A6CBA3016DAA60200B4F041 /* Foundation.framework */,
