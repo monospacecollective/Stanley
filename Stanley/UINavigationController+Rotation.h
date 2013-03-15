@@ -1,6 +1,6 @@
 //
 //  UINavigationController+Rotation.h
-//  Everlater-iOS
+//  Stanley
 //
 //  Created by Eric Horacek on 11/14/12.
 //  Copyright (c) 2012 Everlater Inc. All rights reserved.
