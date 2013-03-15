@@ -13,7 +13,6 @@
 
 @interface SFWebViewController () <UIWebViewDelegate>
 
-@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) SFTryAgainView *tryAgainView;
 
 @property (nonatomic, strong) UIBarButtonItem *backBarButtonItem;

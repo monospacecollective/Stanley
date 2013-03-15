@@ -13,4 +13,6 @@
 @property (nonatomic, assign) BOOL scalesPageToFit;
 @property (nonatomic, strong) NSString *requestURL;
 
+@property (nonatomic, strong) UIWebView *webView;
+
 @end
