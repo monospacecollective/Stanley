@@ -8,7 +8,6 @@
 
 #import "SFEventsViewController.h"
 #import "SFStyleManager.h"
-#import "SFCollectionViewStickyHeaderFlowLayout.h"
 #import "Event.h"
 #import "SFEventCell.h"
 #import "SFCurrentTimeIndicatorCollectionReusableView.h"
@@ -257,6 +256,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         __weak typeof (self) weakSelf = self;
         eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
             [weakSelf.eventPopoverController dismissPopoverAnimated:YES];
+            weakSelf.eventPopoverController = nil;
         }];
         
         self.eventPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
@@ -269,8 +269,9 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
         [navigationController addChildViewController:eventController];
         
+        __weak typeof (self) weakSelf = self;
         eventController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
-            [eventController dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }];
         
         [self.navigationController presentViewController:navigationController animated:YES completion:nil];
