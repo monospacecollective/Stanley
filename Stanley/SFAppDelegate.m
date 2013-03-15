@@ -243,4 +243,9 @@
     return ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIInterfaceOrientationMaskAll : UIInterfaceOrientationMaskPortrait);
 }
 
++ (SFAppDelegate *)sharedAppDelegate
+{
+    return (SFAppDelegate *)[[UIApplication sharedApplication] delegate];
+}
+
 @end
