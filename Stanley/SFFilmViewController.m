@@ -230,7 +230,7 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
                     webViewController.requestURL = weakSelf.film.ticketURL;
                     webViewController.scalesPageToFit = YES;
                     webViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" fontSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0) action:^{
-                        [webViewController dismissViewControllerAnimated:YES completion:nil];
+                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
                     }];
                     UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
                     [navigationController addChildViewController:webViewController];
@@ -250,7 +250,7 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
                     cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
                 },
                 MSTableItemSelectionBlock : ^(NSIndexPath *indexPath) {
-                    playMovie(@"http://www.youtube.com/watch?v=HLI4EuDckgM");
+                    playMovie(self.film.trailerURL);
                     [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
                 }
             }];
@@ -446,8 +446,8 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         
         // Directors
         if (self.film.directors.count) {
-            NSString *title = [weakSelf.film directorsTitleString];
-            NSString *detail = [weakSelf.film directorsListSeparatedByString:@"\n"];
+            NSString *title = [self.film directorsTitleString];
+            NSString *detail = [self.film directorsListSeparatedByString:@"\n"];
             [rows addObject:@{
                 MSTableReuseIdentifer : SFFilmReuseIdentifierDirectors,
                 MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
@@ -464,8 +464,8 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         
         // Writers
         if (self.film.writers.count) {
-            NSString *title = [weakSelf.film writersTitleString];
-            NSString *detail = [weakSelf.film writersListSeparatedByString:@"\n"];
+            NSString *title = [self.film writersTitleString];
+            NSString *detail = [self.film writersListSeparatedByString:@"\n"];
             [rows addObject:@{
                 MSTableReuseIdentifer : SFFilmReuseIdentifierWriters,
                 MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
@@ -482,8 +482,8 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         
         // Producers
         if (self.film.producers.count) {
-            NSString *title = [weakSelf.film producersTitleString];
-            NSString *detail = [weakSelf.film producersListSeparatedByString:@"\n"];
+            NSString *title = [self.film producersTitleString];
+            NSString *detail = [self.film producersListSeparatedByString:@"\n"];
             [rows addObject:@{
                 MSTableReuseIdentifer : SFFilmReuseIdentifierProducers,
                 MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,
@@ -500,8 +500,8 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         
         // Stars
         if (self.film.stars.count) {
-            NSString *title = [weakSelf.film starsTitleString];
-            NSString *detail = [weakSelf.film starsListSeparatedByString:@"\n"];
+            NSString *title = [self.film starsTitleString];
+            NSString *detail = [self.film starsListSeparatedByString:@"\n"];
             [rows addObject:@{
                 MSTableReuseIdentifer : SFFilmReuseIdentifierStars,
                 MSTableClass : MSMultilineRightDetailGroupedTableViewCell.class,

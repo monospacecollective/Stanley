@@ -228,6 +228,10 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
             __weak typeof (self) weakSelf = self;
             locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
                 [weakSelf.locationPopoverController dismissPopoverAnimated:YES];
+                weakSelf.locationPopoverController = nil;
+                for (id <MKAnnotation> annotation in weakSelf.mapView.selectedAnnotations) {
+                    [weakSelf.mapView deselectAnnotation:annotation animated:YES];
+                }
             }];
             
             UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFPopoverNavigationBar.class toolbarClass:SFPopoverToolbar.class];
@@ -252,8 +256,9 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     SFLocationViewController *locationController = [[SFLocationViewController alloc] init];
     locationController.location = [(SFLocationAnnotation *)view.annotation location];
     
+    __weak typeof (self) weakSelf = self;
     locationController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
-        [locationController dismissViewControllerAnimated:YES completion:nil];
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
     }];
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];

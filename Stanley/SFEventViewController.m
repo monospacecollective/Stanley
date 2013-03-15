@@ -277,7 +277,7 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
                     webViewController.requestURL = weakSelf.event.ticketURL;
                     webViewController.scalesPageToFit = YES;
                     webViewController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U00002421" fontSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0) action:^{
-                        [webViewController dismissViewControllerAnimated:YES completion:nil];
+                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
                     }];
                     UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
                     [navigationController addChildViewController:webViewController];

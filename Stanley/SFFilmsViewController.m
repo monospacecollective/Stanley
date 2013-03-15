@@ -40,11 +40,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 - (id)init
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self = [super initWithCollectionViewLayout:layout];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    return [super initWithCollectionViewLayout:layout];
 }
 
 - (void)viewDidLoad
@@ -193,11 +189,6 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 
 #pragma mark - UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.fetchedResultsController.fetchedObjects.count;
@@ -225,6 +216,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         __weak typeof (self) weakSelf = self;
         filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
             [weakSelf.filmPopoverController dismissPopoverAnimated:YES];
+            weakSelf.filmPopoverController = nil;
         }];
         
         self.filmPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
@@ -237,8 +229,9 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         UINavigationController *navigationController = [[UINavigationController alloc] initWithNavigationBarClass:SFNavigationBar.class toolbarClass:SFToolbar.class];
         [navigationController addChildViewController:filmController];
         
+        __weak typeof (self) weakSelf = self;
         filmController.navigationItem.leftBarButtonItem = [[SFStyleManager sharedManager] styledCloseBarButtonItemWithAction:^{
-            [filmController dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }];
         
         [self.navigationController presentViewController:navigationController animated:YES completion:nil];
