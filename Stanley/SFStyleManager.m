@@ -8,6 +8,7 @@
 
 #import "SFStyleManager.h"
 #import "SFMasterViewController.h"
+#import "SFCollectionCellBackgroundView.h"
 
 static SFStyleManager *singletonInstance = nil;
 
@@ -181,7 +182,35 @@ static SFStyleManager *singletonInstance = nil;
         [MSGroupedTableViewHeaderView.appearance setPadding:UIEdgeInsetsMake(10.0, 20.0, 0.0, 20.0)];
         [MSGroupedTableViewHeaderView.appearance setTitleTextAttributes:headerFooterTextAttributes];
 
+        // MSSocialKit
+        [MSSocialCell.appearance setPadding:UIEdgeInsetsMake(14.0, 14.0, 12.0, 14.0)];
+        [(MSSocialCell *)MSSocialCell.appearance setContentMargin:12.0];
+        [MSSocialCell.appearance setProfileImageSize:CGSizeMake(36.0, 36.0)];
         
+        [MSSocialCell.appearance setBackgroundViewClass:NSStringFromClass(SFCollectionCellBackgroundView.class)];
+        
+        UIFont *socialPrimaryTextFont = [self titleFontOfSize:17.0];
+        UIFont *socialSecondaryTextFont = [self detailFontOfSize:14.0];
+        UIFont *socialContentTextFont = [self detailFontOfSize:14.0];
+        
+        [MSSocialCell.appearance setPrimaryTextAttributes:@{
+            UITextAttributeFont: socialPrimaryTextFont,
+            UITextAttributeTextColor: textColor
+        }];
+
+        [MSSocialCell.appearance setSecondaryTextAttributes:@{
+            UITextAttributeFont: socialSecondaryTextFont,
+            UITextAttributeTextColor: [self secondaryTextColor],
+            UITextAttributeTextShadowColor: textShadowColor,
+            UITextAttributeTextShadowOffset: textShadowOffset
+        }];
+
+        [MSSocialCell.appearance setContentTextAttributes:@{
+            UITextAttributeFont: socialContentTextFont,
+            UITextAttributeTextColor: [self secondaryTextColor],
+            UITextAttributeTextShadowColor: textShadowColor,
+            UITextAttributeTextShadowOffset: textShadowOffset
+        }];
     }
     return self;
 }
