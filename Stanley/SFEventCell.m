@@ -147,6 +147,23 @@
         self.locationIcon.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
         self.timeIcon.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
 #endif
+        
+        [self.contentView removeConstraints:self.contentView.constraints];
+        
+        NSDictionary *views = @{ @"title" : self.title , @"timeIcon" : self.timeIcon , @"time" : self.time, @"locationIcon" : self.locationIcon , @"location" : self.location, @"detail" : self.detail };
+        NSDictionary *metrics = @{ @"padding" : @(14.0) , @"contentMargin" : @(6.0) , @"minTitleHeight" : @(self.title.font.lineHeight) , @"minDetailHeight" : @(self.detail.font.lineHeight), @"iconWidth" : @(15.0) };
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[title(>=minTitleHeight)]-contentMargin-[time(>=minDetailHeight)]-contentMargin-[location(>=minDetailHeight)]-contentMargin-[detail]" options:0 metrics:metrics views:views]];
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[title]-contentMargin-[timeIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[time]-contentMargin-[locationIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
+        
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[title]->=padding-|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[timeIcon(==iconWidth)]-contentMargin-[time]->=padding-|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[locationIcon(==iconWidth)]-contentMargin-[location]->=padding-|" options:0 metrics:metrics views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[detail]->=padding-|" options:0 metrics:metrics views:views]];
+        
+        [self.favoriteIndicator pinToSuperviewEdges:(JRTViewPinTopEdge | JRTViewPinRightEdge) inset:0];
     }
     return self;
 }
@@ -179,29 +196,8 @@
     self.location.text = ((event.location.name && ![event.location.name isEqualToString:@""]) ? event.location.name : @"No Location");
     self.detail.text = [[event.detail stringByReplacingOccurrencesOfString:@"\n" withString:@" "] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     
-    CGFloat padding = (self.frame.size.width <= 150.0) ? 10.0 : 15.0;
-    
-    self.title.preferredMaxLayoutWidth = (CGRectGetWidth(self.contentView.frame) - (padding * 2.0));
-    CGSize titleSize = [self.title.text sizeWithFont:self.title.font constrainedToSize:CGSizeMake(self.title.preferredMaxLayoutWidth, CGFLOAT_MAX) lineBreakMode:self.title.lineBreakMode];
-    
-    self.detail.preferredMaxLayoutWidth = (CGRectGetWidth(self.contentView.frame) - (padding * 2.0));
-    
-    [self.contentView removeConstraints:self.contentView.constraints];
-    
-    NSDictionary *views = @{ @"title" : self.title , @"timeIcon" : self.timeIcon , @"time" : self.time, @"locationIcon" : self.locationIcon , @"location" : self.location, @"detail" : self.detail };
-    NSDictionary *metrics = @{ @"padding" : @(padding) , @"contentMargin" : @(6.0) , @"titleHeight" : @(titleSize.height) , @"minDetailHeight" : @(self.detail.font.lineHeight), @"iconWidth" : @(15.0) };
-    
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[title(==titleHeight)]-contentMargin-[time(>=minDetailHeight)]-contentMargin-[location(>=minDetailHeight)]-contentMargin-[detail]" options:0 metrics:metrics views:views]];
-    
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[title]-contentMargin-[timeIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[time]-contentMargin-[locationIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
-    
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[title]->=padding-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[timeIcon(==iconWidth)]-contentMargin-[time]->=padding-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[locationIcon(==iconWidth)]-contentMargin-[location]->=padding-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[detail]->=padding-|" options:0 metrics:metrics views:views]];
-    
-    [self.favoriteIndicator pinToSuperviewEdges:(JRTViewPinTopEdge | JRTViewPinRightEdge) inset:0];
+    self.title.preferredMaxLayoutWidth = (CGRectGetWidth(self.contentView.frame) - (14.0 * 2.0));
+    self.detail.preferredMaxLayoutWidth = (CGRectGetWidth(self.contentView.frame) - (14.0 * 2.0));
     
     [self setNeedsLayout];
 }
