@@ -94,14 +94,14 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
     [self configureNavigationPaneForInterfaceOrientation:self.interfaceOrientation];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [self configureNavigationPaneForInterfaceOrientation:toInterfaceOrientation];
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIInterfaceOrientationMaskAll : UIInterfaceOrientationMaskPortrait);
 }
 
 #pragma mark - SFMasterViewController
@@ -168,11 +168,6 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
 }
 
 #pragma mark - UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {

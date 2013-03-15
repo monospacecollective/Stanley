@@ -78,6 +78,11 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
     [self prepareSections];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma mark - SFLocationViewController
 
 - (void)prepareSections

@@ -103,6 +103,11 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
     [self prepareSections];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma mark - SFFilmViewController
 
 - (void)prepareSections

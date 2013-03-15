@@ -85,6 +85,11 @@ NSString *const SFEventReuseIdentifierTickets = @"Tickets";
     [self prepareSections];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma mark - SFEventViewController
 
 - (void)prepareSections
