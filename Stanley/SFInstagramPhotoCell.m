@@ -60,7 +60,7 @@
 {
     [super updateConstraints];
     
-    [self.imageShadowView pinToEdgesOfView:self.imageView withInset:UIEdgeInsetsMake(-1.0, -1.0, 1.0, 1.0)] ;
+    [self.imageShadowView pinToEdgesOfView:self.imageView insets:UIEdgeInsetsMake(-1.0, -1.0, 1.0, 1.0)] ;
 }
 
 - (void)layoutSubviews

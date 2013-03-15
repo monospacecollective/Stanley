@@ -38,10 +38,10 @@
         [self addSubview:self.day];
         
         self.day.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.day pinToSuperviewEdgesWithInset:UIEdgeInsetsMake(15.0, 6.0, 10.0, 6.0)];
+        [self.day pinToSuperviewEdgesWithInsets:UIEdgeInsetsMake(15.0, 6.0, 10.0, 6.0)];
         
         self.todayBackground.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.todayBackground pinToSuperviewEdgesWithInset:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 0.0, 8.0, 0.0) : UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0))];
+        [self.todayBackground pinToSuperviewEdgesWithInsets:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 0.0, 8.0, 0.0) : UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0))];
         
 #if defined(LAYOUT_DEBUG)
         self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
