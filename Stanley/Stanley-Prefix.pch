@@ -37,6 +37,7 @@
     #import <UIView-Autolayout/UIView+AutoLayout.h>
     #import <HCYoutubeParser/HCYoutubeParser.h>
     #import <YTVimeoExtractor/YTVimeoExtractor.h>
+    #import <MSSocialKit/MSSocialKit.h>
     //Categories
     #import "UINavigationController+Rotation.h"
     // Constants
