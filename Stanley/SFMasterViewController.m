@@ -50,22 +50,22 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         self.paneTitles = @{
             @(SFPaneTypeFilms) : @"Films",
             @(SFPaneTypeEvents) : @"Events",
+            @(SFPaneTypeSocial) : @"Social",
             @(SFPaneTypeMap) : @"Map",
-            @(SFPaneTypeCommunity) : @"Social",
             @(SFPaneTypeAbout) : @"About"
         };
         self.paneIcons = @{
             @(SFPaneTypeFilms) : @"\U0000E320",
             @(SFPaneTypeEvents) : @"\U0001F4C6",
+            @(SFPaneTypeSocial) : @"\U0001F4AC",
             @(SFPaneTypeMap) : @"\U0000E673",
-            @(SFPaneTypeCommunity) : @"\U0001F4AC",
             @(SFPaneTypeAbout) : @"\U00002139"
         };
         self.paneClasses = @{
             @(SFPaneTypeFilms) : SFFilmsViewController.class,
             @(SFPaneTypeEvents) : SFEventsViewController.class,
+            @(SFPaneTypeSocial) : SFSocialViewController.class,
             @(SFPaneTypeMap) : SFMapViewController.class,
-            @(SFPaneTypeCommunity) : SFSocialViewController.class,
             @(SFPaneTypeAbout) : SFAboutViewController.class
         };
     }
