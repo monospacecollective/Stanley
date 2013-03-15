@@ -8,10 +8,8 @@
 
 #import "SFSocialViewController.h"
 #import "SFStyleManager.h"
-
-#import "MSTweetsViewController.h"
-#import "MSInstagramPhotoViewController.h"
-#import "MSSocialKitManager.h"
+#import "SFTweetCell.h"
+#import "SFInstagramPhotoCell.h"
 
 typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
     SFSocialTypeTwitter,
@@ -24,6 +22,7 @@ typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
 - (void)setChildViewControllerAtIndex:(NSUInteger)index;
 
 @property (nonatomic, strong) NSDictionary *childClasses;
+@property (nonatomic, strong) NSDictionary *cellClasses;
 
 @end
 
@@ -34,9 +33,13 @@ typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.childClasses = @{
-                              @(SFSocialTypeTwitter) : MSTweetsViewController.class,
-                              @(SFSocialTypeInstagram) : MSInstagramPhotoViewController.class,
-                              };
+            @(SFSocialTypeTwitter) : MSTweetsViewController.class,
+            @(SFSocialTypeInstagram) : MSInstagramPhotoViewController.class,
+        };
+        self.cellClasses = @{
+            @(SFSocialTypeTwitter) : SFTweetCell.class,
+            @(SFSocialTypeInstagram) : SFInstagramPhotoCell.class,
+        };
     }
     return self;
 }
@@ -45,24 +48,26 @@ typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
 {
     [super viewDidLoad];
     
+    __weak typeof(self) weakSelf = self;
     self.segmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"TWITTER", @"INSTAGRAM"] action:^(NSUInteger newIndex) {
-        [self setChildViewControllerAtIndex:newIndex];
+        [weakSelf setChildViewControllerAtIndex:newIndex];
     }];
     
     NSArray *toolbarItems = @[
-                              [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                              [[UIBarButtonItem alloc] initWithCustomView:self.segmentedControl],
-                              [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                              ];
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+        [[UIBarButtonItem alloc] initWithCustomView:self.segmentedControl],
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+    ];
     
     self.toolbarItems = toolbarItems;
     [self.navigationController setToolbarHidden:NO];
     
-    self.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U0001F4DD"
-                                                                                                          fontSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0)
-                                                                                                            action:^{
-        [self.currentChildViewController addNew];
+    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
+    
+    self.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U0001F4DD" fontSize:fontSize action:^{
+        [weakSelf.currentChildViewController addNew];
     }];
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         ((UIButton *)self.navigationItem.rightBarButtonItem.customView).contentEdgeInsets = UIEdgeInsetsMake(-7.0, 0.0, 0.0, 0.0);
     }
@@ -93,21 +98,32 @@ typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
     
     Class childViewControllerClass = self.childClasses[@(communityViewControllerType)];
     NSParameterAssert([childViewControllerClass isSubclassOfClass:UIViewController.class]);
-    UIViewController *childViewController = (UIViewController *)[[childViewControllerClass alloc] init];
+    UICollectionViewController <MSSocialChildViewController> *childViewController = (UICollectionViewController <MSSocialChildViewController> *)[[childViewControllerClass alloc] init];
+    
+    [childViewController setCellClass:self.cellClasses[@(communityViewControllerType)]];
     
     [self.currentChildViewController willMoveToParentViewController:nil];
     [self addChildViewController:childViewController];
-    childViewController.view.frame = CGRectMake(0.0, 0.0, self.containerView.frame.size.width, self.containerView.frame.size.height);
+    [childViewController view].frame = CGRectMake(0.0, 0.0, self.containerView.frame.size.width, self.containerView.frame.size.height);
     
     CGFloat duration = 0.8;
     
+    childViewController.collectionView.backgroundColor = [[SFStyleManager sharedManager] viewBackgroundColor];
+
+    childViewController.refreshControl.layer.shadowColor = [[UIColor blackColor] CGColor];
+    childViewController.refreshControl.layer.shadowOpacity = 1.0;
+    childViewController.refreshControl.layer.shadowRadius = 3.0;
+    childViewController.refreshControl.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    
+    childViewController.refreshControl.tintColor = [UIColor colorWithHexString:@"404040"];
+    
     if (self.currentChildViewController == nil) {
-        [self.containerView addSubview:childViewController.view];
+        [self.containerView addSubview:[childViewController view]];
         [childViewController didMoveToParentViewController:self];
         self.currentChildViewController = (UIViewController<MSSocialChildViewController> *)childViewController;
     } else {
         [UIView transitionFromView:self.currentChildViewController.view
-                            toView:childViewController.view
+                            toView:[childViewController view]
                           duration:duration
                            options:UIViewAnimationOptionTransitionFlipFromLeft
                         completion:^(BOOL finished) {
