@@ -66,7 +66,7 @@
     
     RKEntityMapping *filmMapping = [RKEntityMapping mappingForEntityForName:@"Film" inManagedObjectStore:managedObjectStore];
     filmMapping.identificationAttributes = @[ @"remoteID" ];
-    [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime", @"rating", @"filmography", @"country" ]];
+    [filmMapping addAttributeMappingsFromArray:@[ @"name", @"synposis", @"language", @"runtime", @"rating", @"filmography", @"country", @"year" ]];
     [filmMapping addAttributeMappingsFromDictionary:@{ @"id" : @"remoteID", @"description" : @"detail", @"feature_image" : @"featureImage", @"print_source" : @"printSource", @"available_datetime" : @"available", @"ticket_url" : @"ticketURL", @"trailer_url" : @"trailerURL" }];
     
     RKEntityMapping *personMapping = [RKEntityMapping mappingForEntityForName:@"Person" inManagedObjectStore:managedObjectStore];
@@ -151,15 +151,16 @@
     
     managedObjectStore.managedObjectCache = [[RKInMemoryManagedObjectCache alloc] initWithManagedObjectContext:managedObjectStore.persistentStoreManagedObjectContext];
     
-//    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelDebug);
-//    RKLogConfigureByName("RestKit/CoreData", RKLogLevelDebug);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelOff);
+    RKLogConfigureByName("RestKit/CoreData", RKLogLevelOff);
+    RKLogConfigureByName("RestKit/Network", RKLogLevelOff);
 }
 
 - (void)setupPonyDebugger
 {
-    PDDebugger *debugger = [PDDebugger defaultInstance];
-    [debugger autoConnect];
-    [debugger enableViewHierarchyDebugging];
+//    PDDebugger *debugger = [PDDebugger defaultInstance];
+//    [debugger autoConnect];
+//    [debugger enableViewHierarchyDebugging];
 }
 
 #pragma mark - UIApplicationDelegate
@@ -217,7 +218,7 @@
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
-    return ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIInterfaceOrientationMaskAll : UIInterfaceOrientationMaskPortrait);
+    return UIInterfaceOrientationMaskAll;
 }
 
 + (SFAppDelegate *)sharedAppDelegate
