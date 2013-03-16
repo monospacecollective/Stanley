@@ -62,6 +62,11 @@
     [self.view addSubview:self.doneButton];
 }
 
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIInterfaceOrientationMaskAll : UIInterfaceOrientationMaskPortrait);
+}
+
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
