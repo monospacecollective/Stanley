@@ -22,16 +22,16 @@ pod 'MSTableKit',                       :git => 'https://github.com/monospacecol
 pod 'MSNavigationPaneViewController',   :git => 'https://github.com/monospacecollective/MSNavigationPaneViewController.git', :branch => 'development'
 pod 'UIControl-BlockAction',            :git => 'https://github.com/monospacecollective/UIControl-BlockAction.git'
 pod 'GIKPopoverBackgroundView',         :git => 'https://github.com/monospacecollective/GIKPopoverBackgroundView.git'
+pod 'UIView-Autolayout',                :git => 'https://github.com/eric-horacek/UIView-Autolayout'
+pod 'MSSocialKit',                      :git => 'https://github.com/monospacecollective/MSSocialKit.git', :branch => 'development'
 
-# pod 'UIView-Autolayout',                :git => 'https://github.com/eric-horacek/UIView-Autolayout'
-# pod 'MSSocialKit',                      :git => 'https://github.com/monospacecollective/MSSocialKit.git'
 # pod 'UIColor-Utilities',                :git => 'https://github.com/eric-horacek/uicolor-utilities.git'
 
 # Local Development Pods
-pod 'MSSocialKit',                      	:local => '~/Development/MSSocialKit'
+# pod 'MSSocialKit',                      :local => '~/Development/MSSocialKit'
 # pod 'MSTableKit',                       :local => '~/Development/MSTableKit'
 # pod 'UIColor-Utilities',                :local => '~/Development/uicolor-utilities'
 # pod 'UIControl-BlockAction',            :local => '~/Development/UIControl-BlockAction'
 # pod 'GIKPopoverBackgroundView',         :local => '~/Development/GIKPopoverBackgroundView'
-pod 'UIView-Autolayout',                :local => '~/Development/UIView-Autolayout'
+# pod 'UIView-Autolayout',                :local => '~/Development/UIView-Autolayout'
 # pod 'MSNavigationPaneViewController',   :local => '~/Development/MSNavigationPaneViewController'
