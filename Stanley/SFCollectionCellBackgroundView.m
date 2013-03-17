@@ -29,22 +29,28 @@
         
         self.shadowView = [UIView new];
         self.shadowView.backgroundColor = [[SFStyleManager sharedManager] secondaryViewBackgroundColor];
-        self.shadowView.layer.masksToBounds = NO;
+        
         self.shadowView.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.shadowView.layer.shadowRadius = 3.0;
         self.shadowView.layer.shadowOpacity = 0.5;
         self.shadowView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        
         self.shadowView.layer.borderColor = [[UIColor colorWithWhite:1.0 alpha:0.1] CGColor];
         self.shadowView.layer.borderWidth = 1.0;
+        self.shadowView.layer.masksToBounds = NO;
+        
         [self addSubview:self.shadowView];
     }
     return self;
 }
 
-- (void)layoutSubviews
+- (void)setFrame:(CGRect)frame
 {
-    CGRect shadowFrame = (CGRect){CGPointZero, self.frame.size};
+    [super setFrame:frame];
+    
+    CGRect shadowFrame = (CGRect){CGPointZero, frame.size};
     self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(shadowFrame, -2.0, -2.0)] CGPath];
+    
     self.shadowView.frame = shadowFrame;
     self.shadowView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(shadowFrame, -2.0, -2.0)] CGPath];
 }

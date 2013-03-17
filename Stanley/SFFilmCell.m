@@ -9,6 +9,7 @@
 #import "SFFilmCell.h"
 #import "Film.h"
 #import "SFStyleManager.h"
+#import "SFCollectionCellBackgroundView.h"
 
 //#define LAYOUT_DEBUG
 
@@ -34,24 +35,6 @@
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
-        self.contentView.backgroundColor = [[SFStyleManager sharedManager] secondaryViewBackgroundColor];
-        
-        self.image = [UIImageView new];
-        self.image.contentMode = UIViewContentModeScaleAspectFill;
-        self.image.layer.masksToBounds = YES;
-        self.image.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:self.image];
-        
-        self.backgroundGradient = [CAGradientLayer layer];
-        UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
-        self.backgroundGradient.colors = @[(id)[[UIColor clearColor] CGColor], (id)[overlayColor CGColor]];
-        self.backgroundGradient.locations = @[@(0.7), @(0.9)];
-        [self.image.layer addSublayer:self.backgroundGradient];
-        
-        self.favoriteIndicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SFFilmCellFavoriteIndicator"]];
-        self.favoriteIndicator.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:self.favoriteIndicator];
-        
         self.placeholderIcon = [FXLabel new];
         self.placeholderIcon.font = self.class.placeholderIconFont;
         self.placeholderIcon.text = @"\U0000E320";
@@ -65,6 +48,24 @@
         self.placeholderIcon.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.placeholderIcon];
         
+        self.image = [UIImageView new];
+        self.image.contentMode = UIViewContentModeScaleAspectFill;
+        self.image.layer.masksToBounds = YES;
+        self.image.backgroundColor = [UIColor clearColor];
+        self.image.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.1] CGColor];
+        self.image.layer.borderWidth = 1.0;
+        [self.contentView addSubview:self.image];
+        
+        self.backgroundGradient = [CAGradientLayer layer];
+        UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+        self.backgroundGradient.colors = @[(id)[[UIColor clearColor] CGColor], (id)[overlayColor CGColor]];
+        self.backgroundGradient.locations = @[@(0.7), @(0.9)];
+        [self.image.layer addSublayer:self.backgroundGradient];
+        
+        self.favoriteIndicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SFFilmCellFavoriteIndicator"]];
+        self.favoriteIndicator.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.favoriteIndicator];
+        
         self.title = [UILabel new];
         self.title.backgroundColor = [UIColor clearColor];
         self.title.textColor = [UIColor whiteColor];
@@ -77,19 +78,7 @@
         self.title.layer.masksToBounds = NO;
         [self.contentView addSubview:self.title];
         
-        self.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.1] CGColor];
-        self.layer.borderWidth = 1.0;
-        
-        self.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.layer.shadowRadius = 0.0;
-        self.layer.shadowOpacity = 1.0;
-        self.layer.shadowOffset = CGSizeZero;
-        
-        self.contentView.layer.masksToBounds = NO;
-        self.contentView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.contentView.layer.shadowRadius = 3.0;
-        self.contentView.layer.shadowOpacity = 0.5;
-        self.contentView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+        self.backgroundView = [[SFCollectionCellBackgroundView alloc] init];
         
 #if defined(LAYOUT_DEBUG)
         self.title.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
