@@ -303,11 +303,16 @@ static SFStyleManager *singletonInstance = nil;
 //    [self styleBarButtonItemCustomView:button];
     button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     [button setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+    button.titleLabel.shadowOffset = CGSizeMake(0.0, 2.0);
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setTitle:title forState:UIControlStateNormal];
     button.contentEdgeInsets = UIEdgeInsetsMake(1.0, 11.0, 0.0, 11.0);
     [button sizeToFit];
+    
+    button.layer.shadowColor = [[UIColor blackColor] CGColor];
+    button.layer.shadowOffset = CGSizeZero;
+    button.layer.shadowOpacity = 0.5;
+    button.layer.shadowRadius = 1.0;
 }
 
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button withTitle:(NSString *)title
@@ -408,6 +413,38 @@ static SFStyleManager *singletonInstance = nil;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [self styleBarButtonItemCustomView:button withSymbolsetTitle:@"\U00002421" fontSize:24.0];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
+- (UIBarButtonItem *)styledFavoriteBarButtonItemWithAction:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    void(^internalHandler)() = ^{
+        button.selected = !button.selected;
+        handler();
+    };
+    
+    [button setAdjustsImageWhenHighlighted:NO];
+    [button setImage:[UIImage imageNamed:@"SFFavoriteButtonBackground"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"SFFavoriteButtonSelectedBackground"] forState:UIControlStateSelected];
+    
+    [button addEventHandler:internalHandler forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    [button sizeToFit];
+    
+    return barButtonItem;
+}
+
+- (UIBarButtonItem *)styledLogoBarButtonItemWithAction:(void(^)(void))handler
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self styleBarButtonItemCustomView:button withImage:[UIImage imageNamed:@"SFLogoBarButtonItemIcon"]];
+    [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
+    button.contentEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 0.0, 0.0, 0.0) : UIEdgeInsetsMake(2.0, 0.0, 0.0, 0.0));
+    [button sizeToFit];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
 }

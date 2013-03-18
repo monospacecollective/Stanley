@@ -44,19 +44,27 @@
             UITextAttributeFont : self.class.titleTextFont,
             UITextAttributeTextColor : [UIColor whiteColor],
             UITextAttributeTextShadowColor : [UIColor blackColor],
-            UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)]
+            UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, 2.0)]
         };
         
         self.shouldDisplayNavigationPaneDirectonLabel = NO;
         
         self.navigationPaneDirectionLabel = [UILabel new];
         self.navigationPaneDirectionLabel.text = @"\U000025BE";
+        self.navigationPaneDirectionLabel.textAlignment = NSTextAlignmentCenter;
         self.navigationPaneDirectionLabel.backgroundColor = [UIColor clearColor];
         self.navigationPaneDirectionLabel.font = [[SFStyleManager sharedManager] symbolSetFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 11.0 : 9.0)];
         self.navigationPaneDirectionLabel.textColor = [UIColor whiteColor];
         self.navigationPaneDirectionLabel.shadowColor = [UIColor blackColor];
-        self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+        self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(0.0, 2.0);
         self.navigationPaneDirectionLabel.userInteractionEnabled = NO;
+        self.navigationPaneDirectionLabel.layer.masksToBounds = NO;
+        
+        self.navigationPaneDirectionLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.navigationPaneDirectionLabel.layer.shadowOffset = CGSizeZero;
+        self.navigationPaneDirectionLabel.layer.shadowOpacity = 0.5;
+        self.navigationPaneDirectionLabel.layer.shadowRadius = 1.0;
+        
         [self addSubview:self.navigationPaneDirectionLabel];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -81,6 +89,12 @@
             navigationItemFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 13.0 : 9.0);
             navigationItemFrame.size.height = self.class.titleTextFont.lineHeight;
             subview.frame = navigationItemFrame;
+            
+            subview.layer.shadowColor = [[UIColor blackColor] CGColor];
+            subview.layer.shadowOffset = CGSizeZero;
+            subview.layer.shadowOpacity = 0.5;
+            subview.layer.shadowRadius = 1.0;
+            
 #if defined(LAYOUT_DEBUG)
             subview.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];
 #endif
@@ -97,9 +111,16 @@
             CGRect navigationPaneDirectionLabelFrame = self.navigationPaneDirectionLabel.frame;
             navigationPaneDirectionLabelFrame.origin.x = (CGRectGetMaxX(buttonFrame) - 3.0);
             navigationPaneDirectionLabelFrame.origin.y = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 22.0 : 17.0);
-            self.navigationPaneDirectionLabel.frame = navigationPaneDirectionLabelFrame;
+            self.navigationPaneDirectionLabel.frame = CGRectInset(navigationPaneDirectionLabelFrame, -2.0, -2.0);
             
             self.navigationPaneDirectionLabel.hidden = !self.shouldDisplayNavigationPaneDirectonLabel;
+        }
+        else if ([subview isKindOfClass:UIButton.class]) {
+            CGRect buttonFrame = subview.frame;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                buttonFrame.origin.y = 6.0;
+            }
+            subview.frame = buttonFrame;
         }
     }
 }
@@ -115,10 +136,10 @@
 {
     if (UIDeviceOrientationIsPortrait(orientation)) {
         self.navigationPaneDirectionLabel.transform = CGAffineTransformMakeRotation(0.0);
-        self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+        self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(0.0, 2.0);
     } else {
         self.navigationPaneDirectionLabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
-        self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(1.0, 0.0);
+        self.navigationPaneDirectionLabel.shadowOffset = CGSizeMake(-2.0, 0.0);
     }
 }
 

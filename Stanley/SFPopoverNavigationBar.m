@@ -29,7 +29,7 @@
             UITextAttributeFont : self.class.titleTextFont,
             UITextAttributeTextColor : [UIColor whiteColor],
             UITextAttributeTextShadowColor : [UIColor blackColor],
-            UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, -1.0)]
+            UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0.0, 2.0)]
         };
     }
     return self;
@@ -51,6 +51,11 @@
             navigationItemFrame.origin.y = 11.0;
             navigationItemFrame.size.height = self.class.titleTextFont.lineHeight;
             subview.frame = navigationItemFrame;
+            
+            subview.layer.shadowColor = [[UIColor blackColor] CGColor];
+            subview.layer.shadowOffset = CGSizeZero;
+            subview.layer.shadowOpacity = 0.5;
+            subview.layer.shadowRadius = 1.0;
         }
         // If it's the right navigation button
         else if ([subview isKindOfClass:UIButton.class] && (CGRectGetMinX(subview.frame) < CGRectGetMidX(self.frame))) {

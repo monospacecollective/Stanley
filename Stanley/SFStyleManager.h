@@ -45,6 +45,8 @@
 // Preconfigured
 - (UIBarButtonItem *)styledBackBarButtonItemWithAction:(void(^)(void))handler;
 - (UIBarButtonItem *)styledCloseBarButtonItemWithAction:(void(^)(void))handler;
+- (UIBarButtonItem *)styledFavoriteBarButtonItemWithAction:(void(^)(void))handler;
+- (UIBarButtonItem *)styledLogoBarButtonItemWithAction:(void(^)(void))handler;
 
 // SVSegmentedControl
 - (SVSegmentedControl *)styledSegmentedControlWithTitles:(NSArray *)titles action:(void(^)(NSUInteger newIndex))handler;

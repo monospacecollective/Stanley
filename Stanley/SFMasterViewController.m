@@ -148,8 +148,7 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
         [self.navigationPaneViewController setPaneState:MSNavigationPaneStateOpen animated:YES completion:nil];
     }];
     
-    paneViewController.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithImage:[UIImage imageNamed:@"SFLogoBarButtonItemIcon"] action:^{
-        
+    paneViewController.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledLogoBarButtonItemWithAction:^{
         SFSplashViewController *splashViewController = [[SFSplashViewController alloc] initWithNibName:nil bundle:nil];
         [self presentViewController:splashViewController animated:YES completion:nil];
     }];
