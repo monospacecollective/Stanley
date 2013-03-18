@@ -21,7 +21,6 @@ NSString *const SFFilmViewControllerTableSectionTitle = @"Title";
 NSString *const SFFilmViewControllerTableSectionDescription = @"Description";
 NSString *const SFFilmViewControllerTableSectionInfo = @"Info";
 NSString *const SFFilmViewControllerTableSectionPeople = @"People";
-NSString *const SFFilmViewControllerTableSectionFavorite = @"Favorite";
 NSString *const SFFilmViewControllerTableSectionShowings = @"Showings";
 NSString *const SFFilmViewControllerTableSectionActions = @"Actions";
 
@@ -30,8 +29,6 @@ NSString *const SFFilmViewControllerTableSectionActions = @"Actions";
 NSString *const SFFilmReuseIdentifierHeader = @"Header";
 // Title
 NSString *const SFFilmReuseIdentifierTitle = @"Title";
-// Favorite
-NSString *const SFFilmReuseIdentifierFavorite = @"Favorite";
 // Actions
 NSString *const SFFilmReuseIdentifierTickets = @"Tickets";
 NSString *const SFFilmReuseIdentifierTrailer = @"Trailer";
@@ -93,6 +90,13 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
     NSAssert2(fetchSuccessful, @"Unable to fetch %@, %@", fetchRequest.entityName, [error debugDescription]);
     
     self.navigationItem.title = @"FILM";
+    
+    __weak typeof (self) weakSelf = self;
+    self.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledFavoriteBarButtonItemWithAction:^{
+        weakSelf.film.favorite = @(![weakSelf.film.favorite boolValue]);
+        [weakSelf.film.managedObjectContext save:nil];
+    }];
+    ((UIButton *)self.navigationItem.rightBarButtonItem.customView).selected = [weakSelf.film.favorite boolValue];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [[SFStyleManager sharedManager] stylePopoverCollectionView:self.collectionView];
@@ -182,35 +186,6 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
                  }]
              }];
         }
-    }
-    
-    // Favorite Section
-    {
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFFilmViewControllerTableSectionFavorite,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFFilmReuseIdentifierFavorite,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"FAVORITE";
-                    cell.accessoryType = [weakSelf.film.favorite boolValue] ? MSTableCellAccessoryStarFull : MSTableCellAccessoryStarEmpty;
-                    if ([weakSelf.film.favorite boolValue]) {
-                        [cell.groupedCellBackgroundView setFillColor:[UIColor colorWithHexString:@"5d0e0e"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[UIColor colorWithHexString:@"883939"] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setInnerShadowOffset:CGSizeMake(0.0, 0.0) forState:UIControlStateNormal];
-                    } else {
-                        [cell.groupedCellBackgroundView setFillColor:[MSGroupedCellBackgroundView.appearance fillColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                        [cell.groupedCellBackgroundView setBorderColor:[MSGroupedCellBackgroundView.appearance borderColorForState:UIControlStateNormal] forState:UIControlStateNormal];
-                    }
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    weakSelf.film.favorite = @(![weakSelf.film.favorite boolValue]);
-                    [weakSelf.film.managedObjectContext save:nil];
-                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
-                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-                }
-             }]
-         }];
     }
     
     // Actions Section
