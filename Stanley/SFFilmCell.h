@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class Film;
+@class SFFilm;
 
 @interface SFFilmCell : UICollectionViewCell
 
-@property (nonatomic, weak) Film *film;
+@property (nonatomic, weak) SFFilm *film;
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UIImageView *image;
 @property (nonatomic, strong) UIImageView *favoriteIndicator;

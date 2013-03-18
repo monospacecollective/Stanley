@@ -7,7 +7,7 @@
 //
 
 #import "SFFilmCell.h"
-#import "Film.h"
+#import "SFFilm.h"
 #import "SFStyleManager.h"
 #import "SFCollectionCellBackgroundView.h"
 
@@ -134,7 +134,7 @@
 
 #pragma mark - SFFilmCell
 
-- (void)setFilm:(Film *)film
+- (void)setFilm:(SFFilm *)film
 {
     _film = film;
     self.title.text = [film.name uppercaseString];

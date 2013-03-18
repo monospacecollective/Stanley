@@ -9,8 +9,8 @@
 #import "SFFilmViewController.h"
 #import "SFHeroCell.h"
 #import "SFStyleManager.h"
-#import "Film.h"
-#import "Event.h"
+#import "SFFilm.h"
+#import "SFEvent.h"
 #import "SFWebViewController.h"
 #import "SFEventViewController.h"
 #import "SFNavigationBar.h"
@@ -255,7 +255,7 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         
         NSMutableArray *rows = [NSMutableArray new];
         
-        for (Event *showing in self.film.sortedShowings) {
+        for (SFEvent *showing in self.film.sortedShowings) {
             
             NSDateFormatter *dateFormatter = [NSDateFormatter new];
             dateFormatter.dateFormat = @"EEE, MMM d 'at' h:mm a";

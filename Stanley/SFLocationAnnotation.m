@@ -7,11 +7,11 @@
 //
 
 #import "SFLocationAnnotation.h"
-#import "Location.h"
+#import "SFLocation.h"
 
 @implementation SFLocationAnnotation
 
-- (id)initWithLocation:(Location *)locaation
+- (id)initWithLocation:(SFLocation *)locaation
 {
     self = [super init];
     if (self) {

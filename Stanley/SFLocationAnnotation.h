@@ -8,13 +8,13 @@
 
 #import <MapKit/MapKit.h>
 
-@class Location;
+@class SFLocation;
 
 @interface SFLocationAnnotation : MKPointAnnotation
 
-@property (nonatomic, weak) Location * location;
+@property (nonatomic, weak) SFLocation * location;
 
-- (id)initWithLocation:(Location *)location;
+- (id)initWithLocation:(SFLocation *)location;
 
 - (NSString *)title;
 - (NSString *)subtitle;

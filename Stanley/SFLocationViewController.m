@@ -8,12 +8,12 @@
 
 #import "SFLocationViewController.h"
 #import "SFStyleManager.h"
-#import "Location.h"
+#import "SFLocation.h"
 #import "SFMapCell.h"
 #import "SFWebViewController.h"
 #import "SFAppDelegate.h"
 #import "SFHeroMapCell.h"
-#import "Event.h"
+#import "SFEvent.h"
 #import "SFEventViewController.h"
 
 // Sections
@@ -166,7 +166,7 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
         
         NSMutableArray *rows = [NSMutableArray new];
         
-        for (Event *event in self.location.sortedEvents) {
+        for (SFEvent *event in self.location.sortedEvents) {
             
             [rows addObject:@{
                 MSTableReuseIdentifer : SFLocationReuseIdentifierEvent,

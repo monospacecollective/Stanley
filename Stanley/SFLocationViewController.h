@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class Location;
+@class SFLocation;
 
 @interface SFLocationViewController : UICollectionViewController
 
-@property (nonatomic, strong) Location *location;
+@property (nonatomic, strong) SFLocation *location;
 
 @end

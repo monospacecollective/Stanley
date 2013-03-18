@@ -7,7 +7,7 @@
 //
 
 #import "SFAppDelegate.h"
-#import "Film.h"
+#import "SFFilm.h"
 #import "SFFilmsViewController.h"
 #import "SFNavigationBar.h"
 #import "SFStyleManager.h"
@@ -46,7 +46,6 @@
     instagramPlaceholderView.icon.text = @"\U0001F304";
     instagramPlaceholderView.subtitle.text = @"Instagram photos of the Stanley Film Festival are currently not available. Check back later.";
     [MSSocialKitManager sharedManager].instagramPlaceholderView = instagramPlaceholderView;
-    
 }
 
 - (void)setupRestKitWithBaseURL:(NSURL *)baseURL

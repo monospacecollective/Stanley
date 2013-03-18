@@ -1,5 +1,5 @@
 //
-//  Person.h
+//  SFPerson.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Film;
+@class SFFilm;
 
-@interface Person : NSManagedObject
+@interface SFPerson : NSManagedObject
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSSet *directed;
-@property (nonatomic, retain) Film *starred;
-@property (nonatomic, retain) Film *produced;
-@property (nonatomic, retain) Film *wrote;
+@property (nonatomic, retain) SFFilm *starred;
+@property (nonatomic, retain) SFFilm *produced;
+@property (nonatomic, retain) SFFilm *wrote;
 @end
 
-@interface Person (CoreDataGeneratedAccessors)
+@interface SFPerson (CoreDataGeneratedAccessors)
 
-- (void)addDirectedObject:(Film *)value;
-- (void)removeDirectedObject:(Film *)value;
+- (void)addDirectedObject:(SFFilm *)value;
+- (void)removeDirectedObject:(SFFilm *)value;
 - (void)addDirected:(NSSet *)values;
 - (void)removeDirected:(NSSet *)values;
 

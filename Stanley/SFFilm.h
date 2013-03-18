@@ -1,5 +1,5 @@
 //
-//  Film.h
+//  SFFilm.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface Film : NSManagedObject
+@interface SFFilm : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * remoteID;
 @property (nonatomic, retain) NSString * language;
@@ -50,7 +50,7 @@
 
 @end
 
-@interface Film (CoreDataGeneratedAccessors)
+@interface SFFilm (CoreDataGeneratedAccessors)
 
 - (void)addDirectorsObject:(NSManagedObject *)value;
 - (void)removeDirectorsObject:(NSManagedObject *)value;

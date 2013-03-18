@@ -8,7 +8,7 @@
 
 #import "SFEventsViewController.h"
 #import "SFStyleManager.h"
-#import "Event.h"
+#import "SFEvent.h"
 #import "SFEventCell.h"
 #import "SFCurrentTimeIndicatorCollectionReusableView.h"
 #import "SFTimeRowHeaderCollectionReusableView.h"
@@ -284,7 +284,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
     if (sectionInfo.objects.count != 0) {
-        Event *event = sectionInfo.objects[0];
+        SFEvent *event = sectionInfo.objects[0];
         return [event.start beginningOfDay];
     } else {
         return nil;
@@ -293,13 +293,13 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 
 - (NSDate *)collectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout startTimeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    SFEvent *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return event.start;
 }
 
 - (NSDate *)collectionView:(UICollectionView *)collectionView layout:(MSCollectionViewCalendarLayout *)collectionViewLayout endTimeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    SFEvent *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     return event.end;
 }
 

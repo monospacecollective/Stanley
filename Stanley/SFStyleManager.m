@@ -435,7 +435,7 @@ static SFStyleManager *singletonInstance = nil;
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
 }
-
+ 
 - (UIBarButtonItem *)styledCloseBarButtonItemWithAction:(void(^)(void))handler
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

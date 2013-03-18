@@ -7,7 +7,7 @@
 //
 
 #import "SFFilmsViewController.h"
-#import "Film.h"
+#import "SFFilm.h"
 #import "SFFilmCell.h"
 #import "SFStyleManager.h"
 #import "SFFilmViewController.h"
@@ -72,7 +72,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         
         NSSet *previousObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
         NSMutableDictionary *previousObjectIndexPaths = [NSMutableDictionary new];
-        for (Film *film in previousObjects) {
+        for (SFFilm *film in previousObjects) {
             NSIndexPath *indexPath = [weakSelf.fetchedResultsController indexPathForObject:film];
             previousObjectIndexPaths[indexPath] = film;
         }
@@ -82,7 +82,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         
         NSSet *newObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
         NSMutableDictionary *newObjectIndexPaths = [NSMutableDictionary new];
-        for (Film *film in newObjects) {
+        for (SFFilm *film in newObjects) {
             NSIndexPath *indexPath = [weakSelf.fetchedResultsController indexPathForObject:film];
             newObjectIndexPaths[indexPath] = film;
         }
@@ -94,12 +94,12 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         [deletions minusSet:newObjects];
         
         NSMutableArray *insertedIndexPaths = [NSMutableArray new];
-        for (Film *film in insertions) {
+        for (SFFilm *film in insertions) {
             [insertedIndexPaths addObjectsFromArray:[newObjectIndexPaths allKeysForObject:film]];
         }
         
         NSMutableArray *deletedIndexPaths = [NSMutableArray new];
-        for (Film *film in deletions) {
+        for (SFFilm *film in deletions) {
             [deletedIndexPaths addObjectsFromArray:[previousObjectIndexPaths allKeysForObject:film]];
         }
         

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class Film;
+@class SFFilm;
 
 @interface SFFilmViewController : UICollectionViewController
 
-@property (nonatomic, strong) Film *film;
+@property (nonatomic, strong) SFFilm *film;
 
 @end

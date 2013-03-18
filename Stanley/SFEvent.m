@@ -1,16 +1,16 @@
 //
-//  Event.m
+//  SFEvent.m
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "Event.h"
-#import "Film.h"
-#import "Location.h"
+#import "SFEvent.h"
+#import "SFFilm.h"
+#import "SFLocation.h"
 
-@interface Event ()
+@interface SFEvent ()
 
 @property (nonatomic, retain) NSString *primitiveDetail;
 @property (nonatomic, retain) NSString *primitiveName;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation Event
+@implementation SFEvent
 
 @dynamic remoteID;
 @dynamic name;

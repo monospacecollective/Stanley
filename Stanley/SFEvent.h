@@ -1,5 +1,5 @@
 //
-//  Event.h
+//  SFEvent.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Location;
-@class Film;
+@class SFLocation;
+@class SFFilm;
 
-@interface Event : NSManagedObject
+@interface SFEvent : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * remoteID;
 @property (nonatomic, retain) NSString * name;
@@ -22,8 +22,8 @@
 @property (nonatomic, retain) NSNumber * favorite;
 @property (nonatomic, retain) NSString * featureImage;
 @property (nonatomic, retain) NSString * ticketURL;
-@property (nonatomic, retain) Location *location;
-@property (nonatomic, retain) Film *film;
+@property (nonatomic, retain) SFLocation *location;
+@property (nonatomic, retain) SFFilm *film;
 
 @property (nonatomic, retain) NSNumber * filmRemoteID;
 @property (nonatomic, retain) NSNumber * locationRemoteID;

@@ -7,7 +7,7 @@
 //
 
 #import "SFMapViewController.h"
-#import "Location.h"
+#import "SFLocation.h"
 #import "SFLocationAnnotation.h"
 #import "SFStyleManager.h"
 #import "SFLocationViewController.h"
@@ -98,7 +98,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
 
 - (void)addLocationAnnotations
 {
-    for (Location *location in self.fetchedResultsController.fetchedObjects) {
+    for (SFLocation *location in self.fetchedResultsController.fetchedObjects) {
         SFLocationAnnotation *annotation = [[SFLocationAnnotation alloc] init];
         annotation.location = location;
         [self.mapView addAnnotation:annotation];
@@ -165,7 +165,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    Location *location = (Location *)anObject;
+    SFLocation *location = (SFLocation *)anObject;
 
     switch (type) {
         case NSFetchedResultsChangeInsert: {

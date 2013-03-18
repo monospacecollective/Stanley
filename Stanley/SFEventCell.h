@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class Event;
+@class SFEvent;
 
 @interface SFEventCell : UICollectionViewCell
 
-@property (nonatomic, weak) Event *event;
+@property (nonatomic, weak) SFEvent *event;
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *time;
 @property (nonatomic, strong) UILabel *detail;

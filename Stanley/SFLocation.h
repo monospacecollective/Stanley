@@ -1,5 +1,5 @@
 //
-//  Location.h
+//  SFLocation.h
 //  Stanley
 //
 //  Created by Eric Horacek on 2/12/13.
@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-
-@interface Location : NSManagedObject
+@interface SFLocation : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * remoteID;
 @property (nonatomic, retain) NSString * name;

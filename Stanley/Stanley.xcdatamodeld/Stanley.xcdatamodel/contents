@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event" representedClassName="Event" syncable="YES">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Event" representedClassName="SFEvent" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -12,7 +12,7 @@
         <relationship name="film" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Film" inverseName="showings" inverseEntity="Film" syncable="YES"/>
         <relationship name="location" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="events" inverseEntity="Location" syncable="YES"/>
     </entity>
-    <entity name="Film" representedClassName="Film" syncable="YES">
+    <entity name="Film" representedClassName="SFFilm" syncable="YES">
         <attribute name="available" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,7 +35,7 @@
         <relationship name="stars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="starred" inverseEntity="Person" syncable="YES"/>
         <relationship name="writers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="wrote" inverseEntity="Person" syncable="YES"/>
     </entity>
-    <entity name="Location" representedClassName="Location" syncable="YES">
+    <entity name="Location" representedClassName="SFLocation" syncable="YES">
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Float" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Float" syncable="YES"/>
@@ -43,7 +43,7 @@
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="location" inverseEntity="Event" syncable="YES"/>
     </entity>
-    <entity name="Person" representedClassName="Person" syncable="YES">
+    <entity name="Person" representedClassName="SFPerson" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remoteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="directed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Film" inverseName="directors" inverseEntity="Film" syncable="YES"/>

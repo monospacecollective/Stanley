@@ -8,9 +8,9 @@
 
 #import "SFEventViewController.h"
 #import "SFStyleManager.h"
-#import "Event.h"
-#import "Film.h"
-#import "Location.h"
+#import "SFEvent.h"
+#import "SFFilm.h"
+#import "SFLocation.h"
 #import "SFLocationViewController.h"
 #import "SFHeroCell.h"
 #import "SFWebViewController.h"

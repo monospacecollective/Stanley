@@ -33,8 +33,8 @@
 		3A6CBA3916DAA60200B4F041 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA3716DAA60200B4F041 /* InfoPlist.strings */; };
 		3A6CBA3B16DAA60200B4F041 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA3A16DAA60200B4F041 /* main.m */; };
 		3A6CBA3F16DAA60300B4F041 /* SFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA3E16DAA60300B4F041 /* SFAppDelegate.m */; };
-		3A6CBAA216DAA6A000B4F041 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA4E16DAA69E00B4F041 /* Event.m */; };
-		3A6CBAA316DAA6A000B4F041 /* Film.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5016DAA69E00B4F041 /* Film.m */; };
+		3A6CBAA216DAA6A000B4F041 /* SFEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA4E16DAA69E00B4F041 /* SFEvent.m */; };
+		3A6CBAA316DAA6A000B4F041 /* SFFilm.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5016DAA69E00B4F041 /* SFFilm.m */; };
 		3A6CBAA416DAA6A000B4F041 /* FuturaCom-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5116DAA69E00B4F041 /* FuturaCom-Bold.ttf */; };
 		3A6CBAA516DAA6A000B4F041 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5216DAA69E00B4F041 /* Icon-72.png */; };
 		3A6CBAA616DAA6A000B4F041 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5316DAA69E00B4F041 /* Icon-72@2x.png */; };
@@ -46,8 +46,8 @@
 		3A6CBAAC16DAA6A000B4F041 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5916DAA69F00B4F041 /* Icon@2x.png */; };
 		3A6CBAAD16DAA6A000B4F041 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5A16DAA69F00B4F041 /* iTunesArtwork.png */; };
 		3A6CBAAE16DAA6A000B4F041 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5B16DAA69F00B4F041 /* iTunesArtwork@2x.png */; };
-		3A6CBAAF16DAA6A000B4F041 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5D16DAA69F00B4F041 /* Location.m */; };
-		3A6CBAB016DAA6A000B4F041 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6016DAA69F00B4F041 /* Person.m */; };
+		3A6CBAAF16DAA6A000B4F041 /* SFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5D16DAA69F00B4F041 /* SFLocation.m */; };
+		3A6CBAB016DAA6A000B4F041 /* SFPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6016DAA69F00B4F041 /* SFPerson.m */; };
 		3A6CBAB416DAA6A000B4F041 /* SFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6816DAA69F00B4F041 /* SFConstants.m */; };
 		3A6CBAB516DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6916DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png */; };
 		3A6CBAB616DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA6A16DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground@2x.png */; };
@@ -163,10 +163,10 @@
 		3A6CBA3C16DAA60200B4F041 /* Stanley-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stanley-Prefix.pch"; sourceTree = "<group>"; };
 		3A6CBA3D16DAA60300B4F041 /* SFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFAppDelegate.h; sourceTree = "<group>"; };
 		3A6CBA3E16DAA60300B4F041 /* SFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFAppDelegate.m; sourceTree = "<group>"; };
-		3A6CBA4D16DAA69E00B4F041 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		3A6CBA4E16DAA69E00B4F041 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		3A6CBA4F16DAA69E00B4F041 /* Film.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Film.h; sourceTree = "<group>"; };
-		3A6CBA5016DAA69E00B4F041 /* Film.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Film.m; sourceTree = "<group>"; };
+		3A6CBA4D16DAA69E00B4F041 /* SFEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFEvent.h; sourceTree = "<group>"; };
+		3A6CBA4E16DAA69E00B4F041 /* SFEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFEvent.m; sourceTree = "<group>"; };
+		3A6CBA4F16DAA69E00B4F041 /* SFFilm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilm.h; sourceTree = "<group>"; };
+		3A6CBA5016DAA69E00B4F041 /* SFFilm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilm.m; sourceTree = "<group>"; };
 		3A6CBA5116DAA69E00B4F041 /* FuturaCom-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Bold.ttf"; sourceTree = "<group>"; };
 		3A6CBA5216DAA69E00B4F041 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		3A6CBA5316DAA69E00B4F041 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
@@ -178,11 +178,11 @@
 		3A6CBA5916DAA69F00B4F041 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		3A6CBA5A16DAA69F00B4F041 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		3A6CBA5B16DAA69F00B4F041 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		3A6CBA5C16DAA69F00B4F041 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		3A6CBA5D16DAA69F00B4F041 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		3A6CBA5C16DAA69F00B4F041 /* SFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFLocation.h; sourceTree = "<group>"; };
+		3A6CBA5D16DAA69F00B4F041 /* SFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocation.m; sourceTree = "<group>"; };
 		3A6CBA5E16DAA69F00B4F041 /* MSSystemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSystemVersion.h; sourceTree = "<group>"; };
-		3A6CBA5F16DAA69F00B4F041 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		3A6CBA6016DAA69F00B4F041 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		3A6CBA5F16DAA69F00B4F041 /* SFPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPerson.h; sourceTree = "<group>"; };
+		3A6CBA6016DAA69F00B4F041 /* SFPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPerson.m; sourceTree = "<group>"; };
 		3A6CBA6716DAA69F00B4F041 /* SFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFConstants.h; sourceTree = "<group>"; };
 		3A6CBA6816DAA69F00B4F041 /* SFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFConstants.m; sourceTree = "<group>"; };
 		3A6CBA6916DAA69F00B4F041 /* SFCurrentTimeHorizontalGridlineBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFCurrentTimeHorizontalGridlineBackground.png; sourceTree = "<group>"; };
@@ -476,14 +476,14 @@
 		3A6CBAE316DAB5DD00B4F041 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3A6CBA4D16DAA69E00B4F041 /* Event.h */,
-				3A6CBA4E16DAA69E00B4F041 /* Event.m */,
-				3A6CBA4F16DAA69E00B4F041 /* Film.h */,
-				3A6CBA5016DAA69E00B4F041 /* Film.m */,
-				3A6CBA5C16DAA69F00B4F041 /* Location.h */,
-				3A6CBA5D16DAA69F00B4F041 /* Location.m */,
-				3A6CBA5F16DAA69F00B4F041 /* Person.h */,
-				3A6CBA6016DAA69F00B4F041 /* Person.m */,
+				3A6CBA4D16DAA69E00B4F041 /* SFEvent.h */,
+				3A6CBA4E16DAA69E00B4F041 /* SFEvent.m */,
+				3A6CBA4F16DAA69E00B4F041 /* SFFilm.h */,
+				3A6CBA5016DAA69E00B4F041 /* SFFilm.m */,
+				3A6CBA5C16DAA69F00B4F041 /* SFLocation.h */,
+				3A6CBA5D16DAA69F00B4F041 /* SFLocation.m */,
+				3A6CBA5F16DAA69F00B4F041 /* SFPerson.h */,
+				3A6CBA6016DAA69F00B4F041 /* SFPerson.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -815,10 +815,10 @@
 			files = (
 				3A6CBA3B16DAA60200B4F041 /* main.m in Sources */,
 				3A6CBA3F16DAA60300B4F041 /* SFAppDelegate.m in Sources */,
-				3A6CBAA216DAA6A000B4F041 /* Event.m in Sources */,
-				3A6CBAA316DAA6A000B4F041 /* Film.m in Sources */,
-				3A6CBAAF16DAA6A000B4F041 /* Location.m in Sources */,
-				3A6CBAB016DAA6A000B4F041 /* Person.m in Sources */,
+				3A6CBAA216DAA6A000B4F041 /* SFEvent.m in Sources */,
+				3A6CBAA316DAA6A000B4F041 /* SFFilm.m in Sources */,
+				3A6CBAAF16DAA6A000B4F041 /* SFLocation.m in Sources */,
+				3A6CBAB016DAA6A000B4F041 /* SFPerson.m in Sources */,
 				3A6CBAB416DAA6A000B4F041 /* SFConstants.m in Sources */,
 				3A6CBAB716DAA6A000B4F041 /* SFCurrentTimeHorizontalGridlineCollectionReusableView.m in Sources */,
 				3A6CBABA16DAA6A000B4F041 /* SFCurrentTimeIndicatorCollectionReusableView.m in Sources */,

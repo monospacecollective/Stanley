@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class Event;
+@class SFEvent;
 
 @interface SFEventViewController : UICollectionViewController
 
-@property (nonatomic, weak) Event *event;
+@property (nonatomic, weak) SFEvent *event;
 
 @end

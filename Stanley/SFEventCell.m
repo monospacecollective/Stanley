@@ -8,8 +8,8 @@
 
 #import "SFEventCell.h"
 #import "SFStyleManager.h"
-#import "Event.h"
-#import "Location.h"
+#import "SFEvent.h"
+#import "SFLocation.h"
 #import "SFCollectionCellBackgroundView.h"
 
 //#define LAYOUT_DEBUG
@@ -139,7 +139,7 @@
 
 #pragma mark - SFEventCell
 
-- (void)setEvent:(Event *)event
+- (void)setEvent:(SFEvent *)event
 {
     _event = event;
     self.title.text = [event.name uppercaseString];
