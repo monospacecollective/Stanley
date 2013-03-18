@@ -23,6 +23,10 @@
 		3A4CE90A16ED7AB100C7928C /* SFNoContentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CE90916ED7AB000C7928C /* SFNoContentBackgroundView.m */; };
 		3A4DC7F616F29CB100669ED9 /* SFCollectionCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DC7F516F29CB100669ED9 /* SFCollectionCellBackgroundView.m */; };
 		3A4DC7FB16F3A20400669ED9 /* UINavigationController+Rotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DC7FA16F3A20400669ED9 /* UINavigationController+Rotation.m */; };
+		3A6398D416F77A9E00454451 /* SFFavoriteButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6398D016F77A9E00454451 /* SFFavoriteButtonBackground.png */; };
+		3A6398D516F77A9E00454451 /* SFFavoriteButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6398D116F77A9E00454451 /* SFFavoriteButtonBackground@2x.png */; };
+		3A6398D616F77A9E00454451 /* SFFavoriteButtonSelectedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6398D216F77A9E00454451 /* SFFavoriteButtonSelectedBackground.png */; };
+		3A6398D716F77A9E00454451 /* SFFavoriteButtonSelectedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6398D316F77A9E00454451 /* SFFavoriteButtonSelectedBackground@2x.png */; };
 		3A6CBA2F16DAA60200B4F041 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA2E16DAA60200B4F041 /* UIKit.framework */; };
 		3A6CBA3116DAA60200B4F041 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3016DAA60200B4F041 /* Foundation.framework */; };
 		3A6CBA3316DAA60200B4F041 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBA3216DAA60200B4F041 /* CoreGraphics.framework */; };
@@ -113,6 +117,7 @@
 		3AC0C0E216DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */; };
 		3AC0C0E916DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */; };
 		3AC0C0EA16DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */; };
+		3ADD903C16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD903B16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.m */; };
 		3ADFD8EC16E7FD07003B1D22 /* FuturaCom-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */; };
 		3AED301916EFD9150089A570 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED301816EFD9150089A570 /* Crashlytics.framework */; };
 		916187B216F15A1800CBAF32 /* SFSocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916187B116F15A1800CBAF32 /* SFSocialViewController.m */; };
@@ -144,6 +149,10 @@
 		3A4DC7F516F29CB100669ED9 /* SFCollectionCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCollectionCellBackgroundView.m; sourceTree = "<group>"; };
 		3A4DC7F916F3A20400669ED9 /* UINavigationController+Rotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Rotation.h"; sourceTree = "<group>"; };
 		3A4DC7FA16F3A20400669ED9 /* UINavigationController+Rotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Rotation.m"; sourceTree = "<group>"; };
+		3A6398D016F77A9E00454451 /* SFFavoriteButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFFavoriteButtonBackground.png; sourceTree = "<group>"; };
+		3A6398D116F77A9E00454451 /* SFFavoriteButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFavoriteButtonBackground@2x.png"; sourceTree = "<group>"; };
+		3A6398D216F77A9E00454451 /* SFFavoriteButtonSelectedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFFavoriteButtonSelectedBackground.png; sourceTree = "<group>"; };
+		3A6398D316F77A9E00454451 /* SFFavoriteButtonSelectedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFavoriteButtonSelectedBackground@2x.png"; sourceTree = "<group>"; };
 		3A6CBA2B16DAA60200B4F041 /* Stanley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stanley.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A6CBA2E16DAA60200B4F041 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A6CBA3016DAA60200B4F041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -271,6 +280,8 @@
 		3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonBackground@2x.png"; sourceTree = "<group>"; };
 		3AC0C0E716DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonPressedBackground.png; sourceTree = "<group>"; };
 		3AC0C0E816DB3F0F00EBF550 /* SFDisclosureButtonPressedBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFDisclosureButtonPressedBackground@2x.png"; sourceTree = "<group>"; };
+		3ADD903A16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworkingCrossDisolve.h"; sourceTree = "<group>"; };
+		3ADD903B16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworkingCrossDisolve.m"; sourceTree = "<group>"; };
 		3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Medium.ttf"; sourceTree = "<group>"; };
 		3AED301816EFD9150089A570 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics.framework; sourceTree = "<group>"; };
 		916187B016F15A1800CBAF32 /* SFSocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFSocialViewController.h; sourceTree = "<group>"; };
@@ -302,8 +313,21 @@
 			children = (
 				3A4DC7F916F3A20400669ED9 /* UINavigationController+Rotation.h */,
 				3A4DC7FA16F3A20400669ED9 /* UINavigationController+Rotation.m */,
+				3ADD903A16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.h */,
+				3ADD903B16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		3A6398D816F77AA500454451 /* Favorite Button Background */ = {
+			isa = PBXGroup;
+			children = (
+				3A6398D016F77A9E00454451 /* SFFavoriteButtonBackground.png */,
+				3A6398D116F77A9E00454451 /* SFFavoriteButtonBackground@2x.png */,
+				3A6398D216F77A9E00454451 /* SFFavoriteButtonSelectedBackground.png */,
+				3A6398D316F77A9E00454451 /* SFFavoriteButtonSelectedBackground@2x.png */,
+			);
+			name = "Favorite Button Background";
 			sourceTree = "<group>";
 		};
 		3A6CBA2216DAA60200B4F041 = {
@@ -516,6 +540,7 @@
 		3A6CBAE716DAB68200B4F041 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3A6398D816F77AA500454451 /* Favorite Button Background */,
 				3A6CBAE616DAB62200B4F041 /* Icon */,
 				3AAF7ACC16E8243600081130 /* GIKPopoverBackgroundView */,
 				3AAF7AF916EA9E3400081130 /* Film Cell Favorite Indicator */,
@@ -729,6 +754,10 @@
 				3A4CE8FD16ED4B0700C7928C /* SFUserDefaults.plist in Resources */,
 				3A4CE90016ED4DA400C7928C /* Default-Landscape~iPad.png in Resources */,
 				3A4CE90316ED4DC300C7928C /* Default-568h@2x.png in Resources */,
+				3A6398D416F77A9E00454451 /* SFFavoriteButtonBackground.png in Resources */,
+				3A6398D516F77A9E00454451 /* SFFavoriteButtonBackground@2x.png in Resources */,
+				3A6398D616F77A9E00454451 /* SFFavoriteButtonSelectedBackground.png in Resources */,
+				3A6398D716F77A9E00454451 /* SFFavoriteButtonSelectedBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,6 +857,7 @@
 				3A96824F16F19D7300A4954C /* SFInstagramPhotoCell.m in Sources */,
 				3A4DC7F616F29CB100669ED9 /* SFCollectionCellBackgroundView.m in Sources */,
 				3A4DC7FB16F3A20400669ED9 /* UINavigationController+Rotation.m in Sources */,
+				3ADD903C16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
