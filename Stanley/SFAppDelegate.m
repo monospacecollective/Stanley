@@ -158,9 +158,9 @@
 
 - (void)setupPonyDebugger
 {
-//    PDDebugger *debugger = [PDDebugger defaultInstance];
-//    [debugger autoConnect];
-//    [debugger enableViewHierarchyDebugging];
+    PDDebugger *debugger = [PDDebugger defaultInstance];
+    [debugger autoConnect];
+    [debugger enableViewHierarchyDebugging];
 }
 
 #pragma mark - UIApplicationDelegate
