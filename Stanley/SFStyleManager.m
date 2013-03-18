@@ -472,7 +472,7 @@ static SFStyleManager *singletonInstance = nil;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [self styleBarButtonItemCustomView:button withImage:[UIImage imageNamed:@"SFLogoBarButtonItemIcon"]];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
-    button.contentEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 0.0, 0.0, 0.0) : UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0));
+    button.contentEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 5.0, 0.0, 5.0) : UIEdgeInsetsMake(0.0, 5.0, 0.0, 5.0));
     [button sizeToFit];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
