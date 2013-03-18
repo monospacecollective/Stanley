@@ -35,6 +35,8 @@
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
+        self.backgroundView = [[SFCollectionCellBackgroundView alloc] init];
+        
         self.placeholderIcon = [FXLabel new];
         self.placeholderIcon.font = self.class.placeholderIconFont;
         self.placeholderIcon.text = @"\U0000E320";
@@ -77,8 +79,6 @@
         self.title.layer.shadowOffset = CGSizeZero;
         self.title.layer.masksToBounds = NO;
         [self.contentView addSubview:self.title];
-        
-        self.backgroundView = [[SFCollectionCellBackgroundView alloc] init];
         
 #if defined(LAYOUT_DEBUG)
         self.title.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
