@@ -63,14 +63,9 @@ typedef NS_ENUM(NSUInteger, RSCommunityViewControllerType) {
     [self.navigationController setToolbarHidden:NO];
     
     CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 28.0 : 24.0);
-    
     self.navigationItem.rightBarButtonItem = [[SFStyleManager sharedManager] styledBarButtonItemWithSymbolsetTitle:@"\U0001F4DD" fontSize:fontSize action:^{
         [weakSelf.currentChildViewController addNew];
     }];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        ((UIButton *)self.navigationItem.rightBarButtonItem.customView).contentEdgeInsets = UIEdgeInsetsMake(-7.0, 0.0, 0.0, 0.0);
-    }
     
     CGFloat height, width;
     if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
