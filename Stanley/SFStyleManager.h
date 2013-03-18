@@ -32,6 +32,10 @@
 // UIButton
 - (UIButton *)styledDisclosureButton;
 
+// UILabel
+- (void)styleDetailLabel:(UILabel *)label autolayout:(BOOL)autolayout;
+- (void)styleDetailIconLabel:(UILabel *)label autolayout:(BOOL)autolayout;
+
 // UIBarButtonItem Custom Views
 - (void)styleBarButtonItemCustomView:(UIButton *)button withTitle:(NSString *)title;
 - (void)styleBackBarButtonItemCustomView:(UIButton *)button withTitle:(NSString *)title;

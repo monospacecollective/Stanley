@@ -283,7 +283,7 @@ static SFStyleManager *singletonInstance = nil;
     collectionView.layer.cornerRadius = 5.0;
 }
 
-#pragma mark -  UIButton
+#pragma mark - UIButton
 
 - (UIButton *)styledDisclosureButton
 {
@@ -294,6 +294,34 @@ static SFStyleManager *singletonInstance = nil;
     [disclosureButton setImage:disclosureIconPressed forState:UIControlStateHighlighted];
     disclosureButton.frame = (CGRect){CGPointZero, disclosureIcon.size};
     return disclosureButton;
+}
+
+#pragma mark - UILabel
+
+- (void)styleDetailLabel:(UILabel *)label autolayout:(BOOL)autolayout
+{
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
+    label.font = [[SFStyleManager sharedManager] detailFontOfSize:14.0];
+    label.layer.shadowColor = [[UIColor blackColor] CGColor];
+    label.layer.shadowRadius = 0.0;
+    label.layer.shadowOpacity = 1.0;
+    label.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    label.layer.masksToBounds = NO;
+    label.translatesAutoresizingMaskIntoConstraints = !autolayout;
+}
+
+- (void)styleDetailIconLabel:(UILabel *)label autolayout:(BOOL)autolayout
+{
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
+    label.font = [[SFStyleManager sharedManager] symbolSetFontOfSize:14.0];
+    label.layer.shadowColor = [[UIColor blackColor] CGColor];
+    label.layer.shadowRadius = 0.0;
+    label.layer.shadowOpacity = 1.0;
+    label.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+    label.layer.masksToBounds = NO;
+    label.translatesAutoresizingMaskIntoConstraints = !autolayout;
 }
 
 #pragma mark - UIBarButtonItem Custom Views
@@ -426,6 +454,7 @@ static SFStyleManager *singletonInstance = nil;
         handler();
     };
     
+    button.contentEdgeInsets = UIEdgeInsetsMake(0.0, 5.0, 0.0, 5.0);
     [button setAdjustsImageWhenHighlighted:NO];
     [button setImage:[UIImage imageNamed:@"SFFavoriteButtonBackground"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"SFFavoriteButtonSelectedBackground"] forState:UIControlStateSelected];
@@ -443,7 +472,7 @@ static SFStyleManager *singletonInstance = nil;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [self styleBarButtonItemCustomView:button withImage:[UIImage imageNamed:@"SFLogoBarButtonItemIcon"]];
     [button addEventHandler:handler forControlEvents:UIControlEventTouchUpInside];
-    button.contentEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 0.0, 0.0, 0.0) : UIEdgeInsetsMake(2.0, 0.0, 0.0, 0.0));
+    button.contentEdgeInsets = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(2.0, 0.0, 0.0, 0.0) : UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0));
     [button sizeToFit];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return barButtonItem;
