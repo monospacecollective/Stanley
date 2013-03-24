@@ -38,6 +38,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        
         UIImage *backgroundImage = [[UIImage imageNamed:@"SFHeaderBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0)];
         [self setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
         self.titleTextAttributes = @{
@@ -83,6 +87,7 @@
     [self updateNavigationPaneLabelForOrientation:(UIDeviceOrientation)[[UIApplication sharedApplication] statusBarOrientation]];
     
     for (UIView *subview in self.subviews) {
+        
         // Hacky...
         if ([subview isKindOfClass:NSClassFromString(@"UINavigationItemView")]) {
             CGRect navigationItemFrame = subview.frame;
