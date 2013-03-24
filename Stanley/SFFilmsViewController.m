@@ -47,8 +47,14 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
 {
     [super viewDidLoad];
     
+    NSDictionary *predicates = @{
+        @(SFFilmSegmentTypeAll) : [NSPredicate predicateWithFormat:@"(available <= %@)", [NSDate date]],
+        @(SFFilmSegmentTypeFavorites) : [NSPredicate predicateWithFormat:@"(favorite == YES) AND (available <= %@)", [NSDate date]]
+    };
+    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Film"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    fetchRequest.predicate = predicates[@(SFFilmSegmentTypeAll)];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:[RKManagedObjectStore defaultStore].mainQueueManagedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -64,11 +70,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     
     self.favoriteSegmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"ALL FILMS", @"FAVORITES"] action:^(NSUInteger newIndex) {
         
-        if (newIndex == SFFilmSegmentTypeFavorites) {
-            weakSelf.fetchedResultsController.fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(favorite == YES)"];
-        } else if (newIndex == SFFilmSegmentTypeAll) {
-            weakSelf.fetchedResultsController.fetchRequest.predicate = nil;
-        }
+        weakSelf.fetchedResultsController.fetchRequest.predicate = predicates[@(newIndex)];
         
         NSSet *previousObjects = [NSSet setWithArray:weakSelf.fetchedResultsController.fetchedObjects];
         NSMutableDictionary *previousObjectIndexPaths = [NSMutableDictionary new];
