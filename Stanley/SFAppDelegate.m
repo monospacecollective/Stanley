@@ -215,6 +215,20 @@
     return YES;
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    // Reload currently visible pane's data
+    if ([self.navigationPaneViewController.paneViewController isKindOfClass:UINavigationController.class]) {
+        UINavigationController *navigationController = (UINavigationController *)self.navigationPaneViewController.paneViewController;
+        if ([navigationController viewControllers].count) {
+            UIViewController *rootViewController = [navigationController viewControllers][0];
+            if ([rootViewController respondsToSelector:@selector(reloadData)]) {
+                [rootViewController performSelector:@selector(reloadData)];
+            }
+        }
+    }
+}
+
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return UIInterfaceOrientationMaskAll;
