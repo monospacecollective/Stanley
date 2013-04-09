@@ -1,5 +1,5 @@
 //
-//  SFAboutViewController.h
+//  SFAttendViewController.h
 //  Stanley
 //
 //  Created by Eric Horacek on 3/7/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SFAboutViewController : UICollectionViewController
+@interface SFAttendViewController : UICollectionViewController
 
 @end

@@ -15,7 +15,7 @@
 #import "SFEventsViewController.h"
 #import "SFSplashViewController.h"
 #import "SFMapViewController.h"
-#import "SFAboutViewController.h"
+#import "SFAttendViewController.h"
 #import "SFSocialViewController.h"
 
 NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewControllerCellReuseIdentifier";
@@ -52,21 +52,21 @@ NSString * const SFMasterViewControllerCellReuseIdentifier = @"SFMasterViewContr
             @(SFPaneTypeEvents) : @"Events",
             @(SFPaneTypeSocial) : @"Social",
             @(SFPaneTypeMap) : @"Map",
-            @(SFPaneTypeAbout) : @"About"
+            @(SFPaneTypeAttend) : @"Attend"
         };
         self.paneIcons = @{
             @(SFPaneTypeFilms) : @"\U0000E320",
             @(SFPaneTypeEvents) : @"\U0001F4C6",
             @(SFPaneTypeSocial) : @"\U0001F4AC",
             @(SFPaneTypeMap) : @"\U0000E673",
-            @(SFPaneTypeAbout) : @"\U00002139"
+            @(SFPaneTypeAttend) : @"\U0000E672"
         };
         self.paneClasses = @{
             @(SFPaneTypeFilms) : SFFilmsViewController.class,
             @(SFPaneTypeEvents) : SFEventsViewController.class,
             @(SFPaneTypeSocial) : SFSocialViewController.class,
             @(SFPaneTypeMap) : SFMapViewController.class,
-            @(SFPaneTypeAbout) : SFAboutViewController.class
+            @(SFPaneTypeAttend) : SFAttendViewController.class
         };
     }
     return self;

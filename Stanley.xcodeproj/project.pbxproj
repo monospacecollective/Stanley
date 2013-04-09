@@ -106,7 +106,7 @@
 		3AAF7AE816E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7ADA16E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png */; };
 		3AAF7AEB16E9448300081130 /* SFFilmCellFavoriteIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AE916E9448300081130 /* SFFilmCellFavoriteIndicator.png */; };
 		3AAF7AEC16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AAF7AEA16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png */; };
-		3AAF7AEF16E94D4200081130 /* SFAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AEE16E94D4100081130 /* SFAboutViewController.m */; };
+		3AAF7AEF16E94D4200081130 /* SFAttendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AEE16E94D4100081130 /* SFAttendViewController.m */; };
 		3AAF7AF216EA55FF00081130 /* SFToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF116EA55FF00081130 /* SFToolbar.m */; };
 		3AAF7AF516EA943C00081130 /* SFWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF416EA943B00081130 /* SFWebViewController.m */; };
 		3AAF7AF816EA947500081130 /* SFTryAgainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF716EA947500081130 /* SFTryAgainView.m */; };
@@ -262,8 +262,8 @@
 		3AAF7ADA16E8244500081130 /* PopoverBackgroundArrowUpRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverBackgroundArrowUpRight@2x.png"; sourceTree = "<group>"; };
 		3AAF7AE916E9448300081130 /* SFFilmCellFavoriteIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFFilmCellFavoriteIndicator.png; sourceTree = "<group>"; };
 		3AAF7AEA16E9448300081130 /* SFFilmCellFavoriteIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SFFilmCellFavoriteIndicator@2x.png"; sourceTree = "<group>"; };
-		3AAF7AED16E94D4100081130 /* SFAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAboutViewController.h; sourceTree = "<group>"; };
-		3AAF7AEE16E94D4100081130 /* SFAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAboutViewController.m; sourceTree = "<group>"; };
+		3AAF7AED16E94D4100081130 /* SFAttendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAttendViewController.h; sourceTree = "<group>"; };
+		3AAF7AEE16E94D4100081130 /* SFAttendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAttendViewController.m; sourceTree = "<group>"; };
 		3AAF7AF016EA55FF00081130 /* SFToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFToolbar.h; sourceTree = "<group>"; };
 		3AAF7AF116EA55FF00081130 /* SFToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFToolbar.m; sourceTree = "<group>"; };
 		3AAF7AF316EA943B00081130 /* SFWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFWebViewController.h; sourceTree = "<group>"; };
@@ -419,8 +419,8 @@
 				3A6CBA9416DAA6A000B4F041 /* SFMasterViewController.m */,
 				3A6CBA9A16DAA6A000B4F041 /* SFSplashViewController.h */,
 				3A6CBA9B16DAA6A000B4F041 /* SFSplashViewController.m */,
-				3AAF7AED16E94D4100081130 /* SFAboutViewController.h */,
-				3AAF7AEE16E94D4100081130 /* SFAboutViewController.m */,
+				3AAF7AED16E94D4100081130 /* SFAttendViewController.h */,
+				3AAF7AEE16E94D4100081130 /* SFAttendViewController.m */,
 				3AAF7AF316EA943B00081130 /* SFWebViewController.h */,
 				3AAF7AF416EA943B00081130 /* SFWebViewController.m */,
 				3AAF7AFC16EAA7A500081130 /* SFLocationViewController.h */,
@@ -840,7 +840,7 @@
 				3A6CBAD816DAA6A000B4F041 /* SFTimeRowHeaderCollectionReusableView.m in Sources */,
 				3A6CBADE16DAB34000B4F041 /* Stanley.xcdatamodeld in Sources */,
 				3AB2E43716E78FC500A93A7E /* SFFilmViewController.m in Sources */,
-				3AAF7AEF16E94D4200081130 /* SFAboutViewController.m in Sources */,
+				3AAF7AEF16E94D4200081130 /* SFAttendViewController.m in Sources */,
 				3AAF7AF216EA55FF00081130 /* SFToolbar.m in Sources */,
 				3AAF7AF516EA943C00081130 /* SFWebViewController.m in Sources */,
 				3AAF7AF816EA947500081130 /* SFTryAgainView.m in Sources */,

@@ -1,12 +1,12 @@
 //
-//  SFAboutViewController.m
+//  SFAttendViewController.m
 //  Stanley
 //
 //  Created by Eric Horacek on 3/7/13.
 //  Copyright (c) 2013 Monospace Ltd. All rights reserved.
 //
 
-#import "SFAboutViewController.h"
+#import "SFAttendViewController.h"
 #import "SFStyleManager.h"
 #import "SFWebViewController.h"
 #import "SFNavigationBar.h"
@@ -43,13 +43,13 @@ NSString *const SFAboutReuseIdentifierArtistic = @"Artistic";
 NSString *const SFAboutReuseIdentifierStanley = @"Stanley";
 NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
 
-@interface SFAboutViewController ()
+@interface SFAttendViewController ()
 
 @property (nonatomic, strong) MSCollectionViewTableLayout *collectionViewLayout;
 
 @end
 
-@implementation SFAboutViewController
+@implementation SFAttendViewController
 
 - (id)init
 {
@@ -74,7 +74,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     [self.collectionViewLayout invalidateLayout];
 }
 
-#pragma mark - SFAboutViewController
+#pragma mark - SFAttendViewController
 
 - (void)prepareSections
 {
