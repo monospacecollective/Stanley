@@ -98,15 +98,15 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     
     // Information Section
     {
-        NSString *title = @"HOW TO FEST";
+        NSString *headerTitle = @"HOW TO FEST";
         NSDictionary *header = @{
             MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
             MSTableClass : MSGroupedTableViewHeaderView.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                headerView.title.text = title;
+                headerView.title.text = headerTitle;
             },
             MSTableSizeBlock : ^(CGFloat width) {
-                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:title forWidth:width]);
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
             }
         };
         
@@ -195,15 +195,15 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     
     // Attend Section
     {
-        NSString *title = @"ATTEND";
+        NSString *headerTitle = @"PASSES";
         NSDictionary *header = @{
             MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
             MSTableClass : MSGroupedTableViewHeaderView.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                headerView.title.text = title;
+                headerView.title.text = headerTitle;
             },
             MSTableSizeBlock : ^(CGFloat width) {
-                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:title forWidth:width]);
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
             }
         };
         
@@ -213,7 +213,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
             MSTableReuseIdentifer : SFAboutReuseIdentifierPass,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"PASS";
+                cell.title.text = @"BUY A PASS";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
@@ -225,7 +225,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
             MSTableReuseIdentifer : SFAboutReuseIdentifierPackage,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"PACKAGE";
+                cell.title.text = @"BUY A PACKAGE";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
@@ -244,15 +244,15 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     
     // Contact Section
     {
-        NSString *title = @"CONTACT";
+        NSString *headerTitle = @"CONTACT";
         NSDictionary *header = @{
             MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
             MSTableClass : MSGroupedTableViewHeaderView.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                headerView.title.text = title;
+                headerView.title.text = headerTitle;
             },
             MSTableSizeBlock : ^(CGFloat width) {
-                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:title forWidth:width]);
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
             }
         };
         
