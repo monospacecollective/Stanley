@@ -132,7 +132,7 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         };
         
         if ([movieURL rangeOfString:@"vimeo"].length != 0) {
-            [MSVimeoFetcher fetchStreamURLFromVideoURL:[NSURL URLWithString:movieURL] quality:MSVimeoFetcherQualityMedium completion:^(NSURL *url, NSError *error) {
+            [MSVimeoFetcher fetchStreamURLFromVideoURL:[NSURL URLWithString:movieURL] quality:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? MSVimeoFetcherQualityHigh : MSVimeoFetcherQualityMedium) completion:^(NSURL *url, NSError *error) {
                 if (error) {
                     contentExtractionFailure(error);
                 } else {
@@ -141,13 +141,27 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
             }];
         }
         else if ([movieURL rangeOfString:@"youtube"].length != 0) {
-            NSDictionary *videos = [HCYoutubeParser h264videosWithYoutubeURL:[NSURL URLWithString:movieURL]];
-            NSURL *contentURL = [NSURL URLWithString:[videos objectForKey:@"medium"]];
-            if (contentURL) {
-                presentMoviePlayerViewController(contentURL);
-            } else {
-                contentExtractionFailure([NSError errorWithDomain:@"" code:0 userInfo:@{ NSLocalizedDescriptionKey : @"Invalid YouTube URL. Please try again later." }]);
-            }
+            
+            [HCYoutubeParser h264videosWithYoutubeURL:[NSURL URLWithString:movieURL] completeBlock:^(NSDictionary *videoDictionary, NSError *error) {
+                if (error) {
+                    contentExtractionFailure(error);
+                    return;
+                }
+                NSURL *contentURL;
+                // Display 720 trailers on iPad
+                if (videoDictionary[@"hd720"] && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
+                    contentURL = [NSURL URLWithString:videoDictionary[@"hd720"]];
+                } else if (videoDictionary[@"medium"]) {
+                    contentURL = [NSURL URLWithString:videoDictionary[@"medium"]];
+                } else if (videoDictionary[@"small"]) {
+                    contentURL = [NSURL URLWithString:videoDictionary[@"small"]];
+                }
+                if (contentURL) {
+                    presentMoviePlayerViewController(contentURL);
+                } else {
+                    contentExtractionFailure([NSError errorWithDomain:@"" code:0 userInfo:@{ NSLocalizedDescriptionKey : @"Invalid YouTube URL. Please try again later." }]);
+                }
+            }];
         } else {
             contentExtractionFailure([NSError errorWithDomain:@"" code:0 userInfo:@{ NSLocalizedDescriptionKey : @"URL is not hosted on YouTube or Vimeo. Please try again later." }]);
         }
