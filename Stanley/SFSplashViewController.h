@@ -10,4 +10,6 @@
 
 @interface SFSplashViewController : UIViewController
 
+@property (nonatomic, assign) BOOL shouldAutoplayTrailer;
+
 @end

@@ -199,7 +199,10 @@
     [self.window makeKeyAndVisible];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:SFUserDefaultsFirstLaunch]) {
+        
         SFSplashViewController *splashViewController = [[SFSplashViewController alloc] initWithNibName:nil bundle:nil];
+        splashViewController.shouldAutoplayTrailer = YES;
+        
         [masterViewController presentViewController:splashViewController animated:NO completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SFUserDefaultsFirstLaunch];
         [[NSUserDefaults standardUserDefaults] synchronize];

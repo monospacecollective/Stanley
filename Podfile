@@ -12,7 +12,6 @@ pod 'MSCollectionViewCalendarLayout',   '~> 0.0.1'
 pod 'SVPulsingAnnotationView',          '~> 0.1'
 pod 'SVSegmentedControl',               '~> 0.1'
 pod 'HCYoutubeParser',                  '~> 0.0.1'
-pod 'YTVimeoExtractor',                 '~> 0.0.2'
 pod 'UIColor-Utilities',                '~> 1.0.1'
 
 # pod 'MSNavigationPaneViewController',   '~> 0.2.0'
@@ -24,6 +23,7 @@ pod 'UIControl-BlockAction',            :git => 'https://github.com/monospacecol
 pod 'GIKPopoverBackgroundView',         :git => 'https://github.com/monospacecollective/GIKPopoverBackgroundView.git'
 pod 'UIView-Autolayout',                :git => 'https://github.com/eric-horacek/UIView-Autolayout'
 pod 'MSSocialKit',                      :git => 'https://github.com/monospacecollective/MSSocialKit.git', :branch => 'development'
+pod 'MSVimeoFetcher',                   :git => 'https://github.com/eric-horacek/MSVimeoFetcher'
 
 # pod 'UIColor-Utilities',                :git => 'https://github.com/eric-horacek/uicolor-utilities.git'
 
@@ -35,3 +35,4 @@ pod 'MSSocialKit',                      :git => 'https://github.com/monospacecol
 # pod 'GIKPopoverBackgroundView',         :local => '~/Development/GIKPopoverBackgroundView'
 # pod 'UIView-Autolayout',                :local => '~/Development/UIView-Autolayout'
 # pod 'MSNavigationPaneViewController',   :local => '~/Development/MSNavigationPaneViewController'
+# pod 'MSVimeoFetcher',                   :local => '~/Development/MSVimeoFetcher'
