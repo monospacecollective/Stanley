@@ -14,13 +14,16 @@
 
 // Sections
 NSString *const SFAboutTableSectionContact = @"Contact";
-NSString *const SFAboutTableSectionMission = @"Mission";
-NSString *const SFAboutTableSectionArtistic = @"Artistic";
+NSString *const SFAboutTableSectionNews = @"News";
 NSString *const SFAboutTableSectionStanley = @"Stanley";
 NSString *const SFAboutTableSectionMonospace = @"Monospace";
+NSString *const SFAboutTableSectionMission = @"Mission";
+NSString *const SFAboutTableSectionArtistic = @"Artistic";
 
 // Headers
 NSString *const SFAboutReuseIdentifierHeader = @"Header";
+// News
+NSString *const SFAboutReuseIdentifierPressReleases = @"Press Releases";
 // Contact
 NSString *const SFAboutReuseIdentifierContactStaff = @"Contact Staff";
 NSString *const SFAboutReuseIdentifierContactMonospace = @"Contact Monospace";
@@ -82,7 +85,42 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     
     NSMutableArray *sections = [NSMutableArray new];
     
-        // Contact
+    // News
+    {
+        NSString *headerTitle = @"NEWS";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
+        
+        NSMutableArray *rows = [NSMutableArray new];
+        
+        [rows addObject:@{
+            MSTableReuseIdentifer : SFAboutReuseIdentifierPressReleases,
+            MSTableClass : MSGroupedTableViewCell.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                cell.title.text = @"PRESS RELEASES";
+                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                presentWebViewController(@"http://www.stanleyfilmfest.com/press/press-releases/", indexPath, NO);
+            }
+        }];
+        
+        [sections addObject:@{
+            MSTableSectionIdentifier : SFAboutTableSectionNews,
+            MSTableSectionRows : rows,
+            MSTableSectionHeader : header
+        }];
+    }
+    
+    // Contact
     {
         NSString *headerTitle = @"CONTACT";
         NSDictionary *header = @{
@@ -126,70 +164,6 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
             MSTableSectionIdentifier : SFAboutTableSectionContact,
             MSTableSectionRows : rows,
             MSTableSectionHeader : header
-        }];
-    }
-    
-    // Mission Section
-    {
-        NSString *headerTitle = @"SFF MISSION STATEMENT";
-        
-        NSString *cellTitle = @"The Stanley Film Festival showcases classic and contemporary independent horror cinema all set at the haunted and historic Stanley Hotel in beautiful Estes Park, Colorado. The Festival presents emerging and established filmmakers enabling the industry and general public to experience the power of storytelling through genre cinema. Founded in 2013 by The Stanley Hotel to celebrate the property’s iconic Hollywood heritage, the four-day event showcases filmmakers latest works, Q&A discussions, industry panels, the “Stanley Dean’s Cup” student film competition, and special events for cinema insiders, enthusiasts, and fellow artists.";
-        
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionMission,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
-                MSTableClass : MSMultlineGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                    cell.title.text = cellTitle;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
-                }
-            }],
-            MSTableSectionHeader : @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
-                MSTableClass : MSGroupedTableViewHeaderView.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                    headerView.title.text = headerTitle;
-                },
-                MSTableSizeBlock : ^(CGFloat width) {
-                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
-                }
-            }
-        }];
-    }
-    
-    // Artistic Section
-    {
-        NSString *headerTitle = @"SFF ARTISTIC STATEMENT";
-        
-        NSString *cellTitle = @"The Stanley Film Festival is a unique opportunity to showcase exhilarating voices in classic and contemporary horror within a haunted space chosen to amplify the experience beyond the terrors shown on screen. Armed with the goal of procuring the most imaginative tales of fright from around the globe, we will proudly present short and feature films that offer a vast spectrum of tantalizing thrills and ghastly delights throughout the weekend. Like the best spooky stories told in the dark, each will be wildly distinct, inventive and unexpected. The Stanley Hotel’s ghostly history as one of our eeriest landmarks, and its inspiration for some of cinema’s most unnerving spectacles, make this the perfect place to tempt the spirits and bring out your deepest fears in a way no other venue can. Enter if you dare, and let these films stay with you forever. And ever. And ever.";
-        
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionArtistic,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
-                MSTableClass : MSMultlineGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                    cell.title.text = cellTitle;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
-                }
-            }],
-            MSTableSectionHeader : @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
-                MSTableClass : MSGroupedTableViewHeaderView.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                    headerView.title.text = headerTitle;
-                },
-                MSTableSizeBlock : ^(CGFloat width) {
-                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
-                }
-            }
         }];
     }
     
@@ -274,7 +248,71 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
             }
         }];
     }
+    
+    // Mission Section
+    {
+        NSString *headerTitle = @"SFF MISSION STATEMENT";
         
+        NSString *cellTitle = @"The Stanley Film Festival showcases classic and contemporary independent horror cinema all set at the haunted and historic Stanley Hotel in beautiful Estes Park, Colorado. The Festival presents emerging and established filmmakers enabling the industry and general public to experience the power of storytelling through genre cinema. Founded in 2013 by The Stanley Hotel to celebrate the property’s iconic Hollywood heritage, the four-day event showcases filmmakers latest works, Q&A discussions, industry panels, the “Stanley Dean’s Cup” student film competition, and special events for cinema insiders, enthusiasts, and fellow artists.";
+        
+        [sections addObject:@{
+            MSTableSectionIdentifier : SFAboutTableSectionMission,
+            MSTableSectionRows : @[@{
+                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
+                MSTableClass : MSMultlineGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
+                    cell.title.text = cellTitle;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
+                }
+            }],
+            MSTableSectionHeader : @{
+                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
+                MSTableClass : MSGroupedTableViewHeaderView.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                    headerView.title.text = headerTitle;
+                },
+                MSTableSizeBlock : ^(CGFloat width) {
+                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+                }
+            }
+        }];
+    }
+    
+    // Artistic Section
+    {
+        NSString *headerTitle = @"SFF ARTISTIC STATEMENT";
+        
+        NSString *cellTitle = @"The Stanley Film Festival is a unique opportunity to showcase exhilarating voices in classic and contemporary horror within a haunted space chosen to amplify the experience beyond the terrors shown on screen. Armed with the goal of procuring the most imaginative tales of fright from around the globe, we will proudly present short and feature films that offer a vast spectrum of tantalizing thrills and ghastly delights throughout the weekend. Like the best spooky stories told in the dark, each will be wildly distinct, inventive and unexpected. The Stanley Hotel’s ghostly history as one of our eeriest landmarks, and its inspiration for some of cinema’s most unnerving spectacles, make this the perfect place to tempt the spirits and bring out your deepest fears in a way no other venue can. Enter if you dare, and let these films stay with you forever. And ever. And ever.";
+        
+        [sections addObject:@{
+            MSTableSectionIdentifier : SFAboutTableSectionArtistic,
+            MSTableSectionRows : @[@{
+                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
+                MSTableClass : MSMultlineGroupedTableViewCell.class,
+                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
+                    cell.title.text = cellTitle;
+                    cell.selectionStyle = MSTableCellSelectionStyleNone;
+                },
+                MSTableSizeBlock : ^CGSize(CGFloat width){
+                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
+                }
+            }],
+            MSTableSectionHeader : @{
+                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
+                MSTableClass : MSGroupedTableViewHeaderView.class,
+                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                    headerView.title.text = headerTitle;
+                },
+                MSTableSizeBlock : ^(CGFloat width) {
+                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+                }
+            }
+        }];
+    }
+    
     self.collectionViewLayout.sections = sections;
 }
 
