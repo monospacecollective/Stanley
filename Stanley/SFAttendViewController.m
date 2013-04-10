@@ -13,39 +13,38 @@
 #import "SFToolbar.h"
 
 // Sections
-NSString *const SFAboutTableSectionInformation = @"Information";
-NSString *const SFAboutTableSectionAttend = @"Attend";
-NSString *const SFAboutTableSectionContact = @"Contact";
-NSString *const SFAboutTableSectionMission = @"Mission";
-NSString *const SFAboutTableSectionArtistic = @"Artistic";
-NSString *const SFAboutTableSectionStanley = @"Stanley";
-NSString *const SFAboutTableSectionMonospace = @"Monospace";
+NSString *const SFAttendTableSectionInformation = @"Information";
+NSString *const SFAttendTableSectionPasses = @"Passes";
+NSString *const SFAttendTableSectionSocial = @"Social";
+NSString *const SFAttendTableSectionSupport = @"Support";
 
-// Reuse Identifiers
 // Headers
-NSString *const SFAboutReuseIdentifierHeader = @"Header";
+NSString *const SFAttendReuseIdentifierHeader = @"Header";
 // Information
-NSString *const SFAboutReuseIdentifierPackages = @"Packages";
-NSString *const SFAboutReuseIdentifierStandby = @"Standby";
-NSString *const SFAboutReuseIdentifierBoxOffice = @"Box Office";
-NSString *const SFAboutReuseIdentifierLodgingDining = @"Lodging Dining";
-NSString *const SFAboutReuseIdentifierMerchandise = @"Merchandise";
-NSString *const SFAboutReuseIdentifierFAQ = @"FAQ";
-// Attend
-NSString *const SFAboutReuseIdentifierPass = @"Pass";
-NSString *const SFAboutReuseIdentifierPackage = @"Package";
-// Contact
-NSString *const SFAboutReuseIdentifierContactStaff = @"Contact Staff";
-NSString *const SFAboutReuseIdentifierContactMonospace = @"Contact Monospace";
-// About
-NSString *const SFAboutReuseIdentifierMission = @"Mission";
-NSString *const SFAboutReuseIdentifierArtistic = @"Artistic";
-NSString *const SFAboutReuseIdentifierStanley = @"Stanley";
-NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
+NSString *const SFAttendReuseIdentifierPackages = @"Packages";
+NSString *const SFAttendReuseIdentifierStandby = @"Standby";
+NSString *const SFAttendReuseIdentifierBoxOffice = @"Box Office";
+NSString *const SFAttendReuseIdentifierLodgingDining = @"Lodging Dining";
+NSString *const SFAttendReuseIdentifierMerchandise = @"Merchandise";
+NSString *const SFAttendReuseIdentifierFAQ = @"FAQ";
+// Passes
+NSString *const SFAttendReuseIdentifierPass = @"Pass";
+NSString *const SFAttendReuseIdentifierPackage = @"Package";
+NSString *const SFAttendReuseIdentifierHotel = @"Hotel";
+// Social
+NSString *const SFAttendReuseIdentifierFacebook = @"Facebook";
+NSString *const SFAttendReuseIdentifierTwitter = @"Twitter";
+NSString *const SFAttendReuseIdentifierInstagram = @"Instagram";
+NSString *const SFAttendReuseIdentifierTellAFriend = @"Tell a Friend";
+// Support
+NSString *const SFAttendReuseIdentifierSponsor = @"Twitter";
+NSString *const SFAttendReuseIdentifierVolunteer = @"Volunteer";
 
 @interface SFAttendViewController ()
 
 @property (nonatomic, strong) MSCollectionViewTableLayout *collectionViewLayout;
+
+- (void)prepareSections;
 
 @end
 
@@ -58,13 +57,10 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [[SFStyleManager sharedManager] styleCollectionView:self.collectionView];
-    
     [self prepareSections];
 }
 
@@ -96,11 +92,11 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
     
     NSMutableArray *sections = [NSMutableArray new];
     
-    // Information Section
+    // Information
     {
         NSString *headerTitle = @"HOW TO FEST";
         NSDictionary *header = @{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierHeader,
             MSTableClass : MSGroupedTableViewHeaderView.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
                 headerView.title.text = headerTitle;
@@ -113,7 +109,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
         NSMutableArray *rows = [NSMutableArray new];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierPackages,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierPackages,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"PASSES & TICKETS";
@@ -125,7 +121,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
          }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierStandby,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierStandby,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"QUEUE & STANDBY";
@@ -137,7 +133,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
          }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierBoxOffice,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierBoxOffice,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"BOX OFFICE";
@@ -149,7 +145,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
          }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierLodgingDining,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierLodgingDining,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"LODGING & DINING";
@@ -161,7 +157,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
          }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierMerchandise,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierMerchandise,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"MERCHANDISE";
@@ -173,7 +169,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
          }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierFAQ,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierFAQ,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"FAQ";
@@ -186,18 +182,18 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
         
         if (rows.count) {
             [sections addObject:@{
-                MSTableSectionIdentifier : SFAboutTableSectionInformation,
+                MSTableSectionIdentifier : SFAttendTableSectionInformation,
                 MSTableSectionRows : rows,
                 MSTableSectionHeader : header
             }];
         }
     }
     
-    // Attend Section
+    // Passes
     {
         NSString *headerTitle = @"PASSES";
         NSDictionary *header = @{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierHeader,
             MSTableClass : MSGroupedTableViewHeaderView.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
                 headerView.title.text = headerTitle;
@@ -210,7 +206,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
         NSMutableArray *rows = [NSMutableArray new];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierPass,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierPass,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"BUY A PASS";
@@ -222,7 +218,7 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
          }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierPackage,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierPackage,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
                 cell.title.text = @"BUY A PACKAGE";
@@ -233,20 +229,33 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
             }
          }];
         
+        
+        [rows addObject:@{
+            MSTableReuseIdentifer : SFAttendReuseIdentifierHotel,
+            MSTableClass : MSGroupedTableViewCell.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                cell.title.text = @"BOOK STANLEY LODGING";
+                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                presentWebViewController(@"https://bookings.ihotelier.com/The-Stanley-Hotel/bookings.jsp?hotelId=17440&themeId=6272&ProdID=482715", indexPath, NO);
+            }
+         }];
+        
         if (rows.count) {
             [sections addObject:@{
-                MSTableSectionIdentifier : SFAboutTableSectionAttend,
+                MSTableSectionIdentifier : SFAttendTableSectionPasses,
                 MSTableSectionRows : rows,
                 MSTableSectionHeader : header
              }];
         }
     }
     
-    // Contact Section
+    // Social
     {
-        NSString *headerTitle = @"CONTACT";
+        NSString *headerTitle = @"SOCIAL";
         NSDictionary *header = @{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierHeader,
             MSTableClass : MSGroupedTableViewHeaderView.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
                 headerView.title.text = headerTitle;
@@ -259,180 +268,109 @@ NSString *const SFAboutReuseIdentifierMonospace = @"Monospace";
         NSMutableArray *rows = [NSMutableArray new];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierContactStaff,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierFacebook,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"FESTIVAL STAFF";
+                cell.title.text = @"SFF ON FACEBOOK";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                presentWebViewController(@"http://stanleyfilmfest.com/contact/festival-staff/", indexPath, NO);
+                presentWebViewController(@"https://www.facebook.com/StanleyFilmFest", indexPath, YES);
             }
         }];
         
         [rows addObject:@{
-            MSTableReuseIdentifer : SFAboutReuseIdentifierContactMonospace,
+            MSTableReuseIdentifer : SFAttendReuseIdentifierTwitter,
             MSTableClass : MSGroupedTableViewCell.class,
             MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                cell.title.text = @"MONOSPACE LTD.";
+                cell.title.text = @"SFF ON TWITTER";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                presentWebViewController(@"http://monospacecollective.com/inquire", indexPath, NO);
+                presentWebViewController(@"https://twitter.com/StanleyFilmFest", indexPath, YES);
             }
         }];
         
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionContact,
-            MSTableSectionRows : rows,
-            MSTableSectionHeader : header
+        [rows addObject:@{
+            MSTableReuseIdentifer : SFAttendReuseIdentifierTwitter,
+            MSTableClass : MSGroupedTableViewCell.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                cell.title.text = @"SFF ON INSTAGRAM";
+                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                presentWebViewController(@"http://instagram.com/stanleyfilmfest/", indexPath, YES);
+            }
         }];
+        
+        [rows addObject:@{
+            MSTableReuseIdentifer : SFAttendReuseIdentifierTwitter,
+            MSTableClass : MSGroupedTableViewCell.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                cell.title.text = @"TELL A FRIEND";
+                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+            // TODO: Logic
+            }
+        }];
+                
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFAttendTableSectionSocial,
+                MSTableSectionRows : rows,
+                MSTableSectionHeader : header
+             }];
+        }
     }
     
-    // Mission Section
+    // Support
     {
-        NSString *headerTitle = @"MISSION STATEMENT";
+        NSString *headerTitle = @"SUPPORT";
+        NSDictionary *header = @{
+            MSTableReuseIdentifer : SFAttendReuseIdentifierHeader,
+            MSTableClass : MSGroupedTableViewHeaderView.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
+                headerView.title.text = headerTitle;
+            },
+            MSTableSizeBlock : ^(CGFloat width) {
+                return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
+            }
+        };
         
-        NSString *cellTitle = @"The Stanley Film Festival showcases classic and contemporary independent horror cinema all set at the haunted and historic Stanley Hotel in beautiful Estes Park, Colorado. The Festival presents emerging and established filmmakers enabling the industry and general public to experience the power of storytelling through genre cinema. Founded in 2013 by The Stanley Hotel to celebrate the property’s iconic Hollywood heritage, the four-day event showcases filmmakers latest works, Q&A discussions, industry panels, the “Stanley Dean’s Cup” student film competition, and special events for cinema insiders, enthusiasts, and fellow artists.";
+        NSMutableArray *rows = [NSMutableArray new];
         
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionMission,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
-                MSTableClass : MSMultlineGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                    cell.title.text = cellTitle;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
-                }
-            }],
-            MSTableSectionHeader : @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
-                MSTableClass : MSGroupedTableViewHeaderView.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                    headerView.title.text = headerTitle;
-                },
-                MSTableSizeBlock : ^(CGFloat width) {
-                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
-                }
+        [rows addObject:@{
+            MSTableReuseIdentifer : SFAttendReuseIdentifierSponsor,
+            MSTableClass : MSGroupedTableViewCell.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                cell.title.text = @"SPONSOR";
+                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                presentWebViewController(@"http://www.stanleyfilmfest.com/sponsors/", indexPath, YES);
             }
         }];
-    }
-    
-    // Artistic Section
-    {
-        NSString *headerTitle = @"ARTISTIC STATEMENT";
         
-        NSString *cellTitle = @"The Stanley Film Festival is a unique opportunity to showcase exhilarating voices in classic and contemporary horror within a haunted space chosen to amplify the experience beyond the terrors shown on screen. Armed with the goal of procuring the most imaginative tales of fright from around the globe, we will proudly present short and feature films that offer a vast spectrum of tantalizing thrills and ghastly delights throughout the weekend. Like the best spooky stories told in the dark, each will be wildly distinct, inventive and unexpected. The Stanley Hotel’s ghostly history as one of our eeriest landmarks, and its inspiration for some of cinema’s most unnerving spectacles, make this the perfect place to tempt the spirits and bring out your deepest fears in a way no other venue can. Enter if you dare, and let these films stay with you forever. And ever. And ever.";
-        
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionArtistic,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
-                MSTableClass : MSMultlineGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                    cell.title.text = cellTitle;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
-                }
-            }],
-            MSTableSectionHeader : @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
-                MSTableClass : MSGroupedTableViewHeaderView.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                    headerView.title.text = headerTitle;
-                },
-                MSTableSizeBlock : ^(CGFloat width) {
-                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
-                }
+        [rows addObject:@{
+            MSTableReuseIdentifer : SFAttendReuseIdentifierVolunteer,
+            MSTableClass : MSGroupedTableViewCell.class,
+            MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
+                cell.title.text = @"VOLUNTEER";
+                cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
+            },
+            MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
+                presentWebViewController(@"http://www.stanleyfilmfest.com/volunteer/", indexPath, YES);
             }
         }];
-    }
-    
-    // Stanley Section
-    {
-        NSString *headerTitle = @"THE STANLEY HOTEL";
-        NSString *cellTitle = @"Famous for its old world charm, The Stanley Hotel boasts spectacular views in every direction and is less than six miles from Rocky Mountain National Park.  Multi-million dollar renovations have restored this 155-guestroom hotel to its original grandeur.  Listed on the National Register of Historic Places and member of Historic Hotels of America; only an hour away from Denver, it is ideal destination for a Colorado getaway.";
         
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionStanley,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierMission,
-                MSTableClass : MSMultlineGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                    cell.title.text = cellTitle;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
-                }
-            }, @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierContactStaff,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"WEBSITE";
-                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    presentWebViewController(@"http://www.stanleyhotel.com", indexPath, YES);
-                }
-            }],
-            MSTableSectionHeader : @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
-                MSTableClass : MSGroupedTableViewHeaderView.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                    headerView.title.text = headerTitle;
-                },
-                MSTableSizeBlock : ^(CGFloat width) {
-                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
-                }
-            }
-        }];
-    }
-    
-    // Monospace Section
-    {
-        NSString *headerTitle = @"MONOSPACE LTD.";
-        NSString *cellTitle = @"Monospace Ltd. is a creative technology firm that specializes in delivering intuitive, beautiful, and useful solutions for clients and their customers. Our interest and expertise lies in development for both mobile and web.";
-        
-        [sections addObject:@{
-            MSTableSectionIdentifier : SFAboutTableSectionMonospace,
-            MSTableSectionRows : @[@{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierMonospace,
-                MSTableClass : MSMultlineGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSMultlineGroupedTableViewCell *cell){
-                    cell.title.text = cellTitle;
-                    cell.selectionStyle = MSTableCellSelectionStyleNone;
-                },
-                MSTableSizeBlock : ^CGSize(CGFloat width){
-                    return CGSizeMake(width, [MSMultlineGroupedTableViewCell heightForText:cellTitle forWidth:width]);
-                }
-            }, @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierContactStaff,
-                MSTableClass : MSGroupedTableViewCell.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewCell *cell){
-                    cell.title.text = @"WEBSITE";
-                    cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
-                },
-                MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-                    presentWebViewController(@"http://monospacecollective.com", indexPath, NO);
-                }
-            }],
-            MSTableSectionHeader : @{
-                MSTableReuseIdentifer : SFAboutReuseIdentifierHeader,
-                MSTableClass : MSGroupedTableViewHeaderView.class,
-                MSTableConfigurationBlock : ^(MSGroupedTableViewHeaderView *headerView) {
-                    headerView.title.text = headerTitle;
-                },
-                MSTableSizeBlock : ^(CGFloat width) {
-                    return CGSizeMake(width, [MSGroupedTableViewHeaderView heightForText:headerTitle forWidth:width]);
-                }
-            }
-        }];
+        if (rows.count) {
+            [sections addObject:@{
+                MSTableSectionIdentifier : SFAttendTableSectionSupport,
+                MSTableSectionRows : rows,
+                MSTableSectionHeader : header
+             }];
+        }
     }
         
     self.collectionViewLayout.sections = sections;

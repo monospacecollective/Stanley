@@ -87,6 +87,7 @@
 		3A6CBAD916DAA6A000B4F041 /* SSStandard.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */; };
 		3A6CBADB16DAB29A00B4F041 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6CBADA16DAB29A00B4F041 /* MapKit.framework */; };
 		3A6CBADE16DAB34000B4F041 /* Stanley.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CBADC16DAB34000B4F041 /* Stanley.xcdatamodeld */; };
+		3A6EE9F51715184E00068836 /* SFAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6EE9F41715184E00068836 /* SFAboutViewController.m */; };
 		3A96824C16F19C7D00A4954C /* SFTweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A96824B16F19C7D00A4954C /* SFTweetCell.m */; };
 		3A96824F16F19D7300A4954C /* SFInstagramPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A96824E16F19D7300A4954C /* SFInstagramPhotoCell.m */; };
 		3AABDFBC16F164BC0037224F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AABDFBB16F164BC0037224F /* MediaPlayer.framework */; };
@@ -241,6 +242,8 @@
 		3A6CBAA016DAA6A000B4F041 /* SSStandard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SSStandard.ttf; sourceTree = "<group>"; };
 		3A6CBADA16DAB29A00B4F041 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3A6CBADD16DAB34000B4F041 /* Stanley.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stanley.xcdatamodel; sourceTree = "<group>"; };
+		3A6EE9F31715184E00068836 /* SFAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFAboutViewController.h; sourceTree = "<group>"; };
+		3A6EE9F41715184E00068836 /* SFAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFAboutViewController.m; sourceTree = "<group>"; };
 		3A96824A16F19C7D00A4954C /* SFTweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTweetCell.h; sourceTree = "<group>"; };
 		3A96824B16F19C7D00A4954C /* SFTweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTweetCell.m; sourceTree = "<group>"; };
 		3A96824D16F19D7300A4954C /* SFInstagramPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFInstagramPhotoCell.h; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 				3A6CBA9B16DAA6A000B4F041 /* SFSplashViewController.m */,
 				3AAF7AED16E94D4100081130 /* SFAttendViewController.h */,
 				3AAF7AEE16E94D4100081130 /* SFAttendViewController.m */,
+				3A6EE9F31715184E00068836 /* SFAboutViewController.h */,
+				3A6EE9F41715184E00068836 /* SFAboutViewController.m */,
 				3AAF7AF316EA943B00081130 /* SFWebViewController.h */,
 				3AAF7AF416EA943B00081130 /* SFWebViewController.m */,
 				3AAF7AFC16EAA7A500081130 /* SFLocationViewController.h */,
@@ -858,6 +863,7 @@
 				3A4DC7F616F29CB100669ED9 /* SFCollectionCellBackgroundView.m in Sources */,
 				3A4DC7FB16F3A20400669ED9 /* UINavigationController+Rotation.m in Sources */,
 				3ADD903C16F547F500F58A0A /* UIImageView+AFNetworkingCrossDisolve.m in Sources */,
+				3A6EE9F51715184E00068836 /* SFAboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

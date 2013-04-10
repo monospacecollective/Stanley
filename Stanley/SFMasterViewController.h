@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, SFPaneType) {
     SFPaneTypeSocial,
     SFPaneTypeMap,
     SFPaneTypeAttend,
+    SFPaneTypeAbout,
     SFPaneTypeCount
 };
 
