@@ -140,7 +140,7 @@
 - (void)playTrailer
 {
     __weak typeof (self) weakSelf = self;
-    [MSVimeoFetcher fetchStreamURLFromVideoURL:[NSURL URLWithString:@"http://vimeo.com/59665799"] quality:MSVimeoFetcherQualityHigh completion:^(NSURL *streamURL, NSError *error) {
+    [MSVimeoFetcher fetchStreamURLFromVideoURL:[NSURL URLWithString:@"http://vimeo.com/59665799"] quality:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? MSVimeoFetcherQualityHigh : MSVimeoFetcherQualityMedium) completion:^(NSURL *streamURL, NSError *error) {
         if (!error) {
             weakSelf.moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:streamURL];
             [weakSelf.moviePlayerViewController.moviePlayer prepareToPlay];
