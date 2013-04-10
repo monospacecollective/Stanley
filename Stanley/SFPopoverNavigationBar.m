@@ -24,7 +24,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-
         self.titleTextAttributes = @{
             UITextAttributeFont : self.class.titleTextFont,
             UITextAttributeTextColor : [UIColor whiteColor],
