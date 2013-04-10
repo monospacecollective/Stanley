@@ -132,7 +132,7 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         };
         
         if ([movieURL rangeOfString:@"vimeo"].length != 0) {
-            [MSVimeoFetcher fetchStreamURLFromVideoURL:movieURL quality:MSVimeoFetcherQualityMedium completion:^(NSURL *url, NSError *error) {
+            [MSVimeoFetcher fetchStreamURLFromVideoURL:[NSURL URLWithString:movieURL] quality:MSVimeoFetcherQualityMedium completion:^(NSURL *url, NSError *error) {
                 if (error) {
                     contentExtractionFailure(error);
                 } else {
