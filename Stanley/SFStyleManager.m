@@ -176,7 +176,7 @@ static SFStyleManager *singletonInstance = nil;
             UITextAttributeFont : groupedHeaderTitleFont,
             UITextAttributeTextColor : groupedHeaderTextColor,
             UITextAttributeTextShadowColor : [UIColor blackColor],
-            UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, -1.0)],
+            UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, 2.0)],
         };
         
         [MSGroupedTableViewHeaderView.appearance setPadding:UIEdgeInsetsMake(10.0, 20.0, 0.0, 20.0)];
