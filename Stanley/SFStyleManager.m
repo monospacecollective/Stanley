@@ -9,6 +9,7 @@
 #import "SFStyleManager.h"
 #import "SFMasterViewController.h"
 #import "SFCollectionCellBackgroundView.h"
+#import "SFMapCell.h"
 
 static SFStyleManager *singletonInstance = nil;
 
@@ -117,7 +118,11 @@ static SFStyleManager *singletonInstance = nil;
         [MSRightDetailGroupedTableViewCell class];
         [MSMultilineRightDetailGroupedTableViewCell class];
         
+        [MSPlainTableViewCell.appearance setPadding:UIEdgeInsetsMake(0.0, 16.0, 0.0, 16.0)];
+        [(MSTableCell *)MSPlainTableViewCell.appearance setContentMargin:10.0];
+        
         [MSGroupedTableViewCell.appearance setPadding:UIEdgeInsetsMake(13.0, 20.0, 7.0, 20.0)];
+        [MSGroupedTableViewCell.appearance setBackgroundViewPadding:UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0)];
         
         UIFont *groupedTitleFont = [self titleFontOfSize:17.0];
         UIFont *groupedDetailFont = [self detailFontOfSize:16.0];
