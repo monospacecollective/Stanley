@@ -98,12 +98,12 @@ static SFStyleManager *singletonInstance = nil;
         // Grouped Cells
         [MSGroupedCellBackgroundView.appearance setBorderColor:[UIColor colorWithHexString:@"535353"] forState:UIControlStateNormal];
         [MSGroupedCellBackgroundView.appearance setFillColor:[UIColor colorWithHexString:@"404040"] forState:UIControlStateNormal];
-        [MSGroupedCellBackgroundView.appearance setShadowColor:[UIColor colorWithHexString:@"000000"] forState:UIControlStateNormal];
+        [MSGroupedCellBackgroundView.appearance setShadowColor:[UIColor colorWithHexString:@"111111"] forState:UIControlStateNormal];
         [MSGroupedCellBackgroundView.appearance setShadowOffset:CGSizeMake(0.0, 2.0) forState:UIControlStateNormal];
         [MSGroupedCellBackgroundView.appearance setInnerShadowColor:[UIColor colorWithHexString:@"404040"] forState:UIControlStateNormal];
         [MSGroupedCellBackgroundView.appearance setInnerShadowOffset:CGSizeMake(0.0, -1.0) forState:UIControlStateNormal];
         
-        [MSGroupedCellBackgroundView.appearance setBorderColor:[UIColor colorWithHexString:@"000000"] forState:UIControlStateHighlighted];
+        [MSGroupedCellBackgroundView.appearance setBorderColor:[UIColor colorWithHexString:@"111111"] forState:UIControlStateHighlighted];
         [MSGroupedCellBackgroundView.appearance setFillColor:[UIColor colorWithHexString:@"363636"] forState:UIControlStateHighlighted];
         [MSGroupedCellBackgroundView.appearance setShadowColor:[UIColor colorWithHexString:@"393939"] forState:UIControlStateHighlighted];
         [MSGroupedCellBackgroundView.appearance setShadowOffset:CGSizeMake(0.0, 1.0) forState:UIControlStateHighlighted];
