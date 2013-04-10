@@ -19,24 +19,27 @@
 
 #pragma mark - UIView
 
+- (void)updateConstraints
+{
+    [super updateConstraints];
+    
+    [self.contentView removeConstraints:self.contentView.constraints];
+    [self.title pinToSuperviewEdges:JRTViewPinBottomEdge inset:0.0];
+    NSDictionary *views = @{ @"title" : self.title };
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[title]|" options:0 metrics:nil views:views]];
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    CGSize padding = self.class.padding;
-    CGSize maxContentSize = CGRectInset(self.contentView.frame, padding.width, padding.height).size;
+    CGFloat minTitleLocation = (CGRectGetMinY(self.title.frame) / CGRectGetHeight(self.contentView.frame));
     
-    CGSize titleSize = [self.title.text sizeWithFont:self.title.font constrainedToSize:maxContentSize lineBreakMode:self.title.lineBreakMode];
-    CGRect titleFrame = self.title.frame;
-    titleFrame.size = titleSize;
-    titleFrame.origin.x = padding.width;
-    // Add a third of the line height so that the baseline is the true bottom of the frame
-    titleFrame.origin.y = CGRectGetHeight(self.contentView.frame) - CGRectGetHeight(titleFrame) - padding.height + ceilf(self.title.font.lineHeight * 0.3);
-    self.title.frame = titleFrame;
-    
-    CGFloat minTitleLocation = (CGRectGetMinY(titleFrame) / CGRectGetHeight(self.contentView.frame));
+    // Changing the frame is animated by default, so we have to disable actions
+    [CATransaction setDisableActions:YES];
     self.backgroundGradient.locations = @[@(minTitleLocation - 0.2), @(minTitleLocation)];
     self.backgroundGradient.frame = (CGRect){CGPointZero, self.map.frame.size};
+    [CATransaction setDisableActions:NO];
 }
 
 #pragma mark - UITableCell
@@ -55,30 +58,19 @@
     self.title.layer.masksToBounds = NO;
     
     [self setTitleTextAttributes:@{
-        UITextAttributeFont : self.class.titleFont,
+        UITextAttributeFont : [[SFStyleManager sharedManager] titleFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 25.0 : 23.0)],
         UITextAttributeTextColor : [UIColor whiteColor],
         UITextAttributeTextShadowColor : [UIColor clearColor],
         UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeZero]
      } forState:UIControlStateNormal];
+    
+    self.padding = UIEdgeInsetsMake(12.0, 24.0, 4.0, 24.0);
     
     self.backgroundGradient = [CAGradientLayer layer];
     UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
     self.backgroundGradient.colors = @[(id)[[UIColor clearColor] CGColor], (id)[overlayColor CGColor]];
     self.backgroundGradient.locations = @[@(0.7), @(0.9)];
     [self.map.layer addSublayer:self.backgroundGradient];
-}
-
-#pragma mark - SFHeroMapCell
-
-+ (CGSize)padding
-{
-    return CGSizeMake(15.0, 15.0);
-}
-
-+ (UIFont *)titleFont
-{
-    CGFloat fontSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 25.0 : 23.0);
-    return [[SFStyleManager sharedManager] titleFontOfSize:fontSize];
 }
 
 @end

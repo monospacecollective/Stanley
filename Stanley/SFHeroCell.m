@@ -17,24 +17,24 @@
 
 @implementation SFHeroCell
 
+#pragma mark - UIView
+
+- (void)updateConstraints
+{
+    [super updateConstraints];
+    
+    [self.contentView removeConstraints:self.contentView.constraints];
+    
+    [self.title pinToSuperviewEdges:JRTViewPinBottomEdge inset:0.0];
+    NSDictionary *views = @{ @"title" : self.title };
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[title]|" options:0 metrics:nil views:views]];
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    CGSize padding = self.class.padding;
-    CGSize maxContentSize = CGRectInset(self.contentView.frame, padding.width, padding.height).size;
-    
-    CGSize titleSize = [self.title.text sizeWithFont:self.title.font constrainedToSize:maxContentSize lineBreakMode:self.title.lineBreakMode];
-    CGRect titleFrame = self.title.frame;
-    titleFrame.size = titleSize;
-    titleFrame.origin.x = padding.width;
-    // Add a third of the line height so that the baseline is the true bottom of the frame
-    titleFrame.origin.y = CGRectGetHeight(self.contentView.frame) - CGRectGetHeight(titleFrame) - padding.height + ceilf(self.title.font.lineHeight * 0.3);
-    self.title.frame = titleFrame;
-    
-    self.backgroundImage.frame = (CGRect){CGPointZero, self.groupedCellBackgroundView.frame.size};
-    
-    CGFloat minTitleLocation = (CGRectGetMinY(titleFrame) / CGRectGetHeight(self.contentView.frame));
+    CGFloat minTitleLocation = (CGRectGetMinY(self.title.frame) / CGRectGetHeight(self.contentView.frame));
     self.backgroundGradient.locations = @[@(minTitleLocation - 0.2), @(minTitleLocation)];
     self.backgroundGradient.frame = (CGRect){CGPointZero, self.groupedCellBackgroundView.frame.size};
 }
@@ -61,34 +61,28 @@
         UITextAttributeTextShadowOffset : [NSValue valueWithCGSize:CGSizeZero]
     } forState:UIControlStateNormal];
     
+    self.padding = UIEdgeInsetsMake(12.0, 24.0, 4.0, 24.0);
+    
     self.backgroundImage = [UIImageView new];
+    self.backgroundImage.translatesAutoresizingMaskIntoConstraints = NO;
     self.backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
     self.backgroundImage.backgroundColor = [[SFStyleManager sharedManager] secondaryViewBackgroundColor];
     self.backgroundImage.layer.cornerRadius = 2.0;
     self.backgroundImage.layer.masksToBounds = YES;
     self.backgroundImage.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.2] CGColor];
     self.backgroundImage.layer.borderWidth = 1.0;
-    [self.contentView insertSubview:self.backgroundImage belowSubview:self.title];
+    self.backgroundView = self.backgroundImage;
     
     self.backgroundGradient = [CAGradientLayer layer];
     UIColor *overlayColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
     self.backgroundGradient.colors = @[(id)[[UIColor clearColor] CGColor], (id)[overlayColor CGColor]];
     self.backgroundGradient.locations = @[@(0.7), @(0.9)];
     [self.backgroundImage.layer addSublayer:self.backgroundGradient];
-    
-    self.padding = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
 }
 
 + (CGFloat)height
 {
     return 200.0;
-}
-
-#pragma mark - SFHeroCell
-
-+ (CGSize)padding
-{
-    return CGSizeMake(15.0, 15.0);
 }
 
 @end

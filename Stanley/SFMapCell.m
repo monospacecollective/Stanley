@@ -20,8 +20,6 @@ NSString* const SFMapCellCurrentLocationIdentifier = @"SFMapCellCurrentLocationI
 
 @implementation SFMapCell
 
-#pragma mark - UIView
-
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -51,19 +49,15 @@ NSString* const SFMapCellCurrentLocationIdentifier = @"SFMapCellCurrentLocationI
     self.annotation = [[MKPointAnnotation alloc] init];
     
     self.map = [MKMapView new];
+    self.map.translatesAutoresizingMaskIntoConstraints = NO;
     self.map.userInteractionEnabled = NO;
     self.map.delegate = self;
     self.map.showsUserLocation = YES;
-    [self.contentView insertSubview:self.map atIndex:0];
-    
     self.map.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.25] CGColor];
     self.map.layer.borderWidth = 1.0;
-    
     self.backgroundView = self.map;
     
     self.selectionStyle = MSTableCellSelectionStyleNone;
-    
-    self.padding = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
 }
 
 + (CGFloat)height
