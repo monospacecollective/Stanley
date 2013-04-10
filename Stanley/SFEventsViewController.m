@@ -21,6 +21,7 @@
 #import "SFNavigationBar.h"
 #import "SFToolbar.h"
 #import "SFNoContentBackgroundView.h"
+#import "SFPopoverBackgroundView.h"
 
 typedef NS_ENUM(NSUInteger, SFEventSegmentType) {
     SFEventSegmentTypeAll,
@@ -131,11 +132,6 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionViewLayout scrollCollectionViewToClosetSectionToCurrentTimeAnimated:NO];
     });
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self.eventPopoverController dismissPopoverAnimated:NO];
 }
 
 #pragma mark - SFEventsViewController
@@ -260,7 +256,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
         }];
         
         self.eventPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-        self.eventPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
+        self.eventPopoverController.popoverBackgroundViewClass = SFPopoverBackgroundView.class;
         self.eventPopoverController.delegate = self;
         [self.eventPopoverController presentPopoverFromRect:[self.collectionView layoutAttributesForItemAtIndexPath:indexPath].frame inView:self.collectionView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         

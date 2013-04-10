@@ -15,6 +15,7 @@
 #import "SFToolbar.h"
 #import "SFPopoverToolbar.h"
 #import "SFPopoverNavigationBar.h"
+#import "SFPopoverBackgroundView.h"
 
 NSString* const SFMapViewPinIdentifier = @"SFMapViewPinIdentifier";
 NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationIdentifier";
@@ -77,15 +78,6 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     [self zoomToAnnotationsAnimated:YES];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self.locationPopoverController dismissPopoverAnimated:NO];
-    
-    for (id <MKAnnotation> annotation in self.mapView.selectedAnnotations) {
-        [self.mapView deselectAnnotation:annotation animated:YES];
-    }
-}
-
 #pragma mark - SFMapViewController
 
 - (void)reloadData
@@ -107,13 +99,16 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
 
 - (void)zoomToAnnotationsAnimated:(BOOL)animated;
 {
+    NSArray *locationAnnotations = [self.mapView.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id <MKAnnotation> annotation, NSDictionary *bindings) {
+        return [annotation isKindOfClass:SFLocationAnnotation.class];
+    }]];
     // Zoom in on an enclosing rect of the user's locations
-    if (self.mapView.annotations.count > 1) {
+    if (locationAnnotations.count > 1) {
         // Calculate enclosing rect
-        MKMapPoint northEastPoint = MKMapPointForCoordinate([self.mapView.annotations[0] coordinate]);
-        MKMapPoint southWestPoint = MKMapPointForCoordinate([self.mapView.annotations[0] coordinate]);
+        MKMapPoint northEastPoint = MKMapPointForCoordinate([locationAnnotations[0] coordinate]);
+        MKMapPoint southWestPoint = MKMapPointForCoordinate([locationAnnotations[0] coordinate]);
         // Iterate through the annotations, building an enclosing rect for all of them (with north east corner and south west corner)
-        for (MKPointAnnotation *annotation in self.mapView.annotations) {
+        for (MKPointAnnotation *annotation in locationAnnotations) {
             MKMapPoint point = MKMapPointForCoordinate(annotation.coordinate);
             if (point.x > northEastPoint.x)
                 northEastPoint.x = point.x;
@@ -142,8 +137,8 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
         }
     }
     // If there's just one annotation, zoom on it
-    else if (self.mapView.annotations.count == 1) {
-        CLLocationCoordinate2D coordinate = [self.mapView.annotations[0] coordinate];
+    else if (locationAnnotations.count == 1) {
+        CLLocationCoordinate2D coordinate = [locationAnnotations[0] coordinate];
         // Check the validity of the coordinate
         if (CLLocationCoordinate2DIsValid(coordinate)) {
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 500.0, 500.0);
@@ -238,7 +233,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
             [navigationController addChildViewController:locationController];
             
             self.locationPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-            self.locationPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
+            self.locationPopoverController.popoverBackgroundViewClass = SFPopoverBackgroundView.class;
             self.locationPopoverController.delegate = self;
             
             CGPoint origin = [self.mapView convertCoordinate:view.annotation.coordinate toPointToView:self.mapView];

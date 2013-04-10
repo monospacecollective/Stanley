@@ -16,6 +16,7 @@
 #import "SFPopoverNavigationBar.h"
 #import "SFPopoverToolbar.h"
 #import "SFNoContentBackgroundView.h"
+#import "SFPopoverBackgroundView.h"
 
 typedef NS_ENUM(NSUInteger, SFFilmSegmentType) {
     SFFilmSegmentTypeAll,
@@ -130,11 +131,6 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
     flowLayout.minimumLineSpacing = [SFFilmCell cellSpacingForInterfaceOrientation:self.interfaceOrientation];;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self.filmPopoverController dismissPopoverAnimated:NO];
-}
-
 #pragma mark - SFFilmsViewController
 
 - (void)reloadData
@@ -222,7 +218,7 @@ NSString * const SFFilmCellReuseIdentifier = @"SFFilmCellReuseIdentifier";
         }];
         
         self.filmPopoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-        self.filmPopoverController.popoverBackgroundViewClass = GIKPopoverBackgroundView.class;
+        self.filmPopoverController.popoverBackgroundViewClass = SFPopoverBackgroundView.class;
         self.filmPopoverController.delegate = self;
         [self.filmPopoverController presentPopoverFromRect:[self.collectionView layoutAttributesForItemAtIndexPath:indexPath].frame inView:self.collectionView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         
