@@ -311,7 +311,12 @@ NSString *const SFAttendReuseIdentifierVolunteer = @"Volunteer";
                 cell.accessoryType = MSTableCellAccessoryDisclosureIndicator;
             },
             MSTableItemSelectionBlock : ^(NSIndexPath *indexPath){
-            // TODO: Logic
+                NSArray *activityItems = @[ [NSString stringWithFormat:@"Check out the Stanley Film Fest!"], [NSURL URLWithString:@"http://www.stanleyfilmfest.com"] ];
+                UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                activityController.excludedActivityTypes = @[ UIActivityTypeAssignToContact, UIActivityTypePrint ];
+                [weakSelf presentViewController:activityController animated:YES completion:^{
+                    [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+                }];
             }
         }];
                 
