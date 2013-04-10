@@ -132,10 +132,12 @@ NSString *const SFFilmReuseIdentifierShowing = @"Showing";
         };
         
         if ([movieURL rangeOfString:@"vimeo"].length != 0) {
-            [YTVimeoExtractor fetchVideoURLFromURL:movieURL quality:YTVimeoVideoQualityMedium success:^(NSURL *contentURL) {
-                presentMoviePlayerViewController(contentURL);
-            } failure:^(NSError *error) {
-                contentExtractionFailure(error);
+            [MSVimeoFetcher fetchStreamURLFromVideoURL:movieURL quality:MSVimeoFetcherQualityMedium completion:^(NSURL *url, NSError *error) {
+                if (error) {
+                    contentExtractionFailure(error);
+                } else {
+                    presentMoviePlayerViewController(url);
+                }
             }];
         }
         else if ([movieURL rangeOfString:@"youtube"].length != 0) {
