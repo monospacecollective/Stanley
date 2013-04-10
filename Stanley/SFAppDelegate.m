@@ -207,6 +207,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SFUserDefaultsFirstLaunch];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
+        // Fetch all objects at first launch
         [[RKObjectManager sharedManager] getObjectsAtPath:@"/films.json" parameters:nil success:nil failure:nil];
         [[RKObjectManager sharedManager] getObjectsAtPath:@"/events.json" parameters:nil success:nil failure:nil];
         [[RKObjectManager sharedManager] getObjectsAtPath:@"/locations.json" parameters:nil success:nil failure:nil];
