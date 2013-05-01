@@ -38,10 +38,6 @@
 		3A6CBAA416DAA6A000B4F041 /* FuturaCom-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5116DAA69E00B4F041 /* FuturaCom-Bold.ttf */; };
 		3A6CBAA516DAA6A000B4F041 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5216DAA69E00B4F041 /* Icon-72.png */; };
 		3A6CBAA616DAA6A000B4F041 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5316DAA69E00B4F041 /* Icon-72@2x.png */; };
-		3A6CBAA716DAA6A000B4F041 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5416DAA69E00B4F041 /* Icon-Small-50.png */; };
-		3A6CBAA816DAA6A000B4F041 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5516DAA69F00B4F041 /* Icon-Small-50@2x.png */; };
-		3A6CBAA916DAA6A000B4F041 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5616DAA69F00B4F041 /* Icon-Small.png */; };
-		3A6CBAAA16DAA6A000B4F041 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5716DAA69F00B4F041 /* Icon-Small@2x.png */; };
 		3A6CBAAB16DAA6A000B4F041 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5816DAA69F00B4F041 /* Icon.png */; };
 		3A6CBAAC16DAA6A000B4F041 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5916DAA69F00B4F041 /* Icon@2x.png */; };
 		3A6CBAAD16DAA6A000B4F041 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A6CBA5A16DAA69F00B4F041 /* iTunesArtwork.png */; };
@@ -110,6 +106,12 @@
 		3AAF7AF816EA947500081130 /* SFTryAgainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AF716EA947500081130 /* SFTryAgainView.m */; };
 		3AAF7AFE16EAA7A500081130 /* SFLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7AFD16EAA7A500081130 /* SFLocationViewController.m */; };
 		3AAF7B0116EAB45400081130 /* SFMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AAF7B0016EAB45300081130 /* SFMapCell.m */; };
+		3AB16071173174AA000B9A13 /* FuturaCom-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB16070173174AA000B9A13 /* FuturaCom-BoldCondensed.ttf */; };
+		3AB160731731755A000B9A13 /* FuturaCom-BoldCondensedObl.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB160721731755A000B9A13 /* FuturaCom-BoldCondensedObl.ttf */; };
+		3AB16077173176AE000B9A13 /* FuturaCom-MediumCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB16074173176AE000B9A13 /* FuturaCom-MediumCondensed.ttf */; };
+		3AB16078173176AE000B9A13 /* FuturaCom-MediumCondObl.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB16075173176AE000B9A13 /* FuturaCom-MediumCondObl.ttf */; };
+		3AB16079173176AE000B9A13 /* FuturaCom-MediumOblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB16076173176AE000B9A13 /* FuturaCom-MediumOblique.ttf */; };
+		3AB1607B173176E0000B9A13 /* FuturaCom-BoldOblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AB1607A173176E0000B9A13 /* FuturaCom-BoldOblique.ttf */; };
 		3AB2E43716E78FC500A93A7E /* SFFilmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB2E43616E78FC500A93A7E /* SFFilmViewController.m */; };
 		3AC0C0E116DB3E5600EBF550 /* SFDisclosureButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */; };
 		3AC0C0E216DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC0C0E016DB3E5600EBF550 /* SFDisclosureButtonBackground@2x.png */; };
@@ -168,10 +170,6 @@
 		3A6CBA5116DAA69E00B4F041 /* FuturaCom-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-Bold.ttf"; sourceTree = "<group>"; };
 		3A6CBA5216DAA69E00B4F041 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		3A6CBA5316DAA69E00B4F041 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
-		3A6CBA5416DAA69E00B4F041 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		3A6CBA5516DAA69F00B4F041 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
-		3A6CBA5616DAA69F00B4F041 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		3A6CBA5716DAA69F00B4F041 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		3A6CBA5816DAA69F00B4F041 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		3A6CBA5916DAA69F00B4F041 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		3A6CBA5A16DAA69F00B4F041 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
@@ -272,6 +270,12 @@
 		3AAF7AFD16EAA7A500081130 /* SFLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFLocationViewController.m; sourceTree = "<group>"; };
 		3AAF7AFF16EAB45300081130 /* SFMapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFMapCell.h; sourceTree = "<group>"; };
 		3AAF7B0016EAB45300081130 /* SFMapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFMapCell.m; sourceTree = "<group>"; };
+		3AB16070173174AA000B9A13 /* FuturaCom-BoldCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-BoldCondensed.ttf"; sourceTree = "<group>"; };
+		3AB160721731755A000B9A13 /* FuturaCom-BoldCondensedObl.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-BoldCondensedObl.ttf"; sourceTree = "<group>"; };
+		3AB16074173176AE000B9A13 /* FuturaCom-MediumCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-MediumCondensed.ttf"; sourceTree = "<group>"; };
+		3AB16075173176AE000B9A13 /* FuturaCom-MediumCondObl.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-MediumCondObl.ttf"; sourceTree = "<group>"; };
+		3AB16076173176AE000B9A13 /* FuturaCom-MediumOblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-MediumOblique.ttf"; sourceTree = "<group>"; };
+		3AB1607A173176E0000B9A13 /* FuturaCom-BoldOblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FuturaCom-BoldOblique.ttf"; sourceTree = "<group>"; };
 		3AB2E43516E78FC500A93A7E /* SFFilmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFFilmViewController.h; sourceTree = "<group>"; };
 		3AB2E43616E78FC500A93A7E /* SFFilmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFFilmViewController.m; sourceTree = "<group>"; };
 		3AC0C0DF16DB3E5600EBF550 /* SFDisclosureButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SFDisclosureButtonBackground.png; sourceTree = "<group>"; };
@@ -527,10 +531,6 @@
 			children = (
 				3A6CBA5216DAA69E00B4F041 /* Icon-72.png */,
 				3A6CBA5316DAA69E00B4F041 /* Icon-72@2x.png */,
-				3A6CBA5416DAA69E00B4F041 /* Icon-Small-50.png */,
-				3A6CBA5516DAA69F00B4F041 /* Icon-Small-50@2x.png */,
-				3A6CBA5616DAA69F00B4F041 /* Icon-Small.png */,
-				3A6CBA5716DAA69F00B4F041 /* Icon-Small@2x.png */,
 				3A6CBA5816DAA69F00B4F041 /* Icon.png */,
 				3A6CBA5916DAA69F00B4F041 /* Icon@2x.png */,
 				3A6CBA5A16DAA69F00B4F041 /* iTunesArtwork.png */,
@@ -582,7 +582,13 @@
 			isa = PBXGroup;
 			children = (
 				3A6CBA5116DAA69E00B4F041 /* FuturaCom-Bold.ttf */,
+				3AB16070173174AA000B9A13 /* FuturaCom-BoldCondensed.ttf */,
+				3AB1607A173176E0000B9A13 /* FuturaCom-BoldOblique.ttf */,
+				3AB160721731755A000B9A13 /* FuturaCom-BoldCondensedObl.ttf */,
 				3ADFD8EB16E7FD07003B1D22 /* FuturaCom-Medium.ttf */,
+				3AB16074173176AE000B9A13 /* FuturaCom-MediumCondensed.ttf */,
+				3AB16076173176AE000B9A13 /* FuturaCom-MediumOblique.ttf */,
+				3AB16075173176AE000B9A13 /* FuturaCom-MediumCondObl.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -697,10 +703,6 @@
 				3A6CBAA416DAA6A000B4F041 /* FuturaCom-Bold.ttf in Resources */,
 				3A6CBAA516DAA6A000B4F041 /* Icon-72.png in Resources */,
 				3A6CBAA616DAA6A000B4F041 /* Icon-72@2x.png in Resources */,
-				3A6CBAA716DAA6A000B4F041 /* Icon-Small-50.png in Resources */,
-				3A6CBAA816DAA6A000B4F041 /* Icon-Small-50@2x.png in Resources */,
-				3A6CBAA916DAA6A000B4F041 /* Icon-Small.png in Resources */,
-				3A6CBAAA16DAA6A000B4F041 /* Icon-Small@2x.png in Resources */,
 				3A6CBAAB16DAA6A000B4F041 /* Icon.png in Resources */,
 				3A6CBAAC16DAA6A000B4F041 /* Icon@2x.png in Resources */,
 				3A6CBAAD16DAA6A000B4F041 /* iTunesArtwork.png in Resources */,
@@ -752,6 +754,12 @@
 				3A6EEA1D1715DCCE00068836 /* SFPopoverBackgroundViewCenter.png in Resources */,
 				3A6EEA1E1715DCCE00068836 /* SFPopoverBackgroundViewCenter@2x.png in Resources */,
 				3A6EEA201715DCD100068836 /* SFPopoverBackgroundViewArrowBottom.png in Resources */,
+				3AB16071173174AA000B9A13 /* FuturaCom-BoldCondensed.ttf in Resources */,
+				3AB160731731755A000B9A13 /* FuturaCom-BoldCondensedObl.ttf in Resources */,
+				3AB16077173176AE000B9A13 /* FuturaCom-MediumCondensed.ttf in Resources */,
+				3AB16078173176AE000B9A13 /* FuturaCom-MediumCondObl.ttf in Resources */,
+				3AB16079173176AE000B9A13 /* FuturaCom-MediumOblique.ttf in Resources */,
+				3AB1607B173176E0000B9A13 /* FuturaCom-BoldOblique.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@ pod 'KGNoise',                          '~> 1.1.0'
 pod 'PonyDebugger',                     '0.2.1beta1'
 pod 'FormatterKit',                     '~> 1.1.1'
 pod 'CupertinoYankee',                  '~> 0.1.1'
-pod 'MSCollectionViewCalendarLayout',   '~> 0.0.1'
+# pod 'MSCollectionViewCalendarLayout',   '~> 0.0.1'
 pod 'SVPulsingAnnotationView',          '~> 0.1'
 pod 'SVSegmentedControl',               '~> 0.1'
 pod 'HCYoutubeParser',                  '~> 0.0.1'
@@ -25,6 +25,7 @@ pod 'MSSocialKit',                      :git => 'https://github.com/monospacecol
 pod 'MSVimeoFetcher',                   :git => 'https://github.com/eric-horacek/MSVimeoFetcher'
 # pod 'UIColor-Utilities',                :git => 'https://github.com/eric-horacek/uicolor-utilities.git'
 pod 'HCYoutubeParser',                  :git => 'https://github.com/eric-horacek/HCYoutubeParser'
+pod 'MSCollectionViewCalendarLayout',   :git => 'https://github.com/monospacecollective/MSCollectionViewCalendarLayout.git'
 
 # Local Development Pods
 # pod 'MSSocialKit',                      :local => '~/Development/MSSocialKit'
@@ -35,3 +36,4 @@ pod 'HCYoutubeParser',                  :git => 'https://github.com/eric-horacek
 # pod 'MSNavigationPaneViewController',   :local => '~/Development/MSNavigationPaneViewController'
 # pod 'MSVimeoFetcher',                   :local => '~/Development/MSVimeoFetcher'
 # pod 'HCYoutubeParser',                  :local => '~/Development/HCYoutubeParser'
+# pod 'MSCollectionViewCalendarLayout',    :local => '~/Development/MSCollectionViewCalendarLayout'
