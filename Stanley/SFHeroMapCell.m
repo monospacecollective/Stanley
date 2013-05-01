@@ -33,6 +33,8 @@
 {
     [super layoutSubviews];
     
+    self.title.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame);
+    
     CGFloat minTitleLocation = (CGRectGetMinY(self.title.frame) / CGRectGetHeight(self.contentView.frame));
     
     // Changing the frame is animated by default, so we have to disable actions

@@ -34,6 +34,8 @@
 {
     [super layoutSubviews];
     
+    self.title.preferredMaxLayoutWidth = CGRectGetWidth(self.contentView.frame);
+    
     CGFloat minTitleLocation = (CGRectGetMinY(self.title.frame) / CGRectGetHeight(self.contentView.frame));
     self.backgroundGradient.locations = @[@(minTitleLocation - 0.2), @(minTitleLocation)];
     self.backgroundGradient.frame = (CGRect){CGPointZero, self.groupedCellBackgroundView.frame.size};
