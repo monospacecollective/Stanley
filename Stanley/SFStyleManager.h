@@ -20,7 +20,9 @@
 - (UIFont *)symbolSetFontOfSize:(CGFloat)size;
 - (UIFont *)navigationFontOfSize:(CGFloat)size;
 - (UIFont *)titleFontOfSize:(CGFloat)size;
+- (UIFont *)titleFontOfSize:(CGFloat)size condensed:(BOOL)condensed oblique:(BOOL)oblique;
 - (UIFont *)detailFontOfSize:(CGFloat)size;
+- (UIFont *)detailFontOfSize:(CGFloat)size condensed:(BOOL)condensed oblique:(BOOL)oblique;
 
 // Images
 - (UIImage *)heroPlaceholderImage;

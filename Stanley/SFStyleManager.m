@@ -256,12 +256,46 @@ static SFStyleManager *singletonInstance = nil;
 
 - (UIFont *)titleFontOfSize:(CGFloat)size
 {
-    return [UIFont fontWithName:@"FuturaCom-Bold" size:size];
+    return [self titleFontOfSize:size condensed:NO oblique:NO];
+}
+
+- (UIFont *)titleFontOfSize:(CGFloat)size condensed:(BOOL)condensed oblique:(BOOL)oblique
+{
+    if (!condensed && !oblique) {
+        return [UIFont fontWithName:@"FuturaCom-Bold" size:size];
+    }
+    else if (condensed && !oblique) {
+        return [UIFont fontWithName:@"FuturaCom-BoldCondensed" size:size];
+    }
+    else if (!condensed && oblique) {
+        return [UIFont fontWithName:@"FuturaCom-BoldOblique" size:size];
+    }
+    else if (condensed && oblique) {
+        return [UIFont fontWithName:@"FuturaCom-BoldCondensedObl" size:size];
+    }
+    return nil;
 }
 
 - (UIFont *)detailFontOfSize:(CGFloat)size
 {
-    return [UIFont fontWithName:@"FuturaCom-Medium" size:size];
+    return [self detailFontOfSize:size condensed:NO oblique:NO];
+}
+
+- (UIFont *)detailFontOfSize:(CGFloat)size condensed:(BOOL)condensed oblique:(BOOL)oblique
+{
+    if (!condensed && !oblique) {
+        return [UIFont fontWithName:@"FuturaCom-Medium" size:size];
+    }
+    else if (condensed && !oblique) {
+        return [UIFont fontWithName:@"FuturaCom-MediumCondensed" size:size];
+    }
+    else if (!condensed && oblique) {
+        return [UIFont fontWithName:@"FuturaCom-MediumOblique" size:size];
+    }
+    else if (condensed && oblique) {
+        return [UIFont fontWithName:@"FuturaCom-MediumCondensedObl" size:size];
+    }
+    return nil;
 }
 
 #pragma mark - Images

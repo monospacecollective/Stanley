@@ -27,7 +27,13 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>FuturaCom-Bold.ttf</string>
+		<string>FuturaCom-BoldOblique.ttf</string>
+		<string>FuturaCom-BoldCondensed.ttf</string>
+		<string>FuturaCom-BoldCondensedObl.ttf</string>
 		<string>FuturaCom-Medium.ttf</string>
+		<string>FuturaCom-MediumCondensed.ttf</string>
+		<string>FuturaCom-MediumOblique.ttf</string>
+		<string>FuturaCom-MediumcondObl.ttf</string>
 		<string>SSStandard.ttf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
