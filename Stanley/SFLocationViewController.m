@@ -100,7 +100,7 @@ NSString *const SFLocationReuseIdentifierDirections = @"Directions";
                     MSTableClass : SFHeroMapCell.class,
                     MSTableConfigurationBlock : ^(SFHeroMapCell *cell){
                         cell.title.text = [weakSelf.location.name uppercaseString];
-                        cell.region = MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 500.0, 500.0);
+                        cell.region = MKCoordinateRegionMakeWithDistance(weakSelf.location.coordinate, 100.0, 100.0);
                     }
                  }]
              }];
