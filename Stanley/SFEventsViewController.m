@@ -50,14 +50,15 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 {
     self.collectionViewLayout = [[MSCollectionViewCalendarLayout alloc] init];
     self.collectionViewLayout.delegate = self;
-    self.collectionViewLayout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 100.0 : 80.0);
-    self.collectionViewLayout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 236.0 : 240.0);
-    self.collectionViewLayout.timeRowHeaderWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 54.0);
-    self.collectionViewLayout.dayColumnHeaderHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
-    self.collectionViewLayout.currentTimeIndicatorSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(54.0, 40.0));
+    self.collectionViewLayout.hourHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 120.0 : 120.0);
+    self.collectionViewLayout.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 300.0 : 250.0);
+    self.collectionViewLayout.timeRowHeaderWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 80.0 : 44.0);
+    self.collectionViewLayout.dayColumnHeaderHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 40.0);
+    self.collectionViewLayout.currentTimeIndicatorSize = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CGSizeMake(78.0, 40.0) : CGSizeMake(44.0, 35.0));
     self.collectionViewLayout.currentTimeHorizontalGridlineHeight = 8.0;
     self.collectionViewLayout.cellMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(1.0, 3.0, 1.0, 3.0) : UIEdgeInsetsMake(1.0, 3.0, 1.0, 3.0));
     self.collectionViewLayout.contentMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(30.0, 0.0, 30.0, 30.0) : UIEdgeInsetsMake(20.0, 0.0, 20.0, 10.0));
+    self.collectionViewLayout.sectionMargin = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(0.0, 20.0, 0.0, 20.0) : UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0));
     self.collectionViewLayout.horizontalGridlineHeight = 2.0;
     self.collectionViewLayout.displayHeaderBackgroundAtOrigin = NO;
     
@@ -76,7 +77,8 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
     
     self.collectionView.alwaysBounceHorizontal = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
     self.collectionView.alwaysBounceVertical = YES;
-    
+
+    [self.collectionView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
     [self.collectionView registerClass:SFEventCell.class forCellWithReuseIdentifier:SFEventCellReuseIdentifier];
     [self.collectionView registerClass:SFTimeRowHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindTimeRowHeader withReuseIdentifier:SFEventTimeRowHeaderReuseIdentifier];
     [self.collectionView registerClass:SFDayColumnHeaderCollectionReusableView.class forSupplementaryViewOfKind:MSCollectionElementKindDayColumnHeader withReuseIdentifier:SFEventDayColumnHeaderReuseIdentifier];
@@ -207,6 +209,7 @@ NSString * const SFEventTimeRowHeaderReuseIdentifier = @"SFEventTimeRowHeaderReu
 {
     SFEventCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SFEventCellReuseIdentifier forIndexPath:indexPath];
     cell.event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    cell.backgroundColor = [UIColor redColor];
     return (UICollectionViewCell *)cell;
 }
 

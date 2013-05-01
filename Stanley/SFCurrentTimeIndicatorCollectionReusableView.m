@@ -28,14 +28,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        UIImage *backgroundImage = [[UIImage imageNamed:@"SFCurrentTimeIndicatorBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 5.0, 0.0, 5.0)];
+        UIImage *backgroundImage = [[UIImage imageNamed:@"SFCurrentTimeIndicatorBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0)];
         self.backgroundImage = [[UIImageView alloc] initWithImage:backgroundImage];
         [self addSubview:self.backgroundImage];
         
         self.time = [UILabel new];
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [UIColor whiteColor];
-        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 17.0 : 15.0)];
+        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 17.0 : 15.0) condensed:(UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) oblique:NO];
         self.time.textAlignment = NSTextAlignmentCenter;
         self.time.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.time.layer.shadowRadius = 0.0;
@@ -93,7 +93,7 @@
     [self.time sizeToFit];
     CGRect timeFrame = self.time.frame;
     timeFrame.origin.x = nearbyintf((CGRectGetWidth(self.frame) / 2.0) - (CGRectGetWidth(timeFrame) / 2.0));
-    timeFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0)) + 1.0);
+    timeFrame.origin.y = (nearbyintf((CGRectGetHeight(self.frame) / 2.0) - (CGRectGetHeight(timeFrame) / 2.0)) + ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 1.0 : 0.0));
     self.time.frame = timeFrame;
 }
 

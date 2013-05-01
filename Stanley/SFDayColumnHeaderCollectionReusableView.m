@@ -31,17 +31,17 @@
         self.day = [UILabel new];
         self.day.backgroundColor = [UIColor clearColor];
         self.day.textColor = [UIColor colorWithHexString:@"aaaaaa"];
-        self.day.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 18.0)];
+        self.day.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 17.0) condensed:(UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) oblique:NO];
         self.day.textAlignment = NSTextAlignmentCenter;
         self.day.shadowColor = [UIColor blackColor];
         self.day.shadowOffset = CGSizeMake(0.0, -1.0);
         [self addSubview:self.day];
         
         self.day.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.day pinToSuperviewEdgesWithInsets:UIEdgeInsetsMake(15.0, 6.0, 10.0, 6.0)];
+        [self.day pinToSuperviewEdgesWithInsets:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(15.0, 6.0, 10.0, 6.0) : UIEdgeInsetsMake(11.0, 6.0, 7.0, 6.0))];
         
         self.todayBackground.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.todayBackground pinToSuperviewEdgesWithInsets:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 0.0, 8.0, 0.0) : UIEdgeInsetsMake(6.0, 6.0, 6.0, 6.0))];
+        [self.todayBackground pinToSuperviewEdgesWithInsets:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 0.0, 8.0, 0.0) : UIEdgeInsetsMake(4.0, 6.0, 4.0, 6.0))];
         
 #if defined(LAYOUT_DEBUG)
         self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.5];

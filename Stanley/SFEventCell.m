@@ -17,7 +17,6 @@
 @interface SFEventCell ()
 
 @property (nonatomic, strong) UIView *shadowView;
-@property (nonatomic, strong) CAGradientLayer *contentMaskGradient;
 
 @end
 
@@ -29,112 +28,145 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-
+        
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
         
-        self.contentView.layer.masksToBounds = YES;
+        self.contentView.backgroundColor = [[SFStyleManager sharedManager] secondaryViewBackgroundColor];
         
-        self.backgroundView = [[SFCollectionCellBackgroundView alloc] init];
+        self.layer.borderColor = [[UIColor colorWithWhite:1.0 alpha:0.1] CGColor];
+        self.layer.borderWidth = 1.0;
+        
+        self.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.layer.shadowRadius = 0.0;
+        self.layer.shadowOpacity = 1.0;
+        self.layer.shadowOffset = CGSizeZero;
         
         self.shadowView = [UIView new];
-        self.shadowView.backgroundColor = [[SFStyleManager sharedManager] secondaryViewBackgroundColor];
         self.shadowView.layer.masksToBounds = NO;
         self.shadowView.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.shadowView.layer.shadowRadius = 3.0;
         self.shadowView.layer.shadowOpacity = 0.5;
         self.shadowView.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-        self.shadowView.layer.borderColor = [[UIColor colorWithWhite:1.0 alpha:0.1] CGColor];
-        self.shadowView.layer.borderWidth = 1.0;
         [self insertSubview:self.shadowView belowSubview:self.contentView];
         
         self.title = [UILabel new];
         self.title.backgroundColor = [UIColor clearColor];
         self.title.textColor = [[SFStyleManager sharedManager] primaryTextColor];
-        self.title.font = [[SFStyleManager sharedManager] titleFontOfSize:17.0];
         self.title.numberOfLines = 0;
         self.title.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.title.layer.shadowRadius = 2.0;
+        self.title.layer.shadowRadius = 1.0;
         self.title.layer.shadowOpacity = 1.0;
         self.title.layer.shadowOffset = CGSizeZero;
         self.title.layer.masksToBounds = NO;
-        self.title.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:self.title];
         
         self.time = [UILabel new];
-        [[SFStyleManager sharedManager] styleDetailLabel:self.time autolayout:YES];
+        self.time.backgroundColor = [UIColor clearColor];
+        self.time.textColor = [[SFStyleManager sharedManager] primaryTextColor];
+        self.time.numberOfLines = 0;
+        self.time.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.time.layer.shadowRadius = 1.0;
+        self.time.layer.shadowOpacity = 1.0;
+        self.time.layer.shadowOffset = CGSizeZero;
+        self.time.layer.masksToBounds = NO;
         [self.contentView addSubview:self.time];
         
         self.location = [UILabel new];
-        [[SFStyleManager sharedManager] styleDetailLabel:self.location autolayout:YES];
+        self.location.backgroundColor = [UIColor clearColor];
+        self.location.textColor = [[SFStyleManager sharedManager] primaryTextColor];
+        self.location.numberOfLines = 0;
+        self.location.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.location.layer.shadowRadius = 1.0;
+        self.location.layer.shadowOpacity = 1.0;
+        self.location.layer.shadowOffset = CGSizeZero;
+        self.location.layer.masksToBounds = NO;
         [self.contentView addSubview:self.location];
         
         self.detail = [UILabel new];
-        [[SFStyleManager sharedManager] styleDetailLabel:self.detail autolayout:YES];
+        self.detail.backgroundColor = [UIColor clearColor];
+        self.detail.textColor = [[SFStyleManager sharedManager] secondaryTextColor];
+        self.detail.font = [[SFStyleManager sharedManager] detailFontOfSize:12.0];
         self.detail.numberOfLines = 0;
+        self.detail.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.detail.layer.shadowRadius = 0.0;
+        self.detail.layer.shadowOpacity = 1.0;
+        self.detail.layer.shadowOffset = CGSizeMake(0.0, -1.0);
+        self.detail.layer.masksToBounds = NO;
         [self.contentView addSubview:self.detail];
-        
-        self.timeIcon = [UILabel new];
-        [[SFStyleManager sharedManager] styleDetailIconLabel:self.timeIcon autolayout:YES];
-        self.timeIcon.text = @"\U000023F2";
-        [self.contentView addSubview:self.timeIcon];
-        
-        self.locationIcon = [UILabel new];
-        [[SFStyleManager sharedManager] styleDetailIconLabel:self.locationIcon autolayout:YES];
-        self.locationIcon.text = @"\U0000E6D0";
-        [self.contentView addSubview:self.locationIcon];
         
         self.favoriteIndicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SFFilmCellFavoriteIndicator"]];
         self.favoriteIndicator.backgroundColor = [UIColor clearColor];
-        self.favoriteIndicator.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview:self.favoriteIndicator];
-        
-        self.contentMaskGradient = [CAGradientLayer layer];
-        self.contentMaskGradient.colors = @[(id)[[UIColor blackColor] CGColor], (id)[[UIColor clearColor] CGColor]];
-        self.contentMaskGradient.locations = @[@(0.9), @(1.0)];
-        self.contentView.layer.mask = self.contentMaskGradient;
-        
-#if defined(LAYOUT_DEBUG)
-        self.title.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        self.time.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        self.location.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        self.detail.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        self.locationIcon.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-        self.timeIcon.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-#endif
     }
     return self;
-}
-
-- (void)updateConstraints
-{
-    [super updateConstraints];
-    
-    [self.contentView removeConstraints:self.contentView.constraints];
-    
-    NSDictionary *views = @{ @"title" : self.title , @"timeIcon" : self.timeIcon , @"time" : self.time, @"locationIcon" : self.locationIcon , @"location" : self.location, @"detail" : self.detail };
-    NSDictionary *metrics = @{ @"padding" : @(14.0) , @"contentMargin" : @(6.0) , @"minTitleHeight" : @(self.title.font.lineHeight) , @"minDetailHeight" : @(self.detail.font.lineHeight), @"iconWidth" : @(15.0) };
-    
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[title(>=minTitleHeight)]-contentMargin-[time(>=minDetailHeight)]-contentMargin-[location(>=minDetailHeight)]-contentMargin-[detail]" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[title]-contentMargin-[timeIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[time]-contentMargin-[locationIcon(>=minDetailHeight)]" options:0 metrics:metrics views:views]];
-    
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[title]->=padding-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[timeIcon(==iconWidth)]-contentMargin-[time]->=padding-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[locationIcon(==iconWidth)]-contentMargin-[location]->=padding-|" options:0 metrics:metrics views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-padding-[detail]->=padding-|" options:0 metrics:metrics views:views]];
-    
-    [self.favoriteIndicator pinToSuperviewEdges:(JRTViewPinTopEdge | JRTViewPinRightEdge) inset:0];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(self.contentView.frame, -2.0, -2.0)] CGPath];
+    self.shadowView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectInset(self.contentView.frame, -2.0, -2.0)] CGPath];
+    
+    UIEdgeInsets padding = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? UIEdgeInsetsMake(8.0, 8.0, 8.0, 8.0) : UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0));
+    CGFloat contentMargin = 5.0;
+    
+    // Sizing to account for favorite label
+    CGSize maxTitleSize = CGRectInset(self.contentView.frame, padding.left, padding.top).size;
+    CGSize titleSize = [self.title sizeThatFits:maxTitleSize];
+    CGRect titleFrame = self.title.frame;
+    titleFrame.size.width = maxTitleSize.width;
+    titleFrame.size.height = fminf(titleSize.height, maxTitleSize.height);
+    titleFrame.origin.x = padding.left;
+    titleFrame.origin.y = padding.top;
+    self.title.frame = titleFrame;
 
-    // Changing the frame is animated by default, so we have to disable actions
-    [CATransaction setDisableActions:YES];
-    self.contentMaskGradient.frame = (CGRect){CGPointZero, self.contentMaskGradient.superlayer.frame.size};
-    [CATransaction setDisableActions:NO];
+    CGSize maxTimeSize = CGSizeMake(CGRectGetWidth(self.contentView.frame) - padding.left - padding.right, CGFLOAT_MAX);
+    CGSize timeSize = [self.time sizeThatFits:maxTimeSize];
+    CGRect timeFrame = self.time.frame;
+    timeFrame.size = timeSize;
+    timeFrame.origin.x = padding.left;
+    timeFrame.origin.y = (CGRectGetMaxY(titleFrame) + contentMargin);
+    self.time.frame = timeFrame;
+    
+    CGSize maxLocationSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - padding.left - padding.right), CGFLOAT_MAX);
+    CGSize locationSize = [self.location sizeThatFits:maxLocationSize];
+    CGRect locationFrame = self.location.frame;
+    locationFrame.size = locationSize;
+    locationFrame.origin.x = padding.left;
+    locationFrame.origin.y = (CGRectGetMaxY(timeFrame) + contentMargin);
+    self.location.frame = locationFrame;
+    
+    CGSize maxDetailSize = CGSizeMake((CGRectGetWidth(self.contentView.frame) - padding.left - padding.right), CGRectGetHeight(self.contentView.frame) - CGRectGetMaxY(locationFrame) - contentMargin - padding.bottom);
+    CGSize detailSize = [self.detail sizeThatFits:maxDetailSize];
+    CGRect detailFrame;
+    detailFrame.size.width = maxDetailSize.width;
+    detailFrame.size.height = fminf(detailSize.height, maxDetailSize.height);
+    detailFrame.origin.x = padding.left;
+    detailFrame.origin.y = (CGRectGetMaxY(locationFrame) + contentMargin);
+    self.detail.frame = detailFrame;
+    
+    CGFloat maxY = (CGRectGetHeight(self.contentView.frame) - padding.bottom - 5.0);
+    
+    // If the time label is off the bottom, remove it
+    if (CGRectGetMaxY(self.time.frame) > maxY) {
+        self.time.frame = CGRectZero;
+    }
+    
+    // If the time location is off the bottom, remove it
+    if (CGRectGetMaxY(self.location.frame) > maxY) {
+        self.location.frame = CGRectZero;
+    }
+    
+    // If the detail is off the bottom, remove it
+    if (CGRectGetMinY(self.detail.frame) > maxY) {
+        self.detail.frame = CGRectZero;
+    }
+    
+    CGRect favoriteIndicatorFrame = self.favoriteIndicator.frame;
+    favoriteIndicatorFrame.origin.x = (CGRectGetWidth(self.contentView.frame) - CGRectGetWidth(favoriteIndicatorFrame));
+    self.favoriteIndicator.frame = favoriteIndicatorFrame;
 }
 
 #pragma mark - SFEventCell
@@ -142,21 +174,49 @@
 - (void)setEvent:(SFEvent *)event
 {
     _event = event;
-    self.title.text = [event.name uppercaseString];
+    
     self.favoriteIndicator.hidden = ![event.favorite boolValue];
     
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    dateFormatter.dateFormat = @"h:mm a";
-    NSString *timeString = [NSString stringWithFormat:@"%@ – %@", [dateFormatter stringFromDate:event.start], [dateFormatter stringFromDate:event.end]];
-    self.time.text = timeString;
+    static NSMutableParagraphStyle *paragaphStyle;
+    static NSDateFormatter *dateFormatter;
     
-    self.location.text = ((event.location.name && ![event.location.name isEqualToString:@""]) ? event.location.name : @"No Location");
-    self.detail.text = [[event.detail stringByReplacingOccurrencesOfString:@"\n" withString:@" "] stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        paragaphStyle = [NSMutableParagraphStyle new];
+        paragaphStyle.hyphenationFactor = 1.0;
+        paragaphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"h:mm";
+    });
     
-    self.title.preferredMaxLayoutWidth = (CGRectGetWidth(self.contentView.frame) - (14.0 * 2.0));
-    self.detail.preferredMaxLayoutWidth = (CGRectGetWidth(self.contentView.frame) - (14.0 * 2.0));
+    // Title
+    NSString *titleString = [event.name uppercaseString];
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString attributes: @{
+        NSFontAttributeName : [[SFStyleManager sharedManager] titleFontOfSize:15.0 condensed:YES oblique:NO],
+    }];
+    [title addAttribute:NSParagraphStyleAttributeName value:paragaphStyle range:NSMakeRange(0, title.string.length)];
+    self.title.attributedText = title;
     
-    [self setNeedsUpdateConstraints];
+    NSString *timeString = [NSString stringWithFormat:@"%@–%@", [dateFormatter stringFromDate:event.start], [dateFormatter stringFromDate:event.end]];
+    NSMutableAttributedString *time = [[NSMutableAttributedString alloc] initWithString:timeString attributes: @{
+        NSFontAttributeName : [[SFStyleManager sharedManager] titleFontOfSize:14.0 condensed:YES oblique:YES],
+    }];
+    [time addAttribute:NSParagraphStyleAttributeName value:paragaphStyle range:NSMakeRange(0, time.string.length)];
+    self.time.attributedText = time;
+    
+    NSString *locationString = ((event.location.name && ![event.location.name isEqualToString:@""]) ? [NSString stringWithFormat:@"%@", event.location.name] : @"No Location");
+    NSMutableAttributedString *location = [[NSMutableAttributedString alloc] initWithString:locationString attributes: @{
+        NSFontAttributeName : [[SFStyleManager sharedManager] titleFontOfSize:14.0 condensed:YES oblique:YES],
+    }];
+    [location addAttribute:NSParagraphStyleAttributeName value:paragaphStyle range:NSMakeRange(0, location.string.length)];
+    self.location.attributedText = location;
+    
+    NSMutableAttributedString *detail = [[NSMutableAttributedString alloc] initWithString:event.detail attributes: @{
+        NSFontAttributeName : [[SFStyleManager sharedManager] detailFontOfSize:14.0 condensed:YES oblique:NO]
+    }];
+    [detail addAttribute:NSParagraphStyleAttributeName value:paragaphStyle range:NSMakeRange(0, detail.string.length)];
+    self.detail.attributedText = detail;
+    
     [self setNeedsLayout];
 }
 

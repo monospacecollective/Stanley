@@ -26,7 +26,7 @@
         self.time = [UILabel new];
         self.time.backgroundColor = [UIColor clearColor];
         self.time.textColor = [UIColor colorWithHexString:@"aaaaaa"];
-        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 13.0)];
+        self.time.font = [[SFStyleManager sharedManager] detailFontOfSize:((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 15.0 : 15.0) condensed:(UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) oblique:NO];
         self.time.textAlignment = NSTextAlignmentRight;
         self.time.shadowColor = [UIColor blackColor];
         self.time.shadowOffset = CGSizeMake(0.0, -1.0);
