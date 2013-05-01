@@ -52,6 +52,7 @@ NSString* const SFMapCellCurrentLocationIdentifier = @"SFMapCellCurrentLocationI
     self.map.translatesAutoresizingMaskIntoConstraints = NO;
     self.map.userInteractionEnabled = NO;
     self.map.delegate = self;
+    self.map.mapType = MKMapTypeSatellite;
     self.map.showsUserLocation = YES;
     self.map.layer.borderColor = [[[UIColor whiteColor] colorWithAlphaComponent:0.25] CGColor];
     self.map.layer.borderWidth = 1.0;

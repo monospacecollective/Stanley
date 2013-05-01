@@ -46,6 +46,7 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     
     self.mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
+    self.mapView.mapType = MKMapTypeSatellite;
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
@@ -64,6 +65,8 @@ NSString* const SFMapViewCurrentLocationIdentifier = @"SFMapViewCurrentLocationI
     SVSegmentedControl *segmentedControl = [[SFStyleManager sharedManager] styledSegmentedControlWithTitles:@[@"STANDARD", @"SATELLITE"] action:^(NSUInteger newIndex) {
         weakSelf.mapView.mapType = ((newIndex == 0) ? MKMapTypeStandard : MKMapTypeHybrid);
     }];
+    [segmentedControl setSelectedIndex:1 animated:NO];
+    
     UIBarButtonItem *segmentedControlBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:segmentedControl];
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil], segmentedControlBarButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil]];
     
